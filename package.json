@@ -2,7 +2,13 @@
   "name": "hotel",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "db:migrate:dev": "npx env-cmd -f .local.env npx prisma migrate dev",
+    "db:studio": "npx env-cmd  -f .local.env npx prisma studio"
+  },
+  "prisma": {
+    "schema": "libs/api/data-access-db/src/lib/schema.prisma"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~16.0.0",
