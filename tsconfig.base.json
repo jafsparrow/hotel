@@ -15,7 +15,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@hotel/api/data-access-db": ["libs/api/data-access-db/src/index.ts"]
+      "@hotel/api/data-access-db": ["libs/api/data-access-db/src/index.ts"],
+      "@hotel/api/feature-order": ["libs/api/feature-order/src/index.ts"],
+      "@hotel/api/feature-user": ["libs/api/feature-user/src/index.ts"],
+      "@hotel/api/generated-db-types": [
+        "libs/api/generated-db-types/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
