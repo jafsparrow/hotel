@@ -23,7 +23,8 @@
       "@hotel/api/generated-db-types": [
         "libs/api/generated-db-types/src/index.ts"
       ],
-      "@hotel/orderapp/home": ["libs/orderapp/home/src/index.ts"]
+      "@hotel/orderapp/home": ["libs/orderapp/home/src/index.ts"],
+      "@hotel/orderapp/shell": ["libs/orderapp/shell/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
