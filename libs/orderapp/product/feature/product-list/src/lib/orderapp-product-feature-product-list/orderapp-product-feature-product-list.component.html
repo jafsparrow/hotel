@@ -1,1 +1,80 @@
-<p>orderapp-product-feature-product-list works!</p>
+<label class="relative block">
+  <span class="sr-only">Search</span>
+  <!-- <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+        <svg class="h-5 w-5 fill-slate-300" viewBox="0 0 20 20"></svg>
+      </span> -->
+  <input
+    class="placeholder:italic placeholder:text-slate-400 block bg-white border border-slate-300 rounded-md py-2 pl-2 m-1 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+    placeholder="Search"
+    type="text"
+    name="search"
+  />
+</label>
+
+<div>chicken</div>
+<div
+  class="grid grid-cols-2 sm:grid-cols-4 md-grid-cols-6 gap-1 m-1"
+  id="chicken"
+>
+  <div *ngFor="let item of [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]">
+    <div class="bg-white rounded-md">
+      <div class="flex flex-row">
+        <div>
+          <div class="bg-black text-white w-6 h-6 flex justify-center">1</div>
+        </div>
+        <div class="flex-grow select-none">Chicken Biriyani alooooo dsisi</div>
+      </div>
+      <div class="text-xs font-light">1.600</div>
+      <button
+        class="bg-gray-800 rounded-md text-white font-bold text-sm w-full p-1"
+      >
+        ADD
+      </button>
+    </div>
+  </div>
+</div>
+<div>mutton</div>
+<div
+  class="grid grid-cols-2 sm:grid-cols-4 md-grid-cols-6 gap-1 m-1"
+  id="mutton"
+>
+  <div *ngFor="let item of [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]">
+    <div class="bg-white rounded-md">
+      <div class="flex flex-row">
+        <div>
+          <div class="bg-black text-white w-6 h-6 flex justify-center">1</div>
+        </div>
+        <div class="flex-grow select-none">Chicken Biriyani alooooo dsisi</div>
+      </div>
+      <div class="text-xs font-light">1.600</div>
+      <button
+        class="bg-gray-800 rounded-md text-white font-bold text-sm w-full p-1"
+      >
+        ADD
+      </button>
+    </div>
+  </div>
+</div>
+
+<div>Juice</div>
+<div
+  class="grid grid-cols-2 sm:grid-cols-4 md-grid-cols-6 gap-1 m-1"
+  id="juice"
+>
+  <div *ngFor="let item of [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]">
+    <div class="bg-white rounded-md">
+      <div class="flex flex-row">
+        <div>
+          <div class="bg-black text-white w-6 h-6 flex justify-center">1</div>
+        </div>
+        <div class="flex-grow select-none">Chicken Biriyani alooooo dsisi</div>
+      </div>
+      <div class="text-xs font-light">1.600</div>
+      <button
+        class="bg-gray-800 rounded-md text-white font-bold text-sm w-full p-1"
+      >
+        ADD
+      </button>
+    </div>
+  </div>
+</div>

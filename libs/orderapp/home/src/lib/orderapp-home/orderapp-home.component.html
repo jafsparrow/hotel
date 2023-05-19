@@ -1,5 +1,15 @@
-<p>orderapp-home works!</p>
+<div class="container bg-gray-100 h-screen grid grid-cols-7 sm:gap-1">
+  <div
+    class="flex flex-col gap-6 absolute sm:static top-1/2 left-0 transform -translate-y-1/2 items-center justify-center select-none"
+  >
+    <hotel-orderapp-product-feature-categories></hotel-orderapp-product-feature-categories>
+  </div>
 
-<hotel-orderapp-product-feature-product-list></hotel-orderapp-product-feature-product-list>
-<hotel-orderapp-product-feature-qwik-list></hotel-orderapp-product-feature-qwik-list>
-<hotel-orderapp-product-feature-categories></hotel-orderapp-product-feature-categories>
+  <div class="col-span-5 sm:col-span-4 overflow-scroll overflow-x-hidden pb-16">
+    <hotel-orderapp-product-feature-product-list></hotel-orderapp-product-feature-product-list>
+  </div>
+
+  <div class="bg-white col-span-2 overflow-auto md:grid md:grid-cols-2">
+    <hotel-orderapp-product-feature-qwik-list></hotel-orderapp-product-feature-qwik-list>
+  </div>
+</div>
