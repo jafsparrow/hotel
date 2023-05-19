@@ -22,7 +22,22 @@
       "@hotel/api/feature-user": ["libs/api/feature-user/src/index.ts"],
       "@hotel/api/generated-db-types": [
         "libs/api/generated-db-types/src/index.ts"
-      ]
+      ],
+      "@hotel/orderapp/cart": ["libs/orderapp/cart/src/index.ts"],
+      "@hotel/orderapp/home/home": ["libs/orderapp/home/home/src/index.ts"],
+      "@hotel/orderapp/order/data-access/order": [
+        "libs/orderapp/order/data-access/order/src/index.ts"
+      ],
+      "@hotel/orderapp/order/feature/order": [
+        "libs/orderapp/order/feature/order/src/index.ts"
+      ],
+      "@hotel/orderapp/product/data-access/product": [
+        "libs/orderapp/product/data-access/product/src/index.ts"
+      ],
+      "@hotel/orderapp/product/feature/product": [
+        "libs/orderapp/product/feature/product/src/index.ts"
+      ],
+      "@hotel/orderapp/shell": ["libs/orderapp/shell/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
