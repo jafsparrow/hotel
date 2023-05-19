@@ -1,10 +1,9 @@
 /* eslint-disable */
 export default {
-  displayName: 'orderapp-product-feature-product',
-  preset: '../../../../../jest.preset.js',
+  displayName: 'orderapp-home',
+  preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory:
-    '../../../../../coverage/libs/orderapp/product/feature/product',
+  coverageDirectory: '../../../coverage/libs/orderapp/home',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',
