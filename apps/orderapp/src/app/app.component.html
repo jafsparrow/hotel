@@ -1,1 +1,163 @@
-<hotel-nx-welcome></hotel-nx-welcome> <router-outlet></router-outlet>
+<!-- <hotel-nx-welcome></hotel-nx-welcome> <router-outlet></router-outlet> -->
+
+<div class="container bg-gray-100 h-screen grid grid-cols-7 sm:gap-1">
+  <div
+    class="flex flex-col gap-6 absolute sm:static top-1/2 left-0 transform -translate-y-1/2 items-center justify-center select-none"
+  >
+    <div class="sm:hidden flex flex-col gap-4">
+      <div
+        class="w-9 h-9 rounded-full bg-yellow-200 flex justify-center items-center font-bold border border-gray-600 shadow-lg"
+      >
+        <a href="#chicken">1</a>
+      </div>
+      <div
+        class="w-9 h-9 rounded-full bg-yellow-200 flex justify-center items-center font-bold border border-gray-600 shadow-lg"
+      >
+        <a href="#chicken">1</a>
+      </div>
+      <div
+        class="w-9 h-9 rounded-full bg-yellow-200 flex justify-center items-center font-bold border border-gray-600 shadow-lg"
+      >
+        <a href="#chicken">1</a>
+      </div>
+
+      <div
+        class="w-9 h-9 rounded-full bg-red-200 flex justify-center items-center font-bold border border-gray-600 shadow-lg"
+      >
+        <a href="#chicken">A</a>
+      </div>
+
+      <div
+        class="w-9 h-9 rounded-full bg-red-200 flex justify-center items-center font-bold border border-gray-600 shadow-lg"
+      >
+        <a href="#chicken">B</a>
+      </div>
+    </div>
+    <div class="hidden sm:block">
+      <div>1. Chicken</div>
+      <div>2. Mutton</div>
+      <div>3. Juice</div>
+    </div>
+  </div>
+  <div class="col-span-5 sm:col-span-4 overflow-scroll overflow-x-hidden pb-16">
+    <label class="relative block">
+      <span class="sr-only">Search</span>
+      <!-- <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+        <svg class="h-5 w-5 fill-slate-300" viewBox="0 0 20 20"></svg>
+      </span> -->
+      <input
+        class="placeholder:italic placeholder:text-slate-400 block bg-white border border-slate-300 rounded-md py-2 pl-2 m-1 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+        placeholder="Search"
+        type="text"
+        name="search"
+      />
+    </label>
+
+    <div>chicken</div>
+    <div
+      class="grid grid-cols-2 sm:grid-cols-4 md-grid-cols-6 gap-1 m-1"
+      id="chicken"
+    >
+      <div *ngFor="let item of [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]">
+        <div class="bg-white rounded-md">
+          <div class="flex flex-row">
+            <div>
+              <div class="bg-black text-white w-6 h-6 flex justify-center">
+                1
+              </div>
+            </div>
+            <div class="flex-grow select-none">
+              Chicken Biriyani alooooo dsisi
+            </div>
+          </div>
+          <div class="text-xs font-light">1.600</div>
+          <button
+            class="bg-gray-800 rounded-md text-white font-bold text-sm w-full p-1"
+          >
+            ADD
+          </button>
+        </div>
+      </div>
+    </div>
+    <div>mutton</div>
+    <div
+      class="grid grid-cols-2 sm:grid-cols-4 md-grid-cols-6 gap-1 m-1"
+      id="mutton"
+    >
+      <div *ngFor="let item of [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]">
+        <div class="bg-white rounded-md">
+          <div class="flex flex-row">
+            <div>
+              <div class="bg-black text-white w-6 h-6 flex justify-center">
+                1
+              </div>
+            </div>
+            <div class="flex-grow select-none">
+              Chicken Biriyani alooooo dsisi
+            </div>
+          </div>
+          <div class="text-xs font-light">1.600</div>
+          <button
+            class="bg-gray-800 rounded-md text-white font-bold text-sm w-full p-1"
+          >
+            ADD
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div>Juice</div>
+    <div
+      class="grid grid-cols-2 sm:grid-cols-4 md-grid-cols-6 gap-1 m-1"
+      id="juice"
+    >
+      <div *ngFor="let item of [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]">
+        <div class="bg-white rounded-md">
+          <div class="flex flex-row">
+            <div>
+              <div class="bg-black text-white w-6 h-6 flex justify-center">
+                1
+              </div>
+            </div>
+            <div class="flex-grow select-none">
+              Chicken Biriyani alooooo dsisi
+            </div>
+          </div>
+          <div class="text-xs font-light">1.600</div>
+          <button
+            class="bg-gray-800 rounded-md text-white font-bold text-sm w-full p-1"
+          >
+            ADD
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-white col-span-2 overflow-auto md:grid md:grid-cols-2">
+    <div
+      *ngFor="let item of [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 11, 1]"
+      class="p-1"
+    >
+      <div class="bg-gray-100 rounded-md align-middle">
+        <div class="sm:text-3xl font-bold flex justify-center align-middle p-1">
+          2
+        </div>
+        <button
+          class="bg-gray-500 rounded-md text-white font-bold text-sm w-full p-1"
+        >
+          ADD
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="absolute bottom-0 bg-green-600 w-screen">
+  <div class="text-right">
+    <div>1</div>
+    <div>2</div>
+  </div>
+  <div class="md:w-1/2 md:mx-auto bg-yellow-300">
+    <button class="bottom-1 w-full">hello world</button>
+  </div>
+</div>
