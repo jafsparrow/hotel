@@ -32,7 +32,7 @@ export class OrderappHomeComponent {
     exitAnimationDuration: string
   ): void {
     this.dialog.open(OrderappTableFeatureListComponent, {
-      width: '250px',
+      // width: '250px',
       enterAnimationDuration,
       exitAnimationDuration,
     });

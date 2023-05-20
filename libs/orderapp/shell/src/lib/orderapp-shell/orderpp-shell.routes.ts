@@ -15,6 +15,20 @@ export const shellRoutes: Routes = [
         (c) => c.OrderappTableFeatureListComponent
       ),
   },
+  {
+    path: 'take-away',
+    loadComponent: () =>
+      import('@hotel/orderapp/order/feature/take-away').then(
+        (c) => c.OrderappOrderFeatureTakeAwayComponent
+      ),
+  },
+  {
+    path: 'count',
+    loadComponent: () =>
+      import('@hotel/orderapp/order/feature/product-count').then(
+        (c) => c.OrderappOrderFeatureProductCountComponent
+      ),
+  },
   //   {
   //     path: 'admin',
   //     providers: [

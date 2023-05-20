@@ -23,7 +23,11 @@
       "@hotel/api/generated-db-types": [
         "libs/api/generated-db-types/src/index.ts"
       ],
+      "@hotel/orderapp/cart": ["libs/orderapp/cart/src/index.ts"],
       "@hotel/orderapp/home": ["libs/orderapp/home/src/index.ts"],
+      "@hotel/orderapp/order/feature/product-count": [
+        "libs/orderapp/order/feature/product-count/src/index.ts"
+      ],
       "@hotel/orderapp/order/feature/take-away": [
         "libs/orderapp/order/feature/take-away/src/index.ts"
       ],
