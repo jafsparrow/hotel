@@ -1,0 +1,50 @@
+{
+  "name": "orderapp-table-feature-list",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/orderapp/table/feature/list/src",
+  "prefix": "hotel",
+  "tags": [],
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:ng-packagr-lite",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "libs/orderapp/table/feature/list/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/orderapp/table/feature/list/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/orderapp/table/feature/list/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/orderapp/table/feature/list/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/orderapp/table/feature/list/**/*.ts",
+          "libs/orderapp/table/feature/list/**/*.html"
+        ]
+      }
+    }
+  }
+}

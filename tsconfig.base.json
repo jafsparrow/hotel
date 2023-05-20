@@ -33,7 +33,13 @@
       "@hotel/orderapp/product/feature/qwik-list": [
         "libs/orderapp/product/feature/qwik-list/src/index.ts"
       ],
+      "@hotel/orderapp/product/feature/search": [
+        "libs/orderapp/product/feature/search/src/index.ts"
+      ],
       "@hotel/orderapp/shell": ["libs/orderapp/shell/src/index.ts"],
+      "@hotel/orderapp/table/feature/list": [
+        "libs/orderapp/table/feature/list/src/index.ts"
+      ],
       "@hotel/orderapp/ui": ["libs/orderapp/ui/src/index.ts"]
     }
   },

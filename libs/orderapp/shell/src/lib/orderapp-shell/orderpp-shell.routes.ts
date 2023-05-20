@@ -7,6 +7,14 @@ export const shellRoutes: Routes = [
     loadComponent: () =>
       import('@hotel/orderapp/home').then((c) => c.OrderappHomeComponent),
   },
+
+  {
+    path: 'table',
+    loadComponent: () =>
+      import('@hotel/orderapp/table/feature/list').then(
+        (c) => c.OrderappTableFeatureListComponent
+      ),
+  },
   //   {
   //     path: 'admin',
   //     providers: [
