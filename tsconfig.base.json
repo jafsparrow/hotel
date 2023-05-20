@@ -24,6 +24,9 @@
         "libs/api/generated-db-types/src/index.ts"
       ],
       "@hotel/orderapp/home": ["libs/orderapp/home/src/index.ts"],
+      "@hotel/orderapp/order/feature/take-away": [
+        "libs/orderapp/order/feature/take-away/src/index.ts"
+      ],
       "@hotel/orderapp/product/feature/categories": [
         "libs/orderapp/product/feature/categories/src/index.ts"
       ],
