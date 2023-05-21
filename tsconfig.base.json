@@ -23,7 +23,9 @@
       "@hotel/api/generated-db-types": [
         "libs/api/generated-db-types/src/index.ts"
       ],
-      "@hotel/orderapp/cart": ["libs/orderapp/cart/src/index.ts"],
+      "@hotel/orderapp/cart/data-access": [
+        "libs/orderapp/cart/data-access/src/index.ts"
+      ],
       "@hotel/orderapp/home": ["libs/orderapp/home/src/index.ts"],
       "@hotel/orderapp/order/data-access/order": [
         "libs/orderapp/order/data-access/order/src/index.ts"
@@ -45,6 +47,10 @@
       ],
       "@hotel/orderapp/product/feature/search": [
         "libs/orderapp/product/feature/search/src/index.ts"
+      ],
+      "@hotel/orderapp/shared/core": ["libs/orderapp/shared/core/src/index.ts"],
+      "@hotel/orderapp/shared/data-access": [
+        "libs/orderapp/shared/data-access/src/index.ts"
       ],
       "@hotel/orderapp/shell": ["libs/orderapp/shell/src/index.ts"],
       "@hotel/orderapp/table/feature/list": [

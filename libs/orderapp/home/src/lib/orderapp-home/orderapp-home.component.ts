@@ -7,6 +7,7 @@ import { OrderappProductFeatureSearchComponent } from '@hotel/orderapp/product/f
 import { OrderappTableFeatureListComponent } from '@hotel/orderapp/table/feature/list';
 import { OrderappOrderFeatureTakeAwayComponent } from '@hotel/orderapp/order/feature/take-away';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { OrderappOrderDataAccessOrderComponent } from '@hotel/orderapp/order/data-access/order';
 
 @Component({
   selector: 'hotel-orderapp-home',

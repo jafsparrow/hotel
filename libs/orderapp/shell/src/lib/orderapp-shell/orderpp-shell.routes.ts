@@ -1,11 +1,17 @@
 import { Route, Routes } from '@angular/router';
 import { OrderappShellComponent } from './orderapp-shell.component';
+import { provideState } from '@ngrx/store';
+import {
+  ORDER_FEATURE_KEY,
+  orderReducer,
+} from '@hotel/orderapp/order/data-access/order';
 
 export const shellRoutes: Routes = [
   {
     path: 'home',
-    loadComponent: () =>
-      import('@hotel/orderapp/home').then((c) => c.OrderappHomeComponent),
+
+    loadChildren: () =>
+      import('@hotel/orderapp/home').then((c) => c.homeRoutes),
   },
 
   {
@@ -27,6 +33,13 @@ export const shellRoutes: Routes = [
     loadComponent: () =>
       import('@hotel/orderapp/order/feature/product-count').then(
         (c) => c.OrderappOrderFeatureProductCountComponent
+      ),
+  },
+  {
+    path: 'order',
+    loadChildren: () =>
+      import('@hotel/orderapp/order/data-access/order').then(
+        (c) => c.orderRoutes
       ),
   },
   //   {
