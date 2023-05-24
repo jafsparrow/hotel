@@ -6,73 +6,83 @@
       id="{category}"
     >
       <div *ngFor="let product of getProductsFromCategory(data, category)">
-        <div class="bg-white rounded-md border border-gray-200">
+        <div
+          class="bg-white rounded-md border border-gray-200 p-2 aspect-square flex flex-col"
+        >
+          <div class="text-xl select-none">
+            {{ product.name }}
+          </div>
           <div class="flex flex-row">
             <div>
               <div
-                class="bg-black font-semibold text-white w-8 h-8 p-3 rounded-md flex justify-center"
+                class="bg-black font-semibold text-white p-2 rounded-md grid justify-center"
                 (click)="openCountEntry(product)"
               >
                 {{ product._id }}
               </div>
             </div>
-            <div class="ml-2 flex-grow select-none">
-              {{ product.name }}
+
+            <div class="ml-2 flex-grow select-none font-light text-sm">
+              {{ product.price }}
             </div>
           </div>
-          <div class="text-s font-light">1.600</div>
-          <ng-container [ngSwitch]="whatBtnToDisplay(product)">
-            <div *ngSwitchCase="'variant'">
-              <button
-                class="bg-green-800 rounded-md text-white font-bold text-sm w-full p-1"
-              >
-                VARIANT
-              </button>
-            </div>
-            <div *ngSwitchCase="'modifiers'" class="">
-              <button
-                class="bg-pink-600 rounded-md font-bold text-sm w-full p-1"
-              >
-                MODIFY
-              </button>
-            </div>
-            <div *ngSwitchCase="'add'" class="">
-              <div
-                *ngIf="
-                  getCurrentProductInCart(product._id) | async as currentCount;
-                  else add
-                "
-              >
-                <div class="flex flex-row justify-between">
-                  <div
-                    class="w-7 h-7 bg-orange-500 rounded-md p-1"
-                    (click)="decrimentCart(product)"
-                  >
-                    -
-                  </div>
-                  <div class="font-bold text-xl">
-                    {{ currentCount }}
-                  </div>
+          <div class="flex-grow"></div>
 
-                  <div
-                    class="w-7 h-7 bg-orange-500 rounded-md p-1"
-                    (click)="incrementCart(product)"
-                  >
-                    +
+          <div class="mt-6">
+            <ng-container [ngSwitch]="whatBtnToDisplay(product)">
+              <div *ngSwitchCase="'variant'">
+                <button
+                  class="bg-green-800 rounded-md text-white font-bold text-sm w-full p-1"
+                >
+                  VARIANT
+                </button>
+              </div>
+              <div *ngSwitchCase="'modifiers'" class="">
+                <button
+                  class="bg-pink-600 rounded-md font-bold text-sm w-full p-1"
+                >
+                  MODIFY
+                </button>
+              </div>
+              <div *ngSwitchCase="'add'" class="">
+                <div
+                  *ngIf="
+                    getCurrentProductInCart(product._id)
+                      | async as currentCount;
+                    else add
+                  "
+                >
+                  <div class="flex flex-row justify-between">
+                    <div
+                      class="w-7 h-7 bg-orange-500 rounded-md p-1 grid justify-center"
+                      (click)="decrimentCart(product)"
+                    >
+                      -
+                    </div>
+                    <div class="font-bold text-xl">
+                      {{ currentCount }}
+                    </div>
+
+                    <div
+                      class="w-7 h-7 bg-orange-500 rounded-md p-1 grid justify-center"
+                      (click)="incrementCart(product)"
+                    >
+                      +
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <ng-template #add>
-                <button
-                  class="bg-orange-500 rounded-md font-bold text-sm w-full p-1"
-                  (click)="addToCart(product)"
-                >
-                  ADD
-                </button>
-              </ng-template>
-            </div>
-          </ng-container>
+                <ng-template #add>
+                  <button
+                    class="bg-orange-500 rounded-md font-bold text-sm w-full p-1"
+                    (click)="addToCart(product)"
+                  >
+                    ADD
+                  </button>
+                </ng-template>
+              </div>
+            </ng-container>
+          </div>
         </div>
       </div>
     </div>
