@@ -25,7 +25,10 @@
 </div>
 
 <div class="fixed bottom-0 w-full">
-  <div class="flex flex-row">
+  <div
+    class="flex flex-row"
+    *ngIf="(selectCartCreatedForUser$ | async) !== null"
+  >
     <div class="flex-grow"></div>
     <div
       class="w-16 h-16 m-2 rounded-full bg-yellow-500 drop-shadow-lg flex flex-row justify-center items-center"

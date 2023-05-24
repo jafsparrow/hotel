@@ -1,10 +1,6 @@
 import { Route, Routes } from '@angular/router';
 import { OrderappShellComponent } from './orderapp-shell.component';
 import { provideState } from '@ngrx/store';
-import {
-  ORDER_FEATURE_KEY,
-  orderReducer,
-} from '@hotel/orderapp/order/data-access/order';
 
 export const shellRoutes: Routes = [
   {

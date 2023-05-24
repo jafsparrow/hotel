@@ -61,6 +61,19 @@ export const selectInCartProductCount = createSelector(
   }
 );
 
+export const selectCartCountOfProduct = (productId: string) =>
+  createSelector(selectCart, (state: Cart) => {
+    const idOfProduct = productId;
+
+    let count = 0;
+    Object.keys(state.cartItems).forEach((key) => {
+      if (key.toString().includes(idOfProduct)) {
+        count = count + state.cartItems[key].count;
+      }
+    });
+    return count;
+  });
+
 export const getTotalCartAmout = (state: Cart): number | null =>
   Object.values(state.cartItems).reduce(
     (tot, cartItem) => tot + cartItem.product.price * cartItem.count,

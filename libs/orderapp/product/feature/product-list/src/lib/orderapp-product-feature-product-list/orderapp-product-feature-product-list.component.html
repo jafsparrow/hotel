@@ -1,4 +1,85 @@
-<div>chicken</div>
+<div *ngIf="productscategory$ | async as data">
+  <div *ngFor="let category of getKeys(data)">
+    <div class="mb-2 text-xl">{{ category }}</div>
+    <div
+      class="grid grid-cols-2 sm:grid-cols-4 md-grid-cols-6 gap-1 m-1 bg-white"
+      id="{category}"
+    >
+      <div *ngFor="let product of getProductsFromCategory(data, category)">
+        <div class="bg-white rounded-md border border-gray-200">
+          <div class="flex flex-row">
+            <div>
+              <div
+                class="bg-black font-semibold text-white w-8 h-8 p-3 rounded-md flex justify-center"
+                (click)="openCountEntry(product)"
+              >
+                {{ product._id }}
+              </div>
+            </div>
+            <div class="ml-2 flex-grow select-none">
+              {{ product.name }}
+            </div>
+          </div>
+          <div class="text-s font-light">1.600</div>
+          <ng-container [ngSwitch]="whatBtnToDisplay(product)">
+            <div *ngSwitchCase="'variant'">
+              <button
+                class="bg-green-800 rounded-md text-white font-bold text-sm w-full p-1"
+              >
+                VARIANT
+              </button>
+            </div>
+            <div *ngSwitchCase="'modifiers'" class="">
+              <button
+                class="bg-pink-600 rounded-md font-bold text-sm w-full p-1"
+              >
+                MODIFY
+              </button>
+            </div>
+            <div *ngSwitchCase="'add'" class="">
+              <div
+                *ngIf="
+                  getCurrentProductInCart(product._id) | async as currentCount;
+                  else add
+                "
+              >
+                <div class="flex flex-row justify-between">
+                  <div
+                    class="w-7 h-7 bg-orange-500 rounded-md p-1"
+                    (click)="decrimentCart(product)"
+                  >
+                    -
+                  </div>
+                  <div class="font-bold text-xl">
+                    {{ currentCount }}
+                  </div>
+
+                  <div
+                    class="w-7 h-7 bg-orange-500 rounded-md p-1"
+                    (click)="incrementCart(product)"
+                  >
+                    +
+                  </div>
+                </div>
+              </div>
+
+              <ng-template #add>
+                <button
+                  class="bg-orange-500 rounded-md font-bold text-sm w-full p-1"
+                  (click)="addToCart(product)"
+                >
+                  ADD
+                </button>
+              </ng-template>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div>chicken</div>
 <div
   class="grid grid-cols-2 sm:grid-cols-4 md-grid-cols-6 gap-1 m-1"
   id="chicken"
@@ -64,4 +145,4 @@
       </button>
     </div>
   </div>
-</div>
+</div> -->

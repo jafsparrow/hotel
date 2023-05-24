@@ -7,7 +7,8 @@ import { OrderappProductFeatureSearchComponent } from '@hotel/orderapp/product/f
 import { OrderappTableFeatureListComponent } from '@hotel/orderapp/table/feature/list';
 import { OrderappOrderFeatureTakeAwayComponent } from '@hotel/orderapp/order/feature/take-away';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { OrderappOrderDataAccessOrderComponent } from '@hotel/orderapp/order/data-access/order';
+import { Store } from '@ngrx/store';
+import { selectCartCreatedForUser } from '@hotel/orderapp/cart/data-access';
 
 @Component({
   selector: 'hotel-orderapp-home',
@@ -26,7 +27,8 @@ import { OrderappOrderDataAccessOrderComponent } from '@hotel/orderapp/order/dat
   styleUrls: ['./orderapp-home.component.css'],
 })
 export class OrderappHomeComponent {
-  constructor(private dialog: MatDialog) {}
+  selectCartCreatedForUser$ = this.store.select(selectCartCreatedForUser);
+  constructor(private dialog: MatDialog, private store: Store) {}
 
   openTable(
     enterAnimationDuration: string,
