@@ -8,7 +8,10 @@ import { OrderappTableFeatureListComponent } from '@hotel/orderapp/table/feature
 import { OrderappOrderFeatureTakeAwayComponent } from '@hotel/orderapp/order/feature/take-away';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { selectCartCreatedForUser } from '@hotel/orderapp/cart/data-access';
+import {
+  deleteCartCreatedForUser,
+  selectCartCreatedForUser,
+} from '@hotel/orderapp/cart/data-access';
 
 @Component({
   selector: 'hotel-orderapp-home',
@@ -35,7 +38,8 @@ export class OrderappHomeComponent {
     exitAnimationDuration: string
   ): void {
     this.dialog.open(OrderappTableFeatureListComponent, {
-      // width: '250px',
+      width: '100%',
+      height: '90%',
       enterAnimationDuration,
       exitAnimationDuration,
     });
@@ -49,5 +53,11 @@ export class OrderappHomeComponent {
       enterAnimationDuration,
       exitAnimationDuration,
     });
+  }
+
+  clearCartUser() {
+    if (confirm('Do you really want to clear cart user.')) {
+      this.store.dispatch(deleteCartCreatedForUser());
+    }
   }
 }

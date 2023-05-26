@@ -6,10 +6,21 @@
   </div>
 
   <div class="col-span-6 sm:col-span-4">
-    <div class="bg-white p-2">
-      <div class="text-xl font-semibold">Table: 22</div>
+    <div
+      class="bg-white p-2"
+      *ngIf="selectCartCreatedForUser$ | async as cartUser"
+    >
+      <div class="text-xl font-semibold">
+        {{ cartUser.userType.toUpperCase() }} :
+        <span class="text-gray-700">{{ cartUser.firstName }}</span>
+      </div>
       <div class="text-gray-800">Adeel Ahmed | 9733933</div>
-      <div class="text-gray-800 text-sm">Running Order</div>
+      <div class="flex flex-row justify-between">
+        <div class="text-gray-800 text-sm">Running Order</div>
+        <div class="p-1 bg-red-400 rounded-md" (click)="clearCartUser()">
+          CLEAR
+        </div>
+      </div>
     </div>
     <div>
       <hotel-orderapp-product-feature-search></hotel-orderapp-product-feature-search>
