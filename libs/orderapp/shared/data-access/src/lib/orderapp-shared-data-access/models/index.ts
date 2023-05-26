@@ -6,3 +6,4 @@ export * from './taxes';
 export * from './order';
 export * from './table';
 export * from './countries';
+export * from './count.dialog';

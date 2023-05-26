@@ -78,6 +78,17 @@ export const selectProductByCategories = createSelector(
   }
 );
 
+export const selectQuickDisplayProducts = createSelector(
+  selectProductsCategoryVice,
+  (state: { [key: string]: Product[] }) => {
+    let productsAsArray: Product[] = [];
+    Object.values(state).forEach(
+      (products) => (productsAsArray = [...productsAsArray, ...products])
+    );
+    return productsAsArray.filter((product) => product.quickDisplayOrder);
+  }
+);
+
 export const selectProductFetchInProgressFlag = createSelector(
   selectProductState,
   (state) => state.productFetchInprogress

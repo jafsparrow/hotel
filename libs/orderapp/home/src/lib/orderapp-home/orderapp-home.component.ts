@@ -45,7 +45,7 @@ export class OrderappHomeComponent {
     exitAnimationDuration: string
   ): void {
     this.dialog.open(OrderappOrderFeatureTakeAwayComponent, {
-      width: '250px',
+      width: '100%',
       enterAnimationDuration,
       exitAnimationDuration,
     });

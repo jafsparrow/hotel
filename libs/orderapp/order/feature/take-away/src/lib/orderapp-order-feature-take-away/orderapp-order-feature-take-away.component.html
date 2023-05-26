@@ -5,7 +5,7 @@
         type="text"
         class="peer block min-h-[auto] w-full rounded border-2 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
         id="customerName"
-        placeholder="Example label"
+        placeholder="Enter Customer Name"
       />
       <label
         for="customerName"
@@ -28,7 +28,12 @@
       </label>
     </div>
     <div>
-      <div>okay button</div>
+      <div
+        class="p-3 bg-gray-900 text-white font-bold text-center rounded-full"
+        (click)="setTheUserToCart()"
+      >
+        OK
+      </div>
     </div>
   </div>
 </div>

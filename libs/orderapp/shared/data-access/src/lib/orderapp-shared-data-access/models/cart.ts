@@ -3,8 +3,8 @@ import { Tax } from './taxes';
 import { User } from './user';
 
 export interface CartItem {
-  product: Product;
   count: number;
+  product: Product;
   modifiers?: Modifier[];
 }
 

@@ -46,6 +46,7 @@ export class OrderappProductFeatureProductListComponent {
   openCountEntry(product: Product) {
     return this.dialog.open(OrderappOrderFeatureProductCountComponent, {
       width: '100%',
+      data: { product },
     });
   }
 

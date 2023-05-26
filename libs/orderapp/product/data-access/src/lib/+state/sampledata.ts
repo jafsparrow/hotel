@@ -12,6 +12,7 @@ export const data = {
       popular: true,
       image: '["test","fast"]',
       modifiers: [{ name: 'hello modifier', price: 11.1 }],
+      quickDisplayOrder: 2,
     },
     {
       _id: '102',
@@ -84,6 +85,7 @@ export const data = {
       archived: false,
       popular: true,
       image: '["test","fast"]',
+      quickDisplayOrder: 11,
     },
   ],
   Fish: [
@@ -110,6 +112,7 @@ export const data = {
       archived: false,
       popular: true,
       image: '["test","fast"]',
+      quickDisplayOrder: 1,
     },
     {
       _id: '166',
@@ -184,6 +187,7 @@ export const data = {
       archived: false,
       popular: true,
       image: '["test","fast"]',
+      quickDisplayOrder: 15,
     },
     {
       _id: '178',
@@ -232,6 +236,7 @@ export const data = {
       archived: false,
       popular: true,
       image: '["test","fast"]',
+      quickDisplayOrder: 4,
     },
     {
       _id: '182',
@@ -297,6 +302,7 @@ export const data = {
       archived: false,
       popular: true,
       image: '["test","fast"]',
+      quickDisplayOrder: 5,
     },
     {
       _id: '133',

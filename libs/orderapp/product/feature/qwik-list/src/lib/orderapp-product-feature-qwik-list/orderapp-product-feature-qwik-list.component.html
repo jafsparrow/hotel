@@ -1,4 +1,16 @@
-<div *ngFor="let item of [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 11, 1]">
+<div *ngFor="let item of selectQwikProducts | async">
+  <div class="h-16 flex flex-row justify-center content-center">
+    <div
+      class="bg-gray-300 p-3 h-12 w-12 rounded-full flex flex-row justify-center content-center font-bold"
+      (click)="countEntry(item)"
+    >
+      {{ item._id }}
+    </div>
+  </div>
+  <!-- <hotel-product-qwikview></hotel-product-qwikview> -->
+</div>
+
+<!-- <div *ngFor="let item of [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 11, 1]">
   <div class="bg-green-600 h-16 flex flex-row justify-center content-center">
     <div
       class="bg-white p-3 h-12 w-12 rounded-full flex flex-row justify-center content-center font-bold"
@@ -6,5 +18,4 @@
       132
     </div>
   </div>
-  <!-- <hotel-product-qwikview></hotel-product-qwikview> -->
-</div>
+</div> -->

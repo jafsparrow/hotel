@@ -30,6 +30,8 @@ export interface Product {
   printName?: string;
   modifierGroups?: ModifierGroupsEntity[] | null;
   indexInCategory?: number;
+
+  quickDisplayOrder?: number;
 }
 
 export interface ProductImage {

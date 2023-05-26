@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { OrderappProductDataAccessComponent } from '@hotel/orderapp/product/data-access';
 
 @Component({
   selector: 'hotel-product-qwikview',
