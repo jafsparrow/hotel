@@ -17,7 +17,14 @@ const initialState: Cart = {
   cartCreatedFor: null,
   createdAt: new Date(),
   cartItems: {},
-  taxes: [],
+  taxes: [
+    {
+      isPercentage: true,
+      name: 'VAT',
+      printName: 'VAT',
+      value: 5,
+    },
+  ],
   placeOrderSpinner: false,
 };
 

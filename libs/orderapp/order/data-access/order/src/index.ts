@@ -2,3 +2,5 @@ export * from './lib/orderapp-order-data-access-order/orderapp-order-data-access
 export * from './lib/orderapp-order-data-access-order/order.routes';
 export * from './lib/orderapp-order-data-access-order/+state/orders.selectors';
 export * from './lib/orderapp-order-data-access-order/+state/orders.reducers';
+export * from './lib/orderapp-order-data-access-order/+state/orders.actions';
+export * from './lib/orderapp-order-data-access-order/+state/orders.effects';

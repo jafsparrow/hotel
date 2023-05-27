@@ -8,6 +8,8 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideStore, provideState } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,6 +17,11 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideEffects(),
     provideStore(),
+    provideHttpClient(),
     provideStoreDevtools(),
+    {
+      provide: 'endPointURL',
+      useValue: environment.apiUrl,
+    },
   ],
 };

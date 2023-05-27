@@ -26,6 +26,9 @@
       "@hotel/orderapp/cart/data-access": [
         "libs/orderapp/cart/data-access/src/index.ts"
       ],
+      "@hotel/orderapp/cart/feature/cart-list": [
+        "libs/orderapp/cart/feature/cart-list/src/index.ts"
+      ],
       "@hotel/orderapp/home": ["libs/orderapp/home/src/index.ts"],
       "@hotel/orderapp/order/data-access/order": [
         "libs/orderapp/order/data-access/order/src/index.ts"

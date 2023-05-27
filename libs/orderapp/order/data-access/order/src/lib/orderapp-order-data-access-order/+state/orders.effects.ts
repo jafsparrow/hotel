@@ -28,7 +28,7 @@ export class OrderEffects {
     private action$: Actions,
     // private router: Router,
     private store: Store,
-    private _snackBar: MatSnackBar,
+    // private _snackBar: MatSnackBar,
     private location: Location
   ) {}
 
@@ -55,7 +55,8 @@ export class OrderEffects {
       return this.action$.pipe(
         ofType(orderPlaceSuccess),
         tap((data: any) =>
-          this._snackBar.open('Your order is placed successfully', 'close')
+          // this._snackBar.open('Your order is placed successfully', 'close')
+          console.log(data)
         ),
         // tap((data: any) => this.store.dispatch(clearCart())),
         tap((data: any) => this.location.back())

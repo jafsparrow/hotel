@@ -38,6 +38,13 @@ export const shellRoutes: Routes = [
         (c) => c.orderRoutes
       ),
   },
+  {
+    path: 'cart',
+    loadComponent: () =>
+      import('@hotel/orderapp/cart/feature/cart-list').then(
+        (c) => c.OrderappCartFeatureCartListComponent
+      ),
+  },
   //   {
   //     path: 'admin',
   //     providers: [

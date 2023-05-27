@@ -12,6 +12,8 @@ import {
   deleteCartCreatedForUser,
   selectCartCreatedForUser,
 } from '@hotel/orderapp/cart/data-access';
+import { RouterModule } from '@angular/router';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'hotel-orderapp-home',
@@ -19,6 +21,8 @@ import {
   imports: [
     CommonModule,
     MatDialogModule,
+    MatSnackBarModule,
+    RouterModule,
     OrderappProductFeatureProductListComponent,
     OrderappProductFeatureQwikListComponent,
     OrderappProductFeatureCategoriesComponent,

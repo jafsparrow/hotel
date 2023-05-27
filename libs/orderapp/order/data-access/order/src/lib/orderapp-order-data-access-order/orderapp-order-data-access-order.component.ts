@@ -4,11 +4,12 @@ import { OrderappSharedDataAccessComponent } from '@hotel/orderapp/shared/data-a
 import { provideEffects } from '@ngrx/effects';
 import { ORDER_FEATURE_KEY, orderReducer } from './+state/orders.reducers';
 import { OrderEffects } from './+state/orders.effects';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'hotel-orderapp-order-data-access-order',
   standalone: true,
-  imports: [CommonModule, OrderappSharedDataAccessComponent],
+  imports: [CommonModule, OrderappSharedDataAccessComponent, MatSnackBarModule],
   templateUrl: './orderapp-order-data-access-order.component.html',
   styleUrls: ['./orderapp-order-data-access-order.component.css'],
 })
