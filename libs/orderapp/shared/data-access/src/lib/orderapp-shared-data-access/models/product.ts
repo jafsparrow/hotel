@@ -23,6 +23,7 @@ export interface Product {
   onSale: boolean;
   price: number;
   name: string;
+  secondaryLanguageName?: string;
   category: string;
   archived: boolean;
   video?: string;

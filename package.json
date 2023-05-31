@@ -7,10 +7,11 @@
     "db:studio": "npx env-cmd  -f .local.env npx prisma studio"
   },
   "prisma": {
-    "schema": "libs/api/data-access-db/src/lib/schema.prisma"
+    "schema": "libs/api/data-access-db/src/lib/schema.prisma",
+    "seed": "ts-node seed/seed.ts"
   },
   "private": true,
-  "dependencies": {
+  "dependencies": {  
     "@angular/animations": "~16.0.0",
     "@angular/cdk": "^16.0.1",
     "@angular/common": "~16.0.0",
@@ -28,7 +29,7 @@
     "@ngrx/store": "^16.0.0",
     "@ngrx/store-devtools": "^16.0.0",
     "@nx/angular": "16.1.4",
-    "@prisma/client": "^4.14.1",
+    "@prisma/client": "^4.15.0",
     "axios": "^1.0.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~7.8.0",

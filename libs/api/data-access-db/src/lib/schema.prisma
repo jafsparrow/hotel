@@ -1,6 +1,6 @@
 generator client {
     provider = "prisma-client-js"
-    output   = "../../../generated-db-types/src"
+    // output   = "../../../generated-db-types/src"
 }
 
 datasource db {
@@ -23,20 +23,20 @@ model User {
 }
 
 model Product {
-    id           Int        @id @default(autoincrement())
-    name         String
-    arabic       String
-    price        Float
-    const        Float
-    image        String     @default("")
-    inStock      Boolean    @default(true)
-    hasVariant   Boolean    @default(false)
-    hasModifiers Boolean    @default(false)
-    createdAt    DateTime   @default(now())
-    updatedAt    DateTime   @updatedAt
-    isArchived   Boolean    @default(false)
-    collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
-    collectionId Int
+    id                    Int        @id @default(autoincrement())
+    name                  String
+    secondaryLanguageName String?
+    price                 Float
+    cost                  Float
+    image                 String     @default("")
+    inStock               Boolean    @default(true)
+    hasVariant            Boolean    @default(false)
+    hasModifiers          Boolean    @default(false)
+    createdAt             DateTime   @default(now())
+    updatedAt             DateTime   @updatedAt
+    isArchived            Boolean    @default(false)
+    collection            Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+    collectionId          Int
 
     category   Category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
     categoryId Int
@@ -45,10 +45,12 @@ model Product {
 }
 
 model Category {
-    id                Int       @id @default(autoincrement())
-    name              String
+    id   Int    @id @default(autoincrement())
+    name String
+
     color             String
-    kitchenId         String
+    kitchenId         Int
+    kitchen           Kitchen   @relation(fields: [kitchenId], references: [id])
     isAvailableAllDay Boolean   @default(true)
     startTime         String    @default("")
     endTime           String    @default("")
@@ -62,9 +64,10 @@ model Collection {
 }
 
 model Kitchen {
-    id      Int    @id @default(autoincrement())
-    name    String
-    printer String
+    id       Int        @id @default(autoincrement())
+    name     String
+    printer  String
+    Category Category[]
 }
 
 model Variant {

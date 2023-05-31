@@ -35,9 +35,10 @@ export type User = {
 export type Product = {
   id: number
   name: string
+  secondaryLanguageName: string | null
   arabic: string
   price: number
-  const: number
+  cost: number
   image: string
   inStock: boolean
   hasVariant: boolean
@@ -57,7 +58,7 @@ export type Category = {
   id: number
   name: string
   color: string
-  kitchenId: string
+  kitchenId: number
   isAvailableAllDay: boolean
   startTime: string
   endTime: string
@@ -431,8 +432,8 @@ export namespace Prisma {
 
 
   /**
-   * Prisma Client JS version: 4.14.1
-   * Query Engine version: d9a4c5988f480fa576d43970d5a23641aa77bc9c
+   * Prisma Client JS version: 4.15.0
+   * Query Engine version: 8fbc245156db7124f997f4cecdd8d1219e360944
    */
   export type PrismaVersion = {
     client: string
@@ -1200,6 +1201,49 @@ export namespace Prisma {
      * Select specific fields to fetch from the CollectionCountOutputType
      */
     select?: CollectionCountOutputTypeSelect | null
+  }
+
+
+
+  /**
+   * Count Type KitchenCountOutputType
+   */
+
+
+  export type KitchenCountOutputType = {
+    Category: number
+  }
+
+  export type KitchenCountOutputTypeSelect = {
+    Category?: boolean
+  }
+
+  export type KitchenCountOutputTypeGetPayload<S extends boolean | null | undefined | KitchenCountOutputTypeArgs> =
+    S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
+    S extends true ? KitchenCountOutputType :
+    S extends undefined ? never :
+    S extends { include: any } & (KitchenCountOutputTypeArgs)
+    ? KitchenCountOutputType 
+    : S extends { select: any } & (KitchenCountOutputTypeArgs)
+      ? {
+    [P in TruthyKeys<S['select']>]:
+    P extends keyof KitchenCountOutputType ? KitchenCountOutputType[P] : never
+  } 
+      : KitchenCountOutputType
+
+
+
+
+  // Custom InputTypes
+
+  /**
+   * KitchenCountOutputType without action
+   */
+  export type KitchenCountOutputTypeArgs = {
+    /**
+     * Select specific fields to fetch from the KitchenCountOutputType
+     */
+    select?: KitchenCountOutputTypeSelect | null
   }
 
 
@@ -2335,7 +2379,7 @@ export namespace Prisma {
   export type ProductAvgAggregateOutputType = {
     id: number | null
     price: number | null
-    const: number | null
+    cost: number | null
     collectionId: number | null
     categoryId: number | null
   }
@@ -2343,7 +2387,7 @@ export namespace Prisma {
   export type ProductSumAggregateOutputType = {
     id: number | null
     price: number | null
-    const: number | null
+    cost: number | null
     collectionId: number | null
     categoryId: number | null
   }
@@ -2351,9 +2395,10 @@ export namespace Prisma {
   export type ProductMinAggregateOutputType = {
     id: number | null
     name: string | null
+    secondaryLanguageName: string | null
     arabic: string | null
     price: number | null
-    const: number | null
+    cost: number | null
     image: string | null
     inStock: boolean | null
     hasVariant: boolean | null
@@ -2368,9 +2413,10 @@ export namespace Prisma {
   export type ProductMaxAggregateOutputType = {
     id: number | null
     name: string | null
+    secondaryLanguageName: string | null
     arabic: string | null
     price: number | null
-    const: number | null
+    cost: number | null
     image: string | null
     inStock: boolean | null
     hasVariant: boolean | null
@@ -2385,9 +2431,10 @@ export namespace Prisma {
   export type ProductCountAggregateOutputType = {
     id: number
     name: number
+    secondaryLanguageName: number
     arabic: number
     price: number
-    const: number
+    cost: number
     image: number
     inStock: number
     hasVariant: number
@@ -2404,7 +2451,7 @@ export namespace Prisma {
   export type ProductAvgAggregateInputType = {
     id?: true
     price?: true
-    const?: true
+    cost?: true
     collectionId?: true
     categoryId?: true
   }
@@ -2412,7 +2459,7 @@ export namespace Prisma {
   export type ProductSumAggregateInputType = {
     id?: true
     price?: true
-    const?: true
+    cost?: true
     collectionId?: true
     categoryId?: true
   }
@@ -2420,9 +2467,10 @@ export namespace Prisma {
   export type ProductMinAggregateInputType = {
     id?: true
     name?: true
+    secondaryLanguageName?: true
     arabic?: true
     price?: true
-    const?: true
+    cost?: true
     image?: true
     inStock?: true
     hasVariant?: true
@@ -2437,9 +2485,10 @@ export namespace Prisma {
   export type ProductMaxAggregateInputType = {
     id?: true
     name?: true
+    secondaryLanguageName?: true
     arabic?: true
     price?: true
-    const?: true
+    cost?: true
     image?: true
     inStock?: true
     hasVariant?: true
@@ -2454,9 +2503,10 @@ export namespace Prisma {
   export type ProductCountAggregateInputType = {
     id?: true
     name?: true
+    secondaryLanguageName?: true
     arabic?: true
     price?: true
-    const?: true
+    cost?: true
     image?: true
     inStock?: true
     hasVariant?: true
@@ -2559,9 +2609,10 @@ export namespace Prisma {
   export type ProductGroupByOutputType = {
     id: number
     name: string
+    secondaryLanguageName: string | null
     arabic: string
     price: number
-    const: number
+    cost: number
     image: string
     inStock: boolean
     hasVariant: boolean
@@ -2595,9 +2646,10 @@ export namespace Prisma {
   export type ProductSelect = {
     id?: boolean
     name?: boolean
+    secondaryLanguageName?: boolean
     arabic?: boolean
     price?: boolean
-    const?: boolean
+    cost?: boolean
     image?: boolean
     inStock?: boolean
     hasVariant?: boolean
@@ -3423,17 +3475,19 @@ export namespace Prisma {
 
   export type CategoryAvgAggregateOutputType = {
     id: number | null
+    kitchenId: number | null
   }
 
   export type CategorySumAggregateOutputType = {
     id: number | null
+    kitchenId: number | null
   }
 
   export type CategoryMinAggregateOutputType = {
     id: number | null
     name: string | null
     color: string | null
-    kitchenId: string | null
+    kitchenId: number | null
     isAvailableAllDay: boolean | null
     startTime: string | null
     endTime: string | null
@@ -3443,7 +3497,7 @@ export namespace Prisma {
     id: number | null
     name: string | null
     color: string | null
-    kitchenId: string | null
+    kitchenId: number | null
     isAvailableAllDay: boolean | null
     startTime: string | null
     endTime: string | null
@@ -3463,10 +3517,12 @@ export namespace Prisma {
 
   export type CategoryAvgAggregateInputType = {
     id?: true
+    kitchenId?: true
   }
 
   export type CategorySumAggregateInputType = {
     id?: true
+    kitchenId?: true
   }
 
   export type CategoryMinAggregateInputType = {
@@ -3591,7 +3647,7 @@ export namespace Prisma {
     id: number
     name: string
     color: string
-    kitchenId: string
+    kitchenId: number
     isAvailableAllDay: boolean
     startTime: string
     endTime: string
@@ -3624,12 +3680,14 @@ export namespace Prisma {
     isAvailableAllDay?: boolean
     startTime?: boolean
     endTime?: boolean
+    kitchen?: boolean | KitchenArgs
     products?: boolean | Category$productsArgs
     _count?: boolean | CategoryCountOutputTypeArgs
   }
 
 
   export type CategoryInclude = {
+    kitchen?: boolean | KitchenArgs
     products?: boolean | Category$productsArgs
     _count?: boolean | CategoryCountOutputTypeArgs
   }
@@ -3641,12 +3699,14 @@ export namespace Prisma {
     S extends { include: any } & (CategoryArgs | CategoryFindManyArgs)
     ? Category  & {
     [P in TruthyKeys<S['include']>]:
+        P extends 'kitchen' ? KitchenGetPayload<S['include'][P]> :
         P extends 'products' ? Array < ProductGetPayload<S['include'][P]>>  :
         P extends '_count' ? CategoryCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : S extends { select: any } & (CategoryArgs | CategoryFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
+        P extends 'kitchen' ? KitchenGetPayload<S['select'][P]> :
         P extends 'products' ? Array < ProductGetPayload<S['select'][P]>>  :
         P extends '_count' ? CategoryCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Category ? Category[P] : never
   } 
@@ -4003,6 +4063,8 @@ export namespace Prisma {
     private _requestPromise?;
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+
+    kitchen<T extends KitchenArgs= {}>(args?: Subset<T, KitchenArgs>): Prisma__KitchenClient<KitchenGetPayload<T> | Null>;
 
     products<T extends Category$productsArgs= {}>(args?: Subset<T, Category$productsArgs>): Prisma.PrismaPromise<Array<ProductGetPayload<T>>| Null>;
 
@@ -5508,19 +5570,31 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     printer?: boolean
+    Category?: boolean | Kitchen$CategoryArgs
+    _count?: boolean | KitchenCountOutputTypeArgs
   }
 
+
+  export type KitchenInclude = {
+    Category?: boolean | Kitchen$CategoryArgs
+    _count?: boolean | KitchenCountOutputTypeArgs
+  }
 
   export type KitchenGetPayload<S extends boolean | null | undefined | KitchenArgs> =
     S extends { select: any, include: any } ? 'Please either choose `select` or `include`' :
     S extends true ? Kitchen :
     S extends undefined ? never :
     S extends { include: any } & (KitchenArgs | KitchenFindManyArgs)
-    ? Kitchen 
+    ? Kitchen  & {
+    [P in TruthyKeys<S['include']>]:
+        P extends 'Category' ? Array < CategoryGetPayload<S['include'][P]>>  :
+        P extends '_count' ? KitchenCountOutputTypeGetPayload<S['include'][P]> :  never
+  } 
     : S extends { select: any } & (KitchenArgs | KitchenFindManyArgs)
       ? {
     [P in TruthyKeys<S['select']>]:
-    P extends keyof Kitchen ? Kitchen[P] : never
+        P extends 'Category' ? Array < CategoryGetPayload<S['select'][P]>>  :
+        P extends '_count' ? KitchenCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Kitchen ? Kitchen[P] : never
   } 
       : Kitchen
 
@@ -5876,6 +5950,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
     constructor(_dmmf: runtime.DMMFClass, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
 
+    Category<T extends Kitchen$CategoryArgs= {}>(args?: Subset<T, Kitchen$CategoryArgs>): Prisma.PrismaPromise<Array<CategoryGetPayload<T>>| Null>;
 
     private get _document();
     /**
@@ -5913,6 +5988,10 @@ export namespace Prisma {
      */
     select?: KitchenSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: KitchenInclude | null
+    /**
      * Filter, which Kitchen to fetch.
      */
     where: KitchenWhereUniqueInput
@@ -5939,6 +6018,10 @@ export namespace Prisma {
      */
     select?: KitchenSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: KitchenInclude | null
+    /**
      * Filter, which Kitchen to fetch.
      */
     where: KitchenWhereUniqueInput
@@ -5953,6 +6036,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Kitchen
      */
     select?: KitchenSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: KitchenInclude | null
     /**
      * Filter, which Kitchen to fetch.
      */
@@ -6010,6 +6097,10 @@ export namespace Prisma {
      */
     select?: KitchenSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: KitchenInclude | null
+    /**
      * Filter, which Kitchen to fetch.
      */
     where?: KitchenWhereInput
@@ -6055,6 +6146,10 @@ export namespace Prisma {
      */
     select?: KitchenSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: KitchenInclude | null
+    /**
      * Filter, which Kitchens to fetch.
      */
     where?: KitchenWhereInput
@@ -6095,6 +6190,10 @@ export namespace Prisma {
      */
     select?: KitchenSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: KitchenInclude | null
+    /**
      * The data needed to create a Kitchen.
      */
     data: XOR<KitchenCreateInput, KitchenUncheckedCreateInput>
@@ -6109,6 +6208,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Kitchen
      */
     select?: KitchenSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: KitchenInclude | null
     /**
      * The data needed to update a Kitchen.
      */
@@ -6144,6 +6247,10 @@ export namespace Prisma {
      */
     select?: KitchenSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: KitchenInclude | null
+    /**
      * The filter to search for the Kitchen to update in case it exists.
      */
     where: KitchenWhereUniqueInput
@@ -6167,6 +6274,10 @@ export namespace Prisma {
      */
     select?: KitchenSelect | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: KitchenInclude | null
+    /**
      * Filter which Kitchen to delete.
      */
     where: KitchenWhereUniqueInput
@@ -6185,6 +6296,27 @@ export namespace Prisma {
 
 
   /**
+   * Kitchen.Category
+   */
+  export type Kitchen$CategoryArgs = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CategoryInclude | null
+    where?: CategoryWhereInput
+    orderBy?: Enumerable<CategoryOrderByWithRelationInput>
+    cursor?: CategoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Enumerable<CategoryScalarFieldEnum>
+  }
+
+
+  /**
    * Kitchen without action
    */
   export type KitchenArgs = {
@@ -6192,6 +6324,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Kitchen
      */
     select?: KitchenSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: KitchenInclude | null
   }
 
 
@@ -11988,9 +12124,6 @@ export namespace Prisma {
    * Enums
    */
 
-  // Based on
-  // https://github.com/microsoft/TypeScript/issues/3192#issuecomment-261720275
-
   export const CategoryScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -12075,9 +12208,10 @@ export namespace Prisma {
   export const ProductScalarFieldEnum: {
     id: 'id',
     name: 'name',
+    secondaryLanguageName: 'secondaryLanguageName',
     arabic: 'arabic',
     price: 'price',
-    const: 'const',
+    cost: 'cost',
     image: 'image',
     inStock: 'inStock',
     hasVariant: 'hasVariant',
@@ -12223,9 +12357,10 @@ export namespace Prisma {
     NOT?: Enumerable<ProductWhereInput>
     id?: IntFilter | number
     name?: StringFilter | string
+    secondaryLanguageName?: StringNullableFilter | string | null
     arabic?: StringFilter | string
     price?: FloatFilter | number
-    const?: FloatFilter | number
+    cost?: FloatFilter | number
     image?: StringFilter | string
     inStock?: BoolFilter | boolean
     hasVariant?: BoolFilter | boolean
@@ -12244,9 +12379,10 @@ export namespace Prisma {
   export type ProductOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    secondaryLanguageName?: SortOrder
     arabic?: SortOrder
     price?: SortOrder
-    const?: SortOrder
+    cost?: SortOrder
     image?: SortOrder
     inStock?: SortOrder
     hasVariant?: SortOrder
@@ -12269,9 +12405,10 @@ export namespace Prisma {
   export type ProductOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    secondaryLanguageName?: SortOrder
     arabic?: SortOrder
     price?: SortOrder
-    const?: SortOrder
+    cost?: SortOrder
     image?: SortOrder
     inStock?: SortOrder
     hasVariant?: SortOrder
@@ -12294,9 +12431,10 @@ export namespace Prisma {
     NOT?: Enumerable<ProductScalarWhereWithAggregatesInput>
     id?: IntWithAggregatesFilter | number
     name?: StringWithAggregatesFilter | string
+    secondaryLanguageName?: StringNullableWithAggregatesFilter | string | null
     arabic?: StringWithAggregatesFilter | string
     price?: FloatWithAggregatesFilter | number
-    const?: FloatWithAggregatesFilter | number
+    cost?: FloatWithAggregatesFilter | number
     image?: StringWithAggregatesFilter | string
     inStock?: BoolWithAggregatesFilter | boolean
     hasVariant?: BoolWithAggregatesFilter | boolean
@@ -12315,10 +12453,11 @@ export namespace Prisma {
     id?: IntFilter | number
     name?: StringFilter | string
     color?: StringFilter | string
-    kitchenId?: StringFilter | string
+    kitchenId?: IntFilter | number
     isAvailableAllDay?: BoolFilter | boolean
     startTime?: StringFilter | string
     endTime?: StringFilter | string
+    kitchen?: XOR<KitchenRelationFilter, KitchenWhereInput>
     products?: ProductListRelationFilter
   }
 
@@ -12330,6 +12469,7 @@ export namespace Prisma {
     isAvailableAllDay?: SortOrder
     startTime?: SortOrder
     endTime?: SortOrder
+    kitchen?: KitchenOrderByWithRelationInput
     products?: ProductOrderByRelationAggregateInput
   }
 
@@ -12359,7 +12499,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter | number
     name?: StringWithAggregatesFilter | string
     color?: StringWithAggregatesFilter | string
-    kitchenId?: StringWithAggregatesFilter | string
+    kitchenId?: IntWithAggregatesFilter | number
     isAvailableAllDay?: BoolWithAggregatesFilter | boolean
     startTime?: StringWithAggregatesFilter | string
     endTime?: StringWithAggregatesFilter | string
@@ -12409,12 +12549,14 @@ export namespace Prisma {
     id?: IntFilter | number
     name?: StringFilter | string
     printer?: StringFilter | string
+    Category?: CategoryListRelationFilter
   }
 
   export type KitchenOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
     printer?: SortOrder
+    Category?: CategoryOrderByRelationAggregateInput
   }
 
   export type KitchenWhereUniqueInput = {
@@ -12847,9 +12989,10 @@ export namespace Prisma {
 
   export type ProductCreateInput = {
     name: string
+    secondaryLanguageName?: string | null
     arabic: string
     price: number
-    const: number
+    cost: number
     image?: string
     inStock?: boolean
     hasVariant?: boolean
@@ -12866,9 +13009,10 @@ export namespace Prisma {
   export type ProductUncheckedCreateInput = {
     id?: number
     name: string
+    secondaryLanguageName?: string | null
     arabic: string
     price: number
-    const: number
+    cost: number
     image?: string
     inStock?: boolean
     hasVariant?: boolean
@@ -12884,9 +13028,10 @@ export namespace Prisma {
 
   export type ProductUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
+    secondaryLanguageName?: NullableStringFieldUpdateOperationsInput | string | null
     arabic?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
-    const?: FloatFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     hasVariant?: BoolFieldUpdateOperationsInput | boolean
@@ -12903,9 +13048,10 @@ export namespace Prisma {
   export type ProductUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    secondaryLanguageName?: NullableStringFieldUpdateOperationsInput | string | null
     arabic?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
-    const?: FloatFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     hasVariant?: BoolFieldUpdateOperationsInput | boolean
@@ -12921,9 +13067,10 @@ export namespace Prisma {
 
   export type ProductUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
+    secondaryLanguageName?: NullableStringFieldUpdateOperationsInput | string | null
     arabic?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
-    const?: FloatFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     hasVariant?: BoolFieldUpdateOperationsInput | boolean
@@ -12936,9 +13083,10 @@ export namespace Prisma {
   export type ProductUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    secondaryLanguageName?: NullableStringFieldUpdateOperationsInput | string | null
     arabic?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
-    const?: FloatFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     hasVariant?: BoolFieldUpdateOperationsInput | boolean
@@ -12953,10 +13101,10 @@ export namespace Prisma {
   export type CategoryCreateInput = {
     name: string
     color: string
-    kitchenId: string
     isAvailableAllDay?: boolean
     startTime?: string
     endTime?: string
+    kitchen: KitchenCreateNestedOneWithoutCategoryInput
     products?: ProductCreateNestedManyWithoutCategoryInput
   }
 
@@ -12964,7 +13112,7 @@ export namespace Prisma {
     id?: number
     name: string
     color: string
-    kitchenId: string
+    kitchenId: number
     isAvailableAllDay?: boolean
     startTime?: string
     endTime?: string
@@ -12974,10 +13122,10 @@ export namespace Prisma {
   export type CategoryUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     color?: StringFieldUpdateOperationsInput | string
-    kitchenId?: StringFieldUpdateOperationsInput | string
     isAvailableAllDay?: BoolFieldUpdateOperationsInput | boolean
     startTime?: StringFieldUpdateOperationsInput | string
     endTime?: StringFieldUpdateOperationsInput | string
+    kitchen?: KitchenUpdateOneRequiredWithoutCategoryNestedInput
     products?: ProductUpdateManyWithoutCategoryNestedInput
   }
 
@@ -12985,7 +13133,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     color?: StringFieldUpdateOperationsInput | string
-    kitchenId?: StringFieldUpdateOperationsInput | string
+    kitchenId?: IntFieldUpdateOperationsInput | number
     isAvailableAllDay?: BoolFieldUpdateOperationsInput | boolean
     startTime?: StringFieldUpdateOperationsInput | string
     endTime?: StringFieldUpdateOperationsInput | string
@@ -12995,7 +13143,6 @@ export namespace Prisma {
   export type CategoryUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     color?: StringFieldUpdateOperationsInput | string
-    kitchenId?: StringFieldUpdateOperationsInput | string
     isAvailableAllDay?: BoolFieldUpdateOperationsInput | boolean
     startTime?: StringFieldUpdateOperationsInput | string
     endTime?: StringFieldUpdateOperationsInput | string
@@ -13005,7 +13152,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     color?: StringFieldUpdateOperationsInput | string
-    kitchenId?: StringFieldUpdateOperationsInput | string
+    kitchenId?: IntFieldUpdateOperationsInput | number
     isAvailableAllDay?: BoolFieldUpdateOperationsInput | boolean
     startTime?: StringFieldUpdateOperationsInput | string
     endTime?: StringFieldUpdateOperationsInput | string
@@ -13045,23 +13192,27 @@ export namespace Prisma {
   export type KitchenCreateInput = {
     name: string
     printer: string
+    Category?: CategoryCreateNestedManyWithoutKitchenInput
   }
 
   export type KitchenUncheckedCreateInput = {
     id?: number
     name: string
     printer: string
+    Category?: CategoryUncheckedCreateNestedManyWithoutKitchenInput
   }
 
   export type KitchenUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     printer?: StringFieldUpdateOperationsInput | string
+    Category?: CategoryUpdateManyWithoutKitchenNestedInput
   }
 
   export type KitchenUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     printer?: StringFieldUpdateOperationsInput | string
+    Category?: CategoryUncheckedUpdateManyWithoutKitchenNestedInput
   }
 
   export type KitchenUpdateManyMutationInput = {
@@ -13612,9 +13763,10 @@ export namespace Prisma {
   export type ProductCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    secondaryLanguageName?: SortOrder
     arabic?: SortOrder
     price?: SortOrder
-    const?: SortOrder
+    cost?: SortOrder
     image?: SortOrder
     inStock?: SortOrder
     hasVariant?: SortOrder
@@ -13629,7 +13781,7 @@ export namespace Prisma {
   export type ProductAvgOrderByAggregateInput = {
     id?: SortOrder
     price?: SortOrder
-    const?: SortOrder
+    cost?: SortOrder
     collectionId?: SortOrder
     categoryId?: SortOrder
   }
@@ -13637,9 +13789,10 @@ export namespace Prisma {
   export type ProductMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    secondaryLanguageName?: SortOrder
     arabic?: SortOrder
     price?: SortOrder
-    const?: SortOrder
+    cost?: SortOrder
     image?: SortOrder
     inStock?: SortOrder
     hasVariant?: SortOrder
@@ -13654,9 +13807,10 @@ export namespace Prisma {
   export type ProductMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    secondaryLanguageName?: SortOrder
     arabic?: SortOrder
     price?: SortOrder
-    const?: SortOrder
+    cost?: SortOrder
     image?: SortOrder
     inStock?: SortOrder
     hasVariant?: SortOrder
@@ -13671,7 +13825,7 @@ export namespace Prisma {
   export type ProductSumOrderByAggregateInput = {
     id?: SortOrder
     price?: SortOrder
-    const?: SortOrder
+    cost?: SortOrder
     collectionId?: SortOrder
     categoryId?: SortOrder
   }
@@ -13706,6 +13860,11 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter
   }
 
+  export type KitchenRelationFilter = {
+    is?: KitchenWhereInput
+    isNot?: KitchenWhereInput
+  }
+
   export type ProductListRelationFilter = {
     every?: ProductWhereInput
     some?: ProductWhereInput
@@ -13728,6 +13887,7 @@ export namespace Prisma {
 
   export type CategoryAvgOrderByAggregateInput = {
     id?: SortOrder
+    kitchenId?: SortOrder
   }
 
   export type CategoryMaxOrderByAggregateInput = {
@@ -13752,6 +13912,7 @@ export namespace Prisma {
 
   export type CategorySumOrderByAggregateInput = {
     id?: SortOrder
+    kitchenId?: SortOrder
   }
 
   export type CollectionCountOrderByAggregateInput = {
@@ -13775,6 +13936,16 @@ export namespace Prisma {
 
   export type CollectionSumOrderByAggregateInput = {
     id?: SortOrder
+  }
+
+  export type CategoryListRelationFilter = {
+    every?: CategoryWhereInput
+    some?: CategoryWhereInput
+    none?: CategoryWhereInput
+  }
+
+  export type CategoryOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type KitchenCountOrderByAggregateInput = {
@@ -14309,6 +14480,12 @@ export namespace Prisma {
     deleteMany?: Enumerable<ModifierScalarWhereInput>
   }
 
+  export type KitchenCreateNestedOneWithoutCategoryInput = {
+    create?: XOR<KitchenCreateWithoutCategoryInput, KitchenUncheckedCreateWithoutCategoryInput>
+    connectOrCreate?: KitchenCreateOrConnectWithoutCategoryInput
+    connect?: KitchenWhereUniqueInput
+  }
+
   export type ProductCreateNestedManyWithoutCategoryInput = {
     create?: XOR<Enumerable<ProductCreateWithoutCategoryInput>, Enumerable<ProductUncheckedCreateWithoutCategoryInput>>
     connectOrCreate?: Enumerable<ProductCreateOrConnectWithoutCategoryInput>
@@ -14319,6 +14496,14 @@ export namespace Prisma {
     create?: XOR<Enumerable<ProductCreateWithoutCategoryInput>, Enumerable<ProductUncheckedCreateWithoutCategoryInput>>
     connectOrCreate?: Enumerable<ProductCreateOrConnectWithoutCategoryInput>
     connect?: Enumerable<ProductWhereUniqueInput>
+  }
+
+  export type KitchenUpdateOneRequiredWithoutCategoryNestedInput = {
+    create?: XOR<KitchenCreateWithoutCategoryInput, KitchenUncheckedCreateWithoutCategoryInput>
+    connectOrCreate?: KitchenCreateOrConnectWithoutCategoryInput
+    upsert?: KitchenUpsertWithoutCategoryInput
+    connect?: KitchenWhereUniqueInput
+    update?: XOR<KitchenUpdateWithoutCategoryInput, KitchenUncheckedUpdateWithoutCategoryInput>
   }
 
   export type ProductUpdateManyWithoutCategoryNestedInput = {
@@ -14383,6 +14568,44 @@ export namespace Prisma {
     update?: Enumerable<ProductUpdateWithWhereUniqueWithoutCollectionInput>
     updateMany?: Enumerable<ProductUpdateManyWithWhereWithoutCollectionInput>
     deleteMany?: Enumerable<ProductScalarWhereInput>
+  }
+
+  export type CategoryCreateNestedManyWithoutKitchenInput = {
+    create?: XOR<Enumerable<CategoryCreateWithoutKitchenInput>, Enumerable<CategoryUncheckedCreateWithoutKitchenInput>>
+    connectOrCreate?: Enumerable<CategoryCreateOrConnectWithoutKitchenInput>
+    connect?: Enumerable<CategoryWhereUniqueInput>
+  }
+
+  export type CategoryUncheckedCreateNestedManyWithoutKitchenInput = {
+    create?: XOR<Enumerable<CategoryCreateWithoutKitchenInput>, Enumerable<CategoryUncheckedCreateWithoutKitchenInput>>
+    connectOrCreate?: Enumerable<CategoryCreateOrConnectWithoutKitchenInput>
+    connect?: Enumerable<CategoryWhereUniqueInput>
+  }
+
+  export type CategoryUpdateManyWithoutKitchenNestedInput = {
+    create?: XOR<Enumerable<CategoryCreateWithoutKitchenInput>, Enumerable<CategoryUncheckedCreateWithoutKitchenInput>>
+    connectOrCreate?: Enumerable<CategoryCreateOrConnectWithoutKitchenInput>
+    upsert?: Enumerable<CategoryUpsertWithWhereUniqueWithoutKitchenInput>
+    set?: Enumerable<CategoryWhereUniqueInput>
+    disconnect?: Enumerable<CategoryWhereUniqueInput>
+    delete?: Enumerable<CategoryWhereUniqueInput>
+    connect?: Enumerable<CategoryWhereUniqueInput>
+    update?: Enumerable<CategoryUpdateWithWhereUniqueWithoutKitchenInput>
+    updateMany?: Enumerable<CategoryUpdateManyWithWhereWithoutKitchenInput>
+    deleteMany?: Enumerable<CategoryScalarWhereInput>
+  }
+
+  export type CategoryUncheckedUpdateManyWithoutKitchenNestedInput = {
+    create?: XOR<Enumerable<CategoryCreateWithoutKitchenInput>, Enumerable<CategoryUncheckedCreateWithoutKitchenInput>>
+    connectOrCreate?: Enumerable<CategoryCreateOrConnectWithoutKitchenInput>
+    upsert?: Enumerable<CategoryUpsertWithWhereUniqueWithoutKitchenInput>
+    set?: Enumerable<CategoryWhereUniqueInput>
+    disconnect?: Enumerable<CategoryWhereUniqueInput>
+    delete?: Enumerable<CategoryWhereUniqueInput>
+    connect?: Enumerable<CategoryWhereUniqueInput>
+    update?: Enumerable<CategoryUpdateWithWhereUniqueWithoutKitchenInput>
+    updateMany?: Enumerable<CategoryUpdateManyWithWhereWithoutKitchenInput>
+    deleteMany?: Enumerable<CategoryScalarWhereInput>
   }
 
   export type ProductCreateNestedOneWithoutVariantInput = {
@@ -14864,17 +15087,17 @@ export namespace Prisma {
   export type CategoryCreateWithoutProductsInput = {
     name: string
     color: string
-    kitchenId: string
     isAvailableAllDay?: boolean
     startTime?: string
     endTime?: string
+    kitchen: KitchenCreateNestedOneWithoutCategoryInput
   }
 
   export type CategoryUncheckedCreateWithoutProductsInput = {
     id?: number
     name: string
     color: string
-    kitchenId: string
+    kitchenId: number
     isAvailableAllDay?: boolean
     startTime?: string
     endTime?: string
@@ -14939,17 +15162,17 @@ export namespace Prisma {
   export type CategoryUpdateWithoutProductsInput = {
     name?: StringFieldUpdateOperationsInput | string
     color?: StringFieldUpdateOperationsInput | string
-    kitchenId?: StringFieldUpdateOperationsInput | string
     isAvailableAllDay?: BoolFieldUpdateOperationsInput | boolean
     startTime?: StringFieldUpdateOperationsInput | string
     endTime?: StringFieldUpdateOperationsInput | string
+    kitchen?: KitchenUpdateOneRequiredWithoutCategoryNestedInput
   }
 
   export type CategoryUncheckedUpdateWithoutProductsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     color?: StringFieldUpdateOperationsInput | string
-    kitchenId?: StringFieldUpdateOperationsInput | string
+    kitchenId?: IntFieldUpdateOperationsInput | number
     isAvailableAllDay?: BoolFieldUpdateOperationsInput | boolean
     startTime?: StringFieldUpdateOperationsInput | string
     endTime?: StringFieldUpdateOperationsInput | string
@@ -15007,11 +15230,28 @@ export namespace Prisma {
     productId?: IntFilter | number
   }
 
+  export type KitchenCreateWithoutCategoryInput = {
+    name: string
+    printer: string
+  }
+
+  export type KitchenUncheckedCreateWithoutCategoryInput = {
+    id?: number
+    name: string
+    printer: string
+  }
+
+  export type KitchenCreateOrConnectWithoutCategoryInput = {
+    where: KitchenWhereUniqueInput
+    create: XOR<KitchenCreateWithoutCategoryInput, KitchenUncheckedCreateWithoutCategoryInput>
+  }
+
   export type ProductCreateWithoutCategoryInput = {
     name: string
+    secondaryLanguageName?: string | null
     arabic: string
     price: number
-    const: number
+    cost: number
     image?: string
     inStock?: boolean
     hasVariant?: boolean
@@ -15027,9 +15267,10 @@ export namespace Prisma {
   export type ProductUncheckedCreateWithoutCategoryInput = {
     id?: number
     name: string
+    secondaryLanguageName?: string | null
     arabic: string
     price: number
-    const: number
+    cost: number
     image?: string
     inStock?: boolean
     hasVariant?: boolean
@@ -15045,6 +15286,22 @@ export namespace Prisma {
   export type ProductCreateOrConnectWithoutCategoryInput = {
     where: ProductWhereUniqueInput
     create: XOR<ProductCreateWithoutCategoryInput, ProductUncheckedCreateWithoutCategoryInput>
+  }
+
+  export type KitchenUpsertWithoutCategoryInput = {
+    update: XOR<KitchenUpdateWithoutCategoryInput, KitchenUncheckedUpdateWithoutCategoryInput>
+    create: XOR<KitchenCreateWithoutCategoryInput, KitchenUncheckedCreateWithoutCategoryInput>
+  }
+
+  export type KitchenUpdateWithoutCategoryInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    printer?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type KitchenUncheckedUpdateWithoutCategoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    printer?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProductUpsertWithWhereUniqueWithoutCategoryInput = {
@@ -15069,9 +15326,10 @@ export namespace Prisma {
     NOT?: Enumerable<ProductScalarWhereInput>
     id?: IntFilter | number
     name?: StringFilter | string
+    secondaryLanguageName?: StringNullableFilter | string | null
     arabic?: StringFilter | string
     price?: FloatFilter | number
-    const?: FloatFilter | number
+    cost?: FloatFilter | number
     image?: StringFilter | string
     inStock?: BoolFilter | boolean
     hasVariant?: BoolFilter | boolean
@@ -15085,9 +15343,10 @@ export namespace Prisma {
 
   export type ProductCreateWithoutCollectionInput = {
     name: string
+    secondaryLanguageName?: string | null
     arabic: string
     price: number
-    const: number
+    cost: number
     image?: string
     inStock?: boolean
     hasVariant?: boolean
@@ -15103,9 +15362,10 @@ export namespace Prisma {
   export type ProductUncheckedCreateWithoutCollectionInput = {
     id?: number
     name: string
+    secondaryLanguageName?: string | null
     arabic: string
     price: number
-    const: number
+    cost: number
     image?: string
     inStock?: boolean
     hasVariant?: boolean
@@ -15139,11 +15399,65 @@ export namespace Prisma {
     data: XOR<ProductUpdateManyMutationInput, ProductUncheckedUpdateManyWithoutProductsInput>
   }
 
+  export type CategoryCreateWithoutKitchenInput = {
+    name: string
+    color: string
+    isAvailableAllDay?: boolean
+    startTime?: string
+    endTime?: string
+    products?: ProductCreateNestedManyWithoutCategoryInput
+  }
+
+  export type CategoryUncheckedCreateWithoutKitchenInput = {
+    id?: number
+    name: string
+    color: string
+    isAvailableAllDay?: boolean
+    startTime?: string
+    endTime?: string
+    products?: ProductUncheckedCreateNestedManyWithoutCategoryInput
+  }
+
+  export type CategoryCreateOrConnectWithoutKitchenInput = {
+    where: CategoryWhereUniqueInput
+    create: XOR<CategoryCreateWithoutKitchenInput, CategoryUncheckedCreateWithoutKitchenInput>
+  }
+
+  export type CategoryUpsertWithWhereUniqueWithoutKitchenInput = {
+    where: CategoryWhereUniqueInput
+    update: XOR<CategoryUpdateWithoutKitchenInput, CategoryUncheckedUpdateWithoutKitchenInput>
+    create: XOR<CategoryCreateWithoutKitchenInput, CategoryUncheckedCreateWithoutKitchenInput>
+  }
+
+  export type CategoryUpdateWithWhereUniqueWithoutKitchenInput = {
+    where: CategoryWhereUniqueInput
+    data: XOR<CategoryUpdateWithoutKitchenInput, CategoryUncheckedUpdateWithoutKitchenInput>
+  }
+
+  export type CategoryUpdateManyWithWhereWithoutKitchenInput = {
+    where: CategoryScalarWhereInput
+    data: XOR<CategoryUpdateManyMutationInput, CategoryUncheckedUpdateManyWithoutCategoryInput>
+  }
+
+  export type CategoryScalarWhereInput = {
+    AND?: Enumerable<CategoryScalarWhereInput>
+    OR?: Enumerable<CategoryScalarWhereInput>
+    NOT?: Enumerable<CategoryScalarWhereInput>
+    id?: IntFilter | number
+    name?: StringFilter | string
+    color?: StringFilter | string
+    kitchenId?: IntFilter | number
+    isAvailableAllDay?: BoolFilter | boolean
+    startTime?: StringFilter | string
+    endTime?: StringFilter | string
+  }
+
   export type ProductCreateWithoutVariantInput = {
     name: string
+    secondaryLanguageName?: string | null
     arabic: string
     price: number
-    const: number
+    cost: number
     image?: string
     inStock?: boolean
     hasVariant?: boolean
@@ -15159,9 +15473,10 @@ export namespace Prisma {
   export type ProductUncheckedCreateWithoutVariantInput = {
     id?: number
     name: string
+    secondaryLanguageName?: string | null
     arabic: string
     price: number
-    const: number
+    cost: number
     image?: string
     inStock?: boolean
     hasVariant?: boolean
@@ -15186,9 +15501,10 @@ export namespace Prisma {
 
   export type ProductUpdateWithoutVariantInput = {
     name?: StringFieldUpdateOperationsInput | string
+    secondaryLanguageName?: NullableStringFieldUpdateOperationsInput | string | null
     arabic?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
-    const?: FloatFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     hasVariant?: BoolFieldUpdateOperationsInput | boolean
@@ -15204,9 +15520,10 @@ export namespace Prisma {
   export type ProductUncheckedUpdateWithoutVariantInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    secondaryLanguageName?: NullableStringFieldUpdateOperationsInput | string | null
     arabic?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
-    const?: FloatFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     hasVariant?: BoolFieldUpdateOperationsInput | boolean
@@ -15221,9 +15538,10 @@ export namespace Prisma {
 
   export type ProductCreateWithoutModifierInput = {
     name: string
+    secondaryLanguageName?: string | null
     arabic: string
     price: number
-    const: number
+    cost: number
     image?: string
     inStock?: boolean
     hasVariant?: boolean
@@ -15239,9 +15557,10 @@ export namespace Prisma {
   export type ProductUncheckedCreateWithoutModifierInput = {
     id?: number
     name: string
+    secondaryLanguageName?: string | null
     arabic: string
     price: number
-    const: number
+    cost: number
     image?: string
     inStock?: boolean
     hasVariant?: boolean
@@ -15266,9 +15585,10 @@ export namespace Prisma {
 
   export type ProductUpdateWithoutModifierInput = {
     name?: StringFieldUpdateOperationsInput | string
+    secondaryLanguageName?: NullableStringFieldUpdateOperationsInput | string | null
     arabic?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
-    const?: FloatFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     hasVariant?: BoolFieldUpdateOperationsInput | boolean
@@ -15284,9 +15604,10 @@ export namespace Prisma {
   export type ProductUncheckedUpdateWithoutModifierInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    secondaryLanguageName?: NullableStringFieldUpdateOperationsInput | string | null
     arabic?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
-    const?: FloatFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     hasVariant?: BoolFieldUpdateOperationsInput | boolean
@@ -15697,9 +16018,10 @@ export namespace Prisma {
 
   export type ProductUpdateWithoutCategoryInput = {
     name?: StringFieldUpdateOperationsInput | string
+    secondaryLanguageName?: NullableStringFieldUpdateOperationsInput | string | null
     arabic?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
-    const?: FloatFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     hasVariant?: BoolFieldUpdateOperationsInput | boolean
@@ -15715,9 +16037,10 @@ export namespace Prisma {
   export type ProductUncheckedUpdateWithoutCategoryInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    secondaryLanguageName?: NullableStringFieldUpdateOperationsInput | string | null
     arabic?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
-    const?: FloatFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     hasVariant?: BoolFieldUpdateOperationsInput | boolean
@@ -15733,9 +16056,10 @@ export namespace Prisma {
   export type ProductUncheckedUpdateManyWithoutProductsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    secondaryLanguageName?: NullableStringFieldUpdateOperationsInput | string | null
     arabic?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
-    const?: FloatFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     hasVariant?: BoolFieldUpdateOperationsInput | boolean
@@ -15748,9 +16072,10 @@ export namespace Prisma {
 
   export type ProductUpdateWithoutCollectionInput = {
     name?: StringFieldUpdateOperationsInput | string
+    secondaryLanguageName?: NullableStringFieldUpdateOperationsInput | string | null
     arabic?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
-    const?: FloatFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     hasVariant?: BoolFieldUpdateOperationsInput | boolean
@@ -15766,9 +16091,10 @@ export namespace Prisma {
   export type ProductUncheckedUpdateWithoutCollectionInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    secondaryLanguageName?: NullableStringFieldUpdateOperationsInput | string | null
     arabic?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
-    const?: FloatFieldUpdateOperationsInput | number
+    cost?: FloatFieldUpdateOperationsInput | number
     image?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     hasVariant?: BoolFieldUpdateOperationsInput | boolean
@@ -15779,6 +16105,34 @@ export namespace Prisma {
     categoryId?: IntFieldUpdateOperationsInput | number
     Variant?: VariantUncheckedUpdateManyWithoutProductNestedInput
     Modifier?: ModifierUncheckedUpdateManyWithoutProductNestedInput
+  }
+
+  export type CategoryUpdateWithoutKitchenInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+    isAvailableAllDay?: BoolFieldUpdateOperationsInput | boolean
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    products?: ProductUpdateManyWithoutCategoryNestedInput
+  }
+
+  export type CategoryUncheckedUpdateWithoutKitchenInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+    isAvailableAllDay?: BoolFieldUpdateOperationsInput | boolean
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    products?: ProductUncheckedUpdateManyWithoutCategoryNestedInput
+  }
+
+  export type CategoryUncheckedUpdateManyWithoutCategoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+    isAvailableAllDay?: BoolFieldUpdateOperationsInput | boolean
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
   }
 
   export type OrderItemUpdateWithoutOrderInput = {
