@@ -18,22 +18,24 @@ export const selectAllProducts = createSelector(
   (state) => state.products
 );
 
-export const selectFilteredProducts = (filterValue: string) =>
-  createSelector(selectAllProducts, (products) => {
-    console.log(products);
-    console.log('filterValue', filterValue);
-    if (!filterValue) console.log('no valuesssss');
-    if (!filterValue) return products;
-    return products.filter(
+export const selectFilteredProducts = createSelector(
+  selectProductState,
+  (state) => {
+    // console.log(products);
+    // console.log('filterValue', filterValue);
+    // if (!filterValue) console.log('no valuesssss');
+    if (!state.searchTerm) return state.products;
+    return state.products.filter(
       (product) =>
-        product.name.toLocaleLowerCase().includes(filterValue) ||
-        product.id.toString().includes(filterValue)
+        product.name.toLocaleLowerCase().includes(state.searchTerm) ||
+        product.id.toString().includes(state.searchTerm)
     );
-  });
+  }
+);
 
 export const selectFilteredCategoryViceProducts = (filterValue: string) =>
   createSelector(
-    selectFilteredProducts(filterValue),
+    selectFilteredProducts,
     selectCategories,
     (products, categories) => {
       if (!categories.length) return {};

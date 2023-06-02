@@ -23,6 +23,11 @@ export const loadProductsLoading = createAction(
   '[Product] load categoryvise progress in progress'
 );
 
+export const filterProducts = createAction(
+  '[Product] load categoryvise progress in progress',
+  props<{ searchTerm: string }>()
+);
+
 // export const loadProductsCategoryVice = createAction(
 //   '[Product] Load categoryvise products'
 // );
