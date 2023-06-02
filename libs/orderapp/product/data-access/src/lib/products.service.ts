@@ -19,11 +19,17 @@ export class ProductsService {
     @Inject('endPointURL') public apiUrl: string
   ) {}
 
-  loadProductsCategoryVice(): Observable<{ [Key: string]: Product[] }> {
-    return this.httpClient.get<{ [Key: string]: Product[] }>(
-      `${this.apiUrl}/products/list`
-    );
+  loadProducts(): Observable<Product[]> {
+    console.log('am i getting somethigns');
+    return this.httpClient.get<Product[]>(`${this.apiUrl}/product/list`);
   }
+
+  // loadProductsCategoryVice(): Observable<{ [Key: string]: Product[] }> {
+  //   console.log('am i getting somethigns');
+  //   return this.httpClient.get<{ [Key: string]: Product[] }>(
+  //     `${this.apiUrl}/product/list`
+  //   );
+  // }
 
   addProduct(product: Product) {
     console.log(product);

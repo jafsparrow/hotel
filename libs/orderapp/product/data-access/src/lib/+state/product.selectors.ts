@@ -16,22 +16,22 @@ export const selectAllProducts = createSelector(
   (state) => state.products
 );
 
-export const selectProductsFromCategory = (category: string) =>
-  createSelector(selectAllProducts, (products) => {
-    const currCatPor = products.filter(
-      (product) => product.category == category
-    );
+// export const selectProductsFromCategory = (category: string) =>
+//   createSelector(selectAllProducts, (products) => {
+//     const currCatPor = products.filter(
+//       (product) => product.category == category
+//     );
 
-    const sorted = currCatPor.sort(
-      (a, b) => a.indexInCategory! - b.indexInCategory!
-    );
-    // console.log(sorted);
-    return sorted;
-  });
-export const selectProductsCategoryVice = createSelector(
-  selectProductState,
-  (state) => state.productsByCat
-);
+//     const sorted = currCatPor.sort(
+//       (a, b) => a.indexInCategory! - b.indexInCategory!
+//     );
+//     // console.log(sorted);
+//     return sorted;
+//   });
+// export const selectProductsCategoryVice = createSelector(
+//   selectProductState,
+//   (state) => state.products
+// );
 
 // export const selectProductsArray = createSelector(
 //   selectProductsCategoryVice,
@@ -57,37 +57,38 @@ export interface ProdCue extends Product {
 //   }
 // );
 
-export const selectProductByCategories = createSelector(
-  selectProductState,
-  (state) => {
-    const categoryVice: CategoryViseProducts = {};
-    state.products.map((item) => {
-      categoryVice[item.category] = [
-        ...(categoryVice[item.category] || []),
-        item,
-      ];
-    });
+// export const selectProductByCategories = createSelector(
+//   selectProductState,
+//   (state) => {
+//     const categoryVice: CategoryViseProducts = {};
+//     state.products.map((item) => {
+//       categoryVice[item.category] = [
+//         ...(categoryVice[item.category] || []),
+//         item,
+//       ];
+//     });
 
-    Object.keys(categoryVice).forEach((key) => {
-      categoryVice[key] = categoryVice[key].sort(
-        (prev, curr) => prev.indexInCategory! - curr.indexInCategory!
-      );
-    });
+//     Object.keys(categoryVice).forEach((key) => {
+//       categoryVice[key] = categoryVice[key].sort(
+//         (prev, curr) => prev.indexInCategory! - curr.indexInCategory!
+//       );
+//     });
 
-    return categoryVice;
-  }
-);
+//     return categoryVice;
+//   }
+// );
 
-export const selectQuickDisplayProducts = createSelector(
-  selectProductsCategoryVice,
-  (state: { [key: string]: Product[] }) => {
-    let productsAsArray: Product[] = [];
-    Object.values(state).forEach(
-      (products) => (productsAsArray = [...productsAsArray, ...products])
-    );
-    return productsAsArray.filter((product) => product.quickDisplayOrder);
-  }
-);
+// export const selectQuickDisplayProducts = createSelector(
+//   selectProductsCategoryVice,
+//   (state) => {
+//     const productsAsArray: Product[] = [];
+//     return productsAsArray;
+//     Object.values(state).forEach(
+//       (products) => (productsAsArray = [...productsAsArray, ...products])
+//     );
+//     return productsAsArray.filter((product) => product.quickDisplayOrder);
+//   }
+// );
 
 export const selectProductFetchInProgressFlag = createSelector(
   selectProductState,

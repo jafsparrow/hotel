@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ProductQwikviewComponent } from '@hotel/orderapp/ui';
 import {
   OrderappProductDataAccessComponent,
-  selectQuickDisplayProducts,
+  selectAllProducts,
 } from '@hotel/orderapp/product/data-access';
 import { Store } from '@ngrx/store';
 
@@ -25,7 +25,7 @@ import { OrderappOrderFeatureProductCountComponent } from '@hotel/orderapp/order
   styleUrls: ['./orderapp-product-feature-qwik-list.component.css'],
 })
 export class OrderappProductFeatureQwikListComponent {
-  selectQwikProducts = this.store.select(selectQuickDisplayProducts);
+  selectQwikProducts = this.store.select(selectAllProducts);
   constructor(private store: Store, private dialog: MatDialog) {}
 
   countEntry(product: Product) {

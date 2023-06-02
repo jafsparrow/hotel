@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { selectProductsCategoryVice } from '@hotel/orderapp/product/data-access';
+// import { selectProductsCategoryVice } from '@hotel/orderapp/product/data-access';
 import { CartItem, Product } from '@hotel/orderapp/shared/data-access';
 
 import {
@@ -11,6 +11,7 @@ import {
 } from '@hotel/orderapp/cart/data-access';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { OrderappOrderFeatureProductCountComponent } from '@hotel/orderapp/order/feature/product-count';
+import { selectAllProducts } from '@hotel/orderapp/product/data-access';
 
 @Component({
   selector: 'hotel-orderapp-product-feature-product-list',
@@ -20,7 +21,7 @@ import { OrderappOrderFeatureProductCountComponent } from '@hotel/orderapp/order
   styleUrls: ['./orderapp-product-feature-product-list.component.css'],
 })
 export class OrderappProductFeatureProductListComponent {
-  productscategory$ = this.store.select(selectProductsCategoryVice);
+  productscategory$ = this.store.select(selectAllProducts);
 
   constructor(private store: Store, private dialog: MatDialog) {}
 

@@ -3,7 +3,7 @@ export interface Category {
   menuId?: string;
   accountId?: string;
   name: string;
-  description: string;
+  description?: string;
   archived: boolean;
   products?: Product[] | null;
   alwaysOpen: boolean;
@@ -17,17 +17,22 @@ export interface Category {
 }
 export interface Product {
   _id: string;
-  image: ProductImage[];
-  description: string;
-  isAvailable: boolean;
-  onSale: boolean;
-  price: number;
   name: string;
   secondaryLanguageName?: string;
-  category: string;
+  description?: string;
+  price: number;
+  cost?: number;
+  image: string;
+  inStock?: boolean;
+  hasVariant?: boolean;
+  hasModifiers?: boolean;
+  isArchived?: boolean;
+  isAvailable?: boolean;
+  onSale?: boolean;
+  categoryId?: number;
   archived: boolean;
   video?: string;
-  popular: boolean;
+  popular?: boolean;
   printName?: string;
   modifierGroups?: ModifierGroupsEntity[] | null;
   indexInCategory?: number;

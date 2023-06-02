@@ -68,9 +68,7 @@ export const selectFilteredOrderItemsFromRecentOrders = createSelector(
   selectOrderItemsFromRecentOrders,
   (filteredCategories, orderLineItems) => {
     return orderLineItems.filter((item) =>
-      filteredCategories.length
-        ? filteredCategories.indexOf(item.product.category) !== -1
-        : true
+      filteredCategories.length ? filteredCategories.indexOf('') !== -1 : true
     );
   }
 );

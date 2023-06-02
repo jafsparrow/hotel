@@ -9,6 +9,7 @@ import {
 
 import {
   PRODUCTS_FEATURE_KEY,
+  ProductsEffects,
   productsReducer,
 } from '@hotel/orderapp/product/data-access';
 
@@ -28,6 +29,7 @@ export const homeRoutes: Routes = [
       provideState(CART_FEATURE_KEY, cartReducer),
       provideState(ORDER_FEATURE_KEY, orderReducer),
       provideEffects(OrderEffects),
+      provideEffects(ProductsEffects),
     ],
   },
 ];

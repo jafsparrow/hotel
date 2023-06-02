@@ -19,23 +19,27 @@ export const loadProductsFail = createAction(
   props<{ error: any }>()
 );
 
-export const loadProductsCategoryVice = createAction(
-  '[Product] Load categoryvise products'
-);
-
-export const productsCategoryViceLoading = createAction(
+export const loadProductsLoading = createAction(
   '[Product] load categoryvise progress in progress'
 );
 
-export const loadProductsCategoryViceSuccess = createAction(
-  '[Product] Load categoryvise products success',
-  props<{ productsByCat: CategoryViseProducts }>()
-);
+// export const loadProductsCategoryVice = createAction(
+//   '[Product] Load categoryvise products'
+// );
 
-export const loadProductsCategoryViceFail = createAction(
-  '[Product] Load categoryvise Failed',
-  props<{ error: any }>()
-);
+// export const productsCategoryViceLoading = createAction(
+//   '[Product] load categoryvise progress in progress'
+// );
+
+// export const loadProductsCategoryViceSuccess = createAction(
+//   '[Product] Load categoryvise products success',
+//   props<{ productsByCat: CategoryViseProducts }>()
+// );
+
+// export const loadProductsCategoryViceFail = createAction(
+//   '[Product] Load categoryvise Failed',
+//   props<{ error: any }>()
+// );
 
 export const addProduct = createAction(
   '[Product] add a product',

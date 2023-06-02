@@ -7,20 +7,19 @@ import { createReducer, on } from '@ngrx/store';
 import {
   addProductSuccess,
   addupdateProductInprogress,
-  loadProductsCategoryVice,
-  loadProductsCategoryViceSuccess,
   loadProductsFail,
+  loadProductsLoading,
   loadProductsSuccess,
-  productsCategoryViceLoading,
   updateProductBooleans,
 } from './product.actions';
 import { data } from './sampledata';
+import { Prisma } from '@prisma/client';
 
 export const PRODUCTS_FEATURE_KEY = 'products';
 
 export interface ProductState {
   products: Product[];
-  productsByCat: any;
+  selectedProduct: Product | null;
   productFetchInprogress: boolean;
   productAddUpdateInProgress: boolean;
   errorMessage: string;
@@ -29,7 +28,7 @@ export interface ProductState {
 export const categoryvise: any = data;
 const initialState: ProductState = {
   products: [],
-  productsByCat: categoryvise,
+  selectedProduct: null,
   productFetchInprogress: false,
   productAddUpdateInProgress: false,
   errorMessage: '',
@@ -38,17 +37,17 @@ const initialState: ProductState = {
 export const productsReducer = createReducer(
   initialState,
   on(loadProductsSuccess, (state, { products }) => ({ ...state, products })),
-  on(loadProductsCategoryViceSuccess, (state, { productsByCat }) => {
+  on(loadProductsSuccess, (state, { products }) => {
     console.log('reducer is firing up');
 
     return {
       ...state,
-      productsByCat,
+      products,
       productFetchInprogress: false,
       productAddUpdateInProgress: false,
     };
   }),
-  on(productsCategoryViceLoading, (state) => ({
+  on(loadProductsLoading, (state) => ({
     ...state,
     productFetchInprogress: true,
   })),
