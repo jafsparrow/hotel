@@ -21,4 +21,8 @@ export class OrderappProductFeatureSearchComponent implements OnInit {
       this.store.dispatch(filterProducts({ searchTerm: value! }))
     );
   }
+
+  clearSearchTerm() {
+    this.searchTerm.setValue('');
+  }
 }
