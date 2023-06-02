@@ -17,6 +17,7 @@
     "paths": {
       "@hotel/api/data-access-db": ["libs/api/data-access-db/src/index.ts"],
       "@hotel/api/feature-auth": ["libs/api/feature-auth/src/index.ts"],
+      "@hotel/api/feature-category": ["libs/api/feature-category/src/index.ts"],
       "@hotel/api/feature-order": ["libs/api/feature-order/src/index.ts"],
       "@hotel/api/feature-product": ["libs/api/feature-product/src/index.ts"],
       "@hotel/api/feature-user": ["libs/api/feature-user/src/index.ts"],
