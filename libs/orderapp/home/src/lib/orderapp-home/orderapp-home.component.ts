@@ -16,6 +16,7 @@ import { RouterModule } from '@angular/router';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { loadProducts } from '@hotel/orderapp/product/data-access';
 import { loadCategories } from '@hotel/orderapp/category/data-access';
+import { OrderappCartFeatureCartSummaryButtonComponent } from '@hotel/orderapp/cart/feature/cart-summary-button';
 
 @Component({
   selector: 'hotel-orderapp-home',
@@ -31,6 +32,7 @@ import { loadCategories } from '@hotel/orderapp/category/data-access';
     OrderappProductFeatureSearchComponent,
     OrderappTableFeatureListComponent,
     OrderappOrderFeatureTakeAwayComponent,
+    OrderappCartFeatureCartSummaryButtonComponent,
   ],
   templateUrl: './orderapp-home.component.html',
   styleUrls: ['./orderapp-home.component.css'],

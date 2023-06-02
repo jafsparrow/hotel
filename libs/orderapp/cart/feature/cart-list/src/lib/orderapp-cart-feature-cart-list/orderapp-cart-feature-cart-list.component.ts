@@ -2,8 +2,13 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 
-import { selectCart } from '@hotel/orderapp/cart/data-access';
-import { Cart } from '@hotel/orderapp/shared/data-access';
+import {
+  addToCart,
+  removeFromCart,
+  selectCart,
+  updateCart,
+} from '@hotel/orderapp/cart/data-access';
+import { Cart, CartItem } from '@hotel/orderapp/shared/data-access';
 import { deleteCartCreatedForUser } from '@hotel/orderapp/cart/data-access';
 import { placeOrder } from '@hotel/orderapp/order/data-access/order';
 
@@ -19,7 +24,7 @@ export class OrderappCartFeatureCartListComponent {
   constructor(private store: Store) {}
 
   getCartItems(cart: Cart) {
-    return Object.values(cart.cartItems);
+    return Object.entries(cart.cartItems);
   }
 
   clearCartUser() {
@@ -29,5 +34,21 @@ export class OrderappCartFeatureCartListComponent {
   }
   placeOrder(cart: Cart) {
     this.store.dispatch(placeOrder({ cart }));
+  }
+
+  incrementCart(cartItem: CartItem) {
+    const newCartItemWithOneQuantity = { ...cartItem, count: 1 };
+    this.store.dispatch(addToCart({ item: newCartItemWithOneQuantity }));
+  }
+
+  decrimentCart(cartItem: CartItem) {
+    this.store.dispatch(updateCart({ item: { ...cartItem, count: 1 } }));
+  }
+  clearCart(key: any, cartItem: CartItem) {
+    // console.log('detaildsjfsdf', key);
+    // console.log('detaildsjfsdf', cartItem);
+    if (confirm(`Deleting ${cartItem.product.name} from cart.?`)) {
+      this.store.dispatch(removeFromCart({ itemId: key }));
+    }
   }
 }

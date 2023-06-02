@@ -30,6 +30,9 @@
       "@hotel/orderapp/cart/feature/cart-list": [
         "libs/orderapp/cart/feature/cart-list/src/index.ts"
       ],
+      "@hotel/orderapp/cart/feature/cart-summary-button": [
+        "libs/orderapp/cart/feature/cart-summary-button/src/index.ts"
+      ],
       "@hotel/orderapp/category/data-access": [
         "libs/orderapp/category/data-access/src/index.ts"
       ],

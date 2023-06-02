@@ -1,0 +1,13 @@
+<div
+  class="md:w-1/2 md:mx-auto p-2 flex flex-row"
+  *ngIf="cartCount$ | async as cartCount"
+>
+  <div class="flex flex-row w-full p-4 rounded-md bg-gray-800 text-white">
+    <div class="flex-grow">
+      {{ cartCount }} items
+      <span class="font-semibold">| {{ cartTotal$ | async }} OMR</span>
+    </div>
+
+    <div class="font-bold" [routerLink]="['/shell/cart']">VIEW CART</div>
+  </div>
+</div>
