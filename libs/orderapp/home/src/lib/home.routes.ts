@@ -8,6 +8,11 @@ import {
 } from '@hotel/orderapp/order/data-access/order';
 
 import {
+  CATEGORY_FEATURE_KEY,
+  categoryReducer,
+} from '@hotel/orderapp/category/data-access';
+
+import {
   PRODUCTS_FEATURE_KEY,
   ProductsEffects,
   productsReducer,
@@ -24,8 +29,9 @@ export const homeRoutes: Routes = [
     path: '',
     component: OrderappHomeComponent,
     providers: [
-      provideState(ORDER_FEATURE_KEY, orderReducer),
       provideState(PRODUCTS_FEATURE_KEY, productsReducer),
+      provideState(CATEGORY_FEATURE_KEY, categoryReducer),
+      provideState(ORDER_FEATURE_KEY, orderReducer),
       provideState(CART_FEATURE_KEY, cartReducer),
       provideState(ORDER_FEATURE_KEY, orderReducer),
       provideEffects(OrderEffects),
