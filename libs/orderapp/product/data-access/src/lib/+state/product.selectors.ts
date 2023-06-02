@@ -7,6 +7,8 @@ import {
 // import { selectCart } from '@jafar-tech/table-qr-cart-data-access';
 import { createFeatureSelector, createSelector, select } from '@ngrx/store';
 import { ProductState, PRODUCTS_FEATURE_KEY } from './products.reducers';
+import { filter } from 'rxjs';
+import { selectCategories } from '@hotel/orderapp/category/data-access';
 
 export const selectProductState =
   createFeatureSelector<ProductState>(PRODUCTS_FEATURE_KEY);
@@ -15,6 +17,52 @@ export const selectAllProducts = createSelector(
   selectProductState,
   (state) => state.products
 );
+
+export const selectFilteredProducts = (filterValue: string) =>
+  createSelector(selectAllProducts, (products) => {
+    console.log(products);
+    console.log('filterValue', filterValue);
+    if (!filterValue) console.log('no valuesssss');
+    if (!filterValue) return products;
+    return products.filter(
+      (product) =>
+        product.name.toLocaleLowerCase().includes(filterValue) ||
+        product.id.toString().includes(filterValue)
+    );
+  });
+
+export const selectFilteredCategoryViceProducts = (filterValue: string) =>
+  createSelector(
+    selectFilteredProducts(filterValue),
+    selectCategories,
+    (products, categories) => {
+      if (!categories.length) return {};
+      const categoryVice: { [key: string]: Product[] } = {};
+      console.log('inside category make', products);
+      if (products.length) {
+        products.map((item) => {
+          const keyToCheckOrAssign = categories.find(
+            (cat) => cat.id == item.categoryId
+          )!.name;
+
+          console.log('key to gen', keyToCheckOrAssign);
+          if (categoryVice[keyToCheckOrAssign]) {
+            categoryVice[keyToCheckOrAssign] = [
+              ...categoryVice[keyToCheckOrAssign],
+              item,
+            ];
+          } else {
+            categoryVice[keyToCheckOrAssign] = [];
+            categoryVice[keyToCheckOrAssign] = [
+              ...(categoryVice[keyToCheckOrAssign] || []),
+              item,
+            ];
+          }
+        });
+      }
+      return categoryVice;
+    }
+  );
 
 // export const selectProductsFromCategory = (category: string) =>
 //   createSelector(selectAllProducts, (products) => {

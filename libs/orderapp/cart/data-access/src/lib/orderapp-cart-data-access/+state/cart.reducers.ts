@@ -37,7 +37,7 @@ export const cartReducer = createReducer(
     newCartItem.modifiers?.forEach(
       (modifier) => (key = key + modifier.id?.toString())
     );
-    const generatedId = `${item.product._id}${key}`;
+    const generatedId = `${item.product.id}${key}`;
     const cartItems = { ...state.cartItems };
     cartItems[generatedId] = {
       ...(cartItems[generatedId] || {}),
@@ -59,13 +59,13 @@ export const cartReducer = createReducer(
   on(updateCart, (state, { item }) => {
     const totalcartItems = JSON.parse(JSON.stringify(state.cartItems));
 
-    if (state.cartItems[item.product._id]) {
-      if (state.cartItems[item.product._id].count == 1) {
-        delete totalcartItems[item.product._id];
+    if (state.cartItems[item.product.id]) {
+      if (state.cartItems[item.product.id].count == 1) {
+        delete totalcartItems[item.product.id];
       } else {
-        console.log(totalcartItems[item.product._id]);
-        totalcartItems[item.product._id].count =
-          totalcartItems[item.product._id].count - item.count;
+        console.log(totalcartItems[item.product.id]);
+        totalcartItems[item.product.id].count =
+          totalcartItems[item.product.id].count - item.count;
       }
     }
 

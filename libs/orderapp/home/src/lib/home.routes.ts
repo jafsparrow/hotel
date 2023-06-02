@@ -9,6 +9,7 @@ import {
 
 import {
   CATEGORY_FEATURE_KEY,
+  CategoryEffects,
   categoryReducer,
 } from '@hotel/orderapp/category/data-access';
 
@@ -36,6 +37,7 @@ export const homeRoutes: Routes = [
       provideState(ORDER_FEATURE_KEY, orderReducer),
       provideEffects(OrderEffects),
       provideEffects(ProductsEffects),
+      provideEffects(CategoryEffects),
     ],
   },
 ];

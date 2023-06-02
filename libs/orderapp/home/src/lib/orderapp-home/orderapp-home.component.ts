@@ -15,6 +15,7 @@ import {
 import { RouterModule } from '@angular/router';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { loadProducts } from '@hotel/orderapp/product/data-access';
+import { loadCategories } from '@hotel/orderapp/category/data-access';
 
 @Component({
   selector: 'hotel-orderapp-home',
@@ -38,6 +39,7 @@ export class OrderappHomeComponent {
   selectCartCreatedForUser$ = this.store.select(selectCartCreatedForUser);
   constructor(private dialog: MatDialog, private store: Store) {
     this.store.dispatch(loadProducts());
+    this.store.dispatch(loadCategories());
   }
 
   openTable(

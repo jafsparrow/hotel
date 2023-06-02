@@ -1,4 +1,4 @@
-import { Category, Organisation } from '@jafar-tech/shared/data-access';
+import { Category, Organisation } from '@hotel/orderapp/shared/data-access';
 import { createAction, props } from '@ngrx/store';
 
 export const loadCategories = createAction('[CATEGORY] loadcategory');

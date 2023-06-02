@@ -16,7 +16,7 @@ export interface Category {
   code?: number;
 }
 export interface Product {
-  _id: string;
+  id: number;
   name: string;
   secondaryLanguageName?: string;
   description?: string;
@@ -29,7 +29,7 @@ export interface Product {
   isArchived?: boolean;
   isAvailable?: boolean;
   onSale?: boolean;
-  categoryId?: number;
+  categoryId: number;
   archived: boolean;
   video?: string;
   popular?: boolean;

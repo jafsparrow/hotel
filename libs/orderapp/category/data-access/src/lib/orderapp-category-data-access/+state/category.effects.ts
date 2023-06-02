@@ -8,16 +8,33 @@ import {
   addCategory,
   addCategoryFail,
   addCategorySuccess,
+  loadCategories,
+  loadCategoriesSuccess,
+  loadCategoryFail,
 } from './category.actions';
 
 @Injectable()
 export class CategoryEffects {
   constructor(
     private actions$: Actions,
-    private categoryService: CategoryService,
-    private dialog: MatDialog,
-    private _snackBar: MatSnackBar
-  ) {}
+    private categoryService: CategoryService
+  ) // private dialog: MatDialog,
+  // private _snackBar: MatSnackBar
+  {}
+
+  loadCategoryEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(loadCategories),
+      switchMap(() => {
+        return this.categoryService.getCategories().pipe(
+          map((data) => loadCategoriesSuccess({ categories: data })),
+          catchError((error) =>
+            of(loadCategoryFail({ errorMessage: 'category loading failed' }))
+          )
+        );
+      })
+    );
+  });
 
   // addCategoryEffect$ = createEffect(() => {
   //   return this.actions$.pipe(

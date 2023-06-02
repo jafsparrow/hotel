@@ -11,7 +11,10 @@ import {
 } from '@hotel/orderapp/cart/data-access';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { OrderappOrderFeatureProductCountComponent } from '@hotel/orderapp/order/feature/product-count';
-import { selectAllProducts } from '@hotel/orderapp/product/data-access';
+import {
+  selectAllProducts,
+  selectFilteredCategoryViceProducts,
+} from '@hotel/orderapp/product/data-access';
 
 @Component({
   selector: 'hotel-orderapp-product-feature-product-list',
@@ -21,7 +24,7 @@ import { selectAllProducts } from '@hotel/orderapp/product/data-access';
   styleUrls: ['./orderapp-product-feature-product-list.component.css'],
 })
 export class OrderappProductFeatureProductListComponent {
-  productscategory$ = this.store.select(selectAllProducts);
+  productscategory$ = this.store.select(selectFilteredCategoryViceProducts(''));
 
   constructor(private store: Store, private dialog: MatDialog) {}
 
