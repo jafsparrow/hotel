@@ -11,11 +11,12 @@ import {
 import { Cart, CartItem } from '@hotel/orderapp/shared/data-access';
 import { deleteCartCreatedForUser } from '@hotel/orderapp/cart/data-access';
 import { placeOrder } from '@hotel/orderapp/order/data-access/order';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'hotel-orderapp-cart-feature-cart-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './orderapp-cart-feature-cart-list.component.html',
   styleUrls: ['./orderapp-cart-feature-cart-list.component.css'],
 })
@@ -24,7 +25,13 @@ export class OrderappCartFeatureCartListComponent {
   constructor(private store: Store) {}
 
   getCartItems(cart: Cart) {
+    // console.log('cart.cartItems', cart.cartItems);
     return Object.entries(cart.cartItems);
+  }
+
+  hasCartItems(cart: Cart): boolean {
+    if (Object.keys(cart.cartItems).length) return true;
+    return false;
   }
 
   clearCartUser() {

@@ -1,6 +1,10 @@
 import { Route, Routes } from '@angular/router';
 import { OrderappShellComponent } from './orderapp-shell.component';
 import { provideState } from '@ngrx/store';
+import {
+  CART_FEATURE_KEY,
+  cartReducer,
+} from '@hotel/orderapp/cart/data-access';
 
 export const shellRoutes: Routes = [
   {
@@ -44,6 +48,7 @@ export const shellRoutes: Routes = [
       import('@hotel/orderapp/cart/feature/cart-list').then(
         (c) => c.OrderappCartFeatureCartListComponent
       ),
+    providers: [provideState(CART_FEATURE_KEY, cartReducer)],
   },
   //   {
   //     path: 'admin',
