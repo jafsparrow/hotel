@@ -48,8 +48,7 @@
               <div *ngSwitchCase="'add'" class="">
                 <div
                   *ngIf="
-                    getCurrentProductInCart(product._id)
-                      | async as currentCount;
+                    getCurrentProductInCart(product.id) | async as currentCount;
                     else add
                   "
                 >
