@@ -9,6 +9,7 @@ export enum UserType {
 }
 
 export interface User {
+  id?: number;
   email?: string;
   companyId?: string;
   firstName: string;

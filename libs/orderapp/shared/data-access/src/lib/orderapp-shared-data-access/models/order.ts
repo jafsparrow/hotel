@@ -26,6 +26,11 @@ export interface AppliedTax {
   taxValue: number;
 }
 
+export enum OrderType {
+  TABLE = 'table',
+  TAKEAWAY = 'takeaway',
+}
+
 export enum OrderItemStatus {
   READY = 'ready',
   INPROGRESS = 'inprogress',
@@ -43,4 +48,9 @@ export enum OrderStatus {
 export enum OrderItemType {
   NEW = 'new',
   RUNNING = 'running',
+}
+
+export enum PaymentStatus {
+  PAID = 'paid',
+  NOTPAID = 'notpaid',
 }

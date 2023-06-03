@@ -9,17 +9,20 @@ datasource db {
 }
 
 model User {
-    id            Int         @id @default(autoincrement())
-    username      String      @unique
-    password      Int
-    name          String?
-    phone         String?
-    isAdmin       Boolean     @default(false)
-    isCashier     Boolean     @default(false)
-    isWaiter      Boolean     @default(true)
-    isKitchenUser Boolean     @default(false)
-    orders        Order[]
-    OrderItem     OrderItem[]
+    id                Int         @id @default(autoincrement())
+    username          String      @unique
+    password          Int
+    name              String?
+    phone             String?
+    isAdmin           Boolean     @default(false)
+    isCashier         Boolean     @default(false)
+    isWaiter          Boolean     @default(true)
+    isKitchenUser     Boolean     @default(false)
+    kitchenOrderItems OrderItem[] @relation("kitchenUser")
+    // userCreatedOrders Order[]     @relation("createdUser")
+    // createdForOrders  Order[]     @relation("createdForUser")
+    Order             Order[]
+    createdOrderItems OrderItem[] @relation("createdUser")
 }
 
 model Product {
@@ -94,18 +97,31 @@ model Order {
     createdAt     DateTime    @default(now())
     updatedAt     DateTime    @updatedAt
     OrderItem     OrderItem[]
-    userId        Int
-    createdUser   User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+    createdUserId Int
+    orderType     String
+    customerName  String
+    // createdUserId   Int
+    // createForUserId Int
+    // createdUser     User        @relation("createdUser", fields: [createdUserId], references: [id], onDelete: Cascade)
+    // createdFor      User        @relation("createdForUser", fields: [createForUserId], references: [id], onDelete: Cascade)
+    User          User        @relation(fields: [createdUserId], references: [id])
 }
 
 model OrderItem {
-    id        Int    @id @default(autoincrement())
-    name      String
-    kotNumber Int
-    orderId   Int
-    Order     Order  @relation(fields: [orderId], references: [id])
-    User      User?  @relation(fields: [userId], references: [id])
-    userId    Int?
+    id            Int     @id @default(autoincrement())
+    customeKey    String
+    name          String
+    kotNumber     Int
+    orderId       Int
+    Order         Order   @relation(fields: [orderId], references: [id])
+    createdUser   User?   @relation("createdUser", fields: [userId], references: [id])
+    userId        Int?
+    status        String?
+    kitchenUserId Int?
+    kitchenUser   User?   @relation("kitchenUser", fields: [kitchenUserId], references: [id])
+    orderItemType String  @default("new")
+    count         Int
+    modifiers     String  @default("")
 }
 
 model Company {

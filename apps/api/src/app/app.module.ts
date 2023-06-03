@@ -5,12 +5,14 @@ import { AppService } from './app.service';
 import { ApiDataAccessDbModule } from '@hotel/api/data-access-db';
 import { ApiFeatureProductModule } from '@hotel/api/feature-product';
 import { ApiFeatureCategoryModule } from '@hotel/api/feature-category';
+import { ApiFeatureOrderModule } from '@hotel/api/feature-order';
 
 @Module({
   imports: [
     ApiDataAccessDbModule,
     ApiFeatureProductModule,
     ApiFeatureCategoryModule,
+    ApiFeatureOrderModule,
   ],
   controllers: [AppController],
   providers: [AppService],
