@@ -15,20 +15,25 @@ import {
   PaymentStatus,
   User,
   UserType,
-} from './models';
+} from '@hotel/common/types';
+import { PDFService } from './pdf.service';
 
 @Injectable()
 export class OrderService {
-  constructor(private prismaService: PrismaService) {}
-  createsample(orderCreateDto: CreateOrderDto) {
+  constructor(
+    private prismaService: PrismaService,
+    private pdfService: PDFService
+  ) {}
+  async createsample(orderCreateDto: CreateOrderDto) {
     console.log('create sample alled');
     try {
-      this.createOrder(orderCreateDto, {
+      return await this.createOrder(orderCreateDto, {
         firstName: 'Jafar',
         userType: UserType.STAFF,
       });
     } catch (error) {
-      return new BadRequestException(error);
+      console.log('created sample error');
+      throw new BadRequestException(error);
     }
   }
 
@@ -52,6 +57,7 @@ export class OrderService {
   }
 
   async createOrder(createOrderDto: CreateOrderDto, appUser: User) {
+    console.log('user is', appUser);
     try {
       if (createOrderDto.cartCreatedFor.userType == UserType.TAKEAWAY) {
         const newOrder = await this.createTakeAwayOrder(
@@ -85,6 +91,7 @@ export class OrderService {
         );
       }
     } catch (error) {
+      console.log(error);
       throw new BadRequestException(error);
     }
   }
@@ -111,19 +118,6 @@ export class OrderService {
       console.log(error);
       throw new BadRequestException(error);
     }
-  }
-
-  private async createKot(categoryId: string, items: CartItem[]) {
-    const category = await this.prismaService.category.findFirst({
-      where: { id: +categoryId },
-      include: {
-        kitchen: {
-          select: { printer: true },
-        },
-      },
-    });
-
-    category?.kitchen.printer;
   }
 
   private async updateOrderItemsTable(
@@ -164,6 +158,7 @@ export class OrderService {
         const kotCreated = await this.prismaService.kot.create({
           data: {
             categoryId: +catId,
+
             OrderItems: {
               create: cartItems.map((cartItem) => {
                 const orderItem = {
@@ -185,6 +180,9 @@ export class OrderService {
           },
           select: {
             id: true,
+            createdAt: true,
+            updatedUser: true,
+
             Category: {
               select: {
                 kitchen: true,
@@ -194,9 +192,10 @@ export class OrderService {
           },
         });
 
-        // console.log(kotCreated);
+        console.log(kotCreated);
         createdKots.push(kotCreated.id);
-        await this.printKots(kotCreated);
+        // await this.printKots(kotCreated);
+        await this.pdfService.printKot(kotCreated, order);
       });
     } catch (error) {
       console.log(error);
@@ -204,15 +203,20 @@ export class OrderService {
     }
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private async printKots(kot: {
-    Category: {
-      kitchen: Kitchen;
-    } | null;
-    OrderItems: OrderItem[];
-  }) {
-    console.log('printer', kot.Category?.kitchen.printer);
-    console.log('items', JSON.stringify(kot.OrderItems));
-  }
+  //   private async printKots(kot: {
+  //     createdAt: Date;
+  //     id: number;
+  //     Category: {
+  //         kitchen: Kitchen;
+  //     } | null;
+  //     OrderItems: OrderItem[];
+  // }) {
+  //     console.log('printer', kot.Category?.kitchen.printer);
+  //     console.log('items', JSON.stringify(kot.OrderItems));
+
+  //     const printerName = kot.Category?.kitchen.printer;
+  //     const kotDetails =
+  //   }
 
   private async checkIfTableHasRunningOrder(tableName: string) {
     try {

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>KOT</title>
+	<head>
+	<style type="text/css">
+		body{
+			width: 360px;
+			margin: 0px;
+			padding: 0px;
+			font-size: 18px;
+			line-height: 24px;
+			font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            font-weight: light;
+			/* color: rgb(33,33,33); */
+		}
+
+    .report-header {
+      text-align: center;
+    }
+
+		.kot-header {
+			font: bold;
+			font-size: 18px;
+		}
+		.kitchen-name {
+			text-align: center;
+      padding-bottom: 5px;
+      border-bottom :2px dotted black
+		}
+
+		.kot-header-line {
+			display: flex;
+		}
+		.kot-header-line-heading {
+			width: 50%;
+		}
+
+		.kot-body {
+			border-top: 2px solid black;
+		}
+
+		.items-title{
+			display: flex;
+      flex-direction: row;
+      padding: 5px 0;
+      border-bottom: 2px solid black;
+		}
+
+    	.item-name-heading{
+			flex-grow: 1;
+		}
+    .item {
+      display: flex;
+      flex-direction: row;
+      padding: 3px 0;
+    }
+    
+		.item-name-wrapper {
+			flex-grow: 1;
+		}
+
+		.item-quantity-heading {
+			width: 20%;
+		}
+    .item-quantity {
+			width: 20%;
+		}
+    .summary-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 0 8px;
+      border-top: 2px solid black;
+      border-bottom: 2px solid black
+    }
+	</style>
+	<meta charset="utf-8">
+</head>
+<body>
+	<div class="report-header">
+		<!-- <img src="logo.png" class="logo"> -->
+		<h3>{{restaurantName}}</h3>
+		<p>Kitchen Order Ticket</p>
+	</div>
+
+	<div class="kot-header">
+		<div class="kitchen-name">{{kitchenName}}</div>
+		<div class="kot-header-line">
+			<div class="kot-header-line-heading">Ticked NO: </div>
+			<div class="kot-header-line-detail">{{ticketId}}</div>
+		</div>
+		<div class="kot-header-line">
+			<div class="kot-header-line-heading">Table NO: </div>
+			<div class="kot-header-line-detail">{{tableNumber }}</div>
+		</div>
+		<div class="kot-header-line">
+			<div class="kot-header-line-heading">Bill Date: </div>
+			<div class="kot-header-line-detail">{{billDate}}</div>
+		</div>
+		<div class="kot-header-line">
+			<div class="kot-header-line-heading">Waiter: </div>
+			<div class="kot-header-line-detail">{{waiterName}}</div>
+		</div>
+
+	</div>
+	<div class="kot-body">
+		<div class="items-title">
+			<div class="item-name-heading">Item</div>
+			<div class="item-quantity-heading">Quantity</div>
+		</div>
+
+		{{#each cartItems}}
+
+		<div class="item">
+			<div class="item-name-wrapper">
+       			 <div class="item-name">{{this.name}}</div>
+					{{#if arabicName}}
+					<div class="item-name-arabic">كيف حالك </div>
+					{{/if}}
+
+			</div>
+			<div class="item-quantity">{{this.count}}</div>
+		</div>
+	  {{/each}}
+
+
+<!-- 		
+				<div class="item">
+			<div class="item-name-wrapper">
+        <div class="item-name">Chicken buha</div>
+        <div class="item-name-arabic">كيف حالك </div>
+			</div>
+			<div class="item-quantity">2</div>
+		</div>
+    		<div class="item">
+			<div class="item-name-wrapper">
+        <div class="item-name">Chicken buha</div>
+        <div class="item-name-arabic">كيف حالك </div>
+			</div>
+			<div class="item-quantity">2</div>
+		</div>
+    		<div class="item">
+			<div class="item-name-wrapper">
+        <div class="item-name">Chicken buha</div>
+        <div class="item-name-arabic">كيف حالك </div>
+			</div>
+			<div class="item-quantity">2</div>
+		</div>
+    		<div class="item">
+			<div class="item-name-wrapper">
+        <div class="item-name">Chicken buha</div>
+        <div class="item-name-arabic">كيف حالك </div>
+			</div>
+			<div class="item-quantity">2</div>
+		</div>
+    		<div class="item">
+			<div class="item-name-wrapper">
+        <div class="item-name">Chicken buha</div>
+        <div class="item-name-arabic">كيف حالك </div>
+			</div>
+			<div class="item-quantity">2</div>
+		</div>
+     -->
+    <div class="summary-container">
+      <div>Items : {{this.length()}} </div>
+      <div> Quantity: 13 </div>
+    </div>
+		
+	</div>
+</body>
+</html>
