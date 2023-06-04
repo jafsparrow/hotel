@@ -18,11 +18,11 @@ model User {
     isCashier         Boolean     @default(false)
     isWaiter          Boolean     @default(true)
     isKitchenUser     Boolean     @default(false)
-    kitchenOrderItems OrderItem[] @relation("kitchenUser")
     // userCreatedOrders Order[]     @relation("createdUser")
     // createdForOrders  Order[]     @relation("createdForUser")
     Order             Order[]
     createdOrderItems OrderItem[] @relation("createdUser")
+    Kot               Kot[]
 }
 
 model Product {
@@ -58,6 +58,7 @@ model Category {
     startTime         String    @default("")
     endTime           String    @default("")
     products          Product[]
+    Kot               Kot[]
 }
 
 model Collection {
@@ -112,16 +113,26 @@ model OrderItem {
     customeKey    String
     name          String
     kotNumber     Int
+    Kot           Kot?    @relation(fields: [kotNumber], references: [id])
     orderId       Int
     Order         Order   @relation(fields: [orderId], references: [id])
     createdUser   User?   @relation("createdUser", fields: [userId], references: [id])
     userId        Int?
     status        String?
-    kitchenUserId Int?
-    kitchenUser   User?   @relation("kitchenUser", fields: [kitchenUserId], references: [id])
     orderItemType String  @default("new")
     count         Int
     modifiers     String  @default("")
+}
+
+model Kot {
+    id            Int         @id @default(autoincrement())
+    createdAt     DateTime    @default(now())
+    updatedAt     DateTime    @updatedAt
+    updatedUserId Int?
+    updatedUser   User?       @relation(fields: [updatedUserId], references: [id])
+    OrderItems    OrderItem[]
+    Category      Category?   @relation(fields: [categoryId], references: [id])
+    categoryId    Int?
 }
 
 model Company {

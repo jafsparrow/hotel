@@ -1,8 +1,9 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { PrismaService } from '@hotel/api/data-access-db';
-import { Order, Prisma, OrderItem } from '@prisma/client';
+import { Order, Prisma, OrderItem, Kitchen } from '@prisma/client';
 import {
+  CartItem,
   OrderItemStatus,
   OrderItemType,
   OrderStatus,
@@ -48,6 +49,7 @@ export class OrderService {
       console.log('creating for takeaway');
       const newOrder = await this.createTakeAwayOrder(createOrderDto, appUser);
       console.log('takeaway order created successfully');
+      if (!newOrder) return;
       await this.updateOrderItemsTable(newOrder, createOrderDto, false);
       return 'ordercreated success fully ';
     }
@@ -91,13 +93,109 @@ export class OrderService {
       console.log(error);
     }
   }
+
+  private async createKot(categoryId: string, items: CartItem[]) {
+    const category = await this.prismaService.category.findFirst({
+      where: { id: +categoryId },
+      include: {
+        kitchen: {
+          select: { printer: true },
+        },
+      },
+    });
+
+    category?.kitchen.printer;
+  }
+
   private async updateOrderItemsTable(
     order: Order,
     createOrderDto: CreateOrderDto,
     isRunning: boolean
   ) {
-    // Get KOT Number.
+    try {
+      const orderId = order.id;
+      // split order items into cateogry.
+      const orderItems1 = Object.entries(createOrderDto.cartItems).map(
+        (itemArr) => {
+          const key = itemArr[0];
+          const items = itemArr[1];
 
+          const item: CartItem = {
+            ...items,
+            key,
+          };
+          return item;
+        }
+      );
+
+      const catViseOrderItems: { [x: string]: CartItem[] } = {};
+
+      orderItems1.forEach((orderItem) => {
+        const catId = orderItem.product.categoryId.toString();
+
+        catViseOrderItems[catId] = [
+          ...(catViseOrderItems[catId] || []),
+          orderItem,
+        ];
+      });
+
+      // console.log('categoryvice', catViseOrderItems);
+
+      Object.entries(catViseOrderItems).forEach(async ([catId, cartItems]) => {
+        const kotCreated = await this.prismaService.kot.create({
+          data: {
+            categoryId: +catId,
+            OrderItems: {
+              create: cartItems.map((cartItem) => {
+                const orderItem = {
+                  count: cartItem.count,
+                  customeKey: cartItem.key ?? '',
+                  name: cartItem.product.name,
+                  orderId: orderId,
+                  OrderItemType: isRunning ? 'running' : 'new',
+                  modifiers: cartItem.modifiers
+                    ? cartItem.modifiers?.reduce(
+                        (prev, curr) => prev.concat(', ', curr.description),
+                        ''
+                      )
+                    : '',
+                };
+                return orderItem;
+              }),
+            },
+          },
+          select: {
+            Category: {
+              select: {
+                kitchen: true,
+              },
+            },
+            OrderItems: true,
+          },
+        });
+
+        console.log(kotCreated);
+        await this.printKots(kotCreated);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private async printKots(kot: {
+    Category: {
+      kitchen: Kitchen;
+    } | null;
+    OrderItems: OrderItem[];
+  }) {
+    console.log('printer', kot.Category?.kitchen.printer);
+    console.log('items', JSON.stringify(kot.OrderItems));
+  }
+  private async updateOrderItemsTable11(
+    order: Order,
+    createOrderDto: CreateOrderDto,
+    isRunning: boolean
+  ) {
     const orderItems = Object.entries(createOrderDto.cartItems).map(
       (itemArr) => {
         const key = itemArr[0];
@@ -108,6 +206,7 @@ export class OrderService {
               ''
             )
           : '';
+
         const item: Prisma.OrderItemUncheckedCreateInput = {
           count: items.count,
           customeKey: key,
@@ -116,7 +215,6 @@ export class OrderService {
           name: items.product.name,
           orderItemType: isRunning ? OrderItemType.RUNNING : OrderItemType.NEW,
           status: OrderItemStatus.INPROGRESS,
-          kitchenUserId: 1,
           orderId: order.id,
         };
         return item;
@@ -126,6 +224,35 @@ export class OrderService {
     orderItems.forEach(
       async (item) => await this.prismaService.orderItem.create({ data: item })
     );
+
+    // split order items into cateogry.
+    const orderItems1 = Object.entries(createOrderDto.cartItems).map(
+      (itemArr) => {
+        const key = itemArr[0];
+        const items = itemArr[1];
+
+        const item: CartItem = {
+          ...items,
+          key,
+        };
+        return item;
+      }
+    );
+
+    const catViseOrderItems: { [x: string]: CartItem[] } = {};
+
+    orderItems1.forEach((orderItem) => {
+      const catId = orderItem.product.categoryId.toString();
+
+      catViseOrderItems[catId] = [
+        ...(catViseOrderItems[catId] || []),
+        orderItem,
+      ];
+    });
+
+    console.log('categoryvice', catViseOrderItems);
+
+    // Object.entries(catViseOrderItems).forEach(async (itemArr) => {});
   }
   private async checkIfTableHasRunningOrder(tableName: string) {
     const existingOrderFortheTable = await this.prismaService.order.findFirst({

@@ -21,9 +21,6 @@
       "@hotel/api/feature-order": ["libs/api/feature-order/src/index.ts"],
       "@hotel/api/feature-product": ["libs/api/feature-product/src/index.ts"],
       "@hotel/api/feature-user": ["libs/api/feature-user/src/index.ts"],
-      "@hotel/api/generated-db-types": [
-        "libs/api/generated-db-types/src/index.ts"
-      ],
       "@hotel/orderapp/cart/data-access": [
         "libs/orderapp/cart/data-access/src/index.ts"
       ],

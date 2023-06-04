@@ -6,6 +6,7 @@ export interface CartItem {
   count: number;
   product: Product;
   modifiers?: Modifier[];
+  key?: string;
 }
 
 export interface Cart {
