@@ -16,6 +16,7 @@ import {
 export class OrderService {
   constructor(private prismaService: PrismaService) {}
   createsample(orderCreateDto: CreateOrderDto) {
+    console.log('create sample alled');
     this.createOrder(orderCreateDto, {
       firstName: 'Jafar',
       userType: UserType.STAFF,
@@ -23,9 +24,9 @@ export class OrderService {
   }
 
   async getNextOrderNumber(): Promise<number> {
-    const company = await this.prismaService.company.findFirst({});
+    const company = await this.prismaService.company.findFirst();
     if (!company) throw new Error('no company data found');
-
+    console.log('company data found');
     await this.prismaService.company.update({
       where: {
         id: company?.id,
@@ -35,17 +36,23 @@ export class OrderService {
       },
     });
 
+    console.log('company data updated');
+
     return company?.lastOrderNumber + 1;
   }
 
   async createOrder(createOrderDto: CreateOrderDto, appUser: User) {
+    console.log('calling create order');
     // check if it is take away.
     if (createOrderDto.cartCreatedFor.userType == UserType.TAKEAWAY) {
+      console.log('creating for takeaway');
       const newOrder = await this.createTakeAwayOrder(createOrderDto, appUser);
+      console.log('takeaway order created successfully');
       await this.updateOrderItemsTable(newOrder, createOrderDto, false);
       return 'ordercreated success fully ';
     }
 
+    console.log('running for table roder createion');
     // check existing order
     const existingOrder = await this.checkIfTableHasRunningOrder(
       createOrderDto.cartCreatedFor.firstName
@@ -56,6 +63,7 @@ export class OrderService {
       return 'ordercreated success fully ';
     }
 
+    console.log('updating the cartiems for the table order new');
     await this.updateOrderItemsTable(existingOrder, createOrderDto, true);
     return 'cart created successfully';
   }
@@ -63,20 +71,25 @@ export class OrderService {
     createOrderDto: CreateOrderDto,
     appUser: User
   ) {
-    const nextOrderId = await this.getNextOrderNumber();
+    try {
+      const nextOrderId = await this.getNextOrderNumber();
+      console.log('after getting company data');
+      const newOrder = await this.prismaService.order.create({
+        data: {
+          customerName: createOrderDto.cartCreatedFor.firstName,
+          orderNumber: nextOrderId,
+          orderStatus: OrderStatus.INPROGRESS,
+          orderType: OrderType.TAKEAWAY,
+          paymentStatus: PaymentStatus.NOTPAID,
+          createdUserId: 1,
+        },
+      });
 
-    const newOrder = await this.prismaService.order.create({
-      data: {
-        customerName: createOrderDto.cartCreatedFor.firstName,
-        orderNumber: nextOrderId,
-        orderStatus: OrderStatus.INPROGRESS,
-        orderType: OrderType.TAKEAWAY,
-        paymentStatus: PaymentStatus.NOTPAID,
-        createdUserId: 1,
-      },
-    });
-
-    return newOrder;
+      console.log('prisma is creating data');
+      return newOrder;
+    } catch (error) {
+      console.log(error);
+    }
   }
   private async updateOrderItemsTable(
     order: Order,
