@@ -110,7 +110,7 @@
 			<div class="item-quantity-heading">Quantity</div>
 		</div>
 
-		{{#each cartItems}}
+		{{#each orderItems}}
 
 		<div class="item">
 			<div class="item-name-wrapper">
@@ -163,8 +163,8 @@
 		</div>
      -->
     <div class="summary-container">
-      <div>Items : {{this.length()}} </div>
-      <div> Quantity: 13 </div>
+      <div>Items : {{numberOfItems}} </div>
+      <div> Quantity: {{quantity}}</div>
     </div>
 		
 	</div>

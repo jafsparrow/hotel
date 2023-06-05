@@ -47,9 +47,16 @@ export class PDFService {
       billDate: kot.createdAt.toISOString(),
       tableNumber: order.customerName,
       waiterName: 'Jafar',
-      ...kot.OrderItems,
+      orderItems: kot.OrderItems,
+      numberOfItems: kot.OrderItems.length.toString() ?? '',
+      quantity:
+        kot.OrderItems.reduce(
+          (prev, item) => prev + item.count,
+          0
+        ).toString() ?? '',
     };
-    const relativePath = resolve(__dirname, '../src/views');
+    // const relativePath = resolve(__dirname, '../src/views');
+    const relativePath = resolve(__dirname, 'views');
     console.log('relative path', relativePath);
     console.log(join(relativePath, templateName));
     const templateHtml = readFileSync(join(relativePath, templateName), 'utf8');
@@ -62,9 +69,10 @@ export class PDFService {
     const miliss = new Date();
 
     const milis = miliss.getTime();
-
-    const pdfPath = join('pdf', `${name}-${milis}.pdf`);
-
+    const relativePath = resolve(__dirname, '../../../../pdf');
+    // const pdfPath = join('pdf', `${name}-${milis}.pdf`);
+    const pdfPath = join(relativePath, `${name}-${milis}.pdf`);
+    console.log('pdf path', pdfPath);
     const options: PDFOptions = {
       width: '360',
       headerTemplate: '<p>header jafar</p>',

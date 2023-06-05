@@ -52,6 +52,7 @@ export class OrderService {
 
       return company?.lastOrderNumber + 1;
     } catch (error) {
+      console.log('next order number error');
       throw new BadRequestException(error);
     }
   }
@@ -66,6 +67,8 @@ export class OrderService {
         );
         if (!newOrder)
           throw new BadRequestException('could not create any new order..');
+
+        console.log('order has been created.', newOrder);
         return await this.updateOrderItemsTable(
           newOrder,
           createOrderDto,
