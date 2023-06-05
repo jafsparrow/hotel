@@ -3,11 +3,12 @@ import { OrderContoller } from './api-feature-order.controller';
 import { OrderService } from './order.service';
 import { ApiDataAccessDbModule } from '@hotel/api/data-access-db';
 import { PDFService } from './pdf.service';
+import { PrintService } from './print.service';
 
 @Module({
   imports: [ApiDataAccessDbModule],
   controllers: [OrderContoller],
-  providers: [OrderService, PDFService],
+  providers: [OrderService, PDFService, PrintService],
   exports: [],
 })
 export class ApiFeatureOrderModule {}

@@ -6,9 +6,11 @@ import { join, resolve } from 'path';
 import { Cart } from '@hotel/common/types';
 import { PDFOptions, launch } from 'puppeteer';
 import { Kitchen, Order, OrderItem, User } from '@prisma/client';
+import { PrintService } from './print.service';
 
 @Injectable()
 export class PDFService {
+  constructor(private printService: PrintService) {}
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async printKot(
     kot: {
@@ -25,6 +27,10 @@ export class PDFService {
     const html = this.createHtml('KOT.html', kot, order);
     const pdfOptions = this.getPdfOptions('pdf', 'kot');
     await this.savePdf(html, pdfOptions);
+    await this.printService.sendKOTtoPrint(
+      pdfOptions.path!,
+      kot.Category!.kitchen.printer
+    );
   }
   private createHtml(
     templateName: string,
