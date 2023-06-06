@@ -144,23 +144,44 @@ export class OrderService {
         }
       );
 
-      const catViseOrderItems: { [x: string]: CartItem[] } = {};
-
-      orderItems1.forEach((orderItem) => {
-        const catId = orderItem.product.categoryId.toString();
-
-        catViseOrderItems[catId] = [
-          ...(catViseOrderItems[catId] || []),
-          orderItem,
-        ];
+      // get all the categories with the kitchen name.
+      const categories = await this.prismaService.category.findMany({
+        select: {
+          id: true,
+          kitchen: true,
+        },
       });
+
+      const kitchenIdVice: { [x: string]: CartItem[] } = {};
+      const kitchenTempArra = [];
+      orderItems1.forEach((orderItem) => {
+        const catId = orderItem.product.categoryId;
+
+        const kitchenDetail = categories.find(
+          (cat) => cat.id === catId
+        )?.kitchen;
+        kitchenTempArra.push(kitchenDetail);
+        const kitId = kitchenDetail?.id ?? 'noPrinter';
+        kitchenIdVice[kitId] = [...(kitchenIdVice[kitId] || []), orderItem];
+      });
+
+      // const catViseOrderItems: { [x: string]: CartItem[] } = {};
+
+      // orderItems1.forEach((orderItem) => {
+      //   const catId = orderItem.product.categoryId.toString();
+
+      //   catViseOrderItems[catId] = [
+      //     ...(catViseOrderItems[catId] || []),
+      //     orderItem,
+      //   ];
+      // });
 
       const createdKots = [];
 
-      Object.entries(catViseOrderItems).forEach(async ([catId, cartItems]) => {
+      Object.entries(kitchenIdVice).forEach(async ([kitId, cartItems]) => {
         const kotCreated = await this.prismaService.kot.create({
           data: {
-            categoryId: +catId,
+            kitchenId: +kitId,
 
             OrderItems: {
               create: cartItems.map((cartItem) => {
@@ -185,12 +206,12 @@ export class OrderService {
             id: true,
             createdAt: true,
             updatedUser: true,
-
-            Category: {
+            Kitchen: {
               select: {
-                kitchen: true,
+                printer: true,
               },
             },
+
             OrderItems: true,
           },
         });

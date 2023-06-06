@@ -15,34 +15,34 @@ export class PDFService {
   async printKot(
     kot: {
       createdAt: Date;
-      id: number;
       updatedUser: User | null;
-      Category: {
-        kitchen: Kitchen;
-      } | null;
       OrderItems: OrderItem[];
+      Kitchen: {
+        printer: string;
+      } | null;
+      id: number;
     },
     order: Order
   ) {
     const html = this.createHtml('KOT.html', kot, order);
     const pdfOptions = this.getPdfOptions('pdf', 'kot');
     await this.savePdf(html, pdfOptions);
-    await this.printService.sendKOTtoPrint(
-      pdfOptions.path!,
-      kot.Category!.kitchen.printer
-    );
+    // await this.printService.sendKOTtoPrint(
+    //   pdfOptions.path!,
+    //   kot.Kitchen!.printer
+    // );
   }
   private createHtml(
     templateName: string,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     kot: {
       createdAt: Date;
-      id: number;
       updatedUser: User | null;
-      Category: {
-        kitchen: Kitchen;
-      } | null;
       OrderItems: OrderItem[];
+      Kitchen: {
+        printer: string;
+      } | null;
+      id: number;
     },
     order: Order
   ) {

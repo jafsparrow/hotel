@@ -58,7 +58,6 @@ model Category {
     startTime         String    @default("")
     endTime           String    @default("")
     products          Product[]
-    Kot               Kot[]
 }
 
 model Collection {
@@ -71,6 +70,7 @@ model Kitchen {
     id       Int        @id @default(autoincrement())
     name     String
     printer  String
+    kots     Kot[]
     Category Category[]
 }
 
@@ -131,8 +131,9 @@ model Kot {
     updatedUserId Int?
     updatedUser   User?       @relation(fields: [updatedUserId], references: [id])
     OrderItems    OrderItem[]
-    Category      Category?   @relation(fields: [categoryId], references: [id])
-    categoryId    Int?
+
+    kitchenId Int?
+    Kitchen   Kitchen? @relation(fields: [kitchenId], references: [id])
 }
 
 model Company {
