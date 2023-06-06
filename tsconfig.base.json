@@ -38,6 +38,12 @@
       "@hotel/orderapp/order/data-access/order": [
         "libs/orderapp/order/data-access/order/src/index.ts"
       ],
+      "@hotel/orderapp/order/feature/order-detail": [
+        "libs/orderapp/order/feature/order-detail/src/index.ts"
+      ],
+      "@hotel/orderapp/order/feature/order-list": [
+        "libs/orderapp/order/feature/order-list/src/index.ts"
+      ],
       "@hotel/orderapp/order/feature/product-count": [
         "libs/orderapp/order/feature/product-count/src/index.ts"
       ],
