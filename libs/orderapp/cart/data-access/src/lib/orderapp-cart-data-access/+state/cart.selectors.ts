@@ -42,9 +42,11 @@ export const selectNumberOfItemsInCart = createSelector(
   (state) => Object.keys(state.cartItems)?.length
 );
 
-export const selectCartTotal = createSelector(selectCartState, (state) =>
-  getTotalCartAmout(state)
-);
+export const selectCartTotal = createSelector(selectCartState, (state) => {
+  const total = getTotalCartAmout(state);
+  // console.log('total is ', total);
+  return total;
+});
 
 export const selectInCartProductCount = createSelector(
   selectCart,
@@ -74,11 +76,14 @@ export const selectCartCountOfProduct = (productId: string) =>
     return count;
   });
 
-export const getTotalCartAmout = (state: Cart): number | null =>
-  Object.values(state.cartItems).reduce(
-    (tot, cartItem) => tot + cartItem.product.price * cartItem.count,
-    0
-  );
+export const getTotalCartAmout = (state: Cart): string => {
+  const getTotal = +Object.values(state.cartItems)
+    .reduce((tot, cartItem) => tot + cartItem.product.price * cartItem.count, 0)
+    .toFixed(3);
+  // console.log('gettotla', getTotal.toFixed(3));
+  const totalString = getTotal.toFixed(3).toString();
+  return totalString; //getTotal.toFixed().toString();
+};
 
 export const getTaxedSubTotal = (total: number, tax: Tax): number => {
   let multiplyValue = 1;

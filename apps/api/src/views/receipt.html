@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>KOT</title>
+	<head>
+	<style type="text/css">
+		body{
+			width: 360px;
+			margin: 0px;
+			padding: 0px;
+			font-size: 18px;
+			line-height: 24px;
+			font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            font-weight: light;
+			/* color: rgb(33,33,33); */
+		}
+
+    .report-header {
+      text-align: center;
+    }
+
+		.kot-header {
+			font: bold;
+			font-size: 18px;
+		}
+		.kitchen-name {
+			text-align: center;
+      padding-bottom: 5px;
+      border-bottom :2px dotted black
+		}
+
+		.kot-header-line {
+			display: flex;
+		}
+		.kot-header-line-heading {
+			width: 50%;
+		}
+
+		.kot-body {
+			border-top: 2px solid black;
+		}
+
+		.items-title{
+			display: flex;
+      flex-direction: row;
+      padding: 5px 0;
+      border-bottom: 2px solid black;
+      gap: 5px;
+		}
+      	.item-name-heading{
+        width: 60%
+		}
+    
+    .item-rate-heading {
+      width: 10%
+    }
+  .item-quantity-heading {
+      width: 10%
+    }
+  
+    .item-amount-heading{
+			width: 20%;
+      align-self: end;
+		}
+    .item {
+      display: flex;
+      flex-direction: row;
+      gap: 5px;
+    }
+    
+		.item-name-wrapper {
+      width: 60%
+		}
+    
+      .item-rate {
+      width: 10%
+    }
+
+    .item-amount{
+			width: 20%;
+      
+		}
+    .item-quantity {
+			width: 10%;
+		}
+    .summary-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 0 8px;
+      border-top: 2px solid black;
+      border-bottom: 2px solid black
+    }
+    
+    .bottom-summary {
+      margin-top:10px;
+      display: flex;
+      flex-direction: row;
+      
+    }
+    
+    .bottom-summary-text-area {
+      width: 80%;
+      text-align:right;
+      padding-right: 20px;
+    }
+    .bottom-summary-info {
+      
+      width: 30%
+    }
+	</style>
+	<meta charset="utf-8">
+</head>
+<body>
+	<div class="report-header">
+		<!-- <img src="logo.png" class="logo"> -->
+		<h3>Dawar restaurant</h3>
+		<p>Dine In bill / takeaway bill</p>
+	</div>
+
+	<div class="kot-header">
+		<div class="kitchen-name">Order No: 380</div>
+		<div class="kot-header-line">
+			<div class="kot-header-line-heading">Bill NO: </div>
+			<div class="kot-header-line-detail">ONly if Bill has sep</div>
+		</div>
+		<div class="kot-header-line">
+			<div class="kot-header-line-heading">Table NO: </div>
+			<div class="kot-header-line-detail">11</div>
+		</div>
+		<div class="kot-header-line">
+			<div class="kot-header-line-heading">Bill Date: </div>
+			<div class="kot-header-line-detail">30/05/1988 12: 30 pm</div>
+		</div>
+		<div class="kot-header-line">
+			<div class="kot-header-line-heading">Waiter: </div>
+			<div class="kot-header-line-detail">Hameed</div>
+		</div>
+
+	</div>
+	<div class="kot-body">
+		<div class="items-title">
+			<div class="item-name-heading">Item</div>
+			<div class="item-rate-heading">Rate</div>
+      
+			<div class="item-quantity-heading">Qty</div>
+      
+			<div class="item-amount-heading">Amount</div>
+		</div>
+
+	
+		<div class="item">
+			<div class="item-name-wrapper">
+       			 <div class="item-name">chicekn aboo</div>
+							
+					<div class="item-name-arabic">كيف حالك </div>
+			
+
+			</div>
+      <div class="item-rate">1.6</div>
+			<div class="item-quantity">4</div>
+			<div class="item-amount">6.4</div>
+      
+		</div>
+	
+    
+    <div class="item">
+			<div class="item-name-wrapper">
+       			 <div class="item-name">chicekn aboo</div>
+							
+					<div class="item-name-arabic">كيف حالك </div>
+			
+
+			</div>
+      <div class="item-rate">1.6</div>
+			<div class="item-quantity">4</div>
+			<div class="item-amount">6.4</div>
+      
+		</div>
+    
+    <div class="item">
+			<div class="item-name-wrapper">
+       			 <div class="item-name">chicekn aboo</div>
+							
+					<div class="item-name-arabic">كيف حالك </div>
+			
+
+			</div>
+      <div class="item-rate">1.6</div>
+			<div class="item-quantity">4</div>
+			<div class="item-amount">6.4</div>
+      
+		</div>
+
+
+    <div class="summary-container">
+      <div>Items : 4</div>
+      <div> Quantity: 6</div>
+    </div>
+    
+    <div class=bottom-summary> 
+       <div class="bottom-summary-text-area">
+         Total Amount:
+      </div>
+      <div class="bottom-summary-info">
+        12.500
+      </div>
+    </div>
+     <div class=bottom-summary> 
+       <div class="bottom-summary-text-area">
+         Total Amount:
+      </div>
+      <div class="bottom-summary-info">
+        12.500
+      </div>
+    </div>
+     <div class=bottom-summary> 
+       <div class="bottom-summary-text-area">
+         Total Amount:
+      </div>
+      <div class="bottom-summary-info">
+        12.500
+      </div>
+    </div>
+		
+	</div>
+</body>
+</html>
