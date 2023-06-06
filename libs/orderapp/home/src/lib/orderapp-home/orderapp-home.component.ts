@@ -49,7 +49,7 @@ export class OrderappHomeComponent {
     exitAnimationDuration: string
   ): void {
     this.dialog.open(OrderappTableFeatureListComponent, {
-      width: '100%',
+      width: '100vw',
       height: '90%',
       enterAnimationDuration,
       exitAnimationDuration,
