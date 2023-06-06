@@ -11,6 +11,20 @@ import { PrintService } from './print.service';
 @Injectable()
 export class PDFService {
   constructor(private printService: PrintService) {}
+
+  async samplebill() {
+    const relativePath = resolve(__dirname, 'views');
+    const templateHtml = readFileSync(
+      join(relativePath, 'receipt.html'),
+      'utf8'
+    );
+    const template = handlebars.compile(templateHtml);
+    const html = template({});
+
+    const pdfOptions = this.getPdfOptions('pdf', 'kot');
+    await this.savePdf(html, pdfOptions);
+    await this.printService.sendKOTtoPrint(pdfOptions.path!, 'CP-Q2');
+  }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async printKot(
     kot: {

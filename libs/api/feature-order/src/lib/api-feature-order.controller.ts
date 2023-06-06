@@ -10,6 +10,11 @@ export class OrderContoller {
     return 'jafar';
   }
 
+  @Get('sampleBill')
+  printsamplebill() {
+    this.orderService.printSampleBill();
+  }
+
   @Post()
   post(@Body() order: CreateOrderDto) {
     // return 'hello';

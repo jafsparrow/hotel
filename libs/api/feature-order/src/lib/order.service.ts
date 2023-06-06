@@ -24,6 +24,10 @@ export class OrderService {
     private prismaService: PrismaService,
     private pdfService: PDFService
   ) {}
+
+  async printSampleBill() {
+    return this.pdfService.samplebill();
+  }
   async createsample(orderCreateDto: CreateOrderDto) {
     console.log('create sample alled');
     try {
