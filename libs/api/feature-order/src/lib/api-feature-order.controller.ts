@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { OrderService } from './order.service';
 
@@ -6,8 +6,9 @@ import { OrderService } from './order.service';
 export class OrderContoller {
   constructor(private orderService: OrderService) {}
   @Get()
-  get() {
-    return 'jafar';
+  getRecentOrders() {
+    console.log('recent orders');
+    return this.orderService.getRecentOrders();
   }
 
   @Get('sampleBill')
@@ -15,6 +16,12 @@ export class OrderContoller {
     this.orderService.printSampleBill();
   }
 
+  @Get(':id')
+  getOrderDetails(@Param() params: any) {
+    const orderId = +params.id;
+
+    return this.orderService.getOrderDetails(orderId);
+  }
   @Post()
   post(@Body() order: CreateOrderDto) {
     // return 'hello';

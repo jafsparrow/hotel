@@ -15,6 +15,7 @@ import {
   PaymentStatus,
   User,
   UserType,
+  OrderSummary,
 } from '@hotel/common/types';
 import { PDFService } from './pdf.service';
 
@@ -24,6 +25,32 @@ export class OrderService {
     private prismaService: PrismaService,
     private pdfService: PDFService
   ) {}
+
+  async getRecentOrders(): Promise<OrderSummary[]> {
+    // this. shoudl fetch orders of last 24 hours.
+    return await this.prismaService.order.findMany({
+      where: {
+        createdAt: {
+          gt: new Date('2023-06-05'),
+        },
+      },
+    });
+  }
+
+  async getOrderDetails(orderId: number) {
+    // const date = new Date();
+    // const stringDate = date.toISOString().substring(0, 10);
+    // return await this.prismaService.order.findMany({
+    //   where: {
+    //     createdAt: {
+    //       gt: new Date(stringDate),
+    //     },
+    //   },
+    // });
+    return await this.prismaService.order.findUnique({
+      where: { id: orderId },
+    });
+  }
 
   async printSampleBill() {
     return this.pdfService.samplebill();

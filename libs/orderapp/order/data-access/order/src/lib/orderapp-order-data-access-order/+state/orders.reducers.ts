@@ -1,5 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import {
+  loadOrdersSpinnerOn,
   loadRecentOrders,
   loadRecentOrdersFail,
   loadRecentOrdersSuccess,
@@ -8,13 +9,14 @@ import {
   placeOrderTurnSpinnerOn,
   updateSelectedFilteredCategories,
 } from './orders.actions';
-import { OrderSummary } from '@hotel/orderapp/shared/data-access';
+import { OrderSummary } from '@hotel/common/types';
 
 export const ORDER_FEATURE_KEY = 'order';
 
 export interface Order {
   errorMessage: string;
   recentOrders: OrderSummary[];
+  selectedOrderDetails: OrderSummary | null;
   placeOrderSpinner: boolean;
   loadOrderSpinner: boolean;
   loadOrderDetailSpinner: boolean;
@@ -28,6 +30,7 @@ const initialState: Order = {
   loadOrderDetailSpinner: false,
   loadOrderSpinner: false,
   userSelectedFilterCategories: [],
+  selectedOrderDetails: null,
 };
 
 export const orderReducer = createReducer(
@@ -45,20 +48,21 @@ export const orderReducer = createReducer(
     ...state,
     placeOrderSpinner: true,
   })),
+  on(loadOrdersSpinnerOn, (state) => ({ ...state, loadOrderSpinner: true })),
   on(loadRecentOrders, (state) => ({
     ...state,
-    placeOrderSpinner: false,
+    loadOrderSpinner: false,
     errorMessage: '',
   })),
   on(loadRecentOrdersSuccess, (state, { recentOrders }) => ({
     ...state,
-    placeOrderSpinner: false,
+    loadOrderSpinner: false,
     recentOrders,
   })),
   on(loadRecentOrdersFail, (state, { errorMessage }) => ({
     ...state,
     errorMessage,
-    placeOrderSpinner: false,
+    loadOrderSpinner: false,
   })),
   on(updateSelectedFilteredCategories, (state, { filteredCategories }) => ({
     ...state,

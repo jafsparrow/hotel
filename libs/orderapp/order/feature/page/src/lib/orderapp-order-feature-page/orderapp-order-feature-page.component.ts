@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { OrderappOrderFeatureOrderListComponent } from '@hotel/orderapp/order/feature/order-list';
 import { OrderappOrderFeatureOrderDetailComponent } from '@hotel/orderapp/order/feature/order-detail';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { loadRecentOrders } from '@hotel/orderapp/order/data-access/order';
 
 @Component({
   selector: 'hotel-orderapp-order-feature-page',
@@ -17,7 +19,9 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
   styleUrls: ['./orderapp-order-feature-page.component.css'],
 })
 export class OrderappOrderFeaturePageComponent {
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private store: Store) {
+    this.store.dispatch(loadRecentOrders());
+  }
   openOrdersDialog() {
     console.log('open dialog clicked');
     this.dialog.open(OrderappOrderFeatureOrderListComponent, {

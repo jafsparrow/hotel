@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { OrderSummary } from '@hotel/orderapp/shared/data-access';
+import { OrderSummary } from '@hotel/common/types';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, interval, map, of, startWith, switchMap, tap } from 'rxjs';
@@ -117,7 +117,9 @@ export class OrderEffects {
           )
           .pipe(
             map((data) =>
-              loadRecentOrdersSuccess({ recentOrders: data as OrderSummary[] })
+              loadRecentOrdersSuccess({
+                recentOrders: data as OrderSummary[],
+              })
             ),
             catchError((error) =>
               of(

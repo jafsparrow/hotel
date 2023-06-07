@@ -11,12 +11,12 @@ export interface OrderItem extends CartItem {
 }
 
 export interface OrderSummary {
-  _id: string;
+  id: number;
   orderNumber?: number;
   createdAt?: Date;
   updatedAt?: Date;
-  status: OrderStatus;
-  orderItems: OrderItem[];
+  orderStatus: OrderStatus | string;
+  orderItems?: OrderItem[];
   createdBy?: User;
   createdFor?: User;
 }

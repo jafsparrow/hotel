@@ -106,7 +106,7 @@ export const selectNotPaidOrderOfCreatedForUser = createSelector(
   (orders, createForUser) => {
     console.log('from cart selectors', orders);
     return orders
-      .filter((order) => order.status !== OrderStatus.PAID)
+      .filter((order) => order.orderStatus !== OrderStatus.PAID)
       .filter(
         (order) => order.createdFor?.firstName == createForUser?.firstName
       );

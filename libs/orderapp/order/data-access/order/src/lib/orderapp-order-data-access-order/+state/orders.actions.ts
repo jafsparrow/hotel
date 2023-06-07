@@ -3,7 +3,7 @@ import {
   OrderItemStatus,
   OrderStatus,
   OrderSummary,
-} from '@hotel/orderapp/shared/data-access';
+} from '@hotel/common/types';
 import { createAction, props } from '@ngrx/store';
 
 export const placeOrder = createAction(
@@ -21,6 +21,9 @@ export const orderPlaceFail = createAction(
   props<{ errorMessage: string }>()
 );
 
+export const loadOrdersSpinnerOn = createAction(
+  '[Order] Turn recent order loadspinner ON'
+);
 export const loadRecentOrders = createAction('[Order] Load recent orders');
 export const loadRecentOrdersSuccess = createAction(
   '[Order] Load recent orders success',

@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { Order, ORDER_FEATURE_KEY } from './orders.reducers';
-import { OrderItem, OrderItemStatus } from '@hotel/orderapp/shared/data-access';
+import { OrderItem, OrderItemStatus } from '@hotel/common/types';
 
 export const selectOrderState = createFeatureSelector<Order>(ORDER_FEATURE_KEY);
 
@@ -25,9 +25,9 @@ export const selectOrderItemsFromRecentOrders = createSelector(
     console.log('orders', orders);
     const orderItemArray: OrderItem[] = orders
       .map((order) =>
-        order.orderItems.map((item) => ({
+        order.orderItems!.map((item) => ({
           ...item,
-          orderId: order._id?.toString(),
+          orderId: order.id?.toString(),
           orderNumber: order.orderNumber,
         }))
       )
