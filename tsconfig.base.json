@@ -53,6 +53,9 @@
       "@hotel/orderapp/product/data-access": [
         "libs/orderapp/product/data-access/src/index.ts"
       ],
+      "@hotel/orderapp/product/feature/add": [
+        "libs/orderapp/product/feature/add/src/index.ts"
+      ],
       "@hotel/orderapp/product/feature/categories": [
         "libs/orderapp/product/feature/categories/src/index.ts"
       ],
