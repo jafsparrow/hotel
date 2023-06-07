@@ -44,6 +44,9 @@
       "@hotel/orderapp/order/feature/order-list": [
         "libs/orderapp/order/feature/order-list/src/index.ts"
       ],
+      "@hotel/orderapp/order/feature/page": [
+        "libs/orderapp/order/feature/page/src/index.ts"
+      ],
       "@hotel/orderapp/order/feature/product-count": [
         "libs/orderapp/order/feature/product-count/src/index.ts"
       ],

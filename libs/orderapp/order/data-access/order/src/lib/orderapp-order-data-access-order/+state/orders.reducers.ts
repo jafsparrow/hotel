@@ -16,6 +16,8 @@ export interface Order {
   errorMessage: string;
   recentOrders: OrderSummary[];
   placeOrderSpinner: boolean;
+  loadOrderSpinner: boolean;
+  loadOrderDetailSpinner: boolean;
   userSelectedFilterCategories: string[];
 }
 
@@ -23,6 +25,8 @@ const initialState: Order = {
   recentOrders: [],
   errorMessage: '',
   placeOrderSpinner: false,
+  loadOrderDetailSpinner: false,
+  loadOrderSpinner: false,
   userSelectedFilterCategories: [],
 };
 

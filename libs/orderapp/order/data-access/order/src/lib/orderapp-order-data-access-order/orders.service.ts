@@ -23,6 +23,9 @@ export class OrderService {
     return this.httpClient.get(`${this.apiUrl}/orders`);
   }
 
+  getOrderDetail(orderId: number) {
+    return this.httpClient.post(`${this.apiUrl}/orders/item`, { orderId });
+  }
   updateOrderStatus(orderId: string, status: OrderStatus) {
     return this.httpClient.put(`${this.apiUrl}/orders`, { orderId, status });
   }

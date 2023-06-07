@@ -13,6 +13,11 @@ export const shellRoutes: Routes = [
     loadChildren: () =>
       import('@hotel/orderapp/home').then((c) => c.homeRoutes),
   },
+  {
+    path: 'order',
+    loadChildren: () =>
+      import('@hotel/orderapp/order/feature/page').then((r) => r.orderRoutes),
+  },
 
   {
     path: 'table',
