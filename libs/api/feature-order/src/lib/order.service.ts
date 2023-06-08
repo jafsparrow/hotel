@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { PrismaService } from '@hotel/api/data-access-db';
-import { Order, Prisma, OrderItem, Kitchen } from '@prisma/client';
+import { order, Prisma, orderItem, kitchen } from '@prisma/client';
 import {
   CartItem,
   OrderItemStatus,
@@ -49,6 +49,9 @@ export class OrderService {
     // });
     return await this.prismaService.order.findUnique({
       where: { id: orderId },
+      include: {
+        orderItems: true,
+      },
     });
   }
 
@@ -155,7 +158,7 @@ export class OrderService {
   }
 
   private async updateOrderItemsTable(
-    order: Order,
+    order: order,
     createOrderDto: CreateOrderDto,
     isRunning: boolean
   ) {
@@ -214,7 +217,7 @@ export class OrderService {
           data: {
             kitchenId: +kitId,
 
-            OrderItems: {
+            orderItems: {
               create: cartItems.map((cartItem) => {
                 const orderItem = {
                   count: cartItem.count,
@@ -243,7 +246,7 @@ export class OrderService {
               },
             },
 
-            OrderItems: true,
+            orderItems: true,
           },
         });
 

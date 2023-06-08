@@ -2,6 +2,7 @@ import { CartItem } from './cart';
 import { User } from './user';
 export interface OrderItem extends CartItem {
   status: OrderItemStatus;
+  name?: string;
   kitchenUser?: User;
   key?: string;
   totalCountOfSameItem?: number;
@@ -19,6 +20,8 @@ export interface OrderSummary {
   orderItems?: OrderItem[];
   createdBy?: User;
   createdFor?: User;
+  orderType?: string;
+  customerName?: string;
 }
 
 export interface AppliedTax {

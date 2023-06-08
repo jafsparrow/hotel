@@ -14,14 +14,14 @@ export const companyData = {
   },
 };
 
-export const collectionData: Prisma.CollectionCreateInput = {
+export const collectionData: Prisma.collectionCreateInput = {
   name: 'Arabian',
 };
 // export const kitchenData = {
 //   name: 'Juice Counter',
 //   printer: 'QAS',
 // };
-export const categoryData: Prisma.CategoryCreateInput[] = [
+export const categoryData: Prisma.categoryCreateInput[] = [
   {
     name: 'Mutton',
     color: '#dedede',

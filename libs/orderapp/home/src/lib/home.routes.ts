@@ -34,8 +34,7 @@ export const homeRoutes: Routes = [
       provideState(CATEGORY_FEATURE_KEY, categoryReducer),
       provideState(ORDER_FEATURE_KEY, orderReducer),
       provideState(CART_FEATURE_KEY, cartReducer),
-      provideState(ORDER_FEATURE_KEY, orderReducer),
-      provideEffects(OrderEffects),
+
       provideEffects(ProductsEffects),
       provideEffects(CategoryEffects),
     ],

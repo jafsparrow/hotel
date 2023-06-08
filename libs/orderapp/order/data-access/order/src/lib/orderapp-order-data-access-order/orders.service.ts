@@ -24,7 +24,9 @@ export class OrderService {
   }
 
   getOrderDetail(orderId: number) {
-    return this.httpClient.get(`${this.apiUrl}/orders/${orderId}`);
+    return this.httpClient.get<OrderSummary>(
+      `${this.apiUrl}/orders/${orderId}`
+    );
   }
   updateOrderStatus(orderId: string, status: OrderStatus) {
     return this.httpClient.put(`${this.apiUrl}/orders`, { orderId, status });

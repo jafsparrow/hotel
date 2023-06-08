@@ -20,6 +20,7 @@ import { loadRecentOrders } from '@hotel/orderapp/order/data-access/order';
 })
 export class OrderappOrderFeaturePageComponent {
   constructor(private dialog: MatDialog, private store: Store) {
+    console.log('consturcur of order feature pagen');
     this.store.dispatch(loadRecentOrders());
   }
   openOrdersDialog() {

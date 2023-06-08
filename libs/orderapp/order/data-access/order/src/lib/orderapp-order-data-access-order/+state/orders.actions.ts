@@ -34,6 +34,24 @@ export const loadRecentOrdersFail = createAction(
   props<{ errorMessage: string }>()
 );
 
+export const loadOrderDetailSpinnerOn = createAction(
+  '[Order] load order details from id'
+);
+export const loadOrderDetails = createAction(
+  '[Order] load order details from id',
+  props<{ orderId: number }>()
+);
+
+export const loadOrderDetailsSuccess = createAction(
+  '[Order] load order details Success',
+  props<{ order: OrderSummary }>()
+);
+
+export const loadOrderDetailsFailure = createAction(
+  '[Order] load order details Failure',
+  props<{ errorMessage: string }>()
+);
+
 export const updateOrderStatus = createAction(
   '[Order] update order status',
   props<{ orderId: string; status: OrderStatus }>()

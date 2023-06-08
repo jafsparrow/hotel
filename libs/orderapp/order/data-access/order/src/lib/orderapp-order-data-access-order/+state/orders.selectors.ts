@@ -72,3 +72,13 @@ export const selectFilteredOrderItemsFromRecentOrders = createSelector(
     );
   }
 );
+
+export const selectLoadOrderDetailSpinner = createSelector(
+  selectOrderState,
+  (state) => state.loadOrderDetailSpinner
+);
+
+export const selectOrderDetailsOfSelectedOrder = createSelector(
+  selectOrderState,
+  (state) => state.selectedOrderDetails
+);

@@ -31,6 +31,7 @@ export class ApiFeatureProductController {
   constructor(private productService: ProductService) {}
   @Get('list')
   getProducts() {
+    console.log('get product api end point');
     return this.productService.getProduct();
   }
 

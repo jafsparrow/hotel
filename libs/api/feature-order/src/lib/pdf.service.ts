@@ -5,7 +5,7 @@ import { join, resolve } from 'path';
 
 import { Cart } from '@hotel/common/types';
 import { PDFOptions, launch } from 'puppeteer';
-import { Kitchen, Order, OrderItem, User } from '@prisma/client';
+import { kitchen, order, orderItem, user } from '@prisma/client';
 import { PrintService } from './print.service';
 
 @Injectable()
@@ -29,14 +29,14 @@ export class PDFService {
   async printKot(
     kot: {
       createdAt: Date;
-      updatedUser: User | null;
-      OrderItems: OrderItem[];
+      updatedUser: user | null;
+      orderItems: orderItem[];
       Kitchen: {
         printer: string;
       } | null;
       id: number;
     },
-    order: Order
+    order: order
   ) {
     const html = this.createHtml('KOT.html', kot, order);
     const pdfOptions = this.getPdfOptions('pdf', 'kot');
@@ -51,14 +51,14 @@ export class PDFService {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     kot: {
       createdAt: Date;
-      updatedUser: User | null;
-      OrderItems: OrderItem[];
+      updatedUser: user | null;
+      orderItems: orderItem[];
       Kitchen: {
         printer: string;
       } | null;
       id: number;
     },
-    order: Order
+    order: order
   ) {
     const updatedData = {
       restaurantName: 'Dawar Restaurant',
@@ -67,13 +67,12 @@ export class PDFService {
       billDate: kot.createdAt.toISOString(),
       tableNumber: order.customerName,
       waiterName: 'Jafar',
-      orderItems: kot.OrderItems,
-      numberOfItems: kot.OrderItems.length.toString() ?? '',
+      orderItems: kot.orderItems,
+      numberOfItems: kot.orderItems.length.toString() ?? '',
       quantity:
-        kot.OrderItems.reduce(
-          (prev, item) => prev + item.count,
-          0
-        ).toString() ?? '',
+        kot.orderItems
+          .reduce((prev, item) => prev + item.count, 0)
+          .toString() ?? '',
     };
     // const relativePath = resolve(__dirname, '../src/views');
     const relativePath = resolve(__dirname, 'views');

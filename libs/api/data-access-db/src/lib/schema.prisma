@@ -8,7 +8,7 @@ datasource db {
     url      = "file:./dev.db"
 }
 
-model User {
+model user {
     id                Int         @id @default(autoincrement())
     username          String      @unique
     password          Int
@@ -20,12 +20,12 @@ model User {
     isKitchenUser     Boolean     @default(false)
     // userCreatedOrders Order[]     @relation("createdUser")
     // createdForOrders  Order[]     @relation("createdForUser")
-    Order             Order[]
-    createdOrderItems OrderItem[] @relation("createdUser")
-    Kot               Kot[]
+    orders            order[]
+    createdOrderItems orderItem[] @relation("createdUser")
+    kots              kot[]
 }
 
-model Product {
+model product {
     id                    Int        @id @default(autoincrement())
     name                  String
     secondaryLanguageName String?
@@ -38,66 +38,66 @@ model Product {
     createdAt             DateTime   @default(now())
     updatedAt             DateTime   @updatedAt
     isArchived            Boolean    @default(false)
-    collection            Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+    collection            collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
     collectionId          Int
 
-    category   Category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+    category   category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
     categoryId Int
-    Variant    Variant[]
-    Modifier   Modifier[]
+    variants   variant[]
+    modifiers  modifier[]
 }
 
-model Category {
+model category {
     id   Int    @id @default(autoincrement())
     name String
 
     color             String
     kitchenId         Int
-    kitchen           Kitchen   @relation(fields: [kitchenId], references: [id])
+    kitchen           kitchen   @relation(fields: [kitchenId], references: [id])
     isAvailableAllDay Boolean   @default(true)
     startTime         String    @default("")
     endTime           String    @default("")
-    products          Product[]
+    products          product[]
 }
 
-model Collection {
+model collection {
     id       Int       @id @default(autoincrement())
     name     String
-    products Product[]
+    products product[]
 }
 
-model Kitchen {
-    id       Int        @id @default(autoincrement())
-    name     String
-    printer  String
-    kots     Kot[]
-    Category Category[]
+model kitchen {
+    id         Int        @id @default(autoincrement())
+    name       String
+    printer    String
+    kots       kot[]
+    categories category[]
 }
 
-model Variant {
+model variant {
     id        Int     @id @default(autoincrement())
     name      String
     price     Float
     productId Int
-    product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+    product   product @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
-model Modifier {
+model modifier {
     id        Int     @id @default(autoincrement())
     name      String
     price     Float
     productId Int
-    product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+    product   product @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
-model Order {
+model order {
     id            Int         @id @default(autoincrement())
     orderNumber   Int         @unique()
     paymentStatus String
     orderStatus   String
     createdAt     DateTime    @default(now())
     updatedAt     DateTime    @updatedAt
-    OrderItem     OrderItem[]
+    orderItems    orderItem[]
     createdUserId Int
     orderType     String
     customerName  String
@@ -105,18 +105,18 @@ model Order {
     // createForUserId Int
     // createdUser     User        @relation("createdUser", fields: [createdUserId], references: [id], onDelete: Cascade)
     // createdFor      User        @relation("createdForUser", fields: [createForUserId], references: [id], onDelete: Cascade)
-    User          User        @relation(fields: [createdUserId], references: [id])
+    user          user        @relation(fields: [createdUserId], references: [id])
 }
 
-model OrderItem {
+model orderItem {
     id            Int     @id @default(autoincrement())
     customeKey    String
     name          String
     kotNumber     Int
-    Kot           Kot?    @relation(fields: [kotNumber], references: [id])
+    Kot           kot?    @relation(fields: [kotNumber], references: [id])
     orderId       Int
-    Order         Order   @relation(fields: [orderId], references: [id])
-    createdUser   User?   @relation("createdUser", fields: [userId], references: [id])
+    order         order   @relation(fields: [orderId], references: [id])
+    createdUser   user?   @relation("createdUser", fields: [userId], references: [id])
     userId        Int?
     status        String?
     orderItemType String  @default("new")
@@ -124,19 +124,19 @@ model OrderItem {
     modifiers     String  @default("")
 }
 
-model Kot {
+model kot {
     id            Int         @id @default(autoincrement())
     createdAt     DateTime    @default(now())
     updatedAt     DateTime    @updatedAt
     updatedUserId Int?
-    updatedUser   User?       @relation(fields: [updatedUserId], references: [id])
-    OrderItems    OrderItem[]
+    updatedUser   user?       @relation(fields: [updatedUserId], references: [id])
+    orderItems    orderItem[]
 
     kitchenId Int?
-    Kitchen   Kitchen? @relation(fields: [kitchenId], references: [id])
+    Kitchen   kitchen? @relation(fields: [kitchenId], references: [id])
 }
 
-model Company {
+model company {
     id              Int     @id @default(autoincrement())
     name            String
     arabic          String
@@ -148,16 +148,16 @@ model Company {
     address         String
     lat             String? @default("")
     long            String? @default("")
-    taxes           Tax[]
+    taxes           tax[]
 }
 
-model Tax {
+model tax {
     id           Int     @id @default(autoincrement())
     name         String
     printName    String
     isPercentage Boolean @default(true)
     value        Float
 
-    Company   Company? @relation(fields: [companyId], references: [id])
+    company   company? @relation(fields: [companyId], references: [id])
     companyId Int?
 }

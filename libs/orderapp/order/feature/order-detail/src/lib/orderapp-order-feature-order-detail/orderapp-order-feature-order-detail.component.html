@@ -1,7 +1,23 @@
-<div class="bg-gray-100 p-2 w-full">
+<div
+  *ngIf="selectOrderDetailsLoadSpinner$ | async"
+  class="h-screen flex items-center justify-center"
+>
+  Loading....
+</div>
+
+<!-- <ng-template #orderDetail> hello world</ng-template> -->
+<div
+  class="bg-gray-100 p-2 w-full"
+  *ngIf="
+    selectOrderDetailsOfSelectedOrder$ | async as selectedOrder;
+    else noOrderSelected
+  "
+>
   <div class="rounded-md bg-white p-2">
     <div class="flex w-full flex-row items-stretch">
-      <div class="font-bold capitalize">Order 102</div>
+      <div class="font-bold capitalize">
+        Order - {{ selectedOrder.orderNumber }}
+      </div>
       <div class="ml-2 border-l-2 pl-2 font-light">20 min ago</div>
       <div class="flex-grow"></div>
       <div class="font-semibold">120.00 OMR</div>
@@ -10,10 +26,11 @@
     <div class="flex flex-row">
       <div class="flex-grow">
         <div class="font-semibod">
-          Type: <span class="font-light">Table</span>
+          Type:
+          <span class="font-light">{{ selectedOrder.orderType }}</span>
         </div>
         <div class="font-thin">Table 22</div>
-        <div class="font-thin">Waiter: Hameed</div>
+        <div class="font-thin">Waiter: {{ selectedOrder.customerName }}</div>
       </div>
 
       <div
@@ -31,6 +48,18 @@
         <div class="col-span-6 text-xs font-bold">Item Name:</div>
         <div class="col-span-3 text-xs font-bold">Qty:</div>
         <div class="col-span-2 text-xs font-bold">Tot:</div>
+      </div>
+
+      <div *ngFor="let item of selectedOrder.orderItems; let i = index">
+        <div class="grid grid-cols-12 gap-2 py-1">
+          <div class="col-span-1 text-xs">{{ i + 1 }}</div>
+          <div class="col-span-6 text-xs">
+            <div>{{ item.name }}</div>
+            <div>Arabian chicken name</div>
+          </div>
+          <div class="col-span-3 text-xs">{{ item.count }}</div>
+          <div class="col-span-2 text-xs">3.500</div>
+        </div>
       </div>
 
       <div class="grid grid-cols-12 gap-2 py-1">
@@ -205,3 +234,6 @@
     </div>
   </div>
 </div>
+<ng-template #noOrderSelected>
+  No order selected, Please select an order to view
+</ng-template>

@@ -8,6 +8,10 @@ import { Store } from '@ngrx/store';
 import { catchError, interval, map, of, startWith, switchMap, tap } from 'rxjs';
 import { OrderService } from '../orders.service';
 import {
+  loadOrderDetailSpinnerOn,
+  loadOrderDetails,
+  loadOrderDetailsFailure,
+  loadOrderDetailsSuccess,
   loadRecentOrders,
   loadRecentOrdersFail,
   loadRecentOrdersSuccess,
@@ -147,4 +151,24 @@ export class OrderEffects {
     },
     { dispatch: false }
   );
+
+  getOrderDetailsEffect$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(loadOrderDetails),
+      tap((date) => loadOrderDetailSpinnerOn()),
+      switchMap((data) =>
+        this.orderService.getOrderDetail(data.orderId).pipe(
+          map((data) => loadOrderDetailsSuccess({ order: data })),
+          catchError((error) =>
+            of(
+              loadOrderDetailsFailure({
+                errorMessage:
+                  'Something wrong happened while fetching order details',
+              })
+            )
+          )
+        )
+      )
+    );
+  });
 }

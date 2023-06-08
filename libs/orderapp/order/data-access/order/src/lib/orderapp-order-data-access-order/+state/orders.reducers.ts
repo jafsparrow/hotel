@@ -1,5 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import {
+  loadOrderDetailSpinnerOn,
+  loadOrderDetailsSuccess,
   loadOrdersSpinnerOn,
   loadRecentOrders,
   loadRecentOrdersFail,
@@ -49,6 +51,15 @@ export const orderReducer = createReducer(
     placeOrderSpinner: true,
   })),
   on(loadOrdersSpinnerOn, (state) => ({ ...state, loadOrderSpinner: true })),
+  on(loadOrderDetailSpinnerOn, (state) => ({
+    ...state,
+    loadOrderDetailSpinner: true,
+  })),
+  on(loadOrderDetailsSuccess, (state, { order }) => ({
+    ...state,
+    selectedOrderDetails: order,
+    loadOrderDetailSpinner: false,
+  })),
   on(loadRecentOrders, (state) => ({
     ...state,
     loadOrderSpinner: false,
