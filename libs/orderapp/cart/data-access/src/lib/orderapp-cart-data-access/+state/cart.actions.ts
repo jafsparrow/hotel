@@ -1,4 +1,4 @@
-import { Cart, CartItem, Tax, User } from '@hotel/orderapp/shared/data-access';
+import { Cart, CartItem, Tax, User } from '@hotel/common/types';
 import { createAction, props } from '@ngrx/store';
 
 export const loadCart = createAction('[Cart] Load Cart Items');

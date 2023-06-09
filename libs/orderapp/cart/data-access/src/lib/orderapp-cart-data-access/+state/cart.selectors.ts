@@ -1,4 +1,4 @@
-import { Cart, OrderStatus, Tax } from '@hotel/orderapp/shared/data-access';
+import { Cart, OrderStatus, Tax } from '@hotel/common/types';
 import { selectRecentOrders } from '@hotel/orderapp/order/data-access/order';
 import { createFeatureSelector, createSelector, State } from '@ngrx/store';
 import { CART_FEATURE_KEY } from './cart.reducers';

@@ -14,7 +14,11 @@ export class ProductService {
   async getProduct() {
     return await this.prismaService.product.findMany({
       include: {
-        modifiers: true,
+        modifierGroup: {
+          include: {
+            modifiers: true,
+          },
+        },
       },
     });
     // let products: Product[] = await this.productRepository.getProducts();

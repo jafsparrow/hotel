@@ -10,7 +10,7 @@ import {
   CartItem,
   CountSelectionDialogData,
   Product,
-} from '@hotel/orderapp/shared/data-access';
+} from '@hotel/common/types';
 import { addToCart } from '@hotel/orderapp/cart/data-access';
 
 @Component({

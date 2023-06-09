@@ -2,18 +2,20 @@
   <div class="text-xl font-semibold md:mx-auto md:max-w-md">
     Modifiers for {{ product.name }}
   </div>
-  <div class="py-2">
-    <div class="font-light">Choose milk option</div>
+  <div class="py-2" *ngFor="let modGroup of testGroup">
+    <div class="font-light">{{ modGroup.description }}</div>
     <div class="mt-2 bg-white py-2 md:mx-auto md:max-w-md">
-      <div class="grid grid-cols-7 py-2 text-sm">
-        <input type="radio" name="item_1" id="Item_1" class="col-span-1" />
-        <label for="Item_1" class="col-span-5 flex items-center"
-          >Extra Cheese
-        </label>
-        <div class="col-span-1 bg-gray-50">0.200 OMR</div>
-      </div>
-      <div class="grid grid-cols-7 py-2 text-sm">
-        <input type="radio" name="item_1" id="Item_1" class="col-span-1" />
+      <div
+        class="grid grid-cols-7 py-2 text-sm"
+        *ngFor="let item of modGroup.modifiers"
+      >
+        <input
+          type="radio"
+          [name]="modGroup.id"
+          [id]="item.id"
+          class="col-span-1"
+          (change)="radioBtnChange($event, item)"
+        />
         <label for="Item_1" class="col-span-5 flex items-center"
           >Extra Cheese
         </label>

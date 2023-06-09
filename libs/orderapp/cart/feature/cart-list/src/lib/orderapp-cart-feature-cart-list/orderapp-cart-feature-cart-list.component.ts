@@ -8,7 +8,7 @@ import {
   selectCart,
   updateCart,
 } from '@hotel/orderapp/cart/data-access';
-import { Cart, CartItem } from '@hotel/orderapp/shared/data-access';
+import { Cart, CartItem } from '@hotel/common/types';
 import { deleteCartCreatedForUser } from '@hotel/orderapp/cart/data-access';
 import { placeOrder } from '@hotel/orderapp/order/data-access/order';
 import { RouterModule } from '@angular/router';

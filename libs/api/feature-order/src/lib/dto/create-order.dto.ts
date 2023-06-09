@@ -1,4 +1,4 @@
-import { CartItem, User } from '@hotel/orderapp/shared/data-access';
+import { CartItem, User } from '@hotel/common/types';
 import { IsDefined, IsNotEmpty, IsOptional } from 'class-validator';
 
 export class CreateOrderDto {

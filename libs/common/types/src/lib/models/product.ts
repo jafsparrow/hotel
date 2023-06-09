@@ -34,7 +34,7 @@ export interface Product {
   video?: string;
   popular?: boolean;
   printName?: string;
-  modifierGroups?: ModifierGroupsEntity[] | null;
+  modifierGroups?: ModifierGroup[] | null;
   indexInCategory?: number;
 
   quickDisplayOrder?: number;
@@ -44,13 +44,13 @@ export interface ProductImage {
   storageName: string;
   downloadUrl: string;
 }
-export interface ModifierGroupsEntity {
-  id?: string;
+export interface ModifierGroup {
+  id?: number;
   description?: string;
   price?: number;
   image?: string;
-  created_at?: string;
-  updated_at?: string;
+  createdAt?: string;
+  updatedAt?: string;
   printName?: string;
   printModifiersAsItems?: boolean;
   modifiers?: Modifier[];

@@ -41,10 +41,10 @@ model product {
     collection            collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
     collectionId          Int
 
-    category   category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-    categoryId Int
-    variants   variant[]
-    modifiers  modifier[]
+    category      category        @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+    categoryId    Int
+    variants      variant[]
+    modifierGroup modifierGroup[]
 }
 
 model category {
@@ -83,11 +83,23 @@ model variant {
 }
 
 model modifier {
-    id        Int     @id @default(autoincrement())
-    name      String
-    price     Float
-    productId Int
-    product   product @relation(fields: [productId], references: [id], onDelete: Cascade)
+    id              Int            @id @default(autoincrement())
+    name            String
+    price           Float
+    modifierGroup   modifierGroup? @relation(fields: [modifierGroupId], references: [id])
+    modifierGroupId Int?
+}
+
+model modifierGroup {
+    id                    Int        @id @default(autoincrement())
+    description           String?
+    price                 Float?
+    image                 String?
+    printName             String?
+    printModifiersAsItems Boolean    @default(false)
+    modifiers             modifier[]
+    product               product    @relation(fields: [productId], references: [id])
+    productId             Int
 }
 
 model order {

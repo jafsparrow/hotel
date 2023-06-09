@@ -5,7 +5,7 @@ import {
   ModifierSelectionDialogData,
   Product,
 } from '@hotel/orderapp/shared/data-access';
-import { Modifier } from '@hotel/common/types';
+import { Modifier, ModifierGroup } from '@hotel/common/types';
 
 @Component({
   selector: 'hotel-orderapp-product-feature-modifier-list',
@@ -16,13 +16,36 @@ import { Modifier } from '@hotel/common/types';
 })
 export class OrderappProductFeatureModifierListComponent {
   product: Product;
-  selectedModifiersSortedByModifierId: Modifier[];
+  selectedModifiers: { [key: string]: Modifier }[];
+
+  testGroup: ModifierGroup[] = [
+    {
+      id: 1,
+      description: 'Milky',
+      modifiers: [
+        { id: 1, description: 'modie 1 1', price: 0.2 },
+        { id: 2, description: 'modie 1 2', price: 0.3 },
+      ],
+    },
+    {
+      id: 2,
+      description: 'salty',
+      modifiers: [
+        { id: 1, description: 'modie 2 1', price: 0.2 },
+        { id: 2, description: 'modie 2 2', price: 0.3 },
+      ],
+    },
+  ];
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ModifierSelectionDialogData,
 
     public dialogRef: MatDialogRef<OrderappProductFeatureModifierListComponent>
   ) {
     this.product = this.data.product;
-    this.selectedModifiersSortedByModifierId = [];
+    this.selectedModifiers = [];
+  }
+
+  radioBtnChange($event: any, modifer: Modifier) {
+    console.log($event.target.id, $event.target.name);
   }
 }

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 // import { selectProductsCategoryVice } from '@hotel/orderapp/product/data-access';
-import { CartItem, Product } from '@hotel/orderapp/shared/data-access';
+import { CartItem, Product } from '@hotel/common/types';
 
 import { OrderappProductFeatureModifierListComponent } from '@hotel/orderapp/product/feature/modifier-list';
 
@@ -44,7 +44,7 @@ export class OrderappProductFeatureProductListComponent {
 
   whatBtnToDisplay(product: any) {
     if (product.variants?.length > 0) return 'variant';
-    if (product.modifiers?.length > 0) return 'modifiers';
+    if (product.modifierGroup.length > 0) return 'modifiers';
     return 'add';
   }
 
