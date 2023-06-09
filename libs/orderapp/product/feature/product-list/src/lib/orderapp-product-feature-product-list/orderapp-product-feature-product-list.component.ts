@@ -4,6 +4,8 @@ import { Store } from '@ngrx/store';
 // import { selectProductsCategoryVice } from '@hotel/orderapp/product/data-access';
 import { CartItem, Product } from '@hotel/orderapp/shared/data-access';
 
+import { OrderappProductFeatureModifierListComponent } from '@hotel/orderapp/product/feature/modifier-list';
+
 import {
   addToCart,
   selectCartCountOfProduct,
@@ -19,7 +21,11 @@ import {
 @Component({
   selector: 'hotel-orderapp-product-feature-product-list',
   standalone: true,
-  imports: [CommonModule, MatDialogModule],
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    OrderappProductFeatureModifierListComponent,
+  ],
   templateUrl: './orderapp-product-feature-product-list.component.html',
   styleUrls: ['./orderapp-product-feature-product-list.component.css'],
 })
@@ -54,6 +60,12 @@ export class OrderappProductFeatureProductListComponent {
     });
   }
 
+  openModifiers(product: Product) {
+    return this.dialog.open(OrderappProductFeatureModifierListComponent, {
+      width: '100%',
+      data: { product },
+    });
+  }
   getCurrentProductInCart(productId: string) {
     return this.store.select(selectCartCountOfProduct(productId));
   }

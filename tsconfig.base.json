@@ -62,6 +62,9 @@
       "@hotel/orderapp/product/feature/categories": [
         "libs/orderapp/product/feature/categories/src/index.ts"
       ],
+      "@hotel/orderapp/product/feature/modifier-list": [
+        "libs/orderapp/product/feature/modifier-list/src/index.ts"
+      ],
       "@hotel/orderapp/product/feature/product-list": [
         "libs/orderapp/product/feature/product-list/src/index.ts"
       ],

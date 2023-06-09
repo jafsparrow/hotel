@@ -12,7 +12,11 @@ export class ProductService {
   private products = PRODUCTS;
 
   async getProduct() {
-    return await this.prismaService.product.findMany();
+    return await this.prismaService.product.findMany({
+      include: {
+        modifiers: true,
+      },
+    });
     // let products: Product[] = await this.productRepository.getProducts();
 
     // let categoryVice = {};
