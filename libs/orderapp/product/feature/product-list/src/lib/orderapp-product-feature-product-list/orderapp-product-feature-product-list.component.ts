@@ -62,7 +62,7 @@ export class OrderappProductFeatureProductListComponent {
 
   openModifiers(product: Product) {
     return this.dialog.open(OrderappProductFeatureModifierListComponent, {
-      width: '100%',
+      width: '100vw',
       data: { product },
     });
   }

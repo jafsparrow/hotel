@@ -98,6 +98,8 @@ model order {
     createdAt     DateTime    @default(now())
     updatedAt     DateTime    @updatedAt
     orderItems    orderItem[]
+    tableId       Int?
+    table         table?      @relation(fields: [tableId], references: [id])
     createdUserId Int
     orderType     String
     customerName  String
@@ -160,4 +162,11 @@ model tax {
 
     company   company? @relation(fields: [companyId], references: [id])
     companyId Int?
+}
+
+model table {
+    id        Int     @id @default(autoincrement())
+    name      String
+    capcacity Int?
+    order     order[]
 }
