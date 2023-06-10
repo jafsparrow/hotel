@@ -1,6 +1,7 @@
 <div class="bg-gray-300 p-3">
   <div class="font-xl font-semibold text-center pt-3">
-    {{ selectedProduct.name }}
+    {{ selectedProduct.name }} -
+    {{ selectedVariant ? selectedVariant.name : '' }}
   </div>
   <hotel-orderapp-product-feature-modifier-list
     [product]="selectedProduct"

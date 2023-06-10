@@ -13,6 +13,7 @@ import {
 } from '@hotel/orderapp/cart/data-access';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { OrderappOrderFeatureProductCountComponent } from '@hotel/orderapp/order/feature/product-count';
+import { OrderappProductFeatureVariantListComponent } from '@hotel/orderapp/product/feature/variant-list';
 import {
   selectAllProducts,
   selectFilteredCategoryViceProducts,
@@ -25,6 +26,7 @@ import {
     CommonModule,
     MatDialogModule,
     OrderappProductFeatureModifierListComponent,
+    OrderappProductFeatureVariantListComponent,
   ],
   templateUrl: './orderapp-product-feature-product-list.component.html',
   styleUrls: ['./orderapp-product-feature-product-list.component.css'],
@@ -53,6 +55,23 @@ export class OrderappProductFeatureProductListComponent {
     this.store.dispatch(addToCart({ item: cartItem }));
   }
 
+  openCountEntryOrVariant(product: Product) {
+    if (product.variants && product.variants.length > 0) {
+      // open variant selection screen.
+      this.openVariant(product);
+    } else {
+      this.openCountEntry(product);
+    }
+    console.log('hello');
+    return '';
+  }
+
+  openVariant(product: Product) {
+    return this.dialog.open(OrderappProductFeatureVariantListComponent, {
+      width: '100%',
+      data: { product },
+    });
+  }
   openCountEntry(product: Product) {
     return this.dialog.open(OrderappOrderFeatureProductCountComponent, {
       width: '100%',

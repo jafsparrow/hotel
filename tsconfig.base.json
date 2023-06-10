@@ -74,6 +74,9 @@
       "@hotel/orderapp/product/feature/search": [
         "libs/orderapp/product/feature/search/src/index.ts"
       ],
+      "@hotel/orderapp/product/feature/variant-list": [
+        "libs/orderapp/product/feature/variant-list/src/index.ts"
+      ],
       "@hotel/orderapp/shared/core": ["libs/orderapp/shared/core/src/index.ts"],
       "@hotel/orderapp/shared/data-access": [
         "libs/orderapp/shared/data-access/src/index.ts"

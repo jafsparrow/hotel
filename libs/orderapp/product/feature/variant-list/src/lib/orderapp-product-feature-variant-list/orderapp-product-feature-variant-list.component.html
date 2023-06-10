@@ -1,0 +1,13 @@
+<div class="p-2 bg-gray-100">
+  <div class="font-semibold">Select a Variant</div>
+  <div class="grid grid-cols-1 sm:grid sm:grid-cols-3 bg-white gap-2">
+    <div
+      *ngFor="let variant of selectedProduct.variants"
+      class="p-2 font-semibold py-4 border min-h-[100px] flex justify-center items-center"
+    >
+      <div (click)="openCountEntry(variant)">
+        {{ variant.name }}
+      </div>
+    </div>
+  </div>
+</div>

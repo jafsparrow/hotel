@@ -35,9 +35,16 @@ export interface Product {
   popular?: boolean;
   printName?: string;
   modifierGroups?: ModifierGroup[] | null;
+  variants?: Variant[] | null;
   indexInCategory?: number;
 
   quickDisplayOrder?: number;
+}
+
+export interface Variant {
+  id: number;
+  name: string;
+  price: number;
 }
 
 export interface ProductImage {

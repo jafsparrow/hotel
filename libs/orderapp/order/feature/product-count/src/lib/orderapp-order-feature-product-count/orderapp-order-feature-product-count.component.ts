@@ -11,6 +11,7 @@ import {
   CountSelectionDialogData,
   Modifier,
   Product,
+  Variant,
 } from '@hotel/common/types';
 
 import { OrderappProductFeatureModifierListComponent } from '@hotel/orderapp/product/feature/modifier-list';
@@ -29,11 +30,13 @@ import { addToCart } from '@hotel/orderapp/cart/data-access';
 })
 export class OrderappOrderFeatureProductCountComponent {
   selectedProduct: Product;
+  selectedVariant: Variant | null = null;
   defaultCount = 1;
   isPrestine = true;
   currentCount = 1;
   selectedModifiers: Modifier[] = [];
   generatedKey = '';
+  initialKey = '';
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: CountSelectionDialogData,
 
@@ -41,6 +44,14 @@ export class OrderappOrderFeatureProductCountComponent {
     private store: Store
   ) {
     this.selectedProduct = this.data['product'];
+    this.selectedVariant = this.data['selectedVariant'] ?? null;
+    if (this.selectedVariant) {
+      this.initialKey = this.selectedProduct.id + '-' + this.selectedVariant.id;
+    } else {
+      this.initialKey = this.selectedProduct.id.toString();
+    }
+    this.generatedKey = this.initialKey;
+    console.log('vaiant', this.initialKey);
   }
 
   buttonClick(buttonNumber: number) {
@@ -88,6 +99,7 @@ export class OrderappOrderFeatureProductCountComponent {
   modifierSelectionChange($event: { [key: number]: Modifier }) {
     // when product variant are done .. need incorporate that too
     let key = '';
+
     const selectedModifiers: Modifier[] = [];
     Object.entries($event).forEach((itemArr) => {
       key = key + '-' + itemArr[0] + '-' + itemArr[1].id;
@@ -95,7 +107,11 @@ export class OrderappOrderFeatureProductCountComponent {
     });
     this.selectedModifiers = selectedModifiers;
     console.log('key is ', key);
-    this.generatedKey = this.selectedProduct.id + key;
-    console.log('selection chagned data', this.selectedModifiers);
+    if (this.selectedVariant) {
+      this.generatedKey = this.initialKey + '-' + this.selectedVariant.id + key;
+    } else {
+      this.generatedKey = this.initialKey + key;
+    }
+    console.log('selection chagned data', this.generatedKey);
   }
 }
