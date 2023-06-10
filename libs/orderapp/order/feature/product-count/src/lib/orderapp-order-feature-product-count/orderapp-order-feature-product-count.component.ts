@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 import {
   CartItem,
   CountSelectionDialogData,
+  Modifier,
   Product,
 } from '@hotel/common/types';
 
@@ -31,6 +32,8 @@ export class OrderappOrderFeatureProductCountComponent {
   defaultCount = 1;
   isPrestine = true;
   currentCount = 1;
+  selectedModifiers: Modifier[] = [];
+  generatedKey = '';
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: CountSelectionDialogData,
 
@@ -75,14 +78,24 @@ export class OrderappOrderFeatureProductCountComponent {
     const cartItem: CartItem = {
       count: this.currentCount,
       product: this.selectedProduct,
-      modifiers: [],
+      modifiers: this.selectedModifiers,
     };
 
-    this.store.dispatch(addToCart({ item: cartItem }));
+    this.store.dispatch(addToCart({ item: cartItem, key: this.generatedKey }));
     this.dialogRef.close();
   }
 
-  modifierSelectionChange($event: any) {
-    console.log('selection chagned data', $event);
+  modifierSelectionChange($event: { [key: number]: Modifier }) {
+    // when product variant are done .. need incorporate that too
+    let key = '';
+    const selectedModifiers: Modifier[] = [];
+    Object.entries($event).forEach((itemArr) => {
+      key = key + '-' + itemArr[0] + '-' + itemArr[1].id;
+      selectedModifiers.push(itemArr[1]);
+    });
+    this.selectedModifiers = selectedModifiers;
+    console.log('key is ', key);
+    this.generatedKey = this.selectedProduct.id + key;
+    console.log('selection chagned data', this.selectedModifiers);
   }
 }

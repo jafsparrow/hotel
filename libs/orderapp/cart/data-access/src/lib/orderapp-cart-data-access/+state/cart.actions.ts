@@ -27,7 +27,7 @@ export const setCartCreatedByUser = createAction(
 
 export const addToCart = createAction(
   '[Cart] add item to cart',
-  props<{ item: CartItem }>()
+  props<{ item: CartItem; key?: string }>()
 );
 
 export const updateCart = createAction(

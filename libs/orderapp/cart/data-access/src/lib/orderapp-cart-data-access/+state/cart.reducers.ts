@@ -31,13 +31,19 @@ const initialState: Cart = {
 export const cartReducer = createReducer(
   initialState,
   on(loadCartSuccess, (state, { cart }) => ({ ...state, cart })),
-  on(addToCart, (state, { item }) => {
+  on(addToCart, (state, { item, key }) => {
+    let generatedId = '';
     const newCartItem = { ...item };
-    let key = '';
-    newCartItem.modifiers?.forEach(
-      (modifier) => (key = key + modifier.id?.toString())
-    );
-    const generatedId = `${item.product.id}${key}`;
+    if (!key) {
+      let tempKey = '';
+      newCartItem.modifiers?.forEach(
+        (modifier) => (tempKey = tempKey + modifier.id?.toString())
+      );
+      generatedId = `${item.product.id}${key}`;
+    } else {
+      generatedId = key;
+    }
+
     const cartItems = { ...state.cartItems };
     cartItems[generatedId] = {
       ...(cartItems[generatedId] || {}),
