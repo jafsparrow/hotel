@@ -6,7 +6,7 @@
     <hotel-orderapp-product-feature-categories></hotel-orderapp-product-feature-categories>
   </div>
 
-  <div class="col-span-6 sm:col-span-4 h-screen overflow-auto">
+  <div class="col-span-6 sm:col-span-6 h-screen overflow-auto">
     <div
       class="bg-white p-2"
       *ngIf="selectCartCreatedForUser$ | async as cartUser"
@@ -31,9 +31,7 @@
     </div>
   </div>
 
-  <div
-    class="bg-white col-span-1 h-screen overflow-auto md:grid md:grid-cols-2 pb-10"
-  >
+  <div class="bg-white grid col-span-1 h-screen overflow-auto pb-10">
     <hotel-orderapp-product-feature-qwik-list></hotel-orderapp-product-feature-qwik-list>
   </div>
 </div>
