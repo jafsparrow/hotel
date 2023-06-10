@@ -51,8 +51,14 @@ export class OrderappProductFeatureProductListComponent {
   }
 
   addToCart(product: Product) {
-    const cartItem: CartItem = { product, count: 1, modifiers: [] };
-    this.store.dispatch(addToCart({ item: cartItem }));
+    const cartItem: CartItem = {
+      product,
+      count: 1,
+      modifiers: [],
+    };
+    this.store.dispatch(
+      addToCart({ item: cartItem, key: product.id.toString() })
+    );
   }
 
   openCountEntryOrVariant(product: Product) {

@@ -136,6 +136,7 @@ model orderItem {
     orderItemType String  @default("new")
     count         Int
     modifiers     String  @default("")
+    amount        Float   @default(0)
 }
 
 model kot {

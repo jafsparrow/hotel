@@ -222,8 +222,11 @@ export class OrderService {
                 const orderItem = {
                   count: cartItem.count,
                   customeKey: cartItem.key ?? '',
-                  name: cartItem.product.name,
+                  name:
+                    cartItem.product.name +
+                    (cartItem.variant ? '-' + cartItem.variant.name : ''),
                   orderId: orderId,
+                  amount: this.getCartItemTotal(cartItem),
                   // OrderItemType: isRunning ? 'running' : 'new',
                   modifiers: cartItem.modifiers
                     ? cartItem.modifiers?.reduce(
@@ -259,6 +262,18 @@ export class OrderService {
       console.log(error);
       throw new BadRequestException(error);
     }
+  }
+
+  private getCartItemTotal(cartItem: CartItem) {
+    let productPrice = cartItem.variant
+      ? cartItem.variant.price
+      : cartItem.product.price;
+    if (cartItem.modifiers) {
+      productPrice =
+        productPrice +
+        cartItem.modifiers.reduce((prev, modifier) => prev + modifier.price, 0);
+    }
+    return productPrice;
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   //   private async printKots(kot: {
