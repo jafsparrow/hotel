@@ -1,49 +1,56 @@
-<div class="h-screen w-full bg-gray-100 p-2">
-  <div class="text-xl font-semibold md:mx-auto md:max-w-md">
-    Modifiers for {{ product.name }}
+<div class="w-full bg-gray-100 p-2">
+  <div class="text-sm font-semibold md:mx-auto md:max-w-md">
+    Modifiers for
+    <span class="p-2">
+      <button (click)="toggleModifiers()">
+        {{ modifierDisplayState ? '-' : '+' }}
+      </button></span
+    >
   </div>
-  <div class="py-2" *ngFor="let modGroup of testGroup">
-    <div class="font-light">{{ modGroup.description }}</div>
-    <div class="mt-2 bg-white py-2 md:mx-auto md:max-w-md">
-      <div
-        class="grid grid-cols-7 py-2 text-sm"
-        *ngFor="let item of modGroup.modifiers"
-      >
-        <input
-          type="radio"
-          [name]="modGroup.id"
-          [id]="item.id"
-          class="col-span-1"
-          (change)="radioBtnChange($event, item)"
-        />
-        <label for="Item_1" class="col-span-5 flex items-center"
-          >Extra Cheese
-        </label>
-        <div class="col-span-1 bg-gray-50">0.200 OMR</div>
+  <div *ngIf="modifierDisplayState" class="duration-100">
+    <div class="py-2" *ngFor="let modGroup of testGroup">
+      <div class="font-light">{{ modGroup.description }}</div>
+      <div class="mt-2 bg-white py-2 md:mx-auto md:max-w-md">
+        <div
+          class="grid grid-cols-7 py-2 text-sm"
+          *ngFor="let item of modGroup.modifiers"
+        >
+          <input
+            type="radio"
+            [name]="modGroup.id"
+            [id]="item.id"
+            class="col-span-1"
+            (change)="radioBtnChange($event, modGroup.id!, item)"
+          />
+          <label for="Item_1" class="col-span-5 flex items-center"
+            >{{ item.description }}
+          </label>
+          <div class="col-span-1 bg-gray-50">0.200 OMR</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="py-2">
+  <!-- <div class="py-2">
     <div class="font-light">Choose sprinkler option</div>
+    <div class="w-6 h-6 bg-yellow-400">
+      <input type="radio" name="first" id="idofit" class="w-4 h-4 rounded-md" />
+    </div>
     <div class="mt-2 bg-white py-2 md:mx-auto md:max-w-md">
       <div class="grid grid-cols-7 py-2 text-sm">
-        <input type="radio" name="item_2" id="Item_1" class="col-span-1" />
+        <input type="radio" class="col-span-1" name="first" value="1" />
         <label for="Item_1" class="col-span-5 flex items-center"
           >Extra Cheese
         </label>
         <div class="col-span-1 bg-gray-50">0.200 OMR</div>
       </div>
       <div class="grid grid-cols-7 py-2 text-sm">
-        <input type="radio" name="item_2" id="Item_1" class="col-span-1" />
-        <label for="Item_1" class="col-span-5 flex items-center"
+        <input type="radio" class="col-span-1" value="2" name="first" />
+        <label for="Item_2" class="col-span-5 flex items-center"
           >Extra Cheese
         </label>
         <div class="col-span-1 bg-gray-50">0.200 OMR</div>
       </div>
     </div>
-  </div>
-  <div class="p-2 text-center">
-    <button class="rounded-full bg-green-400 p-2">ADD TO CART</button>
-  </div>
+  </div> -->
 </div>

@@ -1,10 +1,6 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import {
-  ModifierSelectionDialogData,
-  Product,
-} from '@hotel/orderapp/shared/data-access';
+import { Product } from '@hotel/common/types';
 import { Modifier, ModifierGroup } from '@hotel/common/types';
 
 @Component({
@@ -15,8 +11,11 @@ import { Modifier, ModifierGroup } from '@hotel/common/types';
   styleUrls: ['./orderapp-product-feature-modifier-list.component.css'],
 })
 export class OrderappProductFeatureModifierListComponent {
-  product: Product;
-  selectedModifiers: { [key: string]: Modifier }[];
+  @Input() product?: Product;
+  @Output() selectedModifierEvent = new EventEmitter<any>();
+
+  selectedModifiers: { [key: string]: Modifier } = {};
+  modifierDisplayState = false;
 
   testGroup: ModifierGroup[] = [
     {
@@ -36,16 +35,19 @@ export class OrderappProductFeatureModifierListComponent {
       ],
     },
   ];
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data: ModifierSelectionDialogData,
 
-    public dialogRef: MatDialogRef<OrderappProductFeatureModifierListComponent>
-  ) {
-    this.product = this.data.product;
-    this.selectedModifiers = [];
+  radioBtnChange($event: any, groupId: number, modifer: Modifier) {
+    console.log($event.target.id, $event.target.name);
+
+    const groupKey = groupId.toString();
+
+    console.log(modifer);
+    this.selectedModifiers[groupKey] = modifer;
+    console.log(this.selectedModifiers);
+    this.selectedModifierEvent.emit(this.selectedModifiers);
   }
 
-  radioBtnChange($event: any, modifer: Modifier) {
-    console.log($event.target.id, $event.target.name);
+  toggleModifiers() {
+    this.modifierDisplayState = !this.modifierDisplayState;
   }
 }

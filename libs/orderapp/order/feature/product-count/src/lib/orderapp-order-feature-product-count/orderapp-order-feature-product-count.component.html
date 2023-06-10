@@ -2,6 +2,10 @@
   <div class="font-xl font-semibold text-center pt-3">
     {{ selectedProduct.name }}
   </div>
+  <hotel-orderapp-product-feature-modifier-list
+    [product]="selectedProduct"
+    (selectedModifierEvent)="modifierSelectionChange($event)"
+  ></hotel-orderapp-product-feature-modifier-list>
   <div class="w-full flex justify-center items-center">
     <div class="sm:w-1/2 w-full p-3">
       <div class="w-full g p-3 grid place-content-center">

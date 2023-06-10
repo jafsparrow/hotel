@@ -11,12 +11,18 @@ import {
   CountSelectionDialogData,
   Product,
 } from '@hotel/common/types';
+
+import { OrderappProductFeatureModifierListComponent } from '@hotel/orderapp/product/feature/modifier-list';
 import { addToCart } from '@hotel/orderapp/cart/data-access';
 
 @Component({
   selector: 'hotel-orderapp-order-feature-product-count',
   standalone: true,
-  imports: [CommonModule, MatDialogModule],
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    OrderappProductFeatureModifierListComponent,
+  ],
   templateUrl: './orderapp-order-feature-product-count.component.html',
   styleUrls: ['./orderapp-order-feature-product-count.component.css'],
 })
@@ -74,5 +80,9 @@ export class OrderappOrderFeatureProductCountComponent {
 
     this.store.dispatch(addToCart({ item: cartItem }));
     this.dialogRef.close();
+  }
+
+  modifierSelectionChange($event: any) {
+    console.log('selection chagned data', $event);
   }
 }
