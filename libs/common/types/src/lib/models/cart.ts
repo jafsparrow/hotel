@@ -1,4 +1,4 @@
-import { Modifier, Product } from './product';
+import { Modifier, Product, Variant } from './product';
 import { Tax } from './taxes';
 import { User } from './user';
 
@@ -6,6 +6,7 @@ export interface CartItem {
   count: number;
   product: Product;
   modifiers?: Modifier[];
+  variant?: Variant | null;
   key?: string;
 }
 

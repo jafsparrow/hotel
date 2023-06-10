@@ -6,9 +6,11 @@ import {
   addToCart,
   removeFromCart,
   selectCart,
+  selectCartTaxed,
+  selectCartTotal,
   updateCart,
 } from '@hotel/orderapp/cart/data-access';
-import { Cart, CartItem } from '@hotel/common/types';
+import { Cart, CartItem, Tax } from '@hotel/common/types';
 import { deleteCartCreatedForUser } from '@hotel/orderapp/cart/data-access';
 import { placeOrder } from '@hotel/orderapp/order/data-access/order';
 import { RouterModule } from '@angular/router';
@@ -21,14 +23,17 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./orderapp-cart-feature-cart-list.component.css'],
 })
 export class OrderappCartFeatureCartListComponent {
-  cart$ = this.store.select(selectCart);
+  cart$ = this.store.select(selectCartTaxed);
+  getTotalCartAmout$ = this.store.select(selectCartTotal);
   constructor(private store: Store) {}
 
   getCartItems(cart: Cart) {
     // console.log('cart.cartItems', cart.cartItems);
     return Object.entries(cart.cartItems);
   }
-
+  getTaxAppliedAmoutn(total: number, tax: Tax) {
+    return tax.isPercentage ? total * 0.01 * tax.value : total + tax.value;
+  }
   hasCartItems(cart: Cart): boolean {
     if (Object.keys(cart.cartItems).length) return true;
     return false;
@@ -43,9 +48,21 @@ export class OrderappCartFeatureCartListComponent {
     this.store.dispatch(placeOrder({ cart }));
   }
 
-  incrementCart(cartItem: CartItem) {
+  getCartItemTotal(cartItem: CartItem) {
+    let productPrice = cartItem.variant
+      ? cartItem.variant.price
+      : cartItem.product.price;
+    if (cartItem.modifiers) {
+      productPrice =
+        productPrice +
+        cartItem.modifiers.reduce((prev, modifier) => prev + modifier.price, 0);
+    }
+    return (cartItem.count * productPrice).toFixed(3);
+  }
+
+  incrementCart(cartItem: CartItem, key: string) {
     const newCartItemWithOneQuantity = { ...cartItem, count: 1 };
-    this.store.dispatch(addToCart({ item: newCartItemWithOneQuantity }));
+    this.store.dispatch(addToCart({ item: newCartItemWithOneQuantity, key }));
   }
 
   decrimentCart(cartItem: CartItem) {

@@ -90,6 +90,7 @@ export class OrderappOrderFeatureProductCountComponent {
       count: this.currentCount,
       product: this.selectedProduct,
       modifiers: this.selectedModifiers,
+      variant: this.selectedVariant,
     };
 
     this.store.dispatch(addToCart({ item: cartItem, key: this.generatedKey }));

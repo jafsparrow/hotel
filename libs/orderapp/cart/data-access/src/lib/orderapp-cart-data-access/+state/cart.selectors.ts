@@ -8,17 +8,19 @@ export const selectCartState = createFeatureSelector<Cart>(CART_FEATURE_KEY);
 export const selectCart = createSelector(selectCartState, (state) => {
   return {
     ...state,
-    total: Object.values(state.cartItems).reduce((tot, cartItem) => {
-      return (
-        tot +
-        (cartItem.product.price +
-          cartItem.modifiers!.reduce(
-            (prev, curr) => prev + parseInt(curr?.price.toString()),
-            0
-          )) *
-          cartItem.count
-      );
-    }, 0),
+    total: +Object.values(state.cartItems)
+      .reduce((tot, cartItem) => {
+        return (
+          tot +
+          (cartItem.product.price +
+            cartItem.modifiers!.reduce(
+              (prev, curr) => prev + parseInt(curr?.price.toString()),
+              0
+            )) *
+            cartItem.count
+        );
+      }, 0)
+      .toFixed(3),
   };
 });
 
@@ -78,9 +80,22 @@ export const selectCartCountOfProduct = (productId: string) =>
 
 export const getTotalCartAmout = (state: Cart): string => {
   const getTotal = +Object.values(state.cartItems)
-    .reduce((tot, cartItem) => tot + cartItem.product.price * cartItem.count, 0)
+    .reduce((tot, cartItem) => {
+      let productPrice = cartItem.variant
+        ? cartItem.variant.price
+        : cartItem.product.price;
+      if (cartItem.modifiers) {
+        productPrice =
+          productPrice +
+          cartItem.modifiers.reduce(
+            (prev, modifier) => prev + modifier.price,
+            0
+          );
+      }
+
+      return tot + productPrice * cartItem.count;
+    }, 0)
     .toFixed(3);
-  // console.log('gettotla', getTotal.toFixed(3));
   const totalString = getTotal.toFixed(3).toString();
   return totalString; //getTotal.toFixed().toString();
 };

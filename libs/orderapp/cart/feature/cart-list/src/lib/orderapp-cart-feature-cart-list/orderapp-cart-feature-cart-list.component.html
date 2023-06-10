@@ -90,7 +90,17 @@
             </div>
           </div>
           <div class="flex-grow">
-            <div class="text-sm">{{ entry[1].product.name }}</div>
+            <div class="text-sm">
+              {{
+                entry[1].product.name +
+                  (entry[1].variant ? '-' + entry[1].variant.name : '')
+              }}
+            </div>
+            <div class="text-xs font-light" *ngIf="entry[1].modifiers">
+              <span *ngFor="let modifier of entry[1].modifiers">
+                <span class="ml-2">{{ modifier.description }}</span>
+              </span>
+            </div>
             <div class="text-xs font-thin">
               <!-- cartItem.modifiers?.map(
                        (modifier) => modifier.description + ", "
@@ -113,13 +123,15 @@
               </div>
               <button
                 class="w-4 h-4 font-bold text-lg flex justify-center items-center"
-                (click)="incrementCart(entry[1])"
+                (click)="incrementCart(entry[1], entry[0])"
               >
                 +
               </button>
             </div>
             <div class="w-16 text-sm font-light text-right">
-              {{ entry[1].count * entry[1].product.price }}
+              <!-- {{ entry[1].count * entry[1].product.price }}
+               -->
+              {{ getCartItemTotal(entry[1]) }}
             </div>
           </div>
         </div>
@@ -138,16 +150,23 @@
 
         <div class="flex flex-row font-light text-sm py-2">
           <div class="flex-grow">Item Total</div>
-          <div class="text-right">{{ cart.total }}</div>
+          <div class="text-right">{{ cart.total.toFixed(3) }}</div>
         </div>
-        <div class="flex flex-row font-light text-sm py-2 border-b">
-          <div class="flex-grow">Govermnet charges</div>
-          <div class="text-right">12,00 $</div>
+        <div
+          class="flex flex-row font-light text-sm py-2 border-b"
+          *ngFor="let tax of cart.taxesApplied"
+        >
+          <div class="flex-grow">{{ tax.name }}</div>
+          <div class="text-right">
+            {{ tax.taxValue.toFixed(3) }}
+          </div>
         </div>
 
         <div class="flex flex-row font-bold text-sm py-2">
           <div class="flex-grow">To Pay</div>
-          <div class="text-right">{{ cart.total }} $</div>
+          <div class="text-right">
+            {{ cart.taxedTotal ? (+cart.taxedTotal).toFixed(3) : '' }} OMR
+          </div>
         </div>
       </div>
       <div class="w-screen px-4 fixed bottom-1 text-center">
