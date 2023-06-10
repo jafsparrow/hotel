@@ -230,7 +230,7 @@ export class OrderService {
                   // OrderItemType: isRunning ? 'running' : 'new',
                   modifiers: cartItem.modifiers
                     ? cartItem.modifiers?.reduce(
-                        (prev, curr) => prev.concat(', ', curr.description),
+                        (prev, curr) => prev.concat(curr.description, ', '),
                         ''
                       )
                     : '',

@@ -74,6 +74,11 @@
       border-top: 2px solid black;
       border-bottom: 2px solid black
     }
+
+	.modifier {
+		font-style: italic;
+		font-weight: lighter;
+	}
 	</style>
 	<meta charset="utf-8">
 </head>
@@ -115,8 +120,11 @@
 		<div class="item">
 			<div class="item-name-wrapper">
        			 <div class="item-name">{{this.name}}</div>
-					{{#if arabicName}}
+					<!-- {{#if arabicName}}
 					<div class="item-name-arabic">كيف حالك </div>
+					{{/if}} -->
+					{{#if modifiers}}
+					<div class="modifier">{{modifiers}}</div>
 					{{/if}}
 
 			</div>
