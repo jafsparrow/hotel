@@ -7,6 +7,7 @@ import {
 } from '@hotel/orderapp/cart/data-access';
 
 export const shellRoutes: Routes = [
+  { path: '', component: OrderappShellComponent },
   {
     path: 'home',
 
