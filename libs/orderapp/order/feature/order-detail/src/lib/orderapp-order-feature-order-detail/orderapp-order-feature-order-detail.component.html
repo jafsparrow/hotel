@@ -55,90 +55,22 @@
           <div class="col-span-1 text-xs">{{ i + 1 }}</div>
           <div class="col-span-6 text-xs">
             <div>{{ item.name }}</div>
-            <div>Arabian chicken name</div>
+            <div>{{ item.product.secondaryLanguageName }}</div>
           </div>
           <div class="col-span-3 text-xs">{{ item.count }}</div>
-          <div class="col-span-2 text-xs">3.500</div>
+          <div class="col-span-2 text-xs">{{ item.amount!.toFixed(3) }}</div>
         </div>
-      </div>
-
-      <div class="grid grid-cols-12 gap-2 py-1">
-        <div class="col-span-1 text-xs">1</div>
-        <div class="col-span-6 text-xs">
-          <div>Cheken Aboodai</div>
-          <div>Arabian chicken name</div>
-        </div>
-        <div class="col-span-3 text-xs">4</div>
-        <div class="col-span-2 text-xs">3.500</div>
-      </div>
-
-      <div class="grid grid-cols-12 gap-2 py-1">
-        <div class="col-span-1 text-xs">1</div>
-        <div class="col-span-6 text-xs">
-          <div>Cheken Aboodai</div>
-          <div>Arabian chicken name</div>
-        </div>
-        <div class="col-span-3 text-xs">4</div>
-        <div class="col-span-2 text-xs">3.500</div>
-      </div>
-
-      <div class="grid grid-cols-12 gap-2 py-1">
-        <div class="col-span-1 text-xs">1</div>
-        <div class="col-span-6 text-xs">
-          <div>Cheken Aboodai</div>
-          <div>Arabian chicken name</div>
-        </div>
-        <div class="col-span-3 text-xs">4</div>
-        <div class="col-span-2 text-xs">3.500</div>
-      </div>
-
-      <div class="grid grid-cols-12 gap-2 py-1">
-        <div class="col-span-1 text-xs">1</div>
-        <div class="col-span-6 text-xs">
-          <div>Cheken Aboodai</div>
-          <div>Arabian chicken name</div>
-        </div>
-        <div class="col-span-3 text-xs">4</div>
-        <div class="col-span-2 text-xs">3.500</div>
-      </div>
-
-      <div class="grid grid-cols-12 gap-2 py-1">
-        <div class="col-span-1 text-xs">1</div>
-        <div class="col-span-6 text-xs">
-          <div>Cheken Aboodai</div>
-          <div>Arabian chicken name</div>
-        </div>
-        <div class="col-span-3 text-xs">4</div>
-        <div class="col-span-2 text-xs">3.500</div>
-      </div>
-      <div class="grid grid-cols-12 gap-2 py-1">
-        <div class="col-span-1 text-xs">1</div>
-        <div class="col-span-6 text-xs">
-          <div>Cheken Aboodai</div>
-          <div>Arabian chicken name</div>
-        </div>
-        <div class="col-span-3 text-xs">4</div>
-        <div class="col-span-2 text-xs">3.500</div>
-      </div>
-      <div class="grid grid-cols-12 gap-2 py-1">
-        <div class="col-span-1 text-xs">1</div>
-        <div class="col-span-6 text-xs">
-          <div>Cheken Aboodai</div>
-          <div>Arabian chicken name</div>
-        </div>
-        <div class="col-span-3 text-xs">4</div>
-        <div class="col-span-2 text-xs">3.500</div>
       </div>
 
       <div class="my-2 h-[1px] w-full bg-gray-600"></div>
 
       <div class="grid grid-cols-4">
-        <div class="col-span-3 ml-3 text-right">
+        <div class="col-span-2 ml-3 text-right">
           <div>Bill Total:</div>
           <div>VAT 5%:</div>
           <div>Net Total:</div>
         </div>
-        <div class="col-span-1 pl-2 font-semibold">
+        <div class="col-span-2 pl-2 font-semibold">
           <div>12.00 OMR</div>
           <div>0.600 OMR</div>
           <div>12.600 OMR</div>

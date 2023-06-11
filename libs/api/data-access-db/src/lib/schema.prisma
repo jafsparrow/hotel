@@ -45,6 +45,7 @@ model product {
     categoryId    Int
     variants      variant[]
     modifierGroup modifierGroup[]
+    orderItem     orderItem[]
 }
 
 model category {
@@ -137,6 +138,8 @@ model orderItem {
     count         Int
     modifiers     String  @default("")
     amount        Float   @default(0)
+    productId     Int     @default(1)
+    product       product @relation(fields: [productId], references: [id])
 }
 
 model kot {

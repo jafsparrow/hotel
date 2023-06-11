@@ -9,6 +9,7 @@ export interface OrderItem extends CartItem {
   orderId?: string; //just to track what order it belongs.
   orderNumber?: number; // to track the order number
   orderItemType?: OrderItemType;
+  amount?: number;
 }
 
 export interface OrderSummary {

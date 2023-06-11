@@ -47,17 +47,39 @@ export class OrderService {
     //     },
     //   },
     // });
+
     return await this.prismaService.order.findUnique({
       where: { id: orderId },
       include: {
-        orderItems: true,
+        orderItems: {
+          include: {
+            product: {
+              select: {
+                secondaryLanguageName: true,
+              },
+            },
+          },
+        },
       },
     });
+  }
+
+  async printReceipt(orderId: number) {
+    await this.prismaService.orderItem.aggregate({
+      where: { orderId: orderId },
+      _sum: { amount: true },
+    });
+    // get the tax from company.
+    //  get order with order items.
+    //  sum the total
+    // Add applied taxes.
+    // send to the print service.
   }
 
   async printSampleBill() {
     return this.pdfService.samplebill();
   }
+
   async createsample(orderCreateDto: CreateOrderDto) {
     console.log('create sample alled');
     try {
@@ -227,6 +249,7 @@ export class OrderService {
                     (cartItem.variant ? '-' + cartItem.variant.name : ''),
                   orderId: orderId,
                   amount: this.getCartItemTotal(cartItem),
+                  productId: cartItem.product.id,
                   // OrderItemType: isRunning ? 'running' : 'new',
                   modifiers: cartItem.modifiers
                     ? cartItem.modifiers?.reduce(
