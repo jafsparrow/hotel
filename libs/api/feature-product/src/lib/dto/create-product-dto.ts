@@ -1,52 +1,55 @@
-// import { IsNotEmpty, IsOptional, isString, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, isString, IsString } from 'class-validator';
 
-// export class CreateProductDto {
-//   @IsString()
-//   @IsOptional()
-//   image: string;
+export class CreateProductDto {
+  @IsString()
+  @IsOptional()
+  image!: string;
 
-//   @IsString()
-//   @IsNotEmpty()
-//   description: string;
+  @IsString()
+  @IsNotEmpty()
+  description!: string;
 
-//   @IsOptional()
-//   isAvailable: boolean;
+  @IsOptional()
+  isAvailable!: boolean;
 
-//   @IsOptional()
-//   onSale: boolean;
+  @IsOptional()
+  onSale!: boolean;
 
-//   @IsNotEmpty()
-//   price: number;
+  @IsNotEmpty()
+  price!: number;
 
-//   @IsNotEmpty()
-//   @IsString()
-//   name: string;
+  @IsNotEmpty()
+  cost!: number;
 
-//   @IsOptional()
-//   archived: boolean;
+  @IsNotEmpty()
+  @IsString()
+  name!: string;
 
-//   @IsOptional()
-//   video?: string;
+  @IsOptional()
+  archived!: boolean;
 
-//   @IsOptional()
-//   popular: boolean;
+  @IsOptional()
+  video?: string;
 
-//   @IsString()
-//   @IsOptional()
-//   printName?: string;
+  @IsOptional()
+  popular!: boolean;
 
-//   modifierGroups: Modifiers[];
-// }
+  @IsString()
+  @IsOptional()
+  printName?: string;
 
-// export class Modifiers {
-//   description?: string;
-//   printName?: string;
-//   printModifiersAsItems?: boolean;
-//   modifiers?: Modifier[];
-// }
+  modifierGroups!: Modifiers[];
+}
 
-// export interface Modifier {
-//   description: string;
-//   price: number;
-//   id?: number;
-// }
+export class Modifiers {
+  description?: string;
+  printName?: string;
+  printModifiersAsItems?: boolean;
+  modifiers?: Modifier[];
+}
+
+export interface Modifier {
+  description: string;
+  price: number;
+  id?: number;
+}

@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 
 import { PrismaService } from '@hotel/api/data-access-db';
+import { CreateProductDto } from './dto/create-product-dto';
 
 @Injectable()
 export class ProductService {
@@ -42,9 +43,17 @@ export class ProductService {
     // return categoryVice;
   }
 
-  // createProduct(companyId: string, product: CreateProductDto) {
-  //   return this.productRepository.createAProduct(companyId, product);
-  // }
+  createProduct(companyId: string, product: CreateProductDto) {
+    return this.prismaService.product.create({
+      data: {
+        name: product.name,
+        cost: product.cost,
+        price: product.price,
+        categoryId: 1,
+        collectionId: 1,
+      },
+    });
+  }
 
   // updateProductsIndex(companyId: string, data: PatchProductIndexDto[]) {
   //   return this.productRepository.bulkUpdate(companyId, data);
