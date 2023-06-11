@@ -23,6 +23,9 @@
       "@hotel/api/feature-product": ["libs/api/feature-product/src/index.ts"],
       "@hotel/api/feature-user": ["libs/api/feature-user/src/index.ts"],
       "@hotel/common/types": ["libs/common/types/src/index.ts"],
+      "@hotel/orderapp/backoffice/feature/page": [
+        "libs/orderapp/backoffice/feature/page/src/index.ts"
+      ],
       "@hotel/orderapp/cart/data-access": [
         "libs/orderapp/cart/data-access/src/index.ts"
       ],
