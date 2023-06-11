@@ -36,6 +36,12 @@
         "libs/orderapp/category/data-access/src/index.ts"
       ],
       "@hotel/orderapp/home": ["libs/orderapp/home/src/index.ts"],
+      "@hotel/orderapp/kitchen/data-access": [
+        "libs/orderapp/kitchen/data-access/src/index.ts"
+      ],
+      "@hotel/orderapp/kitchen/feature/add": [
+        "libs/orderapp/kitchen/feature/add/src/index.ts"
+      ],
       "@hotel/orderapp/order/data-access/order": [
         "libs/orderapp/order/data-access/order/src/index.ts"
       ],
