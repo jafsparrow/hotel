@@ -4,7 +4,6 @@ import { OrderappProductFeatureProductListComponent } from '@hotel/orderapp/prod
 import { OrderappProductFeatureQwikListComponent } from '@hotel/orderapp/product/feature/qwik-list';
 import { OrderappProductFeatureCategoriesComponent } from '@hotel/orderapp/product/feature/categories';
 import { OrderappProductFeatureSearchComponent } from '@hotel/orderapp/product/feature/search';
-import { OrderappTableFeatureListComponent } from '@hotel/orderapp/table/feature/list';
 import { OrderappOrderFeatureTakeAwayComponent } from '@hotel/orderapp/order/feature/take-away';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
@@ -17,6 +16,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { loadProducts } from '@hotel/orderapp/product/data-access';
 import { loadCategories } from '@hotel/orderapp/category/data-access';
 import { OrderappCartFeatureCartSummaryButtonComponent } from '@hotel/orderapp/cart/feature/cart-summary-button';
+import { OrderappTableFeatureSelectionComponent } from '@hotel/orderapp/table/feature/selection';
 
 @Component({
   selector: 'hotel-orderapp-home',
@@ -30,7 +30,6 @@ import { OrderappCartFeatureCartSummaryButtonComponent } from '@hotel/orderapp/c
     OrderappProductFeatureQwikListComponent,
     OrderappProductFeatureCategoriesComponent,
     OrderappProductFeatureSearchComponent,
-    OrderappTableFeatureListComponent,
     OrderappOrderFeatureTakeAwayComponent,
     OrderappCartFeatureCartSummaryButtonComponent,
   ],
@@ -48,7 +47,7 @@ export class OrderappHomeComponent {
     enterAnimationDuration: string,
     exitAnimationDuration: string
   ): void {
-    this.dialog.open(OrderappTableFeatureListComponent, {
+    this.dialog.open(OrderappTableFeatureSelectionComponent, {
       width: '100vw',
       height: '90%',
       enterAnimationDuration,

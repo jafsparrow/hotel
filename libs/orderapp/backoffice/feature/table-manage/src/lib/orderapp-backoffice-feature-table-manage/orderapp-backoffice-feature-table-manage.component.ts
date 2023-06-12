@@ -6,7 +6,11 @@ import { OrderappTableFeatureListComponent } from '@hotel/orderapp/table/feature
 @Component({
   selector: 'hotel-orderapp-backoffice-feature-table-manage',
   standalone: true,
-  imports: [CommonModule, OrderappTableFeatureAddComponent],
+  imports: [
+    CommonModule,
+    OrderappTableFeatureAddComponent,
+    OrderappTableFeatureListComponent,
+  ],
   templateUrl: './orderapp-backoffice-feature-table-manage.component.html',
   styleUrls: ['./orderapp-backoffice-feature-table-manage.component.css'],
 })

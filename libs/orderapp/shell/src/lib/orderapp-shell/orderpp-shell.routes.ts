@@ -28,13 +28,6 @@ export const shellRoutes: Routes = [
   },
 
   {
-    path: 'table',
-    loadComponent: () =>
-      import('@hotel/orderapp/table/feature/list').then(
-        (c) => c.OrderappTableFeatureListComponent
-      ),
-  },
-  {
     path: 'take-away',
     loadComponent: () =>
       import('@hotel/orderapp/order/feature/take-away').then(
