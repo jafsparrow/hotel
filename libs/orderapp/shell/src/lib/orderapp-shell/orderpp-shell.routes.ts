@@ -15,6 +15,13 @@ export const shellRoutes: Routes = [
       import('@hotel/orderapp/home').then((c) => c.homeRoutes),
   },
   {
+    path: 'office',
+    loadChildren: () =>
+      import('@hotel/orderapp/backoffice/feature/page').then(
+        (m) => m.shellRoutes
+      ),
+  },
+  {
     path: 'order',
     loadChildren: () =>
       import('@hotel/orderapp/order/feature/page').then((r) => r.orderRoutes),
