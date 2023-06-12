@@ -48,6 +48,13 @@ export const shellRoutes: Routes = [
             (c) => c.OrderappBackofficeFeatureUserManageComponent
           ),
       },
+      {
+        path: 'table',
+        loadComponent: () =>
+          import('@hotel/orderapp/backoffice/feature/table-manage').then(
+            (c) => c.OrderappBackofficeFeatureTableManageComponent
+          ),
+      },
     ],
   },
 ];
