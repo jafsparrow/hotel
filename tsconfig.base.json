@@ -122,6 +122,12 @@
         "libs/orderapp/shared/data-access/src/index.ts"
       ],
       "@hotel/orderapp/shell": ["libs/orderapp/shell/src/index.ts"],
+      "@hotel/orderapp/table/data-access": [
+        "libs/orderapp/table/data-access/src/index.ts"
+      ],
+      "@hotel/orderapp/table/feature/add": [
+        "libs/orderapp/table/feature/add/src/index.ts"
+      ],
       "@hotel/orderapp/table/feature/list": [
         "libs/orderapp/table/feature/list/src/index.ts"
       ],
