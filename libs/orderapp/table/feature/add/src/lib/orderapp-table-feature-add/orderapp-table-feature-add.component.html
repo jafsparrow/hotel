@@ -1,1 +1,45 @@
-<p>orderapp-table-feature-add works!</p>
+<div class="h-screen bg-gray-100 p-2">
+  <div class="mx-auto grid max-w-md gap-2 bg-white p-2">
+    <div class="mb-2 font-bold">Add a Table</div>
+    <div class="grid gap-2">
+      <label for="tableName">Table Name</label>
+      <input
+        type="text"
+        name="tableName"
+        id="tableName"
+        class="w-full rounded-md border px-2 py-1"
+      />
+    </div>
+
+    <div class="grid gap-2">
+      <label for="tableName">Capacity</label>
+      <input
+        type="text"
+        name="tableName"
+        id="tableName"
+        class="w-full rounded-md border px-2 py-1"
+      />
+    </div>
+
+    <div class="grid gap-2">
+      <div class="">
+        <label for="tableName">Floor Name</label>
+        <div class="grid grid-cols-4 gap-2">
+          <select
+            name="floorName"
+            id="floorName"
+            class="col-span-3 w-full rounded-md border px-2 py-1"
+          >
+            <option value="first">First Floor</option>
+            <option value="second">Second</option>
+          </select>
+          <div
+            class="col-span-1 rounded-md bg-gray-600 p-1 text-center font-bold text-white"
+          >
+            ADD
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

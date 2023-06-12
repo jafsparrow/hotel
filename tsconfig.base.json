@@ -75,6 +75,9 @@
       "@hotel/orderapp/kitchen/feature/add": [
         "libs/orderapp/kitchen/feature/add/src/index.ts"
       ],
+      "@hotel/orderapp/kitchen/feature/list": [
+        "libs/orderapp/kitchen/feature/list/src/index.ts"
+      ],
       "@hotel/orderapp/order/data-access/order": [
         "libs/orderapp/order/data-access/order/src/index.ts"
       ],
