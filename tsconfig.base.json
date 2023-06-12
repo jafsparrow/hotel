@@ -38,6 +38,9 @@
       "@hotel/orderapp/category/data-access": [
         "libs/orderapp/category/data-access/src/index.ts"
       ],
+      "@hotel/orderapp/category/feature/add": [
+        "libs/orderapp/category/feature/add/src/index.ts"
+      ],
       "@hotel/orderapp/company/data-access": [
         "libs/orderapp/company/data-access/src/index.ts"
       ],
