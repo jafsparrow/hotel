@@ -1,2 +1,47 @@
-<p>orderapp-backoffice-feature-page works!</p>
-<router-outlet> </router-outlet>
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <div
+      class="bg-gray-100 p-2 grid content-center justify-center h-16 border border-b-2"
+    >
+      <div>Hello ! <span class="font-light">Rasheeed</span></div>
+    </div>
+    <div class="bg-gray-100 p-2 grid gap-2">
+      <div class="p-2 bg-white">Restaurant</div>
+      <div class="p-2 bg-gray-200">Kitchen</div>
+      <div class="p-2 bg-white">Categories</div>
+      <div class="p-2 bg-white">Products</div>
+    </div>
+    <div class="h-screen bg-gray-100"></div>
+  </mat-drawer>
+
+  <div>
+    <mat-toolbar class="flex">
+      <button mat-icon-button (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="pl-2">Cheeky Dot</span>
+      <span class="flex-grow"></span>
+
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="menu"
+        aria-label="Example icon-button with a menu"
+      >
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <span>Order Menu</span>
+        </button>
+        <button mat-menu-item>
+          <span>Check voice mail</span>
+        </button>
+        <button mat-menu-item>
+          <span>Disable alerts</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+
+    <router-outlet></router-outlet>
+  </div>
+</mat-drawer-container>
