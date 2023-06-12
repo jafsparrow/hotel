@@ -137,6 +137,9 @@
       "@hotel/orderapp/table/feature/list": [
         "libs/orderapp/table/feature/list/src/index.ts"
       ],
+      "@hotel/orderapp/table/feature/selection": [
+        "libs/orderapp/table/feature/selection/src/index.ts"
+      ],
       "@hotel/orderapp/ui": ["libs/orderapp/ui/src/index.ts"]
     }
   },
