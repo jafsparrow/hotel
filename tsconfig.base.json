@@ -38,6 +38,12 @@
       "@hotel/orderapp/category/data-access": [
         "libs/orderapp/category/data-access/src/index.ts"
       ],
+      "@hotel/orderapp/company/data-access": [
+        "libs/orderapp/company/data-access/src/index.ts"
+      ],
+      "@hotel/orderapp/company/feature/add": [
+        "libs/orderapp/company/feature/add/src/index.ts"
+      ],
       "@hotel/orderapp/home": ["libs/orderapp/home/src/index.ts"],
       "@hotel/orderapp/kitchen/data-access": [
         "libs/orderapp/kitchen/data-access/src/index.ts"
