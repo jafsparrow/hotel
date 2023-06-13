@@ -1,4 +1,4 @@
-<button routerLink="/shell/order">go to order</button>
+<!-- <button routerLink="/shell/order">go to order</button>
 <div class="container bg-gray-100 h-screen grid grid-cols-8 sm:gap-1">
   <div
     class="flex flex-col items-center bg-blue-950 h-screen gap-6 col-span-1 select-none pt-10"
@@ -61,12 +61,145 @@
       TA
     </div>
   </div>
-  <!-- <div class="md:w-1/2 md:mx-auto p-2 flex flex-row">
-    <div class="w-full p-4 rounded-md bg-blue-600 text-white flex-grow">
-      14 items <span class="font-semibold">| 18.600 OMR</span>
-
-      <span class="text-right">VIEW CART</span>
-    </div>
-  </div> -->
   <hotel-orderapp-cart-feature-cart-summary-button></hotel-orderapp-cart-feature-cart-summary-button>
 </div>
+
+ -->
+
+<mat-drawer-container class="h-screen w-full">
+  <mat-drawer #drawer class="h-full bg-gray-100" mode="side">
+    <div
+      class="bg-gray-100 p-2 grid content-center justify-center h-16 border border-b-2"
+    >
+      <div>Hello ! <span class="font-light">Rasheeed</span></div>
+    </div>
+    <div class="bg-gray-100 p-2 grid gap-2">
+      <div class="font-bold">Categories</div>
+      <div class="p-2 bg-white cursor-pointer" (click)="navigateTo('company')">
+        Restaurant
+      </div>
+      <div
+        class="p-2 bg-gray-200 cursor-pointer"
+        (click)="navigateTo('kitchen')"
+      >
+        Kitchen
+      </div>
+      <div class="p-2 bg-white cursor-pointer" (click)="navigateTo('category')">
+        Categories
+      </div>
+      <div
+        class="p-2 bg-white cursor-pointer"
+        (click)="navigateTo('collection')"
+      >
+        Collection
+      </div>
+
+      <div class="font-bold">Collections</div>
+      <div class="p-2 bg-white cursor-pointer" (click)="navigateTo('product')">
+        Products
+      </div>
+      <div class="p-2 bg-white cursor-pointer" (click)="navigateTo('table')">
+        Table
+      </div>
+
+      <div class="font-bold">Orders</div>
+      <div class="p-2 bg-white cursor-pointer" (click)="navigateTo('user')">
+        User
+      </div>
+    </div>
+  </mat-drawer>
+
+  <div>
+    <mat-toolbar class="flex" color="primary">
+      <button mat-icon-button (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="pl-2">Home</span>
+      <span class="flex-grow"></span>
+
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="menu"
+        aria-label="Example icon-button with a menu"
+      >
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <span>Order Menu</span>
+        </button>
+        <button mat-menu-item>
+          <span>Check voice mail</span>
+        </button>
+        <button mat-menu-item>
+          <span>Disable alerts</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+
+    <div class="container bg-gray-100 h-screen grid grid-cols-8 sm:gap-1">
+      <div
+        class="flex flex-col items-center bg-blue-950 h-screen gap-6 col-span-1 select-none pt-10"
+      >
+        <hotel-orderapp-product-feature-categories></hotel-orderapp-product-feature-categories>
+      </div>
+
+      <div class="col-span-6 sm:col-span-6 h-screen overflow-auto">
+        <div
+          class="bg-white p-2"
+          *ngIf="selectCartCreatedForUser$ | async as cartUser"
+        >
+          <div class="text-xl font-semibold">
+            {{ cartUser.userType.toUpperCase() }} :
+            <span class="text-gray-700">{{ cartUser.firstName }}</span>
+          </div>
+          <div class="text-gray-800">Adeel Ahmed | 9733933</div>
+          <div class="flex flex-row justify-between">
+            <div class="text-gray-800 text-sm">Running Order</div>
+            <div class="p-1 bg-red-400 rounded-md" (click)="clearCartUser()">
+              CLEAR
+            </div>
+          </div>
+        </div>
+        <div class="sticky top-0">
+          <hotel-orderapp-product-feature-search></hotel-orderapp-product-feature-search>
+        </div>
+        <div class="overflow-scroll overflow-x-hidden pb-16">
+          <hotel-orderapp-product-feature-product-list></hotel-orderapp-product-feature-product-list>
+        </div>
+      </div>
+
+      <div class="bg-white grid col-span-1 h-screen overflow-auto pb-10">
+        <hotel-orderapp-product-feature-qwik-list></hotel-orderapp-product-feature-qwik-list>
+      </div>
+    </div>
+
+    <div class="fixed bottom-0 w-full">
+      <div
+        class="flex flex-row"
+        *ngIf="(selectCartCreatedForUser$ | async) === null"
+      >
+        <div class="flex-grow"></div>
+        <div
+          class="w-16 h-16 m-2 rounded-full bg-yellow-500 drop-shadow-lg flex flex-row justify-center items-center"
+          (click)="openTable('0ms', '0ms')"
+        >
+          T
+        </div>
+      </div>
+      <div
+        class="flex flex-row"
+        *ngIf="(selectCartCreatedForUser$ | async) === null"
+      >
+        <div class="flex-grow"></div>
+        <div
+          class="w-16 h-16 m-2 rounded-full bg-orange-500 drop-shadow-lg flex flex-row justify-center items-center"
+          (click)="openTakeAway('0ms', '0ms')"
+        >
+          TA
+        </div>
+      </div>
+      <hotel-orderapp-cart-feature-cart-summary-button></hotel-orderapp-cart-feature-cart-summary-button>
+    </div>
+  </div>
+</mat-drawer-container>

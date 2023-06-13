@@ -11,12 +11,16 @@ import {
   deleteCartCreatedForUser,
   selectCartCreatedForUser,
 } from '@hotel/orderapp/cart/data-access';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { loadProducts } from '@hotel/orderapp/product/data-access';
 import { loadCategories } from '@hotel/orderapp/category/data-access';
 import { OrderappCartFeatureCartSummaryButtonComponent } from '@hotel/orderapp/cart/feature/cart-summary-button';
 import { OrderappTableFeatureSelectionComponent } from '@hotel/orderapp/table/feature/selection';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'hotel-orderapp-home',
@@ -25,6 +29,10 @@ import { OrderappTableFeatureSelectionComponent } from '@hotel/orderapp/table/fe
     CommonModule,
     MatDialogModule,
     MatSnackBarModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatMenuModule,
     RouterModule,
     OrderappProductFeatureProductListComponent,
     OrderappProductFeatureQwikListComponent,
@@ -38,9 +46,18 @@ import { OrderappTableFeatureSelectionComponent } from '@hotel/orderapp/table/fe
 })
 export class OrderappHomeComponent {
   selectCartCreatedForUser$ = this.store.select(selectCartCreatedForUser);
-  constructor(private dialog: MatDialog, private store: Store) {
+  constructor(
+    private dialog: MatDialog,
+    private store: Store,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     this.store.dispatch(loadProducts());
     this.store.dispatch(loadCategories());
+  }
+
+  navigateTo(path: string) {
+    this.router.navigate([path], { relativeTo: this.route });
   }
 
   openTable(
