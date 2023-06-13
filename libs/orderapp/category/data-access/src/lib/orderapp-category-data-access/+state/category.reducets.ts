@@ -6,7 +6,7 @@ import {
   loadCategoriesSuccess,
   loadCategoryFail,
 } from './category.actions';
-import { Category } from '@hotel/orderapp/shared/data-access';
+import { Category } from '@hotel/common/types';
 
 export const CATEGORY_FEATURE_KEY = 'category';
 

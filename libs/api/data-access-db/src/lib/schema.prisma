@@ -26,26 +26,26 @@ model user {
 }
 
 model product {
-    id                    Int        @id @default(autoincrement())
+    id                    Int             @id @default(autoincrement())
     name                  String
     secondaryLanguageName String?
     price                 Float
     cost                  Float
-    image                 String     @default("")
-    inStock               Boolean    @default(true)
-    hasVariant            Boolean    @default(false)
-    hasModifiers          Boolean    @default(false)
-    createdAt             DateTime   @default(now())
-    updatedAt             DateTime   @updatedAt
-    isArchived            Boolean    @default(false)
-    collection            collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+    image                 String          @default("")
+    inStock               Boolean         @default(true)
+    hasVariant            Boolean         @default(false)
+    hasModifiers          Boolean         @default(false)
+    createdAt             DateTime        @default(now())
+    updatedAt             DateTime        @updatedAt
+    isArchived            Boolean         @default(false)
+    collection            collection      @relation(fields: [collectionId], references: [id], onDelete: Cascade)
     collectionId          Int
-
-    category      category        @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-    categoryId    Int
-    variants      variant[]
-    modifierGroup modifierGroup[]
-    orderItem     orderItem[]
+    qwickViewOrder        Int?            @default(1)
+    category              category        @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+    categoryId            Int
+    variants              variant[]
+    modifierGroup         modifierGroup[]
+    orderItem             orderItem[]
 }
 
 model category {
