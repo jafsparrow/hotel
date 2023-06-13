@@ -27,8 +27,10 @@ export const selectFilteredProducts = createSelector(
     if (!state.searchTerm) return state.products;
     return state.products.filter(
       (product) =>
-        product.name.toLocaleLowerCase().includes(state.searchTerm) ||
-        product.id.toString().includes(state.searchTerm)
+        product.name
+          .toLocaleLowerCase()
+          .includes(state.searchTerm.toLowerCase()) ||
+        product.id.toString().includes(state.searchTerm.toLowerCase())
     );
   }
 );
