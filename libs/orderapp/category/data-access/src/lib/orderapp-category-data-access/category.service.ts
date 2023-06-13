@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { Category } from '@hotel/orderapp/shared/data-access';
+import { Category } from '@hotel/common/types';
 
 @Injectable({ providedIn: 'root' })
 export class CategoryService {

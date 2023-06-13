@@ -17,9 +17,8 @@ import {
 export class CategoryEffects {
   constructor(
     private actions$: Actions,
-    private categoryService: CategoryService
-  ) // private dialog: MatDialog,
-  // private _snackBar: MatSnackBar
+    private categoryService: CategoryService // private dialog: MatDialog,
+  ) // private _snackBar: MatSnackBar
   {}
 
   loadCategoryEffect$ = createEffect(() => {

@@ -1,4 +1,4 @@
-import { Category, Organisation } from '@hotel/orderapp/shared/data-access';
+import { Category, Organisation } from '@hotel/common/types';
 import { createAction, props } from '@ngrx/store';
 
 export const loadCategories = createAction('[CATEGORY] loadcategory');
