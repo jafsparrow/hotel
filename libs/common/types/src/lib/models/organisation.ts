@@ -6,6 +6,7 @@ import { Tax } from './taxes';
 export interface Organisation {
   _id: string;
   name: string;
+  secondaryLanguageName?: string;
   caption: string;
   type: string[];
   address: string;

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CompanyService } from './company.service';
 
 @Component({
   selector: 'hotel-orderapp-company-data-access',

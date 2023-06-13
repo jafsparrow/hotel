@@ -2,6 +2,7 @@ import { Organisation } from '@hotel/common/types';
 import {
   addCompanyFail,
   addCompanySuccess,
+  loadCompanySuccess,
   turnCompanyProgressIdicator,
 } from './company.actions';
 import { createReducer, on } from '@ngrx/store';
@@ -26,6 +27,13 @@ export const companyReducer = createReducer(
     ...state,
     loadingIndicator: true,
   })),
+  on(loadCompanySuccess, (state, { company }) => {
+    return {
+      ...state,
+      company,
+      loadingIndicator: false,
+    };
+  }),
   on(addCompanySuccess, (state, { organisation }) => ({
     ...state,
     company: organisation,

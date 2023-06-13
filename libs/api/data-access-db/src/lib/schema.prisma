@@ -155,18 +155,18 @@ model kot {
 }
 
 model company {
-    id              Int     @id @default(autoincrement())
-    name            String
-    arabic          String
-    logoUrl         String
-    lastOrderNumber Int
-    caption         String
-    footer          String
-    currencyCode    String
-    address         String
-    lat             String? @default("")
-    long            String? @default("")
-    taxes           tax[]
+    id                    Int     @id @default(autoincrement())
+    name                  String
+    secondaryLanguageName String  @default("add other laguage")
+    logoUrl               String
+    lastOrderNumber       Int
+    caption               String
+    footer                String
+    currencyCode          String
+    address               String
+    lat                   String? @default("")
+    long                  String? @default("")
+    taxes                 tax[]
 }
 
 model tax {

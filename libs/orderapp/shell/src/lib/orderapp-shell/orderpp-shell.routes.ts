@@ -5,6 +5,12 @@ import {
   CART_FEATURE_KEY,
   cartReducer,
 } from '@hotel/orderapp/cart/data-access';
+import {
+  COMPANY_FEATURE_KEY,
+  CompanyEffects,
+  companyReducer,
+} from '@hotel/orderapp/company/data-access';
+import { provideEffects } from '@ngrx/effects';
 
 export const shellRoutes: Routes = [
   { path: '', component: OrderappShellComponent },
@@ -20,6 +26,10 @@ export const shellRoutes: Routes = [
       import('@hotel/orderapp/backoffice/feature/page').then(
         (m) => m.shellRoutes
       ),
+    providers: [
+      provideState(COMPANY_FEATURE_KEY, companyReducer),
+      provideEffects(CompanyEffects),
+    ],
   },
   {
     path: 'order',

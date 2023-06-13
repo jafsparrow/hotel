@@ -7,7 +7,9 @@ import {
   loadCompanySuccess,
 } from './company.actions';
 import { catchError, map, of, switchMap } from 'rxjs';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class CompanyEffects {
   constructor(
     private companyService: CompanyService,

@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Organisation } from '@hotel/common/types';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class CompanyService {
   constructor(
     private httpClient: HttpClient,
@@ -10,6 +12,6 @@ export class CompanyService {
     @Inject('endPointURL') public apiUrl: string
   ) {}
   loadCompany(id: number) {
-    return this.httpClient.get<Organisation>(`${this.apiUrl}/company/${id}`);
+    return this.httpClient.get<Organisation>(`${this.apiUrl}/company/`);
   }
 }
