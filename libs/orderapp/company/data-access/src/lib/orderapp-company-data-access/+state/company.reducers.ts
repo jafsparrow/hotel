@@ -10,13 +10,19 @@ import { createReducer, on } from '@ngrx/store';
 export const COMPANY_FEATURE_KEY = 'company';
 
 export interface CompanyState {
-  company: Organisation | null;
+  company: Organisation;
   loadingIndicator: boolean;
   errorMessage: string;
 }
 
 const initialState: CompanyState = {
-  company: null,
+  company: {
+    _id: '1',
+    address: '',
+    caption: '',
+    name: '',
+    taxes: [{ name: 'VAT', isPercentage: true, printName: 'VAT 5%', value: 5 }],
+  },
   loadingIndicator: false,
   errorMessage: '',
 };

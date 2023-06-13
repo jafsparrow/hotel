@@ -8,7 +8,7 @@ export interface Organisation {
   name: string;
   secondaryLanguageName?: string;
   caption: string;
-  type: string[];
+  type?: string[];
   address: string;
   coord?: string[];
   license?: string;
