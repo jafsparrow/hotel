@@ -169,13 +169,16 @@
           </div>
         </div>
       </div>
-      <div class="w-full max-w-md mx-auto px-4 fixed bottom-1 text-center">
+      <div
+        class="w-full max-w-md mx-auto px-4 fixed bottom-1 text-center"
+        *ngIf="cart.cartCreatedFor"
+      >
         <div class="p-4 py2 bg-gray-800 rounded text-white font-bold">
           <button (click)="placeOrder(cart)">PLACE ORDER</button>
         </div>
       </div>
       <ng-template #noCreatedForUser>
-        <div class="p-2 text-red-800">
+        <div class="p-2 bg-red-300">
           Please choose table or Takeaway from homepage.
         </div>
       </ng-template>
