@@ -15,7 +15,8 @@ export class OrderappProductFeatureCategoriesComponent {
   categories$ = this.store.select(selectCategories);
 
   constructor(private store: Store) {}
-  getCategoryHashId(category: Category) {
-    return `#${category.name}`;
+  scrollToView(category: Category) {
+    console.log('scrool to view of id', category.name);
+    document.getElementById(category.name)?.scrollIntoView();
   }
 }
