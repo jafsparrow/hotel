@@ -41,10 +41,11 @@ export class PDFService {
     const html = this.createHtml('KOT.html', kot, order);
     const pdfOptions = this.getPdfOptions('pdf', 'kot');
     await this.savePdf(html, pdfOptions);
-    // await this.printService.sendKOTtoPrint(
-    //   pdfOptions.path!,
-    //   kot.Kitchen!.printer
-    // );
+    await this.printService.sendKOTtoPrint(
+      pdfOptions.path!,
+      kot.Kitchen!.printer
+    );
+    await this.deletePdf(pdfOptions.path!);
   }
   private createHtml(
     templateName: string,
@@ -110,7 +111,45 @@ export class PDFService {
 
   private async savePdf(html: any, options: PDFOptions) {
     const browser = await launch({
-      args: ['--no-sandbox'],
+      args: [
+        '--no-sandbox',
+        '--disable-features=IsolateOrigins',
+        '--disable-site-isolation-trials',
+        '--autoplay-policy=user-gesture-required',
+        '--disable-background-networking',
+        '--disable-background-timer-throttling',
+        '--disable-backgrounding-occluded-windows',
+        '--disable-breakpad',
+        '--disable-client-side-phishing-detection',
+        '--disable-component-update',
+        '--disable-default-apps',
+        '--disable-dev-shm-usage',
+        '--disable-domain-reliability',
+        '--disable-extensions',
+        '--disable-features=AudioServiceOutOfProcess',
+        '--disable-hang-monitor',
+        '--disable-ipc-flooding-protection',
+        '--disable-notifications',
+        '--disable-offer-store-unmasked-wallet-cards',
+        '--disable-popup-blocking',
+        '--disable-print-preview',
+        '--disable-prompt-on-repost',
+        '--disable-renderer-backgrounding',
+        '--disable-setuid-sandbox',
+        '--disable-speech-api',
+        '--disable-sync',
+        '--hide-scrollbars',
+        '--ignore-gpu-blacklist',
+        '--metrics-recording-only',
+        '--mute-audio',
+        '--no-default-browser-check',
+        '--no-first-run',
+        '--no-pings',
+        '--no-zygote',
+        '--password-store=basic',
+        '--use-gl=swiftshader',
+        '--use-mock-keychain',
+      ],
       headless: 'new',
     });
 
@@ -129,7 +168,7 @@ export class PDFService {
     await browser.close();
   }
 
-  private deletePdf(path: string) {
+  private async deletePdf(path: string) {
     unlink(path, () => {
       console.log('file has been delete from : ', path);
     });
