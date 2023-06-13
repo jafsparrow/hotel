@@ -97,7 +97,9 @@ export class OrderappProductFeatureProductListComponent {
 
   incrementCart(product: Product) {
     const cartItem: CartItem = { product, count: 1, modifiers: [] };
-    this.store.dispatch(addToCart({ item: cartItem }));
+    this.store.dispatch(
+      addToCart({ item: cartItem, key: product.id.toString() })
+    );
   }
 
   decrimentCart(product: Product) {
