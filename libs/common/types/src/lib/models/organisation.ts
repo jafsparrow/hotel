@@ -9,10 +9,10 @@ export interface Organisation {
   caption: string;
   type: string[];
   address: string;
-  coord: string[];
-  license: string;
-  openAllWeek: boolean;
-  offDays: string[];
+  coord?: string[];
+  license?: string;
+  openAllWeek?: boolean;
+  offDays?: string[];
   products?: Product[];
   categories?: Category[];
   tableSections?: TableSection[];
