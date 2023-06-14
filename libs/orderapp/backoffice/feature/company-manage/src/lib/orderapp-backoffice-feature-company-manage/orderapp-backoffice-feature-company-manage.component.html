@@ -1,1 +1,93 @@
-<hotel-orderapp-company-feature-add></hotel-orderapp-company-feature-add>
+<div
+  class="bg-gray-100 p-4"
+  *ngIf="selectCompany$ | async as company; else noCompanyToDisplay"
+>
+  <div class="text-2xl font-semibold">{{ company.name }}</div>
+  <div class="text-sm font-light">{{ company.caption }}</div>
+  <div class="mt-6 grid grid-cols-1 gap-2 md:grid-cols-2">
+    <div class="bg-white p-2">
+      <div class="grid grid-cols-5 py-2">
+        <div class="col-span-1 border-r font-semibold">Currency</div>
+
+        <div class="col-span-4 pl-2">{{ company.currencyCode }}</div>
+      </div>
+
+      <div class="grid grid-cols-5 py-2">
+        <div class="col-span-1 border-r font-semibold">Decimal Numbers</div>
+
+        <div class="col-span-4 pl-2">3</div>
+      </div>
+
+      <div class="grid grid-cols-5 py-2">
+        <div class="col-span-1 border-r font-semibold">
+          Secondary Language Name
+        </div>
+
+        <div class="col-span-4 pl-2">Arabic Name</div>
+      </div>
+
+      <div class="grid grid-cols-5 py-2">
+        <div class="col-span-1 border-r font-semibold">Footer Text</div>
+
+        <div class="col-span-4 pl-2">footer text for the bills</div>
+      </div>
+
+      <div class="grid grid-cols-5 py-2">
+        <div class="col-span-1 border-r font-semibold">Decimal Numbers</div>
+
+        <div class="col-span-4 pl-2">3</div>
+      </div>
+
+      <div class="text-right cursor-pointer" (click)="editCompany(company)">
+        <div
+          class="inline-block w-36 bg-gray-900 text-white text-center p-2 rounded-md"
+        >
+          EDIT
+        </div>
+      </div>
+    </div>
+    <div class="bg-white p-2">
+      <div class="text-xl font-semibold">Taxes</div>
+
+      <div
+        class="grid grid-cols-6 border p-2 py-2 mb-2"
+        *ngFor="let tax of company.taxes"
+      >
+        <div class="col-span-2 border-r font-semibold">{{ tax.name }}</div>
+        <div class="col-span-1 border-r pl-2">{{ tax.printName }}</div>
+
+        <div class="col-span-1 border-r pl-2">
+          {{ tax.isPercentage ? '%' : 'value' }}
+        </div>
+
+        <div class="col-span-1 pl-2">{{ tax.value }}</div>
+        <div class="col-span-1 px-2" (click)="editTax(company, tax)">
+          <div
+            class="bg-green-900 text-white px-2 py-1 rounded-full text-center"
+          >
+            EDIT
+          </div>
+        </div>
+      </div>
+      <!-- 
+      <div class="grid grid-cols-5 border p-2 py-2">
+        <div class="col-span-2 border-r font-semibold">VAT</div>
+        <div class="col-span-1 border-r pl-2">VAT 5%</div>
+
+        <div class="col-span-1 border-r pl-2">%</div>
+
+        <div class="col-span-1 pl-2">5</div>
+      </div> -->
+
+      <div class="text-right cursor-pointer" (click)="addTax(company)">
+        <div
+          class="inline-block w-36 bg-gray-900 text-white text-center p-2 rounded-md"
+        >
+          ADD TAX
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noCompanyToDisplay> NO Company data </ng-template>

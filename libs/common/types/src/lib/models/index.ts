@@ -8,3 +8,4 @@ export * from './table';
 export * from './countries';
 export * from './count.dialog';
 export * from './modifier.dialog';
+export * from './company.dialog';

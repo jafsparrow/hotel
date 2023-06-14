@@ -6,7 +6,6 @@ import { AppService } from './app.service';
 describe('AppController', () => {
   let app: TestingModule;
 
-  // jafar
   beforeAll(async () => {
     app = await Test.createTestingModule({
       controllers: [AppController],

@@ -6,6 +6,10 @@ export class CompanyService {
   constructor(private prismaService: PrismaService) {}
 
   async getCompanyDetails(id: number) {
-    return await this.prismaService.company.findFirst();
+    return await this.prismaService.company.findFirst({
+      include: {
+        taxes: true,
+      },
+    });
   }
 }
