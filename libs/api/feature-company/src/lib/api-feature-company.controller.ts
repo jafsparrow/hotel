@@ -1,5 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CompanyService } from './company.service';
+import { UpdateCompanyDto } from './dto/company.update.dto';
 
 @Controller('company')
 export class ApiFeatureCompanyController {
@@ -7,5 +8,10 @@ export class ApiFeatureCompanyController {
   @Get()
   getCompanyDetails() {
     return this.companyService.getCompanyDetails(1);
+  }
+
+  @Post()
+  updateCompany(@Body() companyUpdateDto: UpdateCompanyDto) {
+    return this.companyService.updateCompany(companyUpdateDto);
   }
 }

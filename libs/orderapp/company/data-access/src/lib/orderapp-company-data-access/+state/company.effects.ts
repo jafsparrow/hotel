@@ -5,6 +5,9 @@ import {
   loadCompany,
   loadCompanyFail,
   loadCompanySuccess,
+  updateCompany,
+  updateCompanyFail,
+  updateCompanySuccess,
 } from './company.actions';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { Injectable } from '@angular/core';
@@ -25,6 +28,24 @@ export class CompanyEffects {
           map((org) => loadCompanySuccess({ company: org })),
           catchError((error) =>
             of(loadCompanyFail({ error: 'failed to laod company' }))
+          )
+        )
+      )
+    );
+  });
+
+  updateCompanyEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(updateCompany),
+      switchMap((data) =>
+        this.companyService.updateCompany(data.company).pipe(
+          map((data) => updateCompanySuccess({ organisation: data })),
+          catchError((error) =>
+            of(
+              updateCompanyFail({
+                error: 'failed to update company informations',
+              })
+            )
           )
         )
       )

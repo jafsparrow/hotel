@@ -1,9 +1,9 @@
 import { Organisation } from '@hotel/common/types';
 import {
-  addCompanyFail,
-  addCompanySuccess,
   loadCompanySuccess,
   turnCompanyProgressIdicator,
+  updateCompanyFail,
+  updateCompanySuccess,
 } from './company.actions';
 import { createReducer, on } from '@ngrx/store';
 
@@ -17,7 +17,7 @@ export interface CompanyState {
 
 const initialState: CompanyState = {
   company: {
-    _id: '1',
+    id: 1,
     address: '',
     caption: '',
     name: '',
@@ -40,12 +40,12 @@ export const companyReducer = createReducer(
       loadingIndicator: false,
     };
   }),
-  on(addCompanySuccess, (state, { organisation }) => ({
+  on(updateCompanySuccess, (state, { organisation }) => ({
     ...state,
     company: organisation,
     loadingIndicator: false,
   })),
-  on(addCompanyFail, (state, { error }) => ({
+  on(updateCompanyFail, (state, { error }) => ({
     ...state,
     errorMessage: error,
     loadingIndicator: false,

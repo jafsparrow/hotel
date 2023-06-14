@@ -18,6 +18,17 @@ async function main() {
   // });
 
   await prisma.company.create({ data: companyData });
+  await prisma.collection.create({
+    data: {
+      name: 'Arabic',
+    },
+  });
+  await prisma.user.create({
+    data: {
+      username: 'jafar',
+      password: 1234,
+    },
+  });
   for (const category of categoryData) {
     const createdCat = await prisma.category.create({
       data: category,

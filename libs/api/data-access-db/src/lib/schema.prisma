@@ -167,6 +167,7 @@ model company {
     lat                   String? @default("")
     long                  String? @default("")
     taxes                 tax[]
+    decimalZeros          Int?    @default(3)
 }
 
 model tax {

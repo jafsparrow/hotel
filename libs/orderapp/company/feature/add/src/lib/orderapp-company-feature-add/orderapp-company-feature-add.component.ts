@@ -8,7 +8,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { selectCompany } from '@hotel/orderapp/company/data-access';
+import {
+  selectCompany,
+  updateCompany,
+} from '@hotel/orderapp/company/data-access';
 import { CompanyEditDialogData, Organisation, Tax } from '@hotel/common/types';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
@@ -59,5 +62,18 @@ export class OrderappCompanyFeatureAddComponent implements OnInit {
 
   submitForm() {
     console.log(this.companyBasicInforForm.value);
+    if (this.companyBasicInforForm.valid) {
+      this.store.dispatch(
+        updateCompany({
+          company: {
+            ...this.companyBasicInforForm.value,
+            decimalZeros: this.companyBasicInforForm.value.decimalZeros
+              ? parseInt(this.companyBasicInforForm.value.decimalZeros)
+              : 1,
+            id: this.data.company.id,
+          },
+        })
+      );
+    }
   }
 }

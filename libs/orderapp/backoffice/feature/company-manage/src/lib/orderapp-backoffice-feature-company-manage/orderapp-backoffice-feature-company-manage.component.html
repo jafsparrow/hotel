@@ -15,7 +15,7 @@
       <div class="grid grid-cols-5 py-2">
         <div class="col-span-1 border-r font-semibold">Decimal Numbers</div>
 
-        <div class="col-span-4 pl-2">3</div>
+        <div class="col-span-4 pl-2">{{ company.decimalZeros }}</div>
       </div>
 
       <div class="grid grid-cols-5 py-2">
@@ -31,12 +31,12 @@
 
         <div class="col-span-4 pl-2">footer text for the bills</div>
       </div>
-
+      <!-- 
       <div class="grid grid-cols-5 py-2">
         <div class="col-span-1 border-r font-semibold">Decimal Numbers</div>
 
         <div class="col-span-4 pl-2">3</div>
-      </div>
+      </div> -->
 
       <div class="text-right cursor-pointer" (click)="editCompany(company)">
         <div

@@ -4,7 +4,7 @@ import { TableSection } from './table';
 import { Tax } from './taxes';
 
 export interface Organisation {
-  _id: string;
+  id: number;
   name: string;
   secondaryLanguageName?: string;
   caption: string;
@@ -21,4 +21,5 @@ export interface Organisation {
   taxes?: Tax[];
   currencyCode?: string;
   country?: FormatedCountry;
+  decimalZeros?: number;
 }

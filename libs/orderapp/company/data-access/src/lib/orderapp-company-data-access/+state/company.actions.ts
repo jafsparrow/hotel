@@ -16,17 +16,17 @@ export const loadCompanyFail = createAction(
   props<{ error: string }>()
 );
 
-export const addCompany = createAction(
+export const updateCompany = createAction(
   '[Company] add a company',
   props<{ company: Organisation }>()
 );
 
-export const addCompanySuccess = createAction(
+export const updateCompanySuccess = createAction(
   '[Company] add a company success',
   props<{ organisation: Organisation }>()
 );
 
-export const addCompanyFail = createAction(
+export const updateCompanyFail = createAction(
   '[Company] add a company failed',
   props<{ error: string }>()
 );
