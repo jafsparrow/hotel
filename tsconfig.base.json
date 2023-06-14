@@ -72,6 +72,9 @@
       "@hotel/orderapp/company/feature/add": [
         "libs/orderapp/company/feature/add/src/index.ts"
       ],
+      "@hotel/orderapp/company/feature/list": [
+        "libs/orderapp/company/feature/list/src/index.ts"
+      ],
       "@hotel/orderapp/home": ["libs/orderapp/home/src/index.ts"],
       "@hotel/orderapp/kitchen/data-access": [
         "libs/orderapp/kitchen/data-access/src/index.ts"
@@ -140,6 +143,9 @@
       ],
       "@hotel/orderapp/table/feature/selection": [
         "libs/orderapp/table/feature/selection/src/index.ts"
+      ],
+      "@hotel/orderapp/tax/feature/add": [
+        "libs/orderapp/tax/feature/add/src/index.ts"
       ],
       "@hotel/orderapp/ui": ["libs/orderapp/ui/src/index.ts"]
     }
