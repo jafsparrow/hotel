@@ -114,13 +114,23 @@ model order {
     tableId       Int?
     table         table?      @relation(fields: [tableId], references: [id])
     createdUserId Int
-    orderType     String
-    customerName  String
+    orderType     String      @default("table")
+    customerName  String?
+    customerId    Int?        @default(1)
+    customer      customer?   @relation(fields: [customerId], references: [id])
     // createdUserId   Int
     // createForUserId Int
     // createdUser     User        @relation("createdUser", fields: [createdUserId], references: [id], onDelete: Cascade)
     // createdFor      User        @relation("createdForUser", fields: [createForUserId], references: [id], onDelete: Cascade)
     user          user        @relation(fields: [createdUserId], references: [id])
+}
+
+model customer {
+    id         Int     @id @default(autoincrement())
+    firstName  String
+    secondName String
+    type       String  @default("table")
+    order      order[]
 }
 
 model orderItem {
@@ -182,8 +192,16 @@ model tax {
 }
 
 model table {
-    id        Int     @id @default(autoincrement())
-    name      String
-    capcacity Int?
-    order     order[]
+    id         Int          @id @default(autoincrement())
+    name       String
+    capcacity  Int?
+    order      order[]
+    tableSeats tableSeats[]
+}
+
+model tableSeats {
+    id      Int    @id @default(autoincrement())
+    name    String
+    tableId Int
+    table   table  @relation(fields: [tableId], references: [id])
 }

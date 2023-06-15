@@ -22,7 +22,7 @@ export interface OrderSummary {
   createdBy?: User;
   createdFor?: User;
   orderType?: string;
-  customerName?: string;
+  customerName?: string | null;
 }
 
 export interface AppliedTax {
