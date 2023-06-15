@@ -201,7 +201,7 @@ model table {
     id         Int          @id @default(autoincrement())
     name       String
     capacity   Int?
-    order      order[]
+    orders     order[]
     tableSeats tableSeats[]
     floorId    Int          @default(1)
     floor      floor        @relation(fields: [floorId], references: [id])
