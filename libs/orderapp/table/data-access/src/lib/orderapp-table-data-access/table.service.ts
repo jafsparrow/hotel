@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { Table } from '@hotel/common/types';
+import { Floor, Table } from '@hotel/common/types';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -13,7 +13,13 @@ export class ProductService {
     @Inject('endPointURL') public apiUrl: string
   ) {}
 
-  loadTables(): Observable<Table[]> {
-    return this.httpClient.get<Table[]>(`${this.apiUrl}/tables`);
+  loadFloors(): Observable<Floor[]> {
+    console.log('load table is called');
+    return this.httpClient.get<Floor[]>(`${this.apiUrl}/table/floor`);
+  }
+
+  loadFloorTables(id: number): Observable<Table[]> {
+    console.log('load table is called');
+    return this.httpClient.get<Table[]>(`${this.apiUrl}/table/${id}`);
   }
 }

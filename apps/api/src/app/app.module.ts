@@ -7,6 +7,8 @@ import { ApiFeatureProductModule } from '@hotel/api/feature-product';
 import { ApiFeatureCategoryModule } from '@hotel/api/feature-category';
 import { ApiFeatureOrderModule } from '@hotel/api/feature-order';
 import { ApiFeatureCompanyModule } from '@hotel/api/feature-company';
+import { ApiFeatureTableModule } from '@hotel/api/feature-table';
+import { ApiFeatureFloorModule } from '@hotel/api/feature-floor';
 
 @Module({
   imports: [
@@ -15,6 +17,8 @@ import { ApiFeatureCompanyModule } from '@hotel/api/feature-company';
     ApiFeatureCategoryModule,
     ApiFeatureOrderModule,
     ApiFeatureCompanyModule,
+    ApiFeatureTableModule,
+    ApiFeatureFloorModule,
   ],
   controllers: [AppController],
   providers: [AppService],

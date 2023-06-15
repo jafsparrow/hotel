@@ -191,12 +191,20 @@ model tax {
     companyId Int?
 }
 
+model floor {
+    id    Int     @id @default(autoincrement())
+    name  String
+    table table[]
+}
+
 model table {
     id         Int          @id @default(autoincrement())
     name       String
-    capcacity  Int?
+    capacity   Int?
     order      order[]
     tableSeats tableSeats[]
+    floorId    Int          @default(1)
+    floor      floor        @relation(fields: [floorId], references: [id])
 }
 
 model tableSeats {

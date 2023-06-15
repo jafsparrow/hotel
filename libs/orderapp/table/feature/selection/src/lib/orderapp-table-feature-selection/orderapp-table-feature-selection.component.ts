@@ -4,6 +4,10 @@ import { Store } from '@ngrx/store';
 import { DialogRef } from '@angular/cdk/dialog';
 import { setCartCreatedForUser } from '@hotel/orderapp/cart/data-access';
 import { UserType } from '@hotel/common/types';
+import {
+  selectTableLoadingIndicator,
+  selectTables,
+} from '@hotel/orderapp/table/data-access';
 
 @Component({
   selector: 'hotel-orderapp-table-feature-selection',
@@ -13,10 +17,13 @@ import { UserType } from '@hotel/common/types';
   styleUrls: ['./orderapp-table-feature-selection.component.css'],
 })
 export class OrderappTableFeatureSelectionComponent {
+  selectTableLoadIndicator$ = this.store.select(selectTableLoadingIndicator);
+  selectTables$ = this.store.select(selectTables);
   constructor(
     private store: Store,
     private dialogRef: DialogRef<OrderappTableFeatureSelectionComponent>
   ) {}
+
   selectTable(tableId: number, customerId: number) {
     this.store.dispatch(
       setCartCreatedForUser({

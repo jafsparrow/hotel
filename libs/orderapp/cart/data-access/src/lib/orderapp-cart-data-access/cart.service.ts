@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Cart, CartItem } from '@hotel/orderapp/shared/data-access';
+import { Cart, CartItem } from '@hotel/common/types';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
@@ -16,5 +16,4 @@ export class CartService {
   loadCart(): Observable<Cart> {
     return of(this.CART);
   }
-  
 }

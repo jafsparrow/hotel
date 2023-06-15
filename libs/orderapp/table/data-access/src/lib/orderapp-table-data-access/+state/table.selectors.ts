@@ -8,3 +8,8 @@ export const selectTables = createSelector(
   selectTableState,
   (state) => state.tables
 );
+
+export const selectTableLoadingIndicator = createSelector(
+  selectTableState,
+  (state) => state.loadingIndicator
+);

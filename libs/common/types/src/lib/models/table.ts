@@ -1,11 +1,18 @@
 export interface Table {
   id: number;
-  tableNumber?: number;
+  name?: string;
   capacity?: number;
   password?: number;
   isOccupied?: boolean;
   tableSectionId?: string;
   customers?: Customer[];
+  floor?: any;
+}
+
+export interface Floor {
+  id: number;
+  name: string;
+  tables?: Table[];
 }
 
 export interface TableSection {
