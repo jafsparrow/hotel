@@ -12,7 +12,18 @@ export class FloorService {
   async getFloorTables(floorId: number) {
     return await this.prismaService.floor.findFirst({
       where: { id: floorId },
-      select: { id: true, tables: true },
+      select: {
+        id: true,
+        tables: {
+          include: {
+            orders: {
+              where: {
+                NOT: { orderStatus: 'paid' },
+              },
+            },
+          },
+        },
+      },
     });
   }
 }

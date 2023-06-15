@@ -15,7 +15,7 @@ export class ProductService {
 
   loadFloors(): Observable<Floor[]> {
     console.log('load table is called');
-    return this.httpClient.get<Floor[]>(`${this.apiUrl}/table/floor`);
+    return this.httpClient.get<Floor[]>(`${this.apiUrl}/floor`);
   }
 
   loadFloorTables(id: number): Observable<Floor> {

@@ -1,3 +1,5 @@
+import { OrderSummary } from './order';
+
 export interface Table {
   id: number;
   name?: string;
@@ -7,6 +9,7 @@ export interface Table {
   tableSectionId?: string;
   customers?: Customer[];
   floor?: any;
+  orders?: OrderSummary[];
 }
 
 export interface Floor {

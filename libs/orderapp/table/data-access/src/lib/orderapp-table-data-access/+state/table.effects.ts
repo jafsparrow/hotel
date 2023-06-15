@@ -5,6 +5,9 @@ import {
   loadFloorTables,
   loadFloorTablesFail,
   loadFloorTablesSuccess,
+  loadFloors,
+  loadFloorsFaile,
+  loadFloorsSuccess,
   loadTables,
 } from './table.actions';
 import { catchError, map, of, switchMap } from 'rxjs';
@@ -25,6 +28,18 @@ export class TableEffects {
           catchError((error) =>
             of(loadFloorTablesFail({ errorMessage: error }))
           )
+        )
+      )
+    );
+  });
+
+  loadFloorsEffect$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(loadFloors),
+      switchMap((data) =>
+        this.productService.loadFloors().pipe(
+          map((floors) => loadFloorsSuccess({ floors })),
+          catchError((error) => of(loadFloorsFaile({ errorMessage: error })))
         )
       )
     );

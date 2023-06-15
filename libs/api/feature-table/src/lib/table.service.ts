@@ -9,7 +9,7 @@ export class TableService {
     return await this.prismaService.table.findMany({
       include: {
         tableSeats: true,
-        order: {
+        orders: {
           where: {
             NOT: { orderStatus: OrderStatus.PAID },
           },
@@ -19,10 +19,10 @@ export class TableService {
     });
   }
 
-  async getFloorTables(floorId: number) {
-    return await this.prismaService.floor.findFirst({
-      where: { id: floorId },
-      include: { tables: true },
-    });
-  }
+  // async getFloorTables(floorId: number) {
+  //   return await this.prismaService.floor.findFirst({
+  //     where: { id: floorId },
+  //     include: { tables: true },
+  //   });
+  // }
 }

@@ -5,6 +5,9 @@ import { DialogRef } from '@angular/cdk/dialog';
 import { setCartCreatedForUser } from '@hotel/orderapp/cart/data-access';
 import { UserType } from '@hotel/common/types';
 import {
+  loadFloorTables,
+  selectFloors,
+  selectSelectedFloorId,
   selectTableLoadingIndicator,
   selectTables,
 } from '@hotel/orderapp/table/data-access';
@@ -17,8 +20,10 @@ import {
   styleUrls: ['./orderapp-table-feature-selection.component.css'],
 })
 export class OrderappTableFeatureSelectionComponent {
+  selectFloors$ = this.store.select(selectFloors);
   selectTableLoadIndicator$ = this.store.select(selectTableLoadingIndicator);
   selectTables$ = this.store.select(selectTables);
+  selectedFloorId$ = this.store.select(selectSelectedFloorId);
   constructor(
     private store: Store,
     private dialogRef: DialogRef<OrderappTableFeatureSelectionComponent>
@@ -37,5 +42,9 @@ export class OrderappTableFeatureSelectionComponent {
     );
 
     this.dialogRef.close();
+  }
+
+  findTables(floorId: number) {
+    this.store.dispatch(loadFloorTables({ floorId }));
   }
 }

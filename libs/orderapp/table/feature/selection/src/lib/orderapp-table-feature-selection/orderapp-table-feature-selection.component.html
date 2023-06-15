@@ -1,17 +1,17 @@
-{{ selectTableLoadIndicator$ | async | json }}
-<div
-  class="p-4"
-  *ngIf="(selectTableLoadIndicator$ | async) === false; else loading"
->
-  <div *ngIf="selectTables$ | async as tables">
-    <input
-      type="text"
-      class="w-full rounded-full border-2 p-1"
-      placeholder="Search for Table"
-    />
-    <div class="flex flex-row gap-3 overflow-x-scroll py-2">
-      <div class="min-w-[70px] shrink-0 rounded-full bg-gray-200 px-3 py-1">
-        Front
+<div class="p-4">
+  <div class="font-bold">Select Table</div>
+  <div>
+    <div
+      class="flex flex-row gap-3 overflow-x-scroll py-2"
+      *ngIf="selectFloors$ | async as floors"
+    >
+      <div
+        class="min-w-[70px] shrink-0 rounded-full bg-gray-200 px-3 py-1 cursor-pointer"
+        *ngFor="let floor of floors"
+        (click)="findTables(floor.id)"
+        [ngClass]="{ 'bg-yellow-400': floor.id === (selectedFloorId$ | async) }"
+      >
+        {{ floor.name }}
       </div>
       <div class="min-w-[70px] shrink-0 rounded-full bg-gray-400 px-3 py-1">
         Front
@@ -27,166 +27,51 @@
       </div>
     </div>
 
-    <div class="sm:grid-col-5 grid grid-cols-3 gap-2 p-2">
-      <div
-        class="aspect-square rounded-md border-l-2 border-green-600 p-3 shadow-md"
-        (click)="selectTable(15, 1)"
-        *ngFor="let table of tables"
-      >
-        <div class="text-sm">TABLE - {{ table.name }}</div>
-        <div class="font-light text-sm">20 min ago</div>
-        <div class="mt-2 h-5 w-5">
-          <svg
-            fill="#000000"
-            version="1.1"
-            id="Capa_1"
-            viewBox="0 0 490 490"
-            xml:space="preserve"
-          >
-            <g>
-              <path
-                d="M420.931,104.275h-44.166V0H113.236v104.275H69.069C30.982,104.275,0,136.499,0,176.104v123.732
-                c0,39.615,30.982,71.839,69.069,71.839h33.506V490h284.839V371.675h33.516c38.089,0,69.069-32.224,69.069-71.839V176.104
-                C490,136.499,459.02,104.275,420.931,104.275z M134.087,20.852h221.827v83.424H134.087V20.852z M366.564,469.149H123.427V290.204
-                h243.137V469.149z M469.149,299.836c0,28.109-21.635,50.987-48.218,50.987h-33.516v-81.47H102.576v81.47H69.069
-                c-26.583,0-48.218-22.878-48.218-50.987V176.104c0-28.11,21.635-50.978,48.218-50.978h351.862
-                c26.583,0,48.218,22.867,48.218,50.978V299.836z"
-              />
-              <rect x="173.997" y="337.975" width="141.997" height="20.852" />
-              <rect x="173.997" y="395.508" width="141.997" height="20.852" />
-              <rect x="366.34" y="173.354" width="31.124" height="20.852" />
-            </g>
-          </svg>
+    <div
+      class="sm:grid-col-5 grid grid-cols-3 gap-2 p-2"
+      *ngIf="(selectTableLoadIndicator$ | async) === false; else loading"
+    >
+      <div *ngFor="let table of selectTables$ | async as tables">
+        <div
+          class="aspect-square rounded-md border-l-2 border-green-600 p-3 shadow-md"
+          (click)="selectTable(15, 1)"
+          [ngClass]="{
+            'bg-orange-600': table.orders && table.orders.length
+          }"
+        >
+          <div class="text-sm">TABLE - {{ table.name }}</div>
+          <div class="font-light text-sm">20 min ago</div>
+          <div class="mt-2 h-5 w-5">
+            <svg
+              fill="#000000"
+              version="1.1"
+              id="Capa_1"
+              viewBox="0 0 490 490"
+              xml:space="preserve"
+            >
+              <g>
+                <path
+                  d="M420.931,104.275h-44.166V0H113.236v104.275H69.069C30.982,104.275,0,136.499,0,176.104v123.732
+              c0,39.615,30.982,71.839,69.069,71.839h33.506V490h284.839V371.675h33.516c38.089,0,69.069-32.224,69.069-71.839V176.104
+              C490,136.499,459.02,104.275,420.931,104.275z M134.087,20.852h221.827v83.424H134.087V20.852z M366.564,469.149H123.427V290.204
+              h243.137V469.149z M469.149,299.836c0,28.109-21.635,50.987-48.218,50.987h-33.516v-81.47H102.576v81.47H69.069
+              c-26.583,0-48.218-22.878-48.218-50.987V176.104c0-28.11,21.635-50.978,48.218-50.978h351.862
+              c26.583,0,48.218,22.867,48.218,50.978V299.836z"
+                />
+                <rect x="173.997" y="337.975" width="141.997" height="20.852" />
+                <rect x="173.997" y="395.508" width="141.997" height="20.852" />
+                <rect x="366.34" y="173.354" width="31.124" height="20.852" />
+              </g>
+            </svg>
+          </div>
         </div>
       </div>
-
-      <!-- <div
-        class="aspect-square rounded-md border-l-2 border-green-600 p-3 shadow-md"
-        (click)="selectTable(15, 1)"
-      >
-        <div class="text-sm">TABLE 22</div>
-        <div class="font-light text-sm">20 min ago</div>
-        <div class="mt-2 h-5 w-5">
-          <svg
-            fill="#000000"
-            version="1.1"
-            id="Capa_1"
-            viewBox="0 0 490 490"
-            xml:space="preserve"
-          >
-            <g>
-              <path
-                d="M420.931,104.275h-44.166V0H113.236v104.275H69.069C30.982,104.275,0,136.499,0,176.104v123.732
-                c0,39.615,30.982,71.839,69.069,71.839h33.506V490h284.839V371.675h33.516c38.089,0,69.069-32.224,69.069-71.839V176.104
-                C490,136.499,459.02,104.275,420.931,104.275z M134.087,20.852h221.827v83.424H134.087V20.852z M366.564,469.149H123.427V290.204
-                h243.137V469.149z M469.149,299.836c0,28.109-21.635,50.987-48.218,50.987h-33.516v-81.47H102.576v81.47H69.069
-                c-26.583,0-48.218-22.878-48.218-50.987V176.104c0-28.11,21.635-50.978,48.218-50.978h351.862
-                c26.583,0,48.218,22.867,48.218,50.978V299.836z"
-              />
-              <rect x="173.997" y="337.975" width="141.997" height="20.852" />
-              <rect x="173.997" y="395.508" width="141.997" height="20.852" />
-              <rect x="366.34" y="173.354" width="31.124" height="20.852" />
-            </g>
-          </svg>
-        </div>
-      </div> -->
-
-      <!-- <div
-        class="aspect-square rounded-md border-l-2 border-green-600 p-3 shadow-md"
-        (click)="selectTable(15, 1)"
-      >
-        <div class="text-sm">TABLE 22</div>
-        <div class="font-light text-sm">20 min ago</div>
-        <div class="mt-2 h-5 w-5">
-          <svg
-            fill="#000000"
-            version="1.1"
-            id="Capa_1"
-            viewBox="0 0 490 490"
-            xml:space="preserve"
-          >
-            <g>
-              <path
-                d="M420.931,104.275h-44.166V0H113.236v104.275H69.069C30.982,104.275,0,136.499,0,176.104v123.732
-                c0,39.615,30.982,71.839,69.069,71.839h33.506V490h284.839V371.675h33.516c38.089,0,69.069-32.224,69.069-71.839V176.104
-                C490,136.499,459.02,104.275,420.931,104.275z M134.087,20.852h221.827v83.424H134.087V20.852z M366.564,469.149H123.427V290.204
-                h243.137V469.149z M469.149,299.836c0,28.109-21.635,50.987-48.218,50.987h-33.516v-81.47H102.576v81.47H69.069
-                c-26.583,0-48.218-22.878-48.218-50.987V176.104c0-28.11,21.635-50.978,48.218-50.978h351.862
-                c26.583,0,48.218,22.867,48.218,50.978V299.836z"
-              />
-              <rect x="173.997" y="337.975" width="141.997" height="20.852" />
-              <rect x="173.997" y="395.508" width="141.997" height="20.852" />
-              <rect x="366.34" y="173.354" width="31.124" height="20.852" />
-            </g>
-          </svg>
-        </div>
-      </div>
-
-      <div
-        class="aspect-square rounded-md border-l-2 border-green-600 p-3 shadow-md"
-        (click)="selectTable(15, 1)"
-      >
-        <div class="text-sm">TABLE 22</div>
-        <div class="font-light text-sm">20 min ago</div>
-        <div class="mt-2 h-5 w-5">
-          <svg
-            fill="#000000"
-            version="1.1"
-            id="Capa_1"
-            viewBox="0 0 490 490"
-            xml:space="preserve"
-          >
-            <g>
-              <path
-                d="M420.931,104.275h-44.166V0H113.236v104.275H69.069C30.982,104.275,0,136.499,0,176.104v123.732
-                c0,39.615,30.982,71.839,69.069,71.839h33.506V490h284.839V371.675h33.516c38.089,0,69.069-32.224,69.069-71.839V176.104
-                C490,136.499,459.02,104.275,420.931,104.275z M134.087,20.852h221.827v83.424H134.087V20.852z M366.564,469.149H123.427V290.204
-                h243.137V469.149z M469.149,299.836c0,28.109-21.635,50.987-48.218,50.987h-33.516v-81.47H102.576v81.47H69.069
-                c-26.583,0-48.218-22.878-48.218-50.987V176.104c0-28.11,21.635-50.978,48.218-50.978h351.862
-                c26.583,0,48.218,22.867,48.218,50.978V299.836z"
-              />
-              <rect x="173.997" y="337.975" width="141.997" height="20.852" />
-              <rect x="173.997" y="395.508" width="141.997" height="20.852" />
-              <rect x="366.34" y="173.354" width="31.124" height="20.852" />
-            </g>
-          </svg>
-        </div>
-      </div> -->
-
-      <!-- <div
-        class="aspect-square rounded-md border-l-2 border-green-600 p-3 shadow-md"
-        (click)="selectTable(15, 1)"
-      >
-        <div class="text-sm">TABLE 22</div>
-        <div class="font-light text-sm">20 min ago</div>
-        <div class="mt-2 h-5 w-5">
-          <svg
-            fill="#000000"
-            version="1.1"
-            id="Capa_1"
-            viewBox="0 0 490 490"
-            xml:space="preserve"
-          >
-            <g>
-              <path
-                d="M420.931,104.275h-44.166V0H113.236v104.275H69.069C30.982,104.275,0,136.499,0,176.104v123.732
-                c0,39.615,30.982,71.839,69.069,71.839h33.506V490h284.839V371.675h33.516c38.089,0,69.069-32.224,69.069-71.839V176.104
-                C490,136.499,459.02,104.275,420.931,104.275z M134.087,20.852h221.827v83.424H134.087V20.852z M366.564,469.149H123.427V290.204
-                h243.137V469.149z M469.149,299.836c0,28.109-21.635,50.987-48.218,50.987h-33.516v-81.47H102.576v81.47H69.069
-                c-26.583,0-48.218-22.878-48.218-50.987V176.104c0-28.11,21.635-50.978,48.218-50.978h351.862
-                c26.583,0,48.218,22.867,48.218,50.978V299.836z"
-              />
-              <rect x="173.997" y="337.975" width="141.997" height="20.852" />
-              <rect x="173.997" y="395.508" width="141.997" height="20.852" />
-              <rect x="366.34" y="173.354" width="31.124" height="20.852" />
-            </g>
-          </svg>
-        </div>
-      </div> -->
     </div>
   </div>
 </div>
-<ng-template #loading> Loading... </ng-template>
+<ng-template #loading>
+  <div class="h-52 text-center p-2">Loading...</div>
+</ng-template>
 <div class="h-screen bg-gray-100 p-2">
   <div class="mx-auto grid max-w-md gap-2 p-2">
     <div class="font-bold mb-2">Tables</div>

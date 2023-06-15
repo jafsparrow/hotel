@@ -5,6 +5,9 @@ import {
   loadFloorTables,
   loadFloorTablesFail,
   loadFloorTablesSuccess,
+  loadFloors,
+  loadFloorsFaile,
+  loadFloorsSuccess,
   loadTables,
 } from './table.actions';
 
@@ -31,6 +34,17 @@ const initialState: TableState = {
 export const tableReducers = createReducer(
   initialState,
   on(loadTables, (state) => ({ ...state, loadingIndicator: true })),
+  on(loadFloors, (state) => ({ ...state, loadingIndicator: true })),
+  on(loadFloorsSuccess, (state, { floors }) => ({
+    ...state,
+    loadingIndicator: false,
+    floors,
+  })),
+  on(loadFloorsFaile, (state, { errorMessage }) => ({
+    ...state,
+    loadingIndicator: false,
+    errorMessage,
+  })),
   on(loadFloorTables, (state, { floorId }) => ({
     ...state,
     loadingIndicator: true,

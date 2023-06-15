@@ -13,3 +13,13 @@ export const selectTableLoadingIndicator = createSelector(
   selectTableState,
   (state) => state.loadingIndicator
 );
+
+export const selectFloors = createSelector(
+  selectTableState,
+  (state) => state.floors
+);
+
+export const selectSelectedFloorId = createSelector(
+  selectTableState,
+  (state) => state.selectedFloorId
+);

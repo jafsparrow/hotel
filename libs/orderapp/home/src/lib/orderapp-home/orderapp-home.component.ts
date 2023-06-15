@@ -21,7 +21,11 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { loadFloorTables, loadTables } from '@hotel/orderapp/table/data-access';
+import {
+  loadFloorTables,
+  loadFloors,
+  loadTables,
+} from '@hotel/orderapp/table/data-access';
 
 @Component({
   selector: 'hotel-orderapp-home',
@@ -55,6 +59,7 @@ export class OrderappHomeComponent {
   ) {
     this.store.dispatch(loadProducts());
     this.store.dispatch(loadCategories());
+    this.store.dispatch(loadFloors());
     this.store.dispatch(loadFloorTables({ floorId: 1 }));
   }
 
