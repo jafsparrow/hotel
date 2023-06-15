@@ -22,7 +22,7 @@ export class TableService {
   async getFloorTables(floorId: number) {
     return await this.prismaService.floor.findFirst({
       where: { id: floorId },
-      include: { table: true },
+      include: { tables: true },
     });
   }
 }

@@ -5,10 +5,14 @@ import { Injectable } from '@nestjs/common';
 export class FloorService {
   constructor(private prismaService: PrismaService) {}
 
+  async getFloors() {
+    return await this.prismaService.floor.findMany();
+  }
+
   async getFloorTables(floorId: number) {
     return await this.prismaService.floor.findFirst({
       where: { id: floorId },
-      select: { table: true },
+      select: { id: true, tables: true },
     });
   }
 }

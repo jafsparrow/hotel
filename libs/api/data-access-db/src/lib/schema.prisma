@@ -192,9 +192,9 @@ model tax {
 }
 
 model floor {
-    id    Int     @id @default(autoincrement())
-    name  String
-    table table[]
+    id     Int     @id @default(autoincrement())
+    name   String
+    tables table[]
 }
 
 model table {

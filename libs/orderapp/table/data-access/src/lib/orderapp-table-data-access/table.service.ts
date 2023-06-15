@@ -18,8 +18,8 @@ export class ProductService {
     return this.httpClient.get<Floor[]>(`${this.apiUrl}/table/floor`);
   }
 
-  loadFloorTables(id: number): Observable<Table[]> {
+  loadFloorTables(id: number): Observable<Floor> {
     console.log('load table is called');
-    return this.httpClient.get<Table[]>(`${this.apiUrl}/table/${id}`);
+    return this.httpClient.get<Floor>(`${this.apiUrl}/floor/${id}`);
   }
 }

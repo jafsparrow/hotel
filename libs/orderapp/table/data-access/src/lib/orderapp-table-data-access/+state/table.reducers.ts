@@ -3,9 +3,9 @@ import { loadProducts } from '@hotel/orderapp/product/data-access';
 import { createReducer, on } from '@ngrx/store';
 import {
   loadFloorTables,
+  loadFloorTablesFail,
+  loadFloorTablesSuccess,
   loadTables,
-  loadTablesFail,
-  loadTablesSuccess,
 } from './table.actions';
 
 export const TABLE_FEATURE_KEY = 'table';
@@ -36,12 +36,12 @@ export const tableReducers = createReducer(
     loadingIndicator: true,
     selectedFloorId: floorId,
   })),
-  on(loadTablesSuccess, (state, { tables }) => ({
+  on(loadFloorTablesSuccess, (state, { floor }) => ({
     ...state,
     loadingIndicator: false,
-    tables,
+    tables: floor.tables!,
   })),
-  on(loadTablesFail, (state, { errorMessage }) => ({
+  on(loadFloorTablesFail, (state, { errorMessage }) => ({
     ...state,
     errorMessage,
     loadingIndicator: false,

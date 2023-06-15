@@ -3,9 +3,9 @@ import { ProductService } from '../table.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   loadFloorTables,
+  loadFloorTablesFail,
+  loadFloorTablesSuccess,
   loadTables,
-  loadTablesFail,
-  loadTablesSuccess,
 } from './table.actions';
 import { catchError, map, of, switchMap } from 'rxjs';
 
@@ -21,8 +21,10 @@ export class TableEffects {
       ofType(loadFloorTables),
       switchMap((data) =>
         this.productService.loadFloorTables(data.floorId).pipe(
-          map((tables) => loadTablesSuccess({ tables })),
-          catchError((error) => of(loadTablesFail({ errorMessage: error })))
+          map((floor) => loadFloorTablesSuccess({ floor: floor })),
+          catchError((error) =>
+            of(loadFloorTablesFail({ errorMessage: error }))
+          )
         )
       )
     );

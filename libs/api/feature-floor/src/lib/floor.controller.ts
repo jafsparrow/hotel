@@ -5,6 +5,11 @@ import { FloorService } from './floor.service';
 export class FloorController {
   constructor(private floorService: FloorService) {}
 
+  @Get()
+  getFloors() {
+    return this.floorService.getFloors();
+  }
+
   @Get(':id')
   getFloorTables(@Param() params: any) {
     const id = +params.id;
