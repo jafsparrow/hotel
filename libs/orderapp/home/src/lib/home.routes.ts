@@ -24,6 +24,7 @@ import {
   cartReducer,
 } from '@hotel/orderapp/cart/data-access';
 import { provideEffects } from '@ngrx/effects';
+import { TABLE_FEATURE_KEY } from '@hotel/orderapp/table/data-access';
 
 export const homeRoutes: Routes = [
   {
@@ -34,9 +35,10 @@ export const homeRoutes: Routes = [
       provideState(CATEGORY_FEATURE_KEY, categoryReducer),
       provideState(ORDER_FEATURE_KEY, orderReducer),
       provideState(CART_FEATURE_KEY, cartReducer),
-
+      provideState(TABLE_FEATURE_KEY, productsReducer),
       provideEffects(ProductsEffects),
       provideEffects(CategoryEffects),
+      provideEffects(ProductsEffects),
     ],
   },
 ];
