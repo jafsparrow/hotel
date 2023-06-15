@@ -26,6 +26,7 @@ const initialState: Cart = {
     },
   ],
   placeOrderSpinner: false,
+  tableId: 1,
 };
 
 export const cartReducer = createReducer(

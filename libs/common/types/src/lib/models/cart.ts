@@ -18,4 +18,6 @@ export interface Cart {
   createdBy?: User;
   taxes?: Tax[];
   note?: string;
+  tableId?: number;
+  customerId?: number;
 }

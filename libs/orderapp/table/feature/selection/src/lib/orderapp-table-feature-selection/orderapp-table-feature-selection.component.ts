@@ -17,13 +17,15 @@ export class OrderappTableFeatureSelectionComponent {
     private store: Store,
     private dialogRef: DialogRef<OrderappTableFeatureSelectionComponent>
   ) {}
-  selectTable(tableNumber: number) {
+  selectTable(tableId: number, customerId: number) {
     this.store.dispatch(
       setCartCreatedForUser({
         user: {
-          firstName: tableNumber.toString(),
+          firstName: tableId.toString(),
           userType: UserType.TABLE,
         },
+        tableId: tableId,
+        customerId: customerId ? customerId : 0,
       })
     );
 

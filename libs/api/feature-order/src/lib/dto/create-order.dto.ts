@@ -8,6 +8,9 @@ export class CreateOrderDto {
 
   cartCreatedFor!: User;
 
+  tableId!: number;
+  customerId!: number;
+
   total!: number;
 
   @IsOptional()

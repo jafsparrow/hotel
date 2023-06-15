@@ -131,24 +131,30 @@ export class OrderService {
           false
         );
       }
+      const tableId = createOrderDto.tableId;
+      if (createOrderDto.customerId) {
+        const customerId = createOrderDto.customerId;
+        const existingOrder = await this.checkIfTableHasRunningOrder(
+          tableId,
+          customerId
+        );
 
-      const existingOrder = await this.checkIfTableHasRunningOrder(
-        createOrderDto.cartCreatedFor.firstName
-      );
-      if (!existingOrder) {
+        if (!existingOrder) throw new Error();
+        return await this.updateOrderItemsTable(
+          existingOrder,
+          createOrderDto,
+          true
+        );
+      } else {
         const newOrder = await this.createTableOrder(createOrderDto, appUser);
         return await this.updateOrderItemsTable(
           newOrder,
           createOrderDto,
           false
         );
-      } else {
-        return await this.updateOrderItemsTable(
-          existingOrder,
-          createOrderDto,
-          true
-        );
       }
+      // no customer is assigned for this.
+      // this mean a new cusotmer should be created along with the orders.
     } catch (error) {
       console.log(error);
       throw new BadRequestException(error);
@@ -314,13 +320,20 @@ export class OrderService {
   //     const kotDetails =
   //   }
 
-  private async checkIfTableHasRunningOrder(tableName: string) {
+  private async checkIfTableHasRunningOrder(
+    tableId: number,
+    customerId: number
+  ) {
     try {
       const existingOrderFortheTable = await this.prismaService.order.findFirst(
         {
           where: {
-            customerName: tableName,
+            customerId: customerId,
+            tableId: tableId,
             orderType: OrderType.TABLE,
+            NOT: {
+              orderStatus: OrderStatus.PAID,
+            },
           },
         }
       );
@@ -336,11 +349,22 @@ export class OrderService {
     appUser: User
   ) {
     try {
+      const tableId = createOrderDto.tableId;
       const nextOrderId = await this.getNextOrderNumber();
+      const newCustomer = await this.prismaService.customer.create({
+        data: {
+          firstName: createOrderDto.cartCreatedFor.firstName,
+          secondName: createOrderDto.cartCreatedFor.lastName
+            ? createOrderDto.cartCreatedFor.lastName
+            : 'no',
+        },
+      });
 
       const newOrder = await this.prismaService.order.create({
         data: {
           customerName: createOrderDto.cartCreatedFor.firstName,
+          customerId: newCustomer.id,
+          tableId: tableId,
           orderNumber: nextOrderId,
           orderStatus: OrderStatus.INPROGRESS,
           orderType: OrderType.TABLE,
