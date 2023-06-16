@@ -64,13 +64,17 @@
             </svg>
           </div> -->
           <div class="flex" *ngIf="table.orders!.length! > 0">
-            <div class="bg-gray-100 rounded-md cursor-pointer">
+            <div class="flex overflow-x-scroll">
               <div
-                class="p-1"
+                class="mx-1 p-1 rounded-md cursor-pointer bg-white border truncate w-12"
                 *ngFor="let order of table.orders"
                 (click)="selectTable(table, order.customer!, order)"
               >
-                P1
+                {{
+                  order.customer!.lastName
+                    ? order.customer!.lastName
+                    : order.customer!.firstName
+                }}
               </div>
             </div>
           </div>

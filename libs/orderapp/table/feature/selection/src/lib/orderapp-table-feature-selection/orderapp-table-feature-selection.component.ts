@@ -49,7 +49,8 @@ export class OrderappTableFeatureSelectionComponent {
     this.store.dispatch(
       setCartCreatedForUser({
         user: {
-          firstName: table.name!.toString() + 'new',
+          firstName: table.name!.toString(),
+          lastName: Math.ceil(Math.random() * 100).toString(),
           userType: UserType.TABLE,
         },
         tableId: table.id,

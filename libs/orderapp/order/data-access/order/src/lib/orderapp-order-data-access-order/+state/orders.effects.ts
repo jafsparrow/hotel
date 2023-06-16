@@ -42,7 +42,9 @@ export class OrderEffects {
       switchMap((order) => {
         return this.orderService.placeOrder(order.cart).pipe(
           map((order) =>
-            orderPlaceSuccess({ successMessage: 'hello world for now' })
+            orderPlaceSuccess({
+              successMessage: `Order ${order.orderNumber} updated or created successfully`,
+            })
           ),
           catchError((error) =>
             of(
@@ -63,9 +65,10 @@ export class OrderEffects {
         tap((data: any) =>
           // this._snackBar.open('Your order is placed successfully', 'close')
           console.log(data)
-        ),
-        // tap((data: any) => this.store.dispatch(clearCart())),
-        tap((data: any) => this.location.back())
+        )
+        // tap((data: any) => this.store.dispatch(clearCart()))
+
+        // tap((data: any) => this.location.back())
       );
     },
     { dispatch: false }

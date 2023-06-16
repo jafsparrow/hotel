@@ -102,6 +102,9 @@
       "@hotel/orderapp/order/feature/product-count": [
         "libs/orderapp/order/feature/product-count/src/index.ts"
       ],
+      "@hotel/orderapp/order/feature/progress": [
+        "libs/orderapp/order/feature/progress/src/index.ts"
+      ],
       "@hotel/orderapp/order/feature/take-away": [
         "libs/orderapp/order/feature/take-away/src/index.ts"
       ],

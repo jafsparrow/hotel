@@ -126,11 +126,11 @@ model order {
 }
 
 model customer {
-    id         Int     @id @default(autoincrement())
-    firstName  String
-    secondName String
-    type       String  @default("table")
-    order      order[]
+    id        Int     @id @default(autoincrement())
+    firstName String
+    lastName  String  @default("Spider")
+    type      String  @default("table")
+    order     order[]
 }
 
 model orderItem {

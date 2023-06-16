@@ -18,11 +18,13 @@ import {
   selectPlaceOrderSpinner,
 } from '@hotel/orderapp/order/data-access/order';
 import { RouterModule } from '@angular/router';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { OrderappOrderFeatureProgressComponent } from '@hotel/orderapp/order/feature/progress';
 
 @Component({
   selector: 'hotel-orderapp-cart-feature-cart-list',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, MatDialogModule],
   templateUrl: './orderapp-cart-feature-cart-list.component.html',
   styleUrls: ['./orderapp-cart-feature-cart-list.component.css'],
 })
@@ -31,7 +33,7 @@ export class OrderappCartFeatureCartListComponent {
   getTotalCartAmout$ = this.store.select(selectCartTotal);
   selectPlaceOrderSpinner$ = this.store.select(selectPlaceOrderSpinner);
   selectOrderSuccessMessage$ = this.store.select(selectOrderSuccessMessage);
-  constructor(private store: Store) {}
+  constructor(private store: Store, private dialog: MatDialog) {}
 
   getCartItems(cart: Cart) {
     // console.log('cart.cartItems', cart.cartItems);
@@ -52,6 +54,10 @@ export class OrderappCartFeatureCartListComponent {
   }
   placeOrder(cart: Cart) {
     this.store.dispatch(placeOrder({ cart }));
+    this.dialog.open(OrderappOrderFeatureProgressComponent, {
+      disableClose: true,
+      width: '100%',
+    });
   }
 
   getCartItemTotal(cartItem: CartItem) {

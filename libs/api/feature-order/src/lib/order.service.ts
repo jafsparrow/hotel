@@ -125,11 +125,8 @@ export class OrderService {
           throw new BadRequestException('could not create any new order..');
 
         console.log('order has been created.', newOrder);
-        return await this.updateOrderItemsTable(
-          newOrder,
-          createOrderDto,
-          false
-        );
+        await this.updateOrderItemsTable(newOrder, createOrderDto, false);
+        return newOrder;
       }
       const tableId = createOrderDto.tableId;
       if (createOrderDto.customerId) {
@@ -141,18 +138,12 @@ export class OrderService {
         );
 
         if (!existingOrder) throw new Error();
-        return await this.updateOrderItemsTable(
-          existingOrder,
-          createOrderDto,
-          true
-        );
+        await this.updateOrderItemsTable(existingOrder, createOrderDto, true);
+        return existingOrder;
       } else {
         const newOrder = await this.createTableOrder(createOrderDto, appUser);
-        return await this.updateOrderItemsTable(
-          newOrder,
-          createOrderDto,
-          false
-        );
+        await this.updateOrderItemsTable(newOrder, createOrderDto, false);
+        return newOrder;
       }
       // no customer is assigned for this.
       // this mean a new cusotmer should be created along with the orders.
@@ -357,7 +348,7 @@ export class OrderService {
       const newCustomer = await this.prismaService.customer.create({
         data: {
           firstName: createOrderDto.cartCreatedFor.firstName,
-          secondName: createOrderDto.cartCreatedFor.lastName
+          lastName: createOrderDto.cartCreatedFor.lastName
             ? createOrderDto.cartCreatedFor.lastName
             : 'no',
         },

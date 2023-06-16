@@ -14,9 +14,9 @@ export class OrderService {
     private httpClient: HttpClient,
     @Inject('endPointURL') public apiUrl: string
   ) {}
-  placeOrder(cart: Cart) {
+  placeOrder(cart: Cart): Observable<OrderSummary> {
     console.log('place order fucntion fired', cart);
-    return this.httpClient.post(`${this.apiUrl}/orders`, cart);
+    return this.httpClient.post<OrderSummary>(`${this.apiUrl}/orders`, cart);
   }
 
   getRecentOrders() {
