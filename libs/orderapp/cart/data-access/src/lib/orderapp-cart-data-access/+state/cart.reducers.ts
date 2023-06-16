@@ -27,6 +27,8 @@ const initialState: Cart = {
   ],
   placeOrderSpinner: false,
   tableId: 1,
+  customerId: 0,
+  existingOrderId: 0,
 };
 
 export const cartReducer = createReducer(
@@ -94,10 +96,16 @@ export const cartReducer = createReducer(
     // console.log('inside reducer tax is ', taxes);
     return { ...state, taxes };
   }),
-  on(setCartCreatedForUser, (state, { user }) => ({
-    ...state,
-    cartCreatedFor: user,
-  })),
+  on(
+    setCartCreatedForUser,
+    (state, { user, tableId, customerId, existingOrderId }) => ({
+      ...state,
+      cartCreatedFor: user,
+      tableId: tableId,
+      customerId: customerId ? customerId : 0,
+      existingOrderId: existingOrderId ? existingOrderId : 0,
+    })
+  ),
   on(deleteCartCreatedForUser, (state) => ({ ...state, cartCreatedFor: null }))
 );
 // state.cartItems[productId] = {

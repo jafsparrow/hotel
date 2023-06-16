@@ -10,6 +10,7 @@ export class CreateOrderDto {
 
   tableId!: number;
   customerId!: number;
+  orderId!: number;
 
   total!: number;
 

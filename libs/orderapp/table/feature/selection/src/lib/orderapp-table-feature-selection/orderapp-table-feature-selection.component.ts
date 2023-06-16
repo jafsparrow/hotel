@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { DialogRef } from '@angular/cdk/dialog';
 import { setCartCreatedForUser } from '@hotel/orderapp/cart/data-access';
-import { UserType } from '@hotel/common/types';
+import { Customer, OrderSummary, Table, UserType } from '@hotel/common/types';
 import {
   loadFloorTables,
   selectFloors,
@@ -29,21 +29,35 @@ export class OrderappTableFeatureSelectionComponent {
     private dialogRef: DialogRef<OrderappTableFeatureSelectionComponent>
   ) {}
 
-  selectTable(tableId: number, customerId: number) {
+  selectTable(table: Table, customer: Customer, order: OrderSummary) {
     this.store.dispatch(
       setCartCreatedForUser({
         user: {
-          firstName: tableId.toString(),
+          firstName: table.name! + '-' + customer.firstName,
           userType: UserType.TABLE,
         },
-        tableId: tableId,
-        customerId: customerId ? customerId : 0,
+        tableId: table.id,
+        customerId: customer ? customer.id : 0,
+        existingOrderId: order.id,
       })
     );
 
     this.dialogRef.close();
   }
 
+  setTableForNewOrder(table: Table) {
+    this.store.dispatch(
+      setCartCreatedForUser({
+        user: {
+          firstName: table.name!.toString() + 'new',
+          userType: UserType.TABLE,
+        },
+        tableId: table.id,
+      })
+    );
+
+    this.dialogRef.close();
+  }
   findTables(floorId: number) {
     this.store.dispatch(loadFloorTables({ floorId }));
   }

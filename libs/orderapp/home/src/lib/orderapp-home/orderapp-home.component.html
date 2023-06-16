@@ -145,19 +145,26 @@
       </div>
 
       <div class="col-span-6 sm:col-span-6 h-screen overflow-auto">
-        <div
-          class="bg-white p-2"
-          *ngIf="selectCartCreatedForUser$ | async as cartUser"
-        >
-          <div class="text-xl font-semibold">
-            {{ cartUser.userType.toUpperCase() }} :
-            <span class="text-gray-700">{{ cartUser.firstName }}</span>
-          </div>
-          <div class="text-gray-800">Adeel Ahmed | 9733933</div>
-          <div class="flex flex-row justify-between">
-            <div class="text-gray-800 text-sm">Running Order</div>
-            <div class="p-1 bg-red-400 rounded-md" (click)="clearCartUser()">
-              CLEAR
+        <div *ngIf="selectCartCreatedForUser$ | async">
+          <div
+            class="bg-white p-2"
+            *ngIf="cartShortSummary$ | async as summary"
+          >
+            <div class="font-bold">
+              {{ summary.cartCreateFor!.userType.toUpperCase() }} :
+              <span class="font-semibold text-gray-700">{{
+                summary.cartCreateFor!.firstName
+              }}</span>
+            </div>
+            <div class="font-light">{{ summary.cartCreateFor!.lastName }}</div>
+            <!-- <div class="text-gray-800">Adeel Ahmed | 9733933</div> -->
+            <div class="flex flex-row justify-between">
+              <div class="text-gray-800 text-sm">
+                {{ summary.runningStatus }}
+              </div>
+              <div class="p-1 bg-red-400 rounded-md" (click)="clearCartUser()">
+                CLEAR
+              </div>
             </div>
           </div>
         </div>

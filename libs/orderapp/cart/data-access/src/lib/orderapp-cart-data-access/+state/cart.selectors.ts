@@ -112,6 +112,10 @@ export const selectCartCreatedForUser = createSelector(
   (state) => state.cartCreatedFor
 );
 
+export const cartShortSummary = createSelector(selectCartState, (state) => ({
+  runningStatus: state.existingOrderId === 0 ? 'New Order' : 'Running Order',
+  cartCreateFor: state.cartCreatedFor,
+}));
 //[TODO] - investigate if its okay to user other data access module selectors inside here (ie; selectRecentOrders)
 // checkout anyother way like passing parameters to get order out of order data access module without having to
 // subscripbe to selectors on component .ts file.

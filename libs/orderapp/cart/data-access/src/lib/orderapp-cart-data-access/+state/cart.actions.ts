@@ -14,7 +14,12 @@ export const loadCartFail = createAction(
 );
 export const setCartCreatedForUser = createAction(
   '[Cart] set Cart Created For User',
-  props<{ user: User; tableId?: number; customerId?: number }>()
+  props<{
+    user: User;
+    tableId?: number;
+    customerId?: number;
+    existingOrderId?: number;
+  }>()
 );
 
 export const deleteCartCreatedForUser = createAction(

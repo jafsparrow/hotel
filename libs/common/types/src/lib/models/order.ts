@@ -1,4 +1,5 @@
 import { CartItem } from './cart';
+import { Customer } from './table';
 import { User } from './user';
 export interface OrderItem extends CartItem {
   status: OrderItemStatus;
@@ -23,6 +24,7 @@ export interface OrderSummary {
   createdFor?: User;
   orderType?: string;
   customerName?: string | null;
+  customer?: Customer;
 }
 
 export interface AppliedTax {

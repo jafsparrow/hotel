@@ -8,6 +8,7 @@ import { OrderappOrderFeatureTakeAwayComponent } from '@hotel/orderapp/order/fea
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import {
+  cartShortSummary,
   deleteCartCreatedForUser,
   selectCartCreatedForUser,
 } from '@hotel/orderapp/cart/data-access';
@@ -51,6 +52,7 @@ import {
 })
 export class OrderappHomeComponent {
   selectCartCreatedForUser$ = this.store.select(selectCartCreatedForUser);
+  cartShortSummary$ = this.store.select(cartShortSummary);
   constructor(
     private dialog: MatDialog,
     private store: Store,

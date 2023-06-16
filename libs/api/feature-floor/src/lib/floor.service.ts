@@ -20,6 +20,9 @@ export class FloorService {
               where: {
                 NOT: { orderStatus: 'paid' },
               },
+              include: {
+                customer: true,
+              },
             },
           },
         },

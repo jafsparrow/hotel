@@ -20,4 +20,5 @@ export interface Cart {
   note?: string;
   tableId?: number;
   customerId?: number;
+  existingOrderId?: number;
 }

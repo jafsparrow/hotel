@@ -28,13 +28,12 @@
     </div>
 
     <div
-      class="sm:grid-col-5 grid grid-cols-3 gap-2 p-2"
+      class="sm:grid-col-5 grid grid-cols-1 gap-2 p-2"
       *ngIf="(selectTableLoadIndicator$ | async) === false; else loading"
     >
       <div *ngFor="let table of selectTables$ | async as tables">
         <div
-          class="aspect-square rounded-md border-l-2 border-green-600 p-3 shadow-md"
-          (click)="selectTable(15, 1)"
+          class="sm:aspect-square rounded-md border-l-2 border-green-600 p-3 shadow-md"
           [ngClass]="{
             'bg-orange-600': table.orders && table.orders.length
           }"
@@ -63,6 +62,25 @@
                 <rect x="366.34" y="173.354" width="31.124" height="20.852" />
               </g>
             </svg>
+          </div>
+          <div class="flex" *ngIf="table.orders!.length! > 0">
+            <div class="bg-gray-100">
+              <div
+                class="p-1"
+                *ngFor="let order of table.orders"
+                (click)="selectTable(table, order.customer!, order)"
+              >
+                P1
+              </div>
+            </div>
+          </div>
+          <div class="p-1 text-center">
+            <div
+              class="flex h-8 w-8 items-center justify-center border rounded-full bg-gray-100 p-2"
+              (click)="setTableForNewOrder(table)"
+            >
+              +
+            </div>
           </div>
         </div>
       </div>
