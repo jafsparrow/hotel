@@ -41,7 +41,9 @@ export class OrderEffects {
       ofType(placeOrder),
       switchMap((order) => {
         return this.orderService.placeOrder(order.cart).pipe(
-          map((order) => orderPlaceSuccess()),
+          map((order) =>
+            orderPlaceSuccess({ successMessage: 'hello world for now' })
+          ),
           catchError((error) =>
             of(
               orderPlaceFail({

@@ -12,7 +12,11 @@ import {
 } from '@hotel/orderapp/cart/data-access';
 import { Cart, CartItem, Tax } from '@hotel/common/types';
 import { deleteCartCreatedForUser } from '@hotel/orderapp/cart/data-access';
-import { placeOrder } from '@hotel/orderapp/order/data-access/order';
+import {
+  placeOrder,
+  selectOrderSuccessMessage,
+  selectPlaceOrderSpinner,
+} from '@hotel/orderapp/order/data-access/order';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -25,6 +29,8 @@ import { RouterModule } from '@angular/router';
 export class OrderappCartFeatureCartListComponent {
   cart$ = this.store.select(selectCartTaxed);
   getTotalCartAmout$ = this.store.select(selectCartTotal);
+  selectPlaceOrderSpinner$ = this.store.select(selectPlaceOrderSpinner);
+  selectOrderSuccessMessage$ = this.store.select(selectOrderSuccessMessage);
   constructor(private store: Store) {}
 
   getCartItems(cart: Cart) {

@@ -17,6 +17,7 @@ export const ORDER_FEATURE_KEY = 'order';
 
 export interface Order {
   errorMessage: string;
+  successMessage: string;
   recentOrders: OrderSummary[];
   selectedOrderDetails: OrderSummary | null;
   placeOrderSpinner: boolean;
@@ -28,6 +29,7 @@ export interface Order {
 const initialState: Order = {
   recentOrders: [],
   errorMessage: '',
+  successMessage: '',
   placeOrderSpinner: false,
   loadOrderDetailSpinner: false,
   loadOrderSpinner: false,
@@ -38,8 +40,13 @@ const initialState: Order = {
 export const orderReducer = createReducer(
   initialState,
 
-  on(orderPlaceSuccess, (state) => {
-    return { ...state, errorMessage: '', placeOrderSpinner: false };
+  on(orderPlaceSuccess, (state, { successMessage }) => {
+    return {
+      ...state,
+      errorMessage: '',
+      placeOrderSpinner: false,
+      successMessage,
+    };
   }),
   on(orderPlaceFail, (state, { errorMessage }) => ({
     ...state,
@@ -49,6 +56,8 @@ export const orderReducer = createReducer(
   on(placeOrderTurnSpinnerOn, (state) => ({
     ...state,
     placeOrderSpinner: true,
+    successMessage: '',
+    errorMessage: '',
   })),
   on(loadOrdersSpinnerOn, (state) => ({ ...state, loadOrderSpinner: true })),
   on(loadOrderDetailSpinnerOn, (state) => ({

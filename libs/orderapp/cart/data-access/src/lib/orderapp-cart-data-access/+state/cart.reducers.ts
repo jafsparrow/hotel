@@ -91,7 +91,14 @@ export const cartReducer = createReducer(
       cartItems: totalcartItems,
     };
   }),
-  on(clearCart, (state) => ({ ...state, cartItems: {}, cartCreatedFor: null })),
+  on(clearCart, (state) => ({
+    ...state,
+    cartItems: {},
+    cartCreatedFor: null,
+    tableId: 0,
+    existingOrderId: 0,
+    customerId: 0,
+  })),
   on(loadTaxes, (state, { taxes }) => {
     // console.log('inside reducer tax is ', taxes);
     return { ...state, taxes };

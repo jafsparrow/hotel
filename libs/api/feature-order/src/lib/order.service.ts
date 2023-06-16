@@ -88,7 +88,7 @@ export class OrderService {
         userType: UserType.STAFF,
       });
     } catch (error) {
-      console.log('created sample error');
+      console.log('created sample error', error);
       throw new BadRequestException(error);
     }
   }
@@ -134,6 +134,7 @@ export class OrderService {
       const tableId = createOrderDto.tableId;
       if (createOrderDto.customerId) {
         const customerId = createOrderDto.customerId;
+        console.log('existing ordre', `${tableId} = ${customerId}`);
         const existingOrder = await this.checkIfTableHasRunningOrder(
           tableId,
           customerId
@@ -337,6 +338,8 @@ export class OrderService {
           },
         }
       );
+
+      console.log('existing order', existingOrderFortheTable);
 
       return existingOrderFortheTable;
     } catch (error) {

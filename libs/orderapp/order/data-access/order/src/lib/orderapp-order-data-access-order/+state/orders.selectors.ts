@@ -13,6 +13,10 @@ export const selectPlaceOrderSpinner = createSelector(
   selectOrderState,
   (state: Order) => state.placeOrderSpinner
 );
+export const selectOrderSuccessMessage = createSelector(
+  selectOrderState,
+  (state: Order) => state.successMessage
+);
 
 export const selectOrderErrorMessage = createSelector(
   selectOrderState,

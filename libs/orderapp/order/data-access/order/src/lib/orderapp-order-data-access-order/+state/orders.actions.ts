@@ -15,7 +15,10 @@ export const placeOrderTurnSpinnerOn = createAction(
   '[Order] place order spinner is On'
 );
 
-export const orderPlaceSuccess = createAction('[Order] Order place success');
+export const orderPlaceSuccess = createAction(
+  '[Order] Order place success',
+  props<{ successMessage: string }>()
+);
 export const orderPlaceFail = createAction(
   '[Order] order Place failed',
   props<{ errorMessage: string }>()
