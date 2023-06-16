@@ -28,19 +28,19 @@
     </div>
 
     <div
-      class="sm:grid-col-5 grid grid-cols-1 gap-2 p-2"
+      class="grid grid-cols-1 sm:grid-cols-4 gap-2 p-2"
       *ngIf="(selectTableLoadIndicator$ | async) === false; else loading"
     >
       <div *ngFor="let table of selectTables$ | async as tables">
         <div
-          class="sm:aspect-square rounded-md border-l-2 border-green-600 p-3 shadow-md"
+          class="sm:aspect-square rounded-md border-l-2 border-green-600 p-3 shadow-md relative"
           [ngClass]="{
             'bg-orange-600': table.orders && table.orders.length
           }"
         >
           <div class="text-sm">TABLE - {{ table.name }}</div>
           <div class="font-light text-sm">20 min ago</div>
-          <div class="mt-2 h-5 w-5">
+          <!-- <div class="mt-2 h-5 w-5">
             <svg
               fill="#000000"
               version="1.1"
@@ -62,9 +62,9 @@
                 <rect x="366.34" y="173.354" width="31.124" height="20.852" />
               </g>
             </svg>
-          </div>
+          </div> -->
           <div class="flex" *ngIf="table.orders!.length! > 0">
-            <div class="bg-gray-100">
+            <div class="bg-gray-100 rounded-md cursor-pointer">
               <div
                 class="p-1"
                 *ngFor="let order of table.orders"
@@ -74,13 +74,11 @@
               </div>
             </div>
           </div>
-          <div class="p-1 text-center">
-            <div
-              class="flex h-8 w-8 items-center justify-center border rounded-full bg-gray-100 p-2"
-              (click)="setTableForNewOrder(table)"
-            >
-              +
-            </div>
+          <div
+            class="flex h-8 w-8 items-center justify-center border rounded-full bg-gray-100 p-2 absolute bottom-1 right-1 cursor-pointer"
+            (click)="setTableForNewOrder(table)"
+          >
+            +
           </div>
         </div>
       </div>
