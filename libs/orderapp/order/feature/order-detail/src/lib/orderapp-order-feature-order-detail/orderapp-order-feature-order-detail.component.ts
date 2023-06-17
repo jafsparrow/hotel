@@ -38,4 +38,11 @@ export class OrderappOrderFeatureOrderDetailComponent {
       width: '100%',
     });
   }
+
+  makePayment(order: OrderSummary) {
+    return 'hello';
+  }
+  printBill(order: OrderSummary) {
+    return 'hello';
+  }
 }

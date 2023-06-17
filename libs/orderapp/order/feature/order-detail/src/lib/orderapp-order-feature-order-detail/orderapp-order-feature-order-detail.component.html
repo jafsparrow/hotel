@@ -33,15 +33,25 @@
         <div class="font-thin">Waiter: {{ selectedOrder.customerName }}</div>
       </div>
 
-      <div
-        class="inline-block h-7 rounded-md bg-green-700 p-1 px-2 text-right text-sm text-white"
-        *ngIf="selectedOrder.orderStatus === 'served'"
-      >
-        PRINT
+      <div *ngIf="selectedOrder.orderStatus === 'served'">
+        <div
+          class="inline-block h-7 rounded-md bg-purple-900 p-1 my-2 px-2 text-right text-sm text-white cursor-pointer"
+          (click)="makePayment(selectedOrder)"
+        >
+          PAY
+        </div>
+        <div
+          class="inline-block h-7 rounded-md bg-green-700 p-1 px-2 text-right text-sm text-white cursor-pointer"
+          (click)="printBill(selectedOrder)"
+        >
+          PRINT
+        </div>
       </div>
+
       <div
         class="inline-block h-7 rounded-md bg-blue-700 p-1 px-2 text-right text-sm text-white cursor-pointer"
         (click)="makeBillForOrder(selectedOrder)"
+        *ngIf="selectedOrder.orderStatus !== 'served'"
       >
         MAKE BILL
       </div>
