@@ -6,6 +6,11 @@ import {
 import { CreateOrderDto } from './dto/create-order.dto';
 import { PrismaService } from '@hotel/api/data-access-db';
 import { order, Prisma, orderItem, kitchen } from '@prisma/client';
+
+import {
+  getAppliedTaxesAndTaxesTotal,
+  getOrderItemsTotal,
+} from '@hotel/common/util';
 import {
   CartItem,
   OrderItemStatus,
@@ -16,6 +21,8 @@ import {
   User,
   UserType,
   OrderSummary,
+  Tax,
+  OrderItem,
 } from '@hotel/common/types';
 import { PDFService } from './pdf.service';
 
@@ -69,11 +76,63 @@ export class OrderService {
       where: { orderId: orderId },
       _sum: { amount: true },
     });
-    // get the tax from company.
+    // get company id from appUser.
+    const companyId = 1;
+
+    const company = await this.prismaService.company.findFirst({
+      where: { id: companyId },
+      include: {
+        taxes: true,
+      },
+    });
+
     //  get order with order items.
-    //  sum the total
-    // Add applied taxes.
+
+    const order = await this.prismaService.order.findFirst({
+      where: { id: orderId },
+      include: {
+        orderItems: true,
+        table: true,
+        customer: true,
+        user: true,
+      },
+    });
+
+    // get CartItems total.
+    const orderItems = order?.orderItems ? order.orderItems : [];
+    const orderTotal = getOrderItemsTotal(orderItems as unknown as OrderItem[]);
+    const taxAppliedTotalandInfo = getAppliedTaxesAndTaxesTotal(
+      orderTotal,
+      company?.taxes as unknown as Tax[]
+    );
     // send to the print service.
+
+    console.log('totally', taxAppliedTotalandInfo);
+    const customerNameToPrint =
+      order?.orderType == 'table'
+        ? `${order.table!.name} - ${order.customer?.firstName}`
+        : order?.customer?.firstName;
+    const customerLastNameToPrint = order?.customer?.lastName
+      ? order.customer.lastName
+      : '';
+
+    const infoToPrint = {
+      companyName: company?.name,
+      billType: order?.orderType == 'table' ? 'Dine In Bill' : 'Take Away Bill',
+      orderNumber: `Order No- ${order?.orderNumber}`,
+      paymentStatus:
+        order?.paymentStatus == 'paid' ? '( PAID )' : '(NOT PAID  )',
+      customerName: customerNameToPrint,
+      lastName: customerLastNameToPrint,
+      waiterName: order?.user.name,
+      orderItems: order?.orderItems,
+      total: orderTotal,
+      appliedTaxesInfo: taxAppliedTotalandInfo.taxesApplied,
+      taxedTotal: taxAppliedTotalandInfo.taxedTotal,
+    };
+
+    await this.pdfService.printReceipt(infoToPrint, 'CP-Q2');
+    return 'Recipt printer successfully.';
   }
 
   async printSampleBill() {

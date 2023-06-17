@@ -4,3 +4,8 @@ export interface Tax {
   isPercentage: boolean;
   printName: string;
 }
+
+export interface AppliedTaxInfo {
+  taxName: string;
+  value: number;
+}

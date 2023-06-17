@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Reciept</title>
+	<title>KOT</title>
 	<head>
 	<style type="text/css">
 		body{
@@ -117,40 +117,22 @@
 <body>
 	<div class="report-header">
 		<!-- <img src="logo.png" class="logo"> -->
-		<h3>{{companyName}}</h3>
-		<p>{{billType}}</p>
+		<h3>Dawar restaurant</h3>
+		<p>Dine In bill / takeaway bill</p>
 	</div>
 
 	<div class="kot-header">
 		<div class="kitchen-name">
-      <div>{{orderNumber}}</div>
-      <div >{{paymentSatus}} </div>
+      <div>Order No: 380</div>
+      <div >( Not Paid ) </div>
 		</div>
-		<!-- <div class="kot-header-line">
+		<div class="kot-header-line">
 			<div class="kot-header-line-heading">Bill NO: </div>
 			<div class="kot-header-line-detail">ONly if Bill has sep</div>
-		</div> -->
+		</div>
 		<div class="kot-header-line">
 			<div class="kot-header-line-heading">Table NO: </div>
-
-
-			<div class="kot-header-line-heading"><div>
-				{{customerName}}
-			</div>
-				
-			
-			
-				{{#if lastName}}
-				<div class="kot-header-line-detail">
-					
-					{{lastName}}	</div>
-				{{/if}}
-
-			</div>
-	
-
-			
-		
+			<div class="kot-header-line-detail">11</div>
 		</div>
 		<div class="kot-header-line">
 			<div class="kot-header-line-heading">Bill Date: </div>
@@ -158,7 +140,7 @@
 		</div>
 		<div class="kot-header-line">
 			<div class="kot-header-line-heading">Waiter: </div>
-			<div class="kot-header-line-detail">{{waiterName}}</div>
+			<div class="kot-header-line-detail">Hameed</div>
 		</div>
 
 	</div>
@@ -171,25 +153,54 @@
       
 			<div class="item-amount-heading">Amount</div>
 		</div>
-		{{#each orderItems}}
+
 	
 		<div class="item">
 			<div class="item-name-wrapper">
        			 <div class="item-name">
-               <div>{{this.name}}</div>
-               <div class="modifiers">{{this.modifiers}} </div>
+               <div>chicekn aboo</div>
+               <div class="modifiers">Mod 1, Mode 2, </div>
        			 </div>
 							
 					<div class="item-name-arabic">كيف حالك </div>
 			
 
 			</div>
-      <div class="item-rate">{{this.amount}}</div>
-			<div class="item-quantity">{{this.count}}</div>
+      <div class="item-rate">1.6</div>
+			<div class="item-quantity">4</div>
 			<div class="item-amount">6.4</div>
       
 		</div>
-		{{/each}}
+	
+    
+    <div class="item">
+			<div class="item-name-wrapper">
+       			 <div class="item-name">chicekn aboo</div>
+							
+					<div class="item-name-arabic">كيف حالك </div>
+			
+
+			</div>
+      <div class="item-rate">1.6</div>
+			<div class="item-quantity">4</div>
+			<div class="item-amount">6.4</div>
+      
+		</div>
+    
+    <div class="item">
+			<div class="item-name-wrapper">
+       			 <div class="item-name">chicekn aboo</div>
+							
+					<div class="item-name-arabic">كيف حالك </div>
+			
+
+			</div>
+      <div class="item-rate">1.6</div>
+			<div class="item-quantity">4</div>
+			<div class="item-amount">6.4</div>
+      
+		</div>
+
 
     <div class="summary-container">
       <div>Items : 4</div>
@@ -201,27 +212,23 @@
          Total Amount:
       </div>
       <div class="bottom-summary-info">
-        {{total}}
+        12.500
       </div>
     </div>
-	{{#each appliedTaxesInfo}}
-
      <div class=bottom-summary> 
        <div class="bottom-summary-text-area">
-         {{this.taxName}}
+         VAT 5%:
       </div>
       <div class="bottom-summary-info">
-        {{this.value}}
+        1.600
       </div>
     </div>
-
-	{{/each}}
      <div class=bottom-summary> 
        <div class="bottom-summary-text-area">
          Net Amount:
       </div>
       <div class="bottom-summary-info">
-        {{taxedTotal}}
+        14.100
       </div>
     </div>
 		

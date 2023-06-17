@@ -12,6 +12,24 @@ import { PrintService } from './print.service';
 export class PDFService {
   constructor(private printService: PrintService) {}
 
+  async printReceipt(receiptData: any, printerName: string) {
+    const relativePath = resolve(__dirname, 'views');
+    console.log('relative path', relativePath);
+    console.log(join(relativePath, 'receipt.html'));
+    const templateHtml = readFileSync(
+      join(relativePath, 'receipt.html'),
+      'utf8'
+    );
+    const template = handlebars.compile(templateHtml);
+    const html = template(receiptData);
+
+    const pdfOptions = this.getPdfOptions('pdf', 'receipt');
+    await this.savePdf(html, pdfOptions);
+
+    await this.printService.printPdfAtPath(pdfOptions.path!, printerName);
+    await this.deletePdf(pdfOptions.path!);
+  }
+
   async samplebill() {
     const relativePath = resolve(__dirname, 'views');
     const templateHtml = readFileSync(
@@ -21,9 +39,9 @@ export class PDFService {
     const template = handlebars.compile(templateHtml);
     const html = template({});
 
-    const pdfOptions = this.getPdfOptions('pdf', 'kot');
+    const pdfOptions = this.getPdfOptions('pdf', 'receipt');
     await this.savePdf(html, pdfOptions);
-    await this.printService.sendKOTtoPrint(pdfOptions.path!, 'CP-Q2');
+    await this.printService.printPdfAtPath(pdfOptions.path!, 'CP-Q2');
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async printKot(
@@ -38,16 +56,16 @@ export class PDFService {
     },
     order: order
   ) {
-    const html = this.createHtml('KOT.html', kot, order);
+    const html = this.createKotHtml('KOT.html', kot, order);
     const pdfOptions = this.getPdfOptions('pdf', 'kot');
     await this.savePdf(html, pdfOptions);
-    await this.printService.sendKOTtoPrint(
+    await this.printService.printPdfAtPath(
       pdfOptions.path!,
       kot.Kitchen!.printer
     );
     await this.deletePdf(pdfOptions.path!);
   }
-  private createHtml(
+  private createKotHtml(
     templateName: string,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     kot: {

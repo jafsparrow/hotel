@@ -5,7 +5,7 @@ import { print } from 'pdf-to-printer';
 
 @Injectable()
 export class PrintService {
-  async sendKOTtoPrint(path: string, printerName: string) {
+  async printPdfAtPath(path: string, printerName: string) {
     try {
       await print(resolve(__dirname, path), {
         printer: printerName, //'CP-Q2',
