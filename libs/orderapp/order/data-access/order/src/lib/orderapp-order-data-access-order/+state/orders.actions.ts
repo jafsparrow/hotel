@@ -97,3 +97,18 @@ export const updateSelectedFilteredCategories = createAction(
 export const pollRecentOrders = createAction(
   '[Order] Polling of orders in every 5 sec'
 );
+
+export const makeBillForOrder = createAction(
+  '[Order] Create bill for the order',
+  props<{ orderId: number }>()
+);
+
+export const makeBillForOrderSuccess = createAction(
+  '[Order] Create bill for the order Success',
+  props<{ updatedOrder: OrderSummary }>()
+);
+
+export const makeBillForOrderFail = createAction(
+  '[Order] Create bill for the order Failed',
+  props<{ errorMessage: string }>()
+);

@@ -86,3 +86,17 @@ export const selectOrderDetailsOfSelectedOrder = createSelector(
   selectOrderState,
   (state) => state.selectedOrderDetails
 );
+
+export const selectMakeBillSpinner = createSelector(
+  selectOrderState,
+  (state) => state.makeBillForOrderSpinner
+);
+
+export const selectMakeBillMessages = createSelector(
+  selectOrderState,
+
+  (state) => ({
+    successMessage: state.successMessage,
+    failedMessage: state.errorMessage,
+  })
+);

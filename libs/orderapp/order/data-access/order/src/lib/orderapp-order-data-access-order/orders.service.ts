@@ -19,11 +19,19 @@ export class OrderService {
     return this.httpClient.post<OrderSummary>(`${this.apiUrl}/orders`, cart);
   }
 
+  makeBillForOrder(orderId: number): Observable<OrderSummary> {
+    console.log('making bill for th order', orderId);
+    return this.httpClient.patch<OrderSummary>(`${this.apiUrl}/orders`, {
+      orderId,
+    });
+  }
+
   getRecentOrders() {
     return this.httpClient.get(`${this.apiUrl}/orders`);
   }
 
   getOrderDetail(orderId: number) {
+    console.log('get order details workign');
     return this.httpClient.get<OrderSummary>(
       `${this.apiUrl}/orders/${orderId}`
     );

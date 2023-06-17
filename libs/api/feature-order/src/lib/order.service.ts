@@ -372,4 +372,33 @@ export class OrderService {
       throw new BadRequestException(error);
     }
   }
+
+  async makeBillForTheOrder(orderId: number) {
+    // check if the order is in in progress status. no need as front end takes care of it.
+
+    try {
+      const updatedOrder = await this.prismaService.order.update({
+        where: { id: orderId },
+        data: {
+          orderStatus: OrderStatus.SERVED,
+          paymentStatus: PaymentStatus.NOTPAID,
+        },
+        include: {
+          orderItems: {
+            include: {
+              product: {
+                select: {
+                  secondaryLanguageName: true,
+                },
+              },
+            },
+          },
+        },
+      });
+      console.log('updated order', updatedOrder);
+      return updatedOrder;
+    } catch (error) {
+      throw new Error('format later.');
+    }
+  }
 }

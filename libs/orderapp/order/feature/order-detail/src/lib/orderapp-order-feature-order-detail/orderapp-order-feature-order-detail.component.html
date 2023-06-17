@@ -35,8 +35,15 @@
 
       <div
         class="inline-block h-7 rounded-md bg-green-700 p-1 px-2 text-right text-sm text-white"
+        *ngIf="selectedOrder.orderStatus === 'served'"
       >
         PRINT
+      </div>
+      <div
+        class="inline-block h-7 rounded-md bg-blue-700 p-1 px-2 text-right text-sm text-white cursor-pointer"
+        (click)="makeBillForOrder(selectedOrder)"
+      >
+        MAKE BILL
       </div>
     </div>
 

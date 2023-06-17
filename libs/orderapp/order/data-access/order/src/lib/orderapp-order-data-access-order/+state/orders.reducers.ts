@@ -6,6 +6,9 @@ import {
   loadRecentOrders,
   loadRecentOrdersFail,
   loadRecentOrdersSuccess,
+  makeBillForOrder,
+  makeBillForOrderFail,
+  makeBillForOrderSuccess,
   orderPlaceFail,
   orderPlaceSuccess,
   placeOrderTurnSpinnerOn,
@@ -24,6 +27,9 @@ export interface Order {
   loadOrderSpinner: boolean;
   loadOrderDetailSpinner: boolean;
   userSelectedFilterCategories: string[];
+  makeBillForOrderSpinner: boolean;
+  makeBillSuccessMessage: string;
+  makeBillErrorMessage: string;
 }
 
 const initialState: Order = {
@@ -33,6 +39,9 @@ const initialState: Order = {
   placeOrderSpinner: false,
   loadOrderDetailSpinner: false,
   loadOrderSpinner: false,
+  makeBillForOrderSpinner: false,
+  makeBillSuccessMessage: '',
+  makeBillErrorMessage: '',
   userSelectedFilterCategories: [],
   selectedOrderDetails: null,
 };
@@ -87,5 +96,22 @@ export const orderReducer = createReducer(
   on(updateSelectedFilteredCategories, (state, { filteredCategories }) => ({
     ...state,
     userSelectedFilterCategories: filteredCategories,
+  })),
+  on(makeBillForOrder, (state, { orderId }) => ({
+    ...state,
+    makeBillForOrderSpinner: true,
+    makeBillErrorMessage: '',
+  })),
+  on(makeBillForOrderSuccess, (state, { updatedOrder }) => ({
+    ...state,
+    selectedOrderDetails: updatedOrder,
+    makeBillForOrderSpinner: false,
+    makeBillSuccessMessage: `Order ${updatedOrder.id} printed Successfully`,
+    makeBillErrorMessage: '',
+  })),
+  on(makeBillForOrderFail, (state, { errorMessage }) => ({
+    ...state,
+    makeBillErrorMessage: errorMessage,
+    makeBillForOrderSpinner: false,
   }))
 );

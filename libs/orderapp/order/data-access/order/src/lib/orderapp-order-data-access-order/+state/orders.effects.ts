@@ -15,6 +15,9 @@ import {
   loadRecentOrders,
   loadRecentOrdersFail,
   loadRecentOrdersSuccess,
+  makeBillForOrder,
+  makeBillForOrderFail,
+  makeBillForOrderSuccess,
   orderPlaceFail,
   orderPlaceSuccess,
   placeOrder,
@@ -172,6 +175,24 @@ export class OrderEffects {
               })
             )
           )
+        )
+      )
+    );
+  });
+
+  makeBillForOrderEffect$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(makeBillForOrder),
+      switchMap((data) =>
+        this.orderService
+          .makeBillForOrder(data.orderId)
+          .pipe(map((res) => makeBillForOrderSuccess({ updatedOrder: res })))
+      ),
+      catchError((error) =>
+        of(
+          makeBillForOrderFail({
+            errorMessage: 'Could not print bill something happpned.',
+          })
         )
       )
     );

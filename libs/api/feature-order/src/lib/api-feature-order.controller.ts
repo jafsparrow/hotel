@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { OrderService } from './order.service';
 
@@ -16,8 +16,15 @@ export class OrderContoller {
     this.orderService.printSampleBill();
   }
 
+  @Patch()
+  makeBillForTheOrder(@Body() data: any) {
+    console.log('patch requrest for ', data);
+    return this.orderService.makeBillForTheOrder(data.orderId);
+  }
+
   @Get(':id')
   getOrderDetails(@Param() params: any) {
+    console.log('getting order details');
     const orderId = +params.id;
 
     return this.orderService.getOrderDetails(orderId);
