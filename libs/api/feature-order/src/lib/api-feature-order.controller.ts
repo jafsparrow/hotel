@@ -13,7 +13,7 @@ export class OrderContoller {
 
   @Get('sampleBill')
   printsamplebill() {
-    this.orderService.printSampleBill();
+    return this.orderService.testPrismaggregate(11);
   }
 
   @Patch()

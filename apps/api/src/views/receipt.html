@@ -48,11 +48,11 @@
       gap: 5px;
 		}
       	.item-name-heading{
-        width: 60%
+        width: 50%
 		}
     
     .item-rate-heading {
-      width: 10%
+      width: 20%
     }
   .item-quantity-heading {
       width: 10%
@@ -69,14 +69,14 @@
     }
     
 		.item-name-wrapper {
-      width: 60%
+      width: 50%
 		}
     
     .modifiers {
       font-style: italic 
     }
       .item-rate {
-      width: 10%
+      width: 20%
     }
 
     .item-amount{
@@ -131,7 +131,7 @@
 			<div class="kot-header-line-detail">ONly if Bill has sep</div>
 		</div> -->
 		<div class="kot-header-line">
-			<div class="kot-header-line-heading">Table NO: </div>
+			<div class="kot-header-line-heading">{{orderTypeTitle}} </div>
 
 
 			<div class="kot-header-line-heading"><div>
@@ -154,7 +154,7 @@
 		</div>
 		<div class="kot-header-line">
 			<div class="kot-header-line-heading">Bill Date: </div>
-			<div class="kot-header-line-detail">30/05/1988 12: 30 pm</div>
+			<div class="kot-header-line-detail">{{billDateTime}}</div>
 		</div>
 		<div class="kot-header-line">
 			<div class="kot-header-line-heading">Waiter: </div>
@@ -180,13 +180,13 @@
                <div class="modifiers">{{this.modifiers}} </div>
        			 </div>
 							
-					<div class="item-name-arabic">كيف حالك </div>
+					<div class="item-name-arabic">{{this.otherLanguageName}}</div>
 			
 
 			</div>
       <div class="item-rate">{{this.amount}}</div>
 			<div class="item-quantity">{{this.count}}</div>
-			<div class="item-amount">6.4</div>
+			<div class="item-amount">{{this.individualTotal}}</div>
       
 		</div>
 		{{/each}}

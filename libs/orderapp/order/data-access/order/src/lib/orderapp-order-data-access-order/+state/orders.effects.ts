@@ -185,15 +185,15 @@ export class OrderEffects {
       ofType(makeBillForOrder),
       tap((data) => console.log('makeBillforoder effect fired')),
       switchMap((data) =>
-        this.orderService
-          .makeBillForOrder(data.orderId)
-          .pipe(map((res) => makeBillForOrderSuccess({ updatedOrder: res })))
-      ),
-      catchError((error) =>
-        of(
-          makeBillForOrderFail({
-            errorMessage: 'Could not print bill something happpned.',
-          })
+        this.orderService.makeBillForOrder(data.orderId).pipe(
+          map((res) => makeBillForOrderSuccess({ updatedOrder: res })),
+          catchError((error) =>
+            of(
+              makeBillForOrderFail({
+                errorMessage: 'Could not print bill something happpned.',
+              })
+            )
+          )
         )
       )
     );

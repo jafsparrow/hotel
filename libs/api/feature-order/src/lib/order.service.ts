@@ -8,6 +8,7 @@ import { PrismaService } from '@hotel/api/data-access-db';
 import { order, Prisma, orderItem, kitchen } from '@prisma/client';
 
 import {
+  dateTimeToDateHHMM,
   getAppliedTaxesAndTaxesTotal,
   getOrderItemsTotal,
 } from '@hotel/common/util';
@@ -32,6 +33,25 @@ export class OrderService {
     private prismaService: PrismaService,
     private pdfService: PDFService
   ) {}
+
+  async testPrismaggregate(orderID: number) {
+    // return this.prismaService.orderItem.findMany({
+    //   where: { orderId: orderID },
+    // });
+
+    return this.prismaService.orderItem.aggregate({
+      _count: { customeKey: true },
+      where: { orderId: orderID },
+      orderBy: { name: true },
+    });
+    return this.prismaService.orderItem.groupBy({
+      by: ['customeKey'],
+      _count: {
+        count: true,
+      },
+      where: { orderId: orderID },
+    });
+  }
 
   async getRecentOrders(): Promise<OrderSummary[]> {
     // this. shoudl fetch orders of last 24 hours.
@@ -92,7 +112,7 @@ export class OrderService {
       where: { id: orderId },
       include: {
         orderItems: {
-          select: {
+          include: {
             product: true,
           },
         },
@@ -120,16 +140,30 @@ export class OrderService {
       ? order.customer.lastName
       : '';
 
+    console.log(JSON.stringify(order?.orderItems));
+
+    const mappedOrderItems = order?.orderItems.map((orderItem) => {
+      console.log(orderItem.product.secondaryLanguageName);
+      return {
+        ...orderItem,
+        amount: orderItem.amount.toFixed(3),
+        otherLanguageName: orderItem.product.secondaryLanguageName,
+        individualTotal: (orderItem.count * orderItem.amount).toFixed(3),
+      };
+    });
     const infoToPrint = {
       companyName: company?.name,
+      billDateTime: dateTimeToDateHHMM(order!.createdAt),
       billType: order?.orderType == 'table' ? 'Dine In Bill' : 'Take Away Bill',
       orderNumber: `Order No- ${order?.orderNumber}`,
       paymentStatus:
         order?.paymentStatus == 'paid' ? '( PAID )' : '(NOT PAID  )',
+      orderTypeTitle:
+        order?.orderType == 'table' ? 'Table Info' : 'Customer Info',
       customerName: customerNameToPrint,
       lastName: customerLastNameToPrint,
       waiterName: order?.user.name,
-      orderItems: order?.orderItems,
+      orderItems: mappedOrderItems,
       total: orderTotal,
       appliedTaxesInfo: taxAppliedTotalandInfo.taxesApplied,
       taxedTotal: taxAppliedTotalandInfo.taxedTotal,

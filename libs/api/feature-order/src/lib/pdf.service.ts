@@ -180,10 +180,14 @@ export class PDFService {
     await page.setContent(html, {
       waitUntil: ['domcontentloaded', 'load', 'networkidle0'],
     });
-
+    const height = await page.evaluate(
+      () => document.documentElement.offsetHeight
+    );
     // console.log('page goto method..', await page.content());
-
-    await page.pdf(options);
+    // height auto was the right fix for the page cut of pdf
+    // generated for longer bill.
+    const extrapaddedHeight = height + 100;
+    await page.pdf({ ...options, height: extrapaddedHeight + 'px' });
     await browser.close();
   }
 

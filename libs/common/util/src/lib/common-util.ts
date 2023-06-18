@@ -1,5 +1,7 @@
 import { AppliedTaxInfo, Cart, OrderItem, Tax } from '@hotel/common/types';
 
+import { DateTime } from 'luxon';
+
 export function commonUtil(): string {
   return 'common-util';
 }
@@ -28,7 +30,9 @@ export const getAppliedTaxesAndTaxesTotal = (
         value: getTaxedSubTotal(total, tax),
       };
     }),
-    taxedTotal: taxes?.reduce((a, b) => a + getTaxedSubTotal(total, b), total),
+    taxedTotal: +taxes
+      ?.reduce((a, b) => a + getTaxedSubTotal(total, b), total)
+      .toFixed(3),
   };
   return taxAppliedInfo;
 };
@@ -39,3 +43,8 @@ export const getTaxedSubTotal = (total: number, tax: Tax): number => {
 
   return +(total * multiplyValue * tax.value).toFixed(3);
 };
+
+export const dateTimeToDateHHMM = (dateTime: Date) =>
+  DateTime.fromJSDate(dateTime).toLocaleString(DateTime.DATETIME_SHORT);
+
+// export const timesAgoFormat = (dateTime: Date) => DateTime.fromJSDate(dateTime).
