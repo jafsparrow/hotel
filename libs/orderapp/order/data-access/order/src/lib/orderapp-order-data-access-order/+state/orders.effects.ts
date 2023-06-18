@@ -183,6 +183,7 @@ export class OrderEffects {
   makeBillForOrderEffect$ = createEffect(() => {
     return this.action$.pipe(
       ofType(makeBillForOrder),
+      tap((data) => console.log('makeBillforoder effect fired')),
       switchMap((data) =>
         this.orderService
           .makeBillForOrder(data.orderId)

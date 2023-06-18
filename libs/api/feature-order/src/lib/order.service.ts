@@ -91,7 +91,11 @@ export class OrderService {
     const order = await this.prismaService.order.findFirst({
       where: { id: orderId },
       include: {
-        orderItems: true,
+        orderItems: {
+          select: {
+            product: true,
+          },
+        },
         table: true,
         customer: true,
         user: true,
@@ -132,6 +136,7 @@ export class OrderService {
     };
 
     await this.pdfService.printReceipt(infoToPrint, 'CP-Q2');
+    return order;
     return 'Recipt printer successfully.';
   }
 

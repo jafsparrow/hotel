@@ -27,7 +27,8 @@ export class PDFService {
     await this.savePdf(html, pdfOptions);
 
     await this.printService.printPdfAtPath(pdfOptions.path!, printerName);
-    await this.deletePdf(pdfOptions.path!);
+    this.deletePdf(pdfOptions.path!);
+    return;
   }
 
   async samplebill() {

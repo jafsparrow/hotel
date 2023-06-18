@@ -11,7 +11,7 @@ export const getOrderItemsTotal = (orderItems: OrderItem[]): number => {
     },
     0
   );
-  return totalOfOderItems;
+  return +totalOfOderItems.toFixed(3);
 };
 
 export const getAppliedTaxesAndTaxesTotal = (

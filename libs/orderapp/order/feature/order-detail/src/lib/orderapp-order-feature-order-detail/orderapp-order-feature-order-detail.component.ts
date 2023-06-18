@@ -33,7 +33,9 @@ export class OrderappOrderFeatureOrderDetailComponent {
   constructor(private store: Store, private dialog: MatDialog) {}
 
   makeBillForOrder(selectedOrder: OrderSummary) {
+    console.log('clicked makebill button');
     this.store.dispatch(makeBillForOrder({ orderId: selectedOrder.id }));
+
     this.dialog.open(OrderappOrderFeaturePrintProgressComponent, {
       width: '100%',
     });
@@ -43,6 +45,8 @@ export class OrderappOrderFeatureOrderDetailComponent {
     return 'hello';
   }
   printBill(order: OrderSummary) {
+    console.log('clicked printbill button');
+    this.store.dispatch(makeBillForOrder({ orderId: order.id }));
     return 'hello';
   }
 }
