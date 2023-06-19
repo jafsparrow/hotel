@@ -35,22 +35,45 @@ export class OrderService {
   ) {}
 
   async testPrismaggregate(orderID: number) {
-    // return this.prismaService.orderItem.findMany({
-    //   where: { orderId: orderID },
+    const result = await this.prismaService.orderItem.groupBy({
+      by: ['customeKey'],
+      where: { orderId: orderID },
+      _sum: { count: true },
+    });
+
+    return result;
+
+    // const resultArr: any[] = [];
+
+    // result.map(async (item) => {
+    //   const dbItem = await this.prismaService.orderItem.findFirst({
+    //     where: { id: item.id },
+    //   });
+    //   console.log('inside the map');
+    //   resultArr.push({ sum: item._sum, ...dbItem });
+    //   return dbItem;
     // });
 
-    return this.prismaService.orderItem.aggregate({
-      _count: { customeKey: true },
-      where: { orderId: orderID },
-      orderBy: { name: true },
-    });
-    return this.prismaService.orderItem.groupBy({
-      by: ['customeKey'],
-      _count: {
-        count: true,
-      },
-      where: { orderId: orderID },
-    });
+    // return await Promise.all(
+    //   result.map(async (item) => {
+    //     const dbItem = await this.prismaService.orderItem.findFirst({
+    //       where: { id: item.id },
+    //     });
+    //     console.log('inside the map');
+    //     resultArr.push({ sum: item._sum, ...dbItem });
+    //     return { ...dbItem, count: item._sum.count };
+    //   })
+    // );
+
+    // return resultArr;
+
+    // return result.map(async (item) => {
+    //   const ordreItem = await this.prismaService.orderItem.findFirst({
+    //     where: { id: item.id, orderId: orderID },
+    //   });
+
+    //   return { ...ordreItem, item };
+    // });
   }
 
   async getRecentOrders(): Promise<OrderSummary[]> {
@@ -122,16 +145,15 @@ export class OrderService {
       },
     });
 
-    // get CartItems total.
-    const orderItems = order?.orderItems ? order.orderItems : [];
-    const orderTotal = getOrderItemsTotal(orderItems as unknown as OrderItem[]);
+    const { orderItems, totalCount, totalItems, orderTotal } =
+      await this.getOrderItemsForTheOrderAggregated(orderId);
+
+    // const orderTotal = getOrderItemsTotal(orderItems as unknown as OrderItem[]);
     const taxAppliedTotalandInfo = getAppliedTaxesAndTaxesTotal(
       orderTotal,
       company?.taxes as unknown as Tax[]
     );
     // send to the print service.
-
-    console.log('totally', taxAppliedTotalandInfo);
     const customerNameToPrint =
       order?.orderType == 'table'
         ? `${order.table!.name} - ${order.customer?.firstName}`
@@ -140,17 +162,15 @@ export class OrderService {
       ? order.customer.lastName
       : '';
 
-    console.log(JSON.stringify(order?.orderItems));
-
-    const mappedOrderItems = order?.orderItems.map((orderItem) => {
-      console.log(orderItem.product.secondaryLanguageName);
+    const mappedOrderItems = orderItems.map((orderItem) => {
       return {
         ...orderItem,
-        amount: orderItem.amount.toFixed(3),
+        amount: orderItem!.amount!.toFixed(3),
         otherLanguageName: orderItem.product.secondaryLanguageName,
-        individualTotal: (orderItem.count * orderItem.amount).toFixed(3),
+        individualTotal: (orderItem.count * orderItem!.amount!).toFixed(3),
       };
     });
+    console.log(mappedOrderItems.length);
     const infoToPrint = {
       companyName: company?.name,
       billDateTime: dateTimeToDateHHMM(order!.createdAt),
@@ -164,9 +184,11 @@ export class OrderService {
       lastName: customerLastNameToPrint,
       waiterName: order?.user.name,
       orderItems: mappedOrderItems,
-      total: orderTotal,
+      total: orderTotal.toFixed(3),
       appliedTaxesInfo: taxAppliedTotalandInfo.taxesApplied,
       taxedTotal: taxAppliedTotalandInfo.taxedTotal,
+      totalCount,
+      totalItems,
     };
 
     await this.pdfService.printReceipt(infoToPrint, 'CP-Q2');
@@ -498,5 +520,51 @@ export class OrderService {
     } catch (error) {
       throw new Error('format later.');
     }
+  }
+
+  private async getOrderItemsForTheOrderAggregated(orderId: number): Promise<{
+    orderItems: OrderItem[];
+    totalCount: number;
+    totalItems: number;
+    orderTotal: number;
+  }> {
+    let totalItems = 0;
+    let totalCount = 0;
+    let orderTotal = 0;
+    const result = await this.prismaService.orderItem.groupBy({
+      by: ['customeKey'],
+      where: { orderId },
+      _sum: { count: true },
+    });
+
+    const aggregatedOrderItems = await Promise.all(
+      result.map(async (item) => {
+        const dbItem = await this.prismaService.orderItem.findFirst({
+          where: { customeKey: item.customeKey, orderId },
+          include: { product: true },
+        });
+        const updateOrderItemWithCount = {
+          ...dbItem,
+          count: item._sum.count,
+        } as unknown as OrderItem | null;
+
+        console.log(updateOrderItemWithCount);
+        totalItems = totalItems + 1;
+        orderTotal =
+          orderTotal +
+          updateOrderItemWithCount!.amount! * updateOrderItemWithCount!.count!;
+        totalCount = totalCount + updateOrderItemWithCount!.count!;
+
+        return updateOrderItemWithCount;
+      })
+    );
+
+    const agregated = {
+      orderItems: aggregatedOrderItems as OrderItem[],
+      totalCount: totalCount,
+      totalItems: totalItems,
+      orderTotal,
+    };
+    return agregated;
   }
 }

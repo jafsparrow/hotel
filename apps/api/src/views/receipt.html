@@ -124,7 +124,7 @@
 	<div class="kot-header">
 		<div class="kitchen-name">
       <div>{{orderNumber}}</div>
-      <div >{{paymentSatus}} </div>
+      <div >{{paymentStatus}} </div>
 		</div>
 		<!-- <div class="kot-header-line">
 			<div class="kot-header-line-heading">Bill NO: </div>
@@ -192,8 +192,8 @@
 		{{/each}}
 
     <div class="summary-container">
-      <div>Items : 4</div>
-      <div> Quantity: 6</div>
+      <div>Items : {{totalItems }}</div>
+      <div> Quantity: {{totalCount}}</div>
     </div>
     
     <div class=bottom-summary> 

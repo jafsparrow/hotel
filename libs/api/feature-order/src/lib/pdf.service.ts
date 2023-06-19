@@ -26,8 +26,8 @@ export class PDFService {
     const pdfOptions = this.getPdfOptions('pdf', 'receipt');
     await this.savePdf(html, pdfOptions);
 
-    await this.printService.printPdfAtPath(pdfOptions.path!, printerName);
-    this.deletePdf(pdfOptions.path!);
+    // await this.printService.printPdfAtPath(pdfOptions.path!, printerName);
+    // this.deletePdf(pdfOptions.path!);
     return;
   }
 
