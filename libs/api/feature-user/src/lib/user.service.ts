@@ -1,5 +1,6 @@
 import { PrismaService } from '@hotel/api/data-access-db';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class UserService {
@@ -10,5 +11,20 @@ export class UserService {
     });
     // console.log('inside the findOne method. ', user);
     return user;
+  }
+
+  async createAStaffUser(userDto: CreateUserDto) {
+    try {
+      return await this.prismaService.user.create({
+        data: {
+          username: userDto.username,
+          password: userDto.password,
+          name: userDto.name,
+          phone: userDto.phone,
+        },
+      });
+    } catch (error) {
+      throw new BadRequestException({ message: 'Could not create a new user' });
+    }
   }
 }
