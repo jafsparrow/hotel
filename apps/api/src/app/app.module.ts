@@ -9,10 +9,12 @@ import { ApiFeatureOrderModule } from '@hotel/api/feature-order';
 import { ApiFeatureCompanyModule } from '@hotel/api/feature-company';
 import { ApiFeatureTableModule } from '@hotel/api/feature-table';
 import { ApiFeatureFloorModule } from '@hotel/api/feature-floor';
+import { ApiFeatureAuthModule } from '@hotel/api/feature-auth';
 
 @Module({
   imports: [
     ApiDataAccessDbModule,
+    ApiFeatureAuthModule,
     ApiFeatureProductModule,
     ApiFeatureCategoryModule,
     ApiFeatureOrderModule,

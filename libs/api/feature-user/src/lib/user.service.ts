@@ -5,6 +5,10 @@ import { Injectable } from '@nestjs/common';
 export class UserService {
   constructor(private prismaService: PrismaService) {}
   async findOne(username: string) {
-    this.prismaService.user.findFirst({ where: { username } });
+    const user = await this.prismaService.user.findFirst({
+      where: { username },
+    });
+    // console.log('inside the findOne method. ', user);
+    return user;
   }
 }
