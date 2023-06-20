@@ -3,6 +3,7 @@ import {
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
+  HttpInterceptorFn,
   HttpRequest,
 } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
@@ -10,13 +11,15 @@ import { Router } from '@angular/router';
 import { AuthService } from '@hotel/orderapp/auth/data-access';
 import { Observable, throwError } from 'rxjs';
 
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   private authService!: AuthService;
 
-  constructor(private injector: Injector) {}
+  constructor(private injector: Injector) {
+    console.log('token interceptor constructed');
+  }
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -34,7 +37,7 @@ export class TokenInterceptor implements HttpInterceptor {
   }
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ErrorInterceptor implements HttpInterceptor {
   constructor(private router: Router) {}
   intercept(
@@ -54,3 +57,12 @@ export class ErrorInterceptor implements HttpInterceptor {
     );
   }
 }
+
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  console.log('request', req.method, req.url);
+  console.log('authInterceptor');
+
+  // Setting a dummy token for demonstration
+
+  return next(req).pipe(tap((resp) => console.log('response', resp)));
+};

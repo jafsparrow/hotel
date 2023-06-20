@@ -14,7 +14,9 @@ export class AuthService {
     private http: HttpClient,
     @Inject('endPointURL') public apiUrl: string,
     private store: Store
-  ) {}
+  ) {
+    console.log('auth constructd');
+  }
 
   checkAuthInLocalStorage() {
     // if (!localStorage.getItem('token')) return false;
