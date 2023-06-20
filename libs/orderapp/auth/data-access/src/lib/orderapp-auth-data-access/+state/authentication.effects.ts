@@ -28,7 +28,7 @@ export class AuthenticationEffects {
         this.authService
           .logIn(payload.loginData.username, payload.loginData.password!)
           .pipe(
-            map((res) => loginSuccess({ user: res.user, token: res.token })),
+            map((res) => loginSuccess({ user: res })),
             catchError((error) => of(loginFail(error)))
           )
       )
