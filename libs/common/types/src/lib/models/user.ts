@@ -18,6 +18,10 @@ export interface User {
   userType: UserType;
   token?: string;
   country?: FormatedCountry;
+  isAdmin?: boolean;
+  isCashier?: boolean;
+  isWaiter?: boolean;
+  isKitchenUser?: boolean;
 }
 
 export interface LoginData {

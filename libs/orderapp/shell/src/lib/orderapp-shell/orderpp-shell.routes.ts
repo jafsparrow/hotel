@@ -11,6 +11,7 @@ import {
   companyReducer,
 } from '@hotel/orderapp/company/data-access';
 import { provideEffects } from '@ngrx/effects';
+import { AdminGuard } from '@hotel/orderapp/core';
 
 export const shellRoutes: Routes = [
   { path: '', component: OrderappShellComponent },

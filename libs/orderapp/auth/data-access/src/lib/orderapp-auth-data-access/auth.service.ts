@@ -36,6 +36,14 @@ export class AuthService {
     return true;
   }
 
+  isLoggedUserAdmin() {
+    console.log('inside isLoogedUserAdmin function');
+    const user = this.loadUserFromLocalStorage() as unknown as User;
+    console.log('local storage user', user);
+    if (user.isAdmin) return true;
+    return false;
+  }
+
   getLoggedUserRole() {
     return this.loadUserFromLocalStorage().userType;
   }

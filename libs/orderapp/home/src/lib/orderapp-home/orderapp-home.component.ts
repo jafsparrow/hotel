@@ -27,6 +27,7 @@ import {
   loadFloors,
   loadTables,
 } from '@hotel/orderapp/table/data-access';
+import { logout } from '@hotel/orderapp/auth/data-access';
 
 @Component({
   selector: 'hotel-orderapp-home',
@@ -98,6 +99,6 @@ export class OrderappHomeComponent {
   }
 
   logout() {
-    return null;
+    return this.store.dispatch(logout());
   }
 }

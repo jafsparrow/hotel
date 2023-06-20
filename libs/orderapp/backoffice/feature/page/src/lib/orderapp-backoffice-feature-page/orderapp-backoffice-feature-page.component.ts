@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { Store } from '@ngrx/store';
 import { loadCompany } from '@hotel/orderapp/company/data-access';
+import { logout } from '@hotel/orderapp/auth/data-access';
 @Component({
   selector: 'hotel-orderapp-backoffice-feature-page',
   standalone: true,
@@ -31,5 +32,9 @@ export class OrderappBackofficeFeaturePageComponent {
   }
   navigateTo(path: string) {
     this.router.navigate([path], { relativeTo: this.route });
+  }
+
+  logout() {
+    return this.store.dispatch(logout());
   }
 }
