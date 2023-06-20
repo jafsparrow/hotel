@@ -6,10 +6,10 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { AuthService } from '@jafar-tech/table-qr-authentication-data-access';
+import { AuthService } from '@hotel/orderapp/auth/data-access';
 import { Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
   constructor(public auth: AuthService, public router: Router) {}
   canActivate(
@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate {
     if (!this.auth.checkAuthInLocalStorage()) {
       // if (!this.auth.getToken()) {
 
-      this.router.navigateByUrl('/auth/login');
+      this.router.navigateByUrl('/login');
       return false;
     } else {
       return true;

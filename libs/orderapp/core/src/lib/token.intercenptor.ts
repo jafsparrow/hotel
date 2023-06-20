@@ -7,7 +7,7 @@ import {
 } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '@jafar-tech/table-qr-authentication-data-access';
+import { AuthService } from '@hotel/orderapp/auth/data-access';
 import { Observable, throwError } from 'rxjs';
 
 import { catchError } from 'rxjs/operators';
@@ -46,7 +46,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         if (response instanceof HttpErrorResponse && response.status === 401) {
           localStorage.removeItem('token');
           localStorage.removeItem('user');
-          this.router.navigateByUrl('/auth/login');
+          this.router.navigateByUrl('/login');
           console.log(response);
         }
         return throwError(() => response);

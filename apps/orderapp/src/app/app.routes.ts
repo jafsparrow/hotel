@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from '@hotel/orderapp/core';
 import {
   ORDER_FEATURE_KEY,
   OrderEffects,
@@ -9,6 +10,11 @@ import { provideState } from '@ngrx/store';
 
 export const appRoutes: Routes = [
   {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'shell',
+  },
+  {
     path: 'shell',
     loadChildren: () =>
       import('@hotel/orderapp/shell').then((c) => c.shellRoutes),
@@ -16,5 +22,13 @@ export const appRoutes: Routes = [
       provideState(ORDER_FEATURE_KEY, orderReducer),
       provideEffects(OrderEffects),
     ],
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('@hotel/orderapp/auth/feature/signin').then(
+        (c) => c.OrderappAuthFeatureSigninComponent
+      ),
   },
 ];

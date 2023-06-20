@@ -96,4 +96,8 @@ export class OrderappHomeComponent {
       this.store.dispatch(deleteCartCreatedForUser());
     }
   }
+
+  logout() {
+    return null;
+  }
 }

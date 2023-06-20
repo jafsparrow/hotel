@@ -6,7 +6,7 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { AuthService } from '@jafar-tech/table-qr-authentication-data-access';
+import { AuthService } from '@hotel/orderapp/auth/data-access';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -23,7 +23,7 @@ export class RoleGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    let roles = route.data['roles'] as Array<string>;
+    const roles = route.data['roles'] as Array<string>;
 
     return roles.indexOf(this.auth.getLoggedUserRole()) > -1;
   }

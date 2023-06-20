@@ -10,6 +10,11 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { provideHttpClient } from '@angular/common/http';
+import {
+  AUTHENTICATION_FEATURE_KEY,
+  AuthenticationEffects,
+  authReducer,
+} from '@hotel/orderapp/auth/data-access';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,5 +28,7 @@ export const appConfig: ApplicationConfig = {
       provide: 'endPointURL',
       useValue: environment.apiUrl,
     },
+    provideState(AUTHENTICATION_FEATURE_KEY, authReducer),
+    provideEffects(AuthenticationEffects),
   ],
 };
