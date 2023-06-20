@@ -75,7 +75,9 @@
             <div>{{ item.product.secondaryLanguageName }}</div>
           </div>
           <div class="col-span-3 text-xs">{{ item.count }}</div>
-          <div class="col-span-2 text-xs">{{ item.amount!.toFixed(3) }}</div>
+          <div class="col-span-2 text-xs">
+            {{ (item.amount! * item.count).toFixed(3) }}
+          </div>
         </div>
       </div>
 

@@ -48,3 +48,24 @@ export const dateTimeToDateHHMM = (dateTime: Date) =>
   DateTime.fromJSDate(dateTime).toLocaleString(DateTime.DATETIME_SHORT);
 
 // export const timesAgoFormat = (dateTime: Date) => DateTime.fromJSDate(dateTime).
+
+export const aggregateOrderItems = (orderItems: OrderItem[]) => {
+  // let totalCount = 0;
+  // let totalItems = 0;
+  // let totalAmount = 0;
+  const itemObj: any = {};
+  orderItems.forEach((orderItem) => {
+    const key = orderItem.customeKey!;
+    itemObj[key] = {
+      ...(itemObj[key] || {}),
+      ...{
+        ...orderItem,
+        count: itemObj[key]
+          ? itemObj[key].count + orderItem.count
+          : orderItem.count,
+      },
+    };
+  });
+
+  return itemObj;
+};

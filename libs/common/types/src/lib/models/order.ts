@@ -11,6 +11,7 @@ export interface OrderItem extends CartItem {
   orderNumber?: number; // to track the order number
   orderItemType?: OrderItemType;
   amount?: number;
+  customeKey?: string;
 }
 
 export interface OrderSummary {

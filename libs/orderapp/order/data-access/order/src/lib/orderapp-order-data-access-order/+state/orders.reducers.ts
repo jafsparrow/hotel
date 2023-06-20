@@ -14,7 +14,8 @@ import {
   placeOrderTurnSpinnerOn,
   updateSelectedFilteredCategories,
 } from './orders.actions';
-import { OrderSummary } from '@hotel/common/types';
+import { OrderItem, OrderSummary } from '@hotel/common/types';
+import { aggregateOrderItems } from '@hotel/common/util';
 
 export const ORDER_FEATURE_KEY = 'order';
 
@@ -73,11 +74,23 @@ export const orderReducer = createReducer(
     ...state,
     loadOrderDetailSpinner: true,
   })),
-  on(loadOrderDetailsSuccess, (state, { order }) => ({
-    ...state,
-    selectedOrderDetails: order,
-    loadOrderDetailSpinner: false,
-  })),
+  on(loadOrderDetailsSuccess, (state, { order }) => {
+    console.log(aggregateOrderItems(order.orderItems!));
+
+    const agregatedOrderItemsArray = Object.values(
+      aggregateOrderItems(order.orderItems!)
+    ) as unknown as OrderItem[];
+
+    const newCopiedOrder = {
+      ...order,
+      orderItems: agregatedOrderItemsArray,
+    };
+    return {
+      ...state,
+      selectedOrderDetails: newCopiedOrder,
+      loadOrderDetailSpinner: false,
+    };
+  }),
   on(loadRecentOrders, (state) => ({
     ...state,
     loadOrderSpinner: false,
