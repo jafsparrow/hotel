@@ -14,4 +14,8 @@ export class AuthService {
     // instead of the user object
     // return result;
   }
+
+
+  async createUser() {}
+  async validateUser() {}
 }

@@ -27,6 +27,15 @@
       "@hotel/api/feature-user": ["libs/api/feature-user/src/index.ts"],
       "@hotel/common/types": ["libs/common/types/src/index.ts"],
       "@hotel/common/util": ["libs/common/util/src/index.ts"],
+      "@hotel/orderapp/auth/data-access": [
+        "libs/orderapp/auth/data-access/src/index.ts"
+      ],
+      "@hotel/orderapp/auth/feature/signin": [
+        "libs/orderapp/auth/feature/signin/src/index.ts"
+      ],
+      "@hotel/orderapp/auth/feature/signup": [
+        "libs/orderapp/auth/feature/signup/src/index.ts"
+      ],
       "@hotel/orderapp/backoffice/feature/category-manage": [
         "libs/orderapp/backoffice/feature/category-manage/src/index.ts"
       ],
@@ -78,6 +87,7 @@
       "@hotel/orderapp/company/feature/list": [
         "libs/orderapp/company/feature/list/src/index.ts"
       ],
+      "@hotel/orderapp/core": ["libs/orderapp/core/src/index.ts"],
       "@hotel/orderapp/home": ["libs/orderapp/home/src/index.ts"],
       "@hotel/orderapp/kitchen/data-access": [
         "libs/orderapp/kitchen/data-access/src/index.ts"
