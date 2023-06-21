@@ -18,9 +18,13 @@
       <div class="font-bold capitalize">
         Order - {{ selectedOrder.orderNumber }}
       </div>
-      <div class="ml-2 border-l-2 pl-2 font-light">20 min ago</div>
+      <div class="ml-2 border-l-2 pl-2 font-light">
+        {{ selectedOrder.createdAt | timesago }}
+      </div>
       <div class="flex-grow"></div>
-      <div class="font-semibold">120.00 OMR</div>
+      <div class="font-semibold">
+        {{ selectedOrder.totalAmount!.toFixed(3) }} OMR
+      </div>
     </div>
 
     <div class="flex flex-row">
@@ -83,17 +87,27 @@
 
       <div class="my-2 h-[1px] w-full bg-gray-600"></div>
 
-      <div class="grid grid-cols-4">
-        <div class="col-span-2 ml-3 text-right">
-          <div>Bill Total:</div>
-          <div>VAT 5%:</div>
-          <div>Net Total:</div>
+      <div class="grid grid-cols-4 pt-2">
+        <div class="col-span-2"></div>
+        <div class="col-span-1">Bill Total</div>
+        <div class="col-span-1">
+          {{ selectedOrder.totalAmount!.toFixed(3) }}
         </div>
-        <div class="col-span-2 pl-2 font-semibold">
-          <div>12.00 OMR</div>
-          <div>0.600 OMR</div>
-          <div>12.600 OMR</div>
-        </div>
+      </div>
+
+      <div
+        class="grid grid-cols-4 pt-2"
+        *ngFor="let appliedTax of selectedOrder.appliedTaxes"
+      >
+        <div class="col-span-2"></div>
+        <div class="col-span-1">{{ appliedTax.taxName }}</div>
+        <div class="col-span-1">{{ appliedTax.value }}</div>
+      </div>
+
+      <div class="grid grid-cols-4 pt-2">
+        <div class="col-span-2"></div>
+        <div class="col-span-1">Net Total</div>
+        <div class="col-span-1">{{ selectedOrder.taxedTotal }}</div>
       </div>
     </div>
   </div>

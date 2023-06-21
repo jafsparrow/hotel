@@ -11,6 +11,7 @@ import {
   selectOrderDetailsOfSelectedOrder,
 } from '@hotel/orderapp/order/data-access/order';
 import { OrderSummary } from '@hotel/common/types';
+import { TimesagoPipe } from '@hotel/orderapp/core';
 
 @Component({
   selector: 'hotel-orderapp-order-feature-order-detail',
@@ -19,6 +20,7 @@ import { OrderSummary } from '@hotel/common/types';
     CommonModule,
     MatDialogModule,
     OrderappOrderFeaturePrintProgressComponent,
+    TimesagoPipe,
   ],
   templateUrl: './orderapp-order-feature-order-detail.component.html',
   styleUrls: ['./orderapp-order-feature-order-detail.component.css'],

@@ -8,3 +8,8 @@ export const selectCompany = createSelector(
   selectCompanyState,
   (state) => state.company
 );
+
+export const selectCompanyTaxes = createSelector(
+  selectCompany,
+  (company) => company.taxes
+);

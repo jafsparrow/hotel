@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { OrderappCoreComponent } from '@hotel/orderapp/core';
+import { Store } from '@ngrx/store';
+import { loadCompany } from '@hotel/orderapp/company/data-access';
 
 @Component({
   standalone: true,
@@ -13,8 +15,9 @@ import { OrderappCoreComponent } from '@hotel/orderapp/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor() {
+  constructor(private store: Store) {
     console.log('app componsed called.');
+    this.store.dispatch(loadCompany({ id: 1 }));
   }
   title = 'orderapp';
 }

@@ -1,4 +1,9 @@
 import { Routes } from '@angular/router';
+import {
+  COMPANY_FEATURE_KEY,
+  CompanyEffects,
+  companyReducer,
+} from '@hotel/orderapp/company/data-access';
 import { AuthGuard } from '@hotel/orderapp/core';
 import {
   ORDER_FEATURE_KEY,
@@ -21,6 +26,8 @@ export const appRoutes: Routes = [
     providers: [
       provideState(ORDER_FEATURE_KEY, orderReducer),
       provideEffects(OrderEffects),
+      provideState(COMPANY_FEATURE_KEY, companyReducer),
+      provideEffects(CompanyEffects),
     ],
     canActivate: [AuthGuard],
   },

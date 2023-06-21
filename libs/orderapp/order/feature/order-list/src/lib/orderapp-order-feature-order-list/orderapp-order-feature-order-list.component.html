@@ -16,7 +16,9 @@
     >
       <div class="flex w-full flex-row items-stretch">
         <div class="font-bold capitalize">Order {{ order.orderNumber }}</div>
-        <div class="ml-2 border-l-2 pl-2 font-light">20 min ago</div>
+        <div class="ml-2 border-l-2 pl-2 font-light">
+          {{ order.createdAt | timesago }}
+        </div>
         <div class="flex-grow"></div>
         <div class="font-semibold">120.00 OMR</div>
       </div>

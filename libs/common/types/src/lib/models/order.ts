@@ -1,5 +1,6 @@
 import { CartItem } from './cart';
 import { Customer } from './table';
+import { AppliedTaxInfo } from './taxes';
 import { User } from './user';
 export interface OrderItem extends CartItem {
   status: OrderItemStatus;
@@ -26,12 +27,17 @@ export interface OrderSummary {
   orderType?: string;
   customerName?: string | null;
   customer?: Customer;
+  totalItemsCount?: number;
+  totalQuantityCount?: number;
+  appliedTaxes?: AppliedTaxInfo[];
+  totalAmount?: number;
+  taxedTotal?: number;
 }
 
-export interface AppliedTax {
-  name: string;
-  taxValue: number;
-}
+// export interface AppliedTax {
+//   name: string;
+//   taxValue: number;
+// }
 
 export enum OrderType {
   TABLE = 'table',

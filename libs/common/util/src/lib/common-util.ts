@@ -47,13 +47,18 @@ export const getTaxedSubTotal = (total: number, tax: Tax): number => {
 export const dateTimeToDateHHMM = (dateTime: Date) =>
   DateTime.fromJSDate(dateTime).toLocaleString(DateTime.DATETIME_SHORT);
 
-// export const timesAgoFormat = (dateTime: Date) => DateTime.fromJSDate(dateTime).
+export const dateTimeNowMinus = (hoursToSubtract: number): Date => {
+  return DateTime.now().minus({ hour: hoursToSubtract }).toJSDate();
+};
+
+export const timesAgoFormat = (datetime: string) =>
+  DateTime.fromISO(datetime).toRelative();
 
 export const aggregateOrderItems = (orderItems: OrderItem[]) => {
-  // let totalCount = 0;
-  // let totalItems = 0;
-  // let totalAmount = 0;
-  const itemObj: any = {};
+  let totalQuantityCount = 0;
+  let totalItemsCount = 0;
+  let totalAmount = 0;
+  const itemObj: Record<string, OrderItem> = {};
   orderItems.forEach((orderItem) => {
     const key = orderItem.customeKey!;
     itemObj[key] = {
@@ -66,6 +71,17 @@ export const aggregateOrderItems = (orderItems: OrderItem[]) => {
       },
     };
   });
+  const aggregatedOrderItemsArr = Object.values(itemObj);
+  Object.values(itemObj).forEach((item) => {
+    totalQuantityCount = totalQuantityCount + item.count;
+    totalItemsCount = totalItemsCount + 1;
+    totalAmount = totalAmount + item.count * item.amount!;
+  });
 
-  return itemObj;
+  return {
+    aggregated: aggregatedOrderItemsArr,
+    totalAmount,
+    totalQuantityCount,
+    totalItemsCount,
+  };
 };

@@ -8,11 +8,12 @@ import {
 } from '@hotel/orderapp/order/data-access/order';
 import { OrderSummary } from '@hotel/common/types';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { OrderappCoreComponent, TimesagoPipe } from '@hotel/orderapp/core';
 
 @Component({
   selector: 'hotel-orderapp-order-feature-order-list',
   standalone: true,
-  imports: [CommonModule, MatDialogModule],
+  imports: [CommonModule, MatDialogModule, TimesagoPipe],
   templateUrl: './orderapp-order-feature-order-list.component.html',
   styleUrls: ['./orderapp-order-feature-order-list.component.css'],
 })

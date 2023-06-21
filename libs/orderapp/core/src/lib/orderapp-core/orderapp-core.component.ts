@@ -4,11 +4,12 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor, TokenInterceptor } from '../token.interceptor';
 import { AuthGuard } from '../auth.guard';
 import { AdminGuard } from '../admin.guard';
+import { TimesagoPipe } from '../timesago.pipe';
 
 @Component({
   selector: 'hotel-orderapp-core',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TimesagoPipe],
   providers: [AuthGuard, AdminGuard],
   templateUrl: './orderapp-core.component.html',
   styleUrls: ['./orderapp-core.component.css'],

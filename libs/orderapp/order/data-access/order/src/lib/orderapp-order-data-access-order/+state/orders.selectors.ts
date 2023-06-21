@@ -1,6 +1,8 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { Order, ORDER_FEATURE_KEY } from './orders.reducers';
 import { OrderItem, OrderItemStatus } from '@hotel/common/types';
+import { selectCompanyTaxes } from '@hotel/orderapp/company/data-access';
+import { getAppliedTaxesAndTaxesTotal } from '@hotel/common/util';
 
 export const selectOrderState = createFeatureSelector<Order>(ORDER_FEATURE_KEY);
 
@@ -84,7 +86,24 @@ export const selectLoadOrderDetailSpinner = createSelector(
 
 export const selectOrderDetailsOfSelectedOrder = createSelector(
   selectOrderState,
-  (state) => state.selectedOrderDetails
+  selectCompanyTaxes,
+  (state, companyTaxes) => {
+    const order = state.selectedOrderDetails!;
+    console.log('company taxes', companyTaxes);
+    if (order) {
+      const { taxesApplied, taxedTotal } = getAppliedTaxesAndTaxesTotal(
+        order.totalAmount!,
+        companyTaxes!
+      );
+
+      return {
+        ...order,
+        appliedTaxes: taxesApplied,
+        taxedTotal,
+      };
+    }
+    return order;
+  }
 );
 
 export const selectMakeBillSpinner = createSelector(

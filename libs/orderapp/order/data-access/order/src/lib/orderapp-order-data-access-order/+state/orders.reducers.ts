@@ -14,7 +14,7 @@ import {
   placeOrderTurnSpinnerOn,
   updateSelectedFilteredCategories,
 } from './orders.actions';
-import { OrderItem, OrderSummary } from '@hotel/common/types';
+import { AppliedTaxInfo, OrderItem, OrderSummary } from '@hotel/common/types';
 import { aggregateOrderItems } from '@hotel/common/util';
 
 export const ORDER_FEATURE_KEY = 'order';
@@ -24,6 +24,7 @@ export interface Order {
   successMessage: string;
   recentOrders: OrderSummary[];
   selectedOrderDetails: OrderSummary | null;
+
   placeOrderSpinner: boolean;
   loadOrderSpinner: boolean;
   loadOrderDetailSpinner: boolean;
@@ -75,15 +76,22 @@ export const orderReducer = createReducer(
     loadOrderDetailSpinner: true,
   })),
   on(loadOrderDetailsSuccess, (state, { order }) => {
-    console.log(aggregateOrderItems(order.orderItems!));
+    // console.log(aggregateOrderItems(order.orderItems!));
 
-    const agregatedOrderItemsArray = Object.values(
-      aggregateOrderItems(order.orderItems!)
-    ) as unknown as OrderItem[];
+    const { aggregated, totalAmount, totalQuantityCount, totalItemsCount } =
+      aggregateOrderItems(order.orderItems!);
 
-    const newCopiedOrder = {
+    // const agregatedOrderItemsArray = Object.values(
+    //   aggregateOrderItems(order.orderItems!)
+    // ) as unknown as OrderItem[];
+
+    const newCopiedOrder: OrderSummary = {
       ...order,
-      orderItems: agregatedOrderItemsArray,
+      orderItems: aggregated,
+      totalAmount,
+      totalQuantityCount,
+      totalItemsCount,
+      appliedTaxes: [],
     };
     return {
       ...state,

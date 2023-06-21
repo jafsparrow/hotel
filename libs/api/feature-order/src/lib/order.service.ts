@@ -8,6 +8,7 @@ import { PrismaService } from '@hotel/api/data-access-db';
 import { order, Prisma, orderItem, kitchen } from '@prisma/client';
 
 import {
+  dateTimeNowMinus,
   dateTimeToDateHHMM,
   getAppliedTaxesAndTaxesTotal,
   getOrderItemsTotal,
@@ -77,11 +78,12 @@ export class OrderService {
   }
 
   async getRecentOrders(): Promise<OrderSummary[]> {
+    console.log(dateTimeNowMinus(24));
     // this. shoudl fetch orders of last 24 hours.
     return await this.prismaService.order.findMany({
       where: {
         createdAt: {
-          gt: new Date('2023-06-05'),
+          gt: dateTimeNowMinus(24),
         },
       },
     });
