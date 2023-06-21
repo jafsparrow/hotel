@@ -21,13 +21,6 @@ export class AuthController {
     private userService: UserService
   ) {}
 
-  @UseGuards(JwtAuthGuard)
-  @Post('signup')
-  async signUp(@Body() createUserInput: CreateUserDto) {
-    console.log('sinup methiod');
-    return this.userService.createAStaffUser(createUserInput);
-  }
-
   @UseGuards(LocalAuthGuard)
   @HttpCode(HttpStatus.OK)
   @Post('login')
@@ -35,5 +28,12 @@ export class AuthController {
     console.log('has gone inside');
     const user = req.user;
     return this.authService.signIn(user);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('signup')
+  async signUp(@Body() createUserInput: CreateUserDto) {
+    console.log('sinup methiod');
+    return this.userService.createAStaffUser(createUserInput);
   }
 }

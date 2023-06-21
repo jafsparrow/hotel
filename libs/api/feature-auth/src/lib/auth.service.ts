@@ -1,9 +1,9 @@
 import { PrismaService } from '@hotel/api/data-access-db';
-import { UserService } from '@hotel/api/feature-user';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { User } from '@hotel/common/types';
 
 import { JwtService } from '@nestjs/jwt';
+import { UserService } from './user.service';
 
 @Injectable()
 export class AuthService {
@@ -13,14 +13,19 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
   async signIn(user: User): Promise<any> {
+    console.log('inside singin', user);
     const payload = {
       username: user.username,
-      name: user.firstName + ' ' + user.lastName,
+      name: user.name,
     };
-    return {
+    const response = {
       user,
       token: this.jwtService.sign(payload),
     };
+
+    console.log('responsse', response);
+
+    return response;
   }
 
   async validateUser(username: string, pass: number): Promise<any> {

@@ -28,7 +28,7 @@ export class AuthenticationEffects {
         this.authService
           .logIn(payload.loginData.username, payload.loginData.password!)
           .pipe(
-            map((res) => loginSuccess({ user: res, token: res.token })),
+            map((res) => loginSuccess({ user: res.user, token: res.token })),
             catchError((error) => of(loginFail(error)))
           )
       )
@@ -40,7 +40,7 @@ export class AuthenticationEffects {
       return this.actions$.pipe(
         ofType(loginSuccess),
         tap((payload) => {
-          console.log('this happened now');
+          console.log('this happened now', payload);
           localStorage.setItem('token', payload.token!);
           localStorage.setItem('user', JSON.stringify(payload.user));
           this.router.navigateByUrl('shell');

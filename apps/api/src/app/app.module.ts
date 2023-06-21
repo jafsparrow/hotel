@@ -10,7 +10,6 @@ import { ApiFeatureCompanyModule } from '@hotel/api/feature-company';
 import { ApiFeatureTableModule } from '@hotel/api/feature-table';
 import { ApiFeatureFloorModule } from '@hotel/api/feature-floor';
 import { ApiFeatureAuthModule } from '@hotel/api/feature-auth';
-import { ApiFeatureUserModule } from '@hotel/api/feature-user';
 
 @Module({
   imports: [
@@ -22,7 +21,6 @@ import { ApiFeatureUserModule } from '@hotel/api/feature-user';
     ApiFeatureCompanyModule,
     ApiFeatureTableModule,
     ApiFeatureFloorModule,
-    ApiFeatureUserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

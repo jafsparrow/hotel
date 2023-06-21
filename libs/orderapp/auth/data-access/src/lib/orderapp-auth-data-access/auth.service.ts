@@ -19,7 +19,7 @@ export class AuthService {
   }
 
   checkAuthInLocalStorage() {
-    // if (!localStorage.getItem('token')) return false;
+    if (!localStorage.getItem('token')) return false;
 
     if (!localStorage.getItem('user')) return false;
 
@@ -48,6 +48,7 @@ export class AuthService {
     return this.loadUserFromLocalStorage().userType;
   }
   private loadUserFromLocalStorage() {
+    console.log(this.getUser());
     return JSON.parse(localStorage.getItem('user')!);
   }
 
@@ -60,8 +61,9 @@ export class AuthService {
   }
 
   logIn(username: string, password: string): Observable<any> {
-    console.log('login call hapened');
     const url = `${this.apiUrl}/auth/login`;
+    console.log('login call hapened', url);
+    console.log(username, password);
     return this.http.post<User>(url, { username, password });
   }
 

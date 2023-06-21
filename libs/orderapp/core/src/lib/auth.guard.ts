@@ -20,6 +20,10 @@ export class AuthGuard implements CanActivate {
     | UrlTree
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
+    console.log(
+      'check this.auth.checkAuthInLocalStorage()',
+      this.auth.checkAuthInLocalStorage()
+    );
     if (!this.auth.checkAuthInLocalStorage()) {
       // if (!this.auth.getToken()) {
 

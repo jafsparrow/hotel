@@ -1,6 +1,6 @@
 import { PrismaService } from '@hotel/api/data-access-db';
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { CreateUserDto } from '../../../feature-user/src/lib/dto/create-user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class UserService {
@@ -23,7 +23,11 @@ export class UserService {
           phone: userDto.phone,
         },
       });
-    } catch (error) {
+    } catch (error: any) {
+      console.log(error);
+      if (error.code == 'P2002') {
+        throw new BadRequestException({ message: 'Username already exists' });
+      }
       throw new BadRequestException({ message: 'Could not create a new user' });
     }
   }

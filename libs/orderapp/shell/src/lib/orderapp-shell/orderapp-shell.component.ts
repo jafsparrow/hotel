@@ -2,6 +2,11 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
+import { Store } from '@ngrx/store';
+import {
+  selectAccessBackOffice,
+  selectCanAccessCash,
+} from '@hotel/orderapp/auth/data-access';
 
 @Component({
   selector: 'hotel-orderapp-shell',
@@ -10,4 +15,7 @@ import { RouterModule } from '@angular/router';
   templateUrl: './orderapp-shell.component.html',
   styleUrls: ['./orderapp-shell.component.css'],
 })
-export class OrderappShellComponent {}
+export class OrderappShellComponent {
+  selectCanAccessBackOffice$ = this.store.select(selectAccessBackOffice);
+  constructor(private store: Store) {}
+}

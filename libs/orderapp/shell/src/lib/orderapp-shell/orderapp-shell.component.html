@@ -6,6 +6,7 @@
       <div
         class="bg-gray-900 text-white p-2 text-center rounded-md cursor-pointer hover:bg-gray-700"
         routerLink="office"
+        *ngIf="selectCanAccessBackOffice$ | async"
       >
         Back Office
       </div>

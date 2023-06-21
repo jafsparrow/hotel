@@ -25,13 +25,13 @@ import {
 // import { PatchProductIndexDto } from './dto/patch-porduct.dto';
 // import { ProductBoolFieldDto } from './dto/product-bool-field-update.dto';
 import { ProductService } from './products.service';
-import { LocalAuthGuard } from '@hotel/api/feature-auth';
+import { JwtAuthGuard, LocalAuthGuard } from '@hotel/api/feature-auth';
 
 @Controller('product')
 export class ApiFeatureProductController {
   constructor(private productService: ProductService) {}
 
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Get('list')
   getProducts() {
     console.log('get product api end point');

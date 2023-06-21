@@ -35,3 +35,15 @@ export const selectIsOrganisationUserLoggedIn = createSelector(
       : false;
   }
 );
+
+export const selectAccessBackOffice = createSelector(
+  selectAuthState,
+  (state) => {
+    return state.user?.isAdmin ?? false;
+  }
+);
+
+export const selectCanAccessCash = createSelector(selectAuthState, (state) => {
+  // const result = state.user && state.user?.isCasher;
+  return true;
+});
