@@ -124,6 +124,9 @@
       "@hotel/orderapp/order/feature/take-away": [
         "libs/orderapp/order/feature/take-away/src/index.ts"
       ],
+      "@hotel/orderapp/possession/data-access": [
+        "libs/orderapp/possession/data-access/src/index.ts"
+      ],
       "@hotel/orderapp/product/data-access": [
         "libs/orderapp/product/data-access/src/index.ts"
       ],
