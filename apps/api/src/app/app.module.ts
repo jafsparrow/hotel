@@ -10,6 +10,7 @@ import { ApiFeatureCompanyModule } from '@hotel/api/feature-company';
 import { ApiFeatureTableModule } from '@hotel/api/feature-table';
 import { ApiFeatureFloorModule } from '@hotel/api/feature-floor';
 import { ApiFeatureAuthModule } from '@hotel/api/feature-auth';
+import { ApiFeaturePosSessionModule } from '@hotel/api/feature-pos-session';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { ApiFeatureAuthModule } from '@hotel/api/feature-auth';
     ApiFeatureCompanyModule,
     ApiFeatureTableModule,
     ApiFeatureFloorModule,
+    ApiFeaturePosSessionModule,
   ],
   controllers: [AppController],
   providers: [AppService],

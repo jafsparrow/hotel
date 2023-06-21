@@ -22,6 +22,9 @@
       "@hotel/api/feature-floor": ["libs/api/feature-floor/src/index.ts"],
       "@hotel/api/feature-kitchen": ["libs/api/feature-kitchen/src/index.ts"],
       "@hotel/api/feature-order": ["libs/api/feature-order/src/index.ts"],
+      "@hotel/api/feature-pos-session": [
+        "libs/api/feature-pos-session/src/index.ts"
+      ],
       "@hotel/api/feature-product": ["libs/api/feature-product/src/index.ts"],
       "@hotel/api/feature-table": ["libs/api/feature-table/src/index.ts"],
       "@hotel/common/types": ["libs/common/types/src/index.ts"],
