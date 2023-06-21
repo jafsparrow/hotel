@@ -5,12 +5,24 @@ import { OrderappOrderFeatureOrderDetailComponent } from '@hotel/orderapp/order/
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { loadRecentOrders } from '@hotel/orderapp/order/data-access/order';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { logout } from '@hotel/orderapp/auth/data-access';
 
 @Component({
   selector: 'hotel-orderapp-order-feature-page',
   standalone: true,
   imports: [
     CommonModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatMenuModule,
     OrderappOrderFeatureOrderListComponent,
     OrderappOrderFeatureOrderDetailComponent,
     MatDialogModule,
@@ -29,5 +41,9 @@ export class OrderappOrderFeaturePageComponent {
       height: '100vh',
       width: '100vw',
     });
+  }
+
+  logout() {
+    this.store.dispatch(logout());
   }
 }
