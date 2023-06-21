@@ -9,11 +9,17 @@ import {
 import { OrderSummary } from '@hotel/common/types';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { OrderappCoreComponent, TimesagoPipe } from '@hotel/orderapp/core';
+import { OrderappOrderFeatureOrderDetailComponent } from '@hotel/orderapp/order/feature/order-detail';
 
 @Component({
   selector: 'hotel-orderapp-order-feature-order-list',
   standalone: true,
-  imports: [CommonModule, MatDialogModule, TimesagoPipe],
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    TimesagoPipe,
+    OrderappOrderFeatureOrderDetailComponent,
+  ],
   templateUrl: './orderapp-order-feature-order-list.component.html',
   styleUrls: ['./orderapp-order-feature-order-list.component.css'],
 })
@@ -29,5 +35,14 @@ export class OrderappOrderFeatureOrderListComponent {
 
     this.dialog.closeAll();
     this.store.dispatch(loadOrderDetails({ orderId: order.id }));
+  }
+
+  openOrderDetail(order: OrderSummary) {
+    console.log('open dialog clicked');
+    this.loadOrderDetail(order);
+    this.dialog.open(OrderappOrderFeatureOrderDetailComponent, {
+      height: '100vh',
+      width: '100vw',
+    });
   }
 }

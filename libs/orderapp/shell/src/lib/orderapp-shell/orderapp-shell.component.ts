@@ -18,6 +18,7 @@ import { loadCompany } from '@hotel/orderapp/company/data-access';
 })
 export class OrderappShellComponent {
   selectCanAccessBackOffice$ = this.store.select(selectAccessBackOffice);
+  selectCanAccessCash$ = this.store.select(selectCanAccessCash);
   constructor(private store: Store) {
     console.log('sheell component constructor called.');
   }

@@ -32,8 +32,14 @@
         </div>
 
         <div
-          class="inline-block h-7 rounded-md bg-green-700 p-1 px-2 text-right text-sm text-white hover:bg-green-500 cursor-pointer"
+          class="h-7 hidden sm:inline-block rounded-md bg-green-700 p-1 px-2 text-right text-sm text-white hover:bg-green-500 cursor-pointer"
           (click)="loadOrderDetail(order)"
+        >
+          VIEW
+        </div>
+        <div
+          class="inline-block h-7 sm:hidden rounded-md bg-green-700 p-1 px-2 text-right text-sm text-white hover:bg-green-500 cursor-pointer"
+          (click)="openOrderDetail(order)"
         >
           VIEW
         </div>

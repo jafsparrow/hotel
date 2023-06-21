@@ -35,13 +35,13 @@ export class OrderappOrderFeaturePageComponent {
     console.log('consturcur of order feature pagen');
     this.store.dispatch(loadRecentOrders());
   }
-  openOrdersDialog() {
-    console.log('open dialog clicked');
-    this.dialog.open(OrderappOrderFeatureOrderListComponent, {
-      height: '100vh',
-      width: '100vw',
-    });
-  }
+  // openOrdersDialog() {
+  //   console.log('open dialog clicked');
+  //   this.dialog.open(OrderappOrderFeatureOrderListComponent, {
+  //     height: '100vh',
+  //     width: '100vw',
+  //   });
+  // }
 
   logout() {
     this.store.dispatch(logout());
