@@ -51,6 +51,10 @@ export class AuthService {
     return JSON.parse(localStorage.getItem('user')!);
   }
 
+  getUser(): User | null {
+    return localStorage.getItem('user') as unknown as User;
+  }
+
   getToken(): string | null {
     return localStorage.getItem('token');
   }

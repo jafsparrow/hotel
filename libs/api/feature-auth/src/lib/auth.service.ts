@@ -1,34 +1,28 @@
 import { PrismaService } from '@hotel/api/data-access-db';
 import { UserService } from '@hotel/api/feature-user';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { User } from '@hotel/common/types';
+
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
   constructor(
     private userService: UserService,
-    private prismaService: PrismaService
+    private prismaService: PrismaService,
+    private jwtService: JwtService
   ) {}
-  async signIn(username: string, pass: number): Promise<any> {
-    console.log(username, pass);
-    const user = await this.prismaService.user.findFirst({
-      where: { username },
-    });
-
-    if (!user) throw new UnauthorizedException();
-
-    console.log(user.password, pass);
-    if (user.password != pass) {
-      throw new UnauthorizedException();
-    }
-    const { password, ...result } = user;
-    // TODO: Generate a JWT and return it here
-    // instead of the user object
-    return result;
+  async signIn(user: User): Promise<any> {
+    const payload = {
+      username: user.username,
+      name: user.firstName + ' ' + user.lastName,
+    };
+    return {
+      user,
+      token: this.jwtService.sign(payload),
+    };
   }
 
-  async createUser() {
-    return true;
-  }
   async validateUser(username: string, pass: number): Promise<any> {
     const user = await this.userService.findOne(username);
     console.log('before check', user);

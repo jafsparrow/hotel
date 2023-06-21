@@ -8,6 +8,7 @@ import {
 } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from '@hotel/common/types';
 import { AuthService } from '@hotel/orderapp/auth/data-access';
 import { Observable, throwError } from 'rxjs';
 
@@ -25,10 +26,15 @@ export class TokenInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     this.authService = this.injector.get(AuthService);
-    const token: string = this.authService.getToken() || '';
+    const user: User | unknown = this.authService.getUser() || {};
+    req = req.clone({
+      body: req.body.append(user),
+    });
+
+    console.log('body', req.body);
     req = req.clone({
       setHeaders: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${'hello'}`,
         'Content-Type': 'application/json',
       },
     });

@@ -24,7 +24,6 @@
       "@hotel/api/feature-order": ["libs/api/feature-order/src/index.ts"],
       "@hotel/api/feature-product": ["libs/api/feature-product/src/index.ts"],
       "@hotel/api/feature-table": ["libs/api/feature-table/src/index.ts"],
-      "@hotel/api/feature-user": ["libs/api/feature-user/src/index.ts"],
       "@hotel/common/types": ["libs/common/types/src/index.ts"],
       "@hotel/common/util": ["libs/common/util/src/index.ts"],
       "@hotel/orderapp/auth/data-access": [

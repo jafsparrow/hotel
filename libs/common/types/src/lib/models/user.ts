@@ -12,6 +12,8 @@ export interface User {
   id?: number;
   email?: string;
   companyId?: string;
+  name?: string; //this is temporrary as db update to firstName and lastName.. update this.
+  phone?: string; //this is temporrary as db s.
   firstName: string;
   lastName?: string;
   username?: string;
