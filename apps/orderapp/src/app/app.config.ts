@@ -36,7 +36,10 @@ export const appConfig: ApplicationConfig = {
     provideStoreDevtools(),
     {
       provide: 'endPointURL',
-      useValue: environment.apiUrl,
+      useFactory: () => {
+        const endPointFromLocalStorage = localStorage.getItem('endPoint');
+        return environment.apiUrl;
+      },
     },
     provideState(AUTHENTICATION_FEATURE_KEY, authReducer),
     provideEffects(AuthenticationEffects),
