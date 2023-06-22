@@ -38,6 +38,7 @@ export const appConfig: ApplicationConfig = {
       provide: 'endPointURL',
       useFactory: () => {
         const endPointFromLocalStorage = localStorage.getItem('endPoint');
+        return `${window.location.origin}/api`;
         return environment.apiUrl;
       },
     },

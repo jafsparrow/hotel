@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterModule, RouterOutlet, Routes } from '@angular/router';
+import {
+  ActivatedRoute,
+  Route,
+  RouterModule,
+  RouterOutlet,
+  Routes,
+} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -15,9 +21,11 @@ import { loadCompany } from '@hotel/orderapp/company/data-access';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor(private store: Store) {
-    console.log('app componsed called.');
+  constructor(private store: Store, private activateRoute: ActivatedRoute) {
+    console.log('app componsed called.', window.location.origin);
+    console.log('actiated router', activateRoute.root);
     this.store.dispatch(loadCompany({ id: 1 }));
   }
+
   title = 'orderapp';
 }

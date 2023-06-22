@@ -90,6 +90,12 @@
         "libs/orderapp/company/feature/list/src/index.ts"
       ],
       "@hotel/orderapp/core": ["libs/orderapp/core/src/index.ts"],
+      "@hotel/orderapp/endpoint/data-access": [
+        "libs/orderapp/endpoint/data-access/src/index.ts"
+      ],
+      "@hotel/orderapp/endpoint/feature/serverurl": [
+        "libs/orderapp/endpoint/feature/serverurl/src/index.ts"
+      ],
       "@hotel/orderapp/home": ["libs/orderapp/home/src/index.ts"],
       "@hotel/orderapp/kitchen/data-access": [
         "libs/orderapp/kitchen/data-access/src/index.ts"
