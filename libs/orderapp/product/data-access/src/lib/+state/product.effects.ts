@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Organisation, Product } from '@hotel/orderapp/shared/data-access';
-// import { loadOrgInfoSuccess } from '@jafar-tech/table-qr/organisation/data-access';
+import { Organisation, Product } from '@hotel/common/types';
 
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
@@ -17,12 +14,6 @@ import {
   loadProductsFail,
   loadProductsLoading,
   loadProductsSuccess,
-  updateProduct,
-  updateProductBooleanFail,
-  updateProductBooleans,
-  updateProductFail,
-  updateProductSort,
-  updateProductSuccess,
 } from './product.actions';
 
 @Injectable()

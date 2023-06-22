@@ -6,7 +6,7 @@ import {
   Product,
   ProductBoolFieldUpdateData,
   ProductSortData,
-} from '@hotel/orderapp/shared/data-access';
+} from '@hotel/common/types';
 import { map, Observable, of, tap } from 'rxjs';
 
 @Injectable({

@@ -4,7 +4,7 @@ import {
   Product,
   ProductBoolFieldUpdateData,
   ProductSortData,
-} from '@hotel/orderapp/shared/data-access';
+} from '@hotel/common/types';
 import { createAction, props } from '@ngrx/store';
 
 export const loadProducts = createAction('[Product] Load Products');

@@ -1,7 +1,4 @@
-import {
-  CategoryViseProducts,
-  Product,
-} from '@hotel/orderapp/shared/data-access';
+import { CategoryViseProducts, Product } from '@hotel/common/types';
 
 import { createReducer, on } from '@ngrx/store';
 import {

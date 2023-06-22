@@ -38,7 +38,7 @@ export interface Product {
   variants?: Variant[] | null;
   indexInCategory?: number;
 
-  quickDisplayOrder?: number;
+  qwickViewOrder?: number;
 }
 
 export interface Variant {

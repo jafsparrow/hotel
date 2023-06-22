@@ -4,11 +4,12 @@ import { ProductQwikviewComponent } from '@hotel/orderapp/ui';
 import {
   OrderappProductDataAccessComponent,
   selectAllProducts,
+  selectProductQwikOrder,
 } from '@hotel/orderapp/product/data-access';
 import { Store } from '@ngrx/store';
 
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { Product } from '@hotel/orderapp/shared/data-access';
+import { Product } from '@hotel/common/types';
 
 import { OrderappOrderFeatureProductCountComponent } from '@hotel/orderapp/order/feature/product-count';
 
@@ -25,7 +26,7 @@ import { OrderappOrderFeatureProductCountComponent } from '@hotel/orderapp/order
   styleUrls: ['./orderapp-product-feature-qwik-list.component.css'],
 })
 export class OrderappProductFeatureQwikListComponent {
-  selectQwikProducts = this.store.select(selectAllProducts);
+  selectQwikProducts = this.store.select(selectProductQwikOrder);
   constructor(private store: Store, private dialog: MatDialog) {}
 
   countEntry(product: Product) {

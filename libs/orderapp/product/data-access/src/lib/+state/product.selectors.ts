@@ -1,13 +1,6 @@
-import { state } from '@angular/animations';
-import {
-  CartItem,
-  CategoryViseProducts,
-  Product,
-} from '@hotel/orderapp/shared/data-access';
-// import { selectCart } from '@jafar-tech/table-qr-cart-data-access';
+import { CartItem, CategoryViseProducts, Product } from '@hotel/common/types';
 import { createFeatureSelector, createSelector, select } from '@ngrx/store';
 import { ProductState, PRODUCTS_FEATURE_KEY } from './products.reducers';
-import { filter } from 'rxjs';
 import { selectCategories } from '@hotel/orderapp/category/data-access';
 
 export const selectProductState =
@@ -18,6 +11,19 @@ export const selectAllProducts = createSelector(
   (state) => state.products
 );
 
+export const selectProductQwikOrder = createSelector(
+  selectAllProducts,
+  (products) => {
+    const productsCopy = [...products];
+
+    return productsCopy.sort((a, b) => {
+      console.log(a.qwickViewOrder, b.qwickViewOrder);
+      const firstOrder = a.qwickViewOrder!;
+      const secondOrder = b.qwickViewOrder!;
+      return firstOrder - secondOrder;
+    });
+  }
+);
 export const selectFilteredProducts = createSelector(
   selectProductState,
   (state) => {
