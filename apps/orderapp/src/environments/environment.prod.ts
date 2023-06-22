@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://sparrow-table.herokuapp.com/api',
+  apiUrl: 'http://192.168.0.106:3000/api',
 };
