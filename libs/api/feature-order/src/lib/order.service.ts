@@ -302,7 +302,7 @@ export class OrderService {
           orderStatus: OrderStatus.INPROGRESS,
           orderType: OrderType.TAKEAWAY,
           paymentStatus: PaymentStatus.NOTPAID,
-          createdUserId: 1,
+          createdUserId: appUser.id!,
         },
       });
 
@@ -357,17 +357,6 @@ export class OrderService {
         kitchenIdVice[kitId] = [...(kitchenIdVice[kitId] || []), orderItem];
       });
 
-      // const catViseOrderItems: { [x: string]: CartItem[] } = {};
-
-      // orderItems1.forEach((orderItem) => {
-      //   const catId = orderItem.product.categoryId.toString();
-
-      //   catViseOrderItems[catId] = [
-      //     ...(catViseOrderItems[catId] || []),
-      //     orderItem,
-      //   ];
-      // });
-
       const createdKots = [];
 
       Object.entries(kitchenIdVice).forEach(async ([kitId, cartItems]) => {
@@ -403,11 +392,7 @@ export class OrderService {
             id: true,
             createdAt: true,
             updatedUser: true,
-            Kitchen: {
-              select: {
-                printer: true,
-              },
-            },
+            Kitchen: true,
 
             orderItems: true,
           },
@@ -416,7 +401,8 @@ export class OrderService {
         console.log(kotCreated);
         createdKots.push(kotCreated.id);
         // await this.printKots(kotCreated);
-        await this.pdfService.printKot(kotCreated, order);
+        const kotData = this.createKOTData(kotCreated, order, appUser);
+        await this.pdfService.printKot(kotData);
       });
     } catch (error) {
       console.log(error);
@@ -424,6 +410,39 @@ export class OrderService {
     }
   }
 
+  private createKOTData(
+    kot: {
+      createdAt: Date;
+      updatedUser: any;
+      orderItems: orderItem[];
+      Kitchen: kitchen | null;
+      id: number;
+    },
+    order: order,
+    user: User
+  ) {
+    const updatedData = {
+      kitchenName: kot.Kitchen!.name ? kot.Kitchen!.name : 'KITCHEN',
+      printer: kot.Kitchen!.printer,
+      ticketId: `KOT- ${kot.id}`,
+      billDate: dateTimeToDateHHMM(kot.createdAt),
+      orderNumber: `Order No- ${order?.orderNumber}`,
+      orderTypeTitle:
+        order?.orderType == 'table' ? 'Table Info' : 'Customer Info',
+
+      kotType: order?.orderType == 'table' ? 'Dine In KOT' : 'Take Away KOT',
+      tableNumber: order.customerName,
+      waiterName: user.name,
+      orderItems: kot.orderItems,
+      numberOfItems: kot.orderItems.length.toString() ?? '',
+      quantity:
+        kot.orderItems
+          .reduce((prev, item) => prev + item.count, 0)
+          .toString() ?? '',
+    };
+
+    return updatedData;
+  }
   private getCartItemTotal(cartItem: CartItem) {
     let productPrice = cartItem.variant
       ? cartItem.variant.price
@@ -435,21 +454,6 @@ export class OrderService {
     }
     return productPrice;
   }
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  //   private async printKots(kot: {
-  //     createdAt: Date;
-  //     id: number;
-  //     Category: {
-  //         kitchen: Kitchen;
-  //     } | null;
-  //     OrderItems: OrderItem[];
-  // }) {
-  //     console.log('printer', kot.Category?.kitchen.printer);
-  //     console.log('items', JSON.stringify(kot.OrderItems));
-
-  //     const printerName = kot.Category?.kitchen.printer;
-  //     const kotDetails =
-  //   }
 
   private async checkIfTableHasRunningOrder(
     tableId: number,

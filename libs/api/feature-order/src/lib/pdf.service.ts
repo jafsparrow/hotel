@@ -7,6 +7,7 @@ import { Cart } from '@hotel/common/types';
 import { PDFOptions, launch } from 'puppeteer';
 import { kitchen, order, orderItem, user } from '@prisma/client';
 import { PrintService } from './print.service';
+import { dateTimeToDateHHMM } from '@hotel/common/util';
 
 @Injectable()
 export class PDFService {
@@ -45,62 +46,21 @@ export class PDFService {
     await this.printService.printPdfAtPath(pdfOptions.path!, 'CP-Q2');
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async printKot(
-    kot: {
-      createdAt: Date;
-      updatedUser: user | null;
-      orderItems: orderItem[];
-      Kitchen: {
-        printer: string;
-      } | null;
-      id: number;
-    },
-    order: order
-  ) {
-    const html = this.createKotHtml('KOT.html', kot, order);
+  async printKot(kotData: any) {
+    const html = this.createKotHtml('KOT.html', kotData);
     const pdfOptions = this.getPdfOptions('pdf', 'kot');
     await this.savePdf(html, pdfOptions);
-    await this.printService.printPdfAtPath(
-      pdfOptions.path!,
-      kot.Kitchen!.printer
-    );
+    await this.printService.printPdfAtPath(pdfOptions.path!, kotData.printer);
     await this.deletePdf(pdfOptions.path!);
   }
-  private createKotHtml(
-    templateName: string,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    kot: {
-      createdAt: Date;
-      updatedUser: user | null;
-      orderItems: orderItem[];
-      Kitchen: {
-        printer: string;
-      } | null;
-      id: number;
-    },
-    order: order
-  ) {
-    const updatedData = {
-      restaurantName: 'Dawar Restaurant',
-      kitchenName: 'MAIN',
-      ticketId: `KOT- ${kot.id}`,
-      billDate: kot.createdAt.toISOString(),
-      tableNumber: order.customerName,
-      waiterName: 'Jafar',
-      orderItems: kot.orderItems,
-      numberOfItems: kot.orderItems.length.toString() ?? '',
-      quantity:
-        kot.orderItems
-          .reduce((prev, item) => prev + item.count, 0)
-          .toString() ?? '',
-    };
+  private createKotHtml(templateName: string, kotData: any) {
     // const relativePath = resolve(__dirname, '../src/views');
     const relativePath = resolve(__dirname, 'views');
     console.log('relative path', relativePath);
     console.log(join(relativePath, templateName));
     const templateHtml = readFileSync(join(relativePath, templateName), 'utf8');
     const template = handlebars.compile(templateHtml);
-    const html = template(updatedData);
+    const html = template(kotData);
     return html;
   }
 
