@@ -1,7 +1,19 @@
-import { Body, Controller, Get, Param, Patch, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Put,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { OrderService } from './order.service';
+import { User } from '@hotel/common/types';
 
+import { JwtAuthGuard } from '@hotel/api/feature-auth';
 @Controller('orders')
 export class OrderContoller {
   constructor(private orderService: OrderService) {}
@@ -30,13 +42,12 @@ export class OrderContoller {
 
     return this.orderService.getOrderDetails(orderId);
   }
-  @Post()
-  post(@Body() order: CreateOrderDto) {
-    // return 'hello';
 
+  @UseGuards(JwtAuthGuard)
+  @Post()
+  post(@Body() order: CreateOrderDto, @Req() req: any) {
+    const appUser: User = req.user;
     console.log('from the front end', order);
-    return this.orderService.createsample(order);
-    // console.log(order);
-    return 'beuatifyl';
+    return this.orderService.createOrder(order, appUser);
   }
 }

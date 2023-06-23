@@ -38,4 +38,19 @@ export class AuthService {
     }
     return null;
   }
+
+  async getUserFromUserName(username: string) {
+    try {
+      const user = await this.prismaService.user.findUnique({
+        where: { username },
+      });
+      if (!user) {
+        throw new UnauthorizedException();
+      }
+      return user;
+    } catch (error) {
+      console.log('could not find a user getUserFromUserName');
+      throw new UnauthorizedException();
+    }
+  }
 }

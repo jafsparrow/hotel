@@ -247,7 +247,12 @@ export class OrderService {
           throw new BadRequestException('could not create any new order..');
 
         console.log('order has been created.', newOrder);
-        await this.updateOrderItemsTable(newOrder, createOrderDto, false);
+        await this.updateOrderItemsTable(
+          newOrder,
+          createOrderDto,
+          false,
+          appUser
+        );
         return newOrder;
       }
       const tableId = createOrderDto.tableId;
@@ -260,11 +265,21 @@ export class OrderService {
         );
 
         if (!existingOrder) throw new Error();
-        await this.updateOrderItemsTable(existingOrder, createOrderDto, true);
+        await this.updateOrderItemsTable(
+          existingOrder,
+          createOrderDto,
+          true,
+          appUser
+        );
         return existingOrder;
       } else {
         const newOrder = await this.createTableOrder(createOrderDto, appUser);
-        await this.updateOrderItemsTable(newOrder, createOrderDto, false);
+        await this.updateOrderItemsTable(
+          newOrder,
+          createOrderDto,
+          false,
+          appUser
+        );
         return newOrder;
       }
       // no customer is assigned for this.
@@ -302,7 +317,8 @@ export class OrderService {
   private async updateOrderItemsTable(
     order: order,
     createOrderDto: CreateOrderDto,
-    isRunning: boolean
+    isRunning: boolean,
+    appUser: User
   ) {
     try {
       const orderId = order.id;
@@ -358,6 +374,7 @@ export class OrderService {
         const kotCreated = await this.prismaService.kot.create({
           data: {
             kitchenId: +kitId,
+            updatedUserId: appUser.id!,
 
             orderItems: {
               create: cartItems.map((cartItem) => {
@@ -485,13 +502,15 @@ export class OrderService {
           orderStatus: OrderStatus.INPROGRESS,
           orderType: OrderType.TABLE,
           paymentStatus: PaymentStatus.NOTPAID,
-          createdUserId: 1,
+          createdUserId: appUser.id!,
         },
       });
 
       return newOrder;
     } catch (error) {
-      throw new BadRequestException(error);
+      throw new BadRequestException({
+        errorMessage: 'Could not create new order.',
+      });
     }
   }
 
