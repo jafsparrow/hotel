@@ -22,6 +22,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+
+import { OrderappAuthFeatureSignedUserDetailComponent } from '@hotel/orderapp/auth/feature/signed-user-detail';
 import {
   loadFloorTables,
   loadFloors,
@@ -47,6 +49,7 @@ import { logout } from '@hotel/orderapp/auth/data-access';
     OrderappProductFeatureSearchComponent,
     OrderappOrderFeatureTakeAwayComponent,
     OrderappCartFeatureCartSummaryButtonComponent,
+    OrderappAuthFeatureSignedUserDetailComponent,
   ],
   templateUrl: './orderapp-home.component.html',
   styleUrls: ['./orderapp-home.component.css'],
@@ -100,5 +103,9 @@ export class OrderappHomeComponent {
 
   logout() {
     return this.store.dispatch(logout());
+  }
+
+  goToShellPage() {
+    this.router.navigate(['shell']);
   }
 }

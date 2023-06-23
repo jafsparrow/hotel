@@ -47,3 +47,8 @@ export const selectCanAccessCash = createSelector(selectAuthState, (state) => {
   const result = state.user && state.user!.isCashier!;
   return result ? true : false;
 });
+
+export const selectSignedUser = createSelector(
+  selectAuthState,
+  (state) => state.user
+);

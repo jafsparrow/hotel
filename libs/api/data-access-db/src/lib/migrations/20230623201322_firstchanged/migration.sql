@@ -1,80 +1,3 @@
-/*
-  Warnings:
-
-  - You are about to drop the `Category` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Collection` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Company` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Kitchen` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Kot` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Modifier` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Order` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `OrderItem` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Product` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Tax` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `User` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Variant` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropTable
-PRAGMA foreign_keys=off;
-DROP TABLE "Category";
-PRAGMA foreign_keys=on;
-
--- DropTable
-PRAGMA foreign_keys=off;
-DROP TABLE "Collection";
-PRAGMA foreign_keys=on;
-
--- DropTable
-PRAGMA foreign_keys=off;
-DROP TABLE "Company";
-PRAGMA foreign_keys=on;
-
--- DropTable
-PRAGMA foreign_keys=off;
-DROP TABLE "Kitchen";
-PRAGMA foreign_keys=on;
-
--- DropTable
-PRAGMA foreign_keys=off;
-DROP TABLE "Kot";
-PRAGMA foreign_keys=on;
-
--- DropTable
-PRAGMA foreign_keys=off;
-DROP TABLE "Modifier";
-PRAGMA foreign_keys=on;
-
--- DropTable
-PRAGMA foreign_keys=off;
-DROP TABLE "Order";
-PRAGMA foreign_keys=on;
-
--- DropTable
-PRAGMA foreign_keys=off;
-DROP TABLE "OrderItem";
-PRAGMA foreign_keys=on;
-
--- DropTable
-PRAGMA foreign_keys=off;
-DROP TABLE "Product";
-PRAGMA foreign_keys=on;
-
--- DropTable
-PRAGMA foreign_keys=off;
-DROP TABLE "Tax";
-PRAGMA foreign_keys=on;
-
--- DropTable
-PRAGMA foreign_keys=off;
-DROP TABLE "User";
-PRAGMA foreign_keys=on;
-
--- DropTable
-PRAGMA foreign_keys=off;
-DROP TABLE "Variant";
-PRAGMA foreign_keys=on;
-
 -- CreateTable
 CREATE TABLE "user" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -103,6 +26,7 @@ CREATE TABLE "product" (
     "updatedAt" DATETIME NOT NULL,
     "isArchived" BOOLEAN NOT NULL DEFAULT false,
     "collectionId" INTEGER NOT NULL,
+    "qwickViewOrder" INTEGER DEFAULT 1,
     "categoryId" INTEGER NOT NULL,
     CONSTRAINT "product_collectionId_fkey" FOREIGN KEY ("collectionId") REFERENCES "collection" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT "product_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "category" ("id") ON DELETE CASCADE ON UPDATE CASCADE
@@ -147,8 +71,20 @@ CREATE TABLE "modifier" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name" TEXT NOT NULL,
     "price" REAL NOT NULL,
+    "modifierGroupId" INTEGER,
+    CONSTRAINT "modifier_modifierGroupId_fkey" FOREIGN KEY ("modifierGroupId") REFERENCES "modifierGroup" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "modifierGroup" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "description" TEXT,
+    "price" REAL,
+    "image" TEXT,
+    "printName" TEXT,
+    "printModifiersAsItems" BOOLEAN NOT NULL DEFAULT false,
     "productId" INTEGER NOT NULL,
-    CONSTRAINT "modifier_productId_fkey" FOREIGN KEY ("productId") REFERENCES "product" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT "modifierGroup_productId_fkey" FOREIGN KEY ("productId") REFERENCES "product" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -159,10 +95,22 @@ CREATE TABLE "order" (
     "orderStatus" TEXT NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL,
+    "tableId" INTEGER,
     "createdUserId" INTEGER NOT NULL,
-    "orderType" TEXT NOT NULL,
-    "customerName" TEXT NOT NULL,
+    "orderType" TEXT NOT NULL DEFAULT 'table',
+    "customerName" TEXT,
+    "customerId" INTEGER DEFAULT 1,
+    CONSTRAINT "order_tableId_fkey" FOREIGN KEY ("tableId") REFERENCES "table" ("id") ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT "order_customerId_fkey" FOREIGN KEY ("customerId") REFERENCES "customer" ("id") ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT "order_createdUserId_fkey" FOREIGN KEY ("createdUserId") REFERENCES "user" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "customer" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "firstName" TEXT NOT NULL,
+    "lastName" TEXT NOT NULL DEFAULT 'Spider',
+    "type" TEXT NOT NULL DEFAULT 'table'
 );
 
 -- CreateTable
@@ -177,9 +125,12 @@ CREATE TABLE "orderItem" (
     "orderItemType" TEXT NOT NULL DEFAULT 'new',
     "count" INTEGER NOT NULL,
     "modifiers" TEXT NOT NULL DEFAULT '',
+    "amount" REAL NOT NULL DEFAULT 0,
+    "productId" INTEGER NOT NULL DEFAULT 1,
     CONSTRAINT "orderItem_kotNumber_fkey" FOREIGN KEY ("kotNumber") REFERENCES "kot" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "orderItem_orderId_fkey" FOREIGN KEY ("orderId") REFERENCES "order" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "orderItem_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+    CONSTRAINT "orderItem_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user" ("id") ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT "orderItem_productId_fkey" FOREIGN KEY ("productId") REFERENCES "product" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -197,7 +148,7 @@ CREATE TABLE "kot" (
 CREATE TABLE "company" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name" TEXT NOT NULL,
-    "arabic" TEXT NOT NULL,
+    "secondaryLanguageName" TEXT NOT NULL DEFAULT 'add other laguage',
     "logoUrl" TEXT NOT NULL,
     "lastOrderNumber" INTEGER NOT NULL,
     "caption" TEXT NOT NULL,
@@ -205,7 +156,8 @@ CREATE TABLE "company" (
     "currencyCode" TEXT NOT NULL,
     "address" TEXT NOT NULL,
     "lat" TEXT DEFAULT '',
-    "long" TEXT DEFAULT ''
+    "long" TEXT DEFAULT '',
+    "decimalZeros" INTEGER DEFAULT 3
 );
 
 -- CreateTable
@@ -217,6 +169,39 @@ CREATE TABLE "tax" (
     "value" REAL NOT NULL,
     "companyId" INTEGER,
     CONSTRAINT "tax_companyId_fkey" FOREIGN KEY ("companyId") REFERENCES "company" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "floor" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "table" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT NOT NULL,
+    "capacity" INTEGER,
+    "floorId" INTEGER NOT NULL DEFAULT 1,
+    CONSTRAINT "table_floorId_fkey" FOREIGN KEY ("floorId") REFERENCES "floor" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "tableSeats" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT NOT NULL,
+    "tableId" INTEGER NOT NULL,
+    CONSTRAINT "tableSeats_tableId_fkey" FOREIGN KEY ("tableId") REFERENCES "table" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "posSession" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "startTime" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "endTime" DATETIME NOT NULL,
+    "status" TEXT NOT NULL,
+    "createdUserId" INTEGER NOT NULL,
+    CONSTRAINT "posSession_createdUserId_fkey" FOREIGN KEY ("createdUserId") REFERENCES "user" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateIndex

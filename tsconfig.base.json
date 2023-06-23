@@ -32,6 +32,9 @@
       "@hotel/orderapp/auth/data-access": [
         "libs/orderapp/auth/data-access/src/index.ts"
       ],
+      "@hotel/orderapp/auth/feature/signed-user-detail": [
+        "libs/orderapp/auth/feature/signed-user-detail/src/index.ts"
+      ],
       "@hotel/orderapp/auth/feature/signin": [
         "libs/orderapp/auth/feature/signin/src/index.ts"
       ],

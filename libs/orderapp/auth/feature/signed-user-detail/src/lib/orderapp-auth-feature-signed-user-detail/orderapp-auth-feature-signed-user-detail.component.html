@@ -1,0 +1,8 @@
+<div
+  *ngIf="selectSignedInUser$ | async as user"
+  class="bg-gray-100 p-2 grid content-center justify-center h-16 border border-b-2"
+>
+  <div>
+    Hello ! <span class="font-light">{{ user.name }}</span>
+  </div>
+</div>
