@@ -115,6 +115,9 @@
       "@hotel/orderapp/order/feature/order-detail": [
         "libs/orderapp/order/feature/order-detail/src/index.ts"
       ],
+      "@hotel/orderapp/order/feature/order-detail-edit": [
+        "libs/orderapp/order/feature/order-detail-edit/src/index.ts"
+      ],
       "@hotel/orderapp/order/feature/order-list": [
         "libs/orderapp/order/feature/order-list/src/index.ts"
       ],

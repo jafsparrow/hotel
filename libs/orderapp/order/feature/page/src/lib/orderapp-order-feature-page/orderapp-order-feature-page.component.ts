@@ -11,6 +11,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { logout } from '@hotel/orderapp/auth/data-access';
+import { OrderappOrderFeatureOrderDetailEditComponent } from '@hotel/orderapp/order/feature/order-detail-edit';
+import { TimesagoPipe } from '@hotel/orderapp/core';
 
 @Component({
   selector: 'hotel-orderapp-order-feature-page',
@@ -26,6 +28,8 @@ import { logout } from '@hotel/orderapp/auth/data-access';
     OrderappOrderFeatureOrderListComponent,
     OrderappOrderFeatureOrderDetailComponent,
     MatDialogModule,
+    OrderappOrderFeatureOrderDetailEditComponent,
+    TimesagoPipe,
   ],
   templateUrl: './orderapp-order-feature-page.component.html',
   styleUrls: ['./orderapp-order-feature-page.component.css'],
