@@ -89,6 +89,19 @@ export class OrderService {
     });
   }
 
+  async getRecentOrdersByUser(user: User): Promise<OrderSummary[]> {
+    console.log(dateTimeNowMinus(24));
+    // this. shoudl fetch orders of last 24 hours.
+    return await this.prismaService.order.findMany({
+      where: {
+        createdAt: {
+          gt: dateTimeNowMinus(24),
+        },
+        createdUserId: user.id,
+      },
+    });
+  }
+
   async getOrderDetails(orderId: number) {
     // const date = new Date();
     // const stringDate = date.toISOString().substring(0, 10);
@@ -357,53 +370,107 @@ export class OrderService {
         kitchenIdVice[kitId] = [...(kitchenIdVice[kitId] || []), orderItem];
       });
 
-      const createdKots = [];
+      const createdKots: any[] = [];
+      // promise .all is need to handle the wait for the writes to kot table to avoid error.
+      await Promise.all(
+        Object.entries(kitchenIdVice).map(async ([kitId, cartItems]) => {
+          const kotCreated = await this.prismaService.kot.create({
+            data: {
+              kitchenId: +kitId,
+              updatedUserId: appUser.id!,
 
-      Object.entries(kitchenIdVice).forEach(async ([kitId, cartItems]) => {
-        const kotCreated = await this.prismaService.kot.create({
-          data: {
-            kitchenId: +kitId,
-            updatedUserId: appUser.id!,
-
-            orderItems: {
-              create: cartItems.map((cartItem) => {
-                const orderItem = {
-                  count: cartItem.count,
-                  customeKey: cartItem.key ?? '',
-                  name:
-                    cartItem.product.name +
-                    (cartItem.variant ? '-' + cartItem.variant.name : ''),
-                  orderId: orderId,
-                  amount: this.getCartItemTotal(cartItem),
-                  productId: cartItem.product.id,
-                  // OrderItemType: isRunning ? 'running' : 'new',
-                  modifiers: cartItem.modifiers
-                    ? cartItem.modifiers?.reduce(
-                        (prev, curr) => prev.concat(curr.description, ', '),
-                        ''
-                      )
-                    : '',
-                };
-                return orderItem;
-              }),
+              orderItems: {
+                create: cartItems.map((cartItem) => {
+                  const orderItem = {
+                    count: cartItem.count,
+                    customeKey: cartItem.key ?? '',
+                    name:
+                      cartItem.product.name +
+                      (cartItem.variant ? '-' + cartItem.variant.name : ''),
+                    orderId: orderId,
+                    amount: this.getCartItemTotal(cartItem),
+                    productId: cartItem.product.id,
+                    // OrderItemType: isRunning ? 'running' : 'new',
+                    modifiers: cartItem.modifiers
+                      ? cartItem.modifiers?.reduce(
+                          (prev, curr) => prev.concat(curr.description, ', '),
+                          ''
+                        )
+                      : '',
+                  };
+                  return orderItem;
+                }),
+              },
             },
-          },
-          select: {
-            id: true,
-            createdAt: true,
-            updatedUser: true,
-            Kitchen: true,
+            select: {
+              id: true,
+              createdAt: true,
+              updatedUser: true,
+              Kitchen: true,
 
-            orderItems: true,
-          },
-        });
+              orderItems: true,
+            },
+          });
 
-        console.log(kotCreated);
-        createdKots.push(kotCreated.id);
-        // await this.printKots(kotCreated);
-        const kotData = this.createKOTData(kotCreated, order, appUser);
-        await this.pdfService.printKot(kotData);
+          console.log(kotCreated);
+          createdKots.push(kotCreated);
+          // await this.printKots(kotCreated);
+        })
+      );
+
+      createdKots.forEach((kot) => {
+        const kotData = this.createKOTData(kot, order, appUser);
+
+        // not waiting for the print service to finsh. optimization.
+        this.pdfService.printKot(kotData);
       });
+
+      // Object.entries(kitchenIdVice).forEach(async ([kitId, cartItems]) => {
+      //   const kotCreated = await this.prismaService.kot.create({
+      //     data: {
+      //       kitchenId: +kitId,
+      //       updatedUserId: appUser.id!,
+
+      //       orderItems: {
+      //         create: cartItems.map((cartItem) => {
+      //           const orderItem = {
+      //             count: cartItem.count,
+      //             customeKey: cartItem.key ?? '',
+      //             name:
+      //               cartItem.product.name +
+      //               (cartItem.variant ? '-' + cartItem.variant.name : ''),
+      //             orderId: orderId,
+      //             amount: this.getCartItemTotal(cartItem),
+      //             productId: cartItem.product.id,
+      //             // OrderItemType: isRunning ? 'running' : 'new',
+      //             modifiers: cartItem.modifiers
+      //               ? cartItem.modifiers?.reduce(
+      //                   (prev, curr) => prev.concat(curr.description, ', '),
+      //                   ''
+      //                 )
+      //               : '',
+      //           };
+      //           return orderItem;
+      //         }),
+      //       },
+      //     },
+      //     select: {
+      //       id: true,
+      //       createdAt: true,
+      //       updatedUser: true,
+      //       Kitchen: true,
+
+      //       orderItems: true,
+      //     },
+      //   });
+
+      //   console.log(kotCreated);
+      //   createdKots.push(kotCreated.id);
+      //   // await this.printKots(kotCreated);
+      //   const kotData = this.createKOTData(kotCreated, order, appUser);
+      //   await this.pdfService.printKot(kotData);
+      // });
+      return order;
     } catch (error) {
       console.log(error);
       throw new BadRequestException(error);

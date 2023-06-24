@@ -17,10 +17,17 @@ import { JwtAuthGuard } from '@hotel/api/feature-auth';
 @Controller('orders')
 export class OrderContoller {
   constructor(private orderService: OrderService) {}
+
+  @UseGuards(JwtAuthGuard)
   @Get()
-  getRecentOrders() {
+  getRecentOrders(@Req() req: any) {
     console.log('recent orders');
-    return this.orderService.getRecentOrders();
+    const user = req.user;
+    if (user.isCasher) {
+      return this.orderService.getRecentOrders();
+    }
+
+    return this.orderService.getRecentOrdersByUser(user);
   }
 
   @Get('sampleBill')
