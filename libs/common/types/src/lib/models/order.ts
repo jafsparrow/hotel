@@ -2,7 +2,10 @@ import { CartItem } from './cart';
 import { Customer } from './table';
 import { AppliedTaxInfo } from './taxes';
 import { User } from './user';
-export interface OrderItem extends CartItem {
+export interface OrderItem {
+  count: number;
+  modifiers?: string;
+
   status: OrderItemStatus;
   name?: string;
   kitchenUser?: User;

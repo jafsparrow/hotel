@@ -10,32 +10,38 @@ import { OrderItem, OrderSummary } from '@hotel/common/types';
 import { TimesagoPipe } from '@hotel/orderapp/core';
 import { OrderappOrderFeaturePrintProgressComponent } from '@hotel/orderapp/order/feature/print-progress';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'hotel-orderapp-order-feature-order-detail-edit',
+  selector: 'hotel-orderapp-order-feature-order-edit',
   standalone: true,
-  imports: [CommonModule, TimesagoPipe, MatDialogModule],
+  imports: [CommonModule, TimesagoPipe, MatDialogModule, RouterModule],
   templateUrl: './orderapp-order-feature-order-detail-edit.component.html',
   styleUrls: ['./orderapp-order-feature-order-detail-edit.component.css'],
 })
 export class OrderappOrderFeatureOrderDetailEditComponent {
-  selectOrderDetailsLoadSpinner$ = this.store.select(
+  selectOrderDetailsLoadSpinner1$ = this.store.select(
     selectLoadOrderDetailSpinner
   );
-  selectOrderDetailsOfSelectedOrder$ = this.store.select(
+  selectOrderDetailsOfSelectedOrder1$ = this.store.select(
     selectOrderDetailsOfSelectedOrder
   );
   constructor(private store: Store, private dialog: MatDialog) {}
 
-  clearCart(key: string) {
-    return 'hello';
+  deleteFromOrder(key: any, item: OrderItem) {
+    // console.log('detaildsjfsdf', key);
+    // console.log('detaildsjfsdf', cartItem);
+    if (confirm(`Deleting ${item.name} from order.?`)) {
+      // this.store.dispatch(removeFromCart({ itemId: key }));
+      console.log('delete pressed.');
+    }
   }
   decrimentItem(item: OrderItem) {
-    return 'hello';
+    console.log('decrement');
   }
 
   incrementItem(item: OrderItem) {
-    return 'helo';
+    console.log('increment');
   }
 
   makeBillForOrder(selectedOrder: OrderSummary) {

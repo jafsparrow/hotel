@@ -1,49 +1,34 @@
-<!-- <p>hello world</p>
 <div
-  *ngIf="selectOrderDetailsLoadSpinner$ | async"
-  class="h-screen flex items-center justify-center"
->
-  Loading....
-</div>
-
-<div
-  class="max-w-md mx-auto"
-  *ngIf="selectOrderDetailsOfSelectedOrder$ | async as selectedOrder"
-  ;
+  *ngIf="selectOrderDetailsOfSelectedOrder1$ | async as selected"
+  class="p2 max-w-md"
 >
   <div class="flex w-full flex-row items-stretch">
-    <div class="font-bold capitalize">
-      Order - {{ selectedOrder.orderNumber }}
-    </div>
+    <div class="font-bold capitalize">Order - {{ selected.orderNumber }}</div>
     <div class="ml-2 border-l-2 pl-2 font-light">
-      {{ selectedOrder.createdAt | timesago }}
+      {{ selected.createdAt | timesago }}
     </div>
     <div class="flex-grow"></div>
-    <div class="font-semibold">
-      {{ selectedOrder.totalAmount!.toFixed(3) }} OMR
-    </div>
+    <div class="font-semibold">{{ selected.totalAmount!.toFixed(3) }} OMR</div>
   </div>
 
   <div class="flex flex-row">
     <div class="flex-grow">
       <div class="font-semibod">
         Type:
-        <span class="font-light">{{ selectedOrder.orderType }}</span>
+        <span class="font-light">{{ selected.orderType }}</span>
       </div>
       <div class="font-thin">Table 22</div>
-      <div class="font-thin">Customer: {{ selectedOrder.customerName }}</div>
+      <div class="font-thin">Customer: {{ selected.customerName }}</div>
     </div>
 
-    <div *ngIf="selectedOrder.orderStatus === 'served'">
+    <div *ngIf="selected.orderStatus === 'served'">
       <div
         class="inline-block h-7 rounded-md bg-purple-900 p-1 my-2 px-2 text-right text-sm text-white cursor-pointer"
-        (click)="makePayment(selectedOrder)"
       >
         PAY
       </div>
       <div
         class="inline-block h-7 rounded-md bg-green-700 p-1 px-2 text-right text-sm text-white cursor-pointer"
-        (click)="printBill(selectedOrder)"
       >
         PRINT
       </div>
@@ -51,19 +36,19 @@
 
     <div
       class="inline-block h-7 rounded-md bg-blue-700 p-1 px-2 text-right text-sm text-white cursor-pointer"
-      (click)="makeBillForOrder(selectedOrder)"
-      *ngIf="selectedOrder.orderStatus !== 'served'"
+      *ngIf="selected.orderStatus !== 'served'"
     >
       MAKE BILL
     </div>
   </div>
+
   <div class="px-4 bg-white">
     <div
       class="border-b flex flex-row py-2"
-      *ngFor="let item of selectedOrder.orderItems; let i = index"
+      *ngFor="let item of selected.orderItems; let i = index"
     >
       <div class="mr-2">
-        <div class="w-5 h-5" (click)="clearCart('clearn')">
+        <div class="w-5 h-5" (click)="deleteFromOrder(item.customeKey, item)">
           <svg viewBox="0 0 24 24" fill="none">
             <g id="SVGRepo_bgCarrier" stroke-width="1"></g>
             <g
@@ -113,14 +98,10 @@
       </div>
       <div class="flex-grow">
         <div class="text-sm">
-          {{
-            item.product.name + (item.variant ? '-' + item.variant.name : '')
-          }}
+          {{ item.name }}
         </div>
         <div class="text-xs font-light" *ngIf="item.modifiers">
-          <span *ngFor="let modifier of item.modifiers">
-            <span class="ml-2">{{ modifier.description }}</span>
-          </span>
+          <span class="ml-2">{{ item.modifiers }}</span>
         </div>
         <div class="text-xs font-thin"></div>
       </div>
@@ -146,67 +127,9 @@
           </button>
         </div>
         <div class="w-16 text-sm font-light text-right">
-          cart total to be displayed here.
+          {{ (item.count! * item.amount!).toFixed(3) }}
         </div>
       </div>
     </div>
   </div>
-
-  <div class="mt-2 bg-white px-4">
-    <textarea
-      class="w-full py-2 font-thin bg-gray-100 px-2 rounded-md"
-      name=""
-      id=""
-      placeholder="Would you like to tell us about something"
-    ></textarea>
-  </div>
-  <div class="w-full bg-white px-4 pt-2 mt-2">
-    <div class="text-sm font-semibold">Bill Details</div>
-
-    <div class="flex flex-row font-light text-sm py-2">
-      <div class="flex-grow">Item Total</div>
-      <div class="text-right">{{ selectedOrder.totalAmount!.toFixed(3) }}</div>
-    </div>
-    <div
-      class="flex flex-row font-light text-sm py-2 border-b"
-      *ngFor="let tax of selectedOrder.taxesApplied"
-    >
-      <div class="flex-grow">{{ tax.name }}</div>
-      <div class="text-right">
-        {{ tax.taxValue.toFixed(3) }}
-      </div>
-    </div>
-
-    <div class="flex flex-row font-bold text-sm py-2">
-      <div class="flex-grow">To Pay</div>
-      <div class="text-right">
-        {{ cart.taxedTotal ? (+cart.taxedTotal).toFixed(3) : '' }} OMR
-      </div>
-    </div>
-  </div>
-  <div
-    class="w-full max-w-md mx-auto px-4 fixed bottom-1 text-center"
-    *ngIf="cart.cartCreatedFor"
-  >
-    <div class="p-4 py2 bg-gray-800 rounded text-white font-bold">
-      <button (click)="placeOrder(cart)">PLACE ORDER</button>
-    </div>
-  </div>
-  <ng-template #noCreatedForUser>
-    <div class="p-2 bg-red-300">
-      Please choose table or Takeaway from homepage.
-    </div>
-  </ng-template>
 </div>
-
-<ng-template #notItemsInCart>
-  <div class="grid items-center justify-center w-full h-screen">
-    <div class="text-xl font-light">No Items In the Carts</div>
-    <div
-      class="bg-gray-800 rounded-md p-2 text-white font-bold flex flex-row justify-center content-center"
-      [routerLink]="['/shell/home']"
-    >
-      HOME
-    </div>
-  </div>
-</ng-template> -->
