@@ -61,4 +61,8 @@ export class OrderappOrderFeatureOrderDetailEditComponent {
     this.store.dispatch(makeBillForOrder({ orderId: order.id }));
     return 'hello';
   }
+
+  updateOrder() {
+    console.log('updating order');
+  }
 }
