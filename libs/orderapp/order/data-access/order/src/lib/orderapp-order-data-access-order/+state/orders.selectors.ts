@@ -1,8 +1,11 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { Order, ORDER_FEATURE_KEY } from './orders.reducers';
-import { OrderItem, OrderItemStatus } from '@hotel/common/types';
+import { OrderItem, OrderItemStatus, OrderSummary } from '@hotel/common/types';
 import { selectCompanyTaxes } from '@hotel/orderapp/company/data-access';
-import { getAppliedTaxesAndTaxesTotal } from '@hotel/common/util';
+import {
+  aggregateOrderItems,
+  getAppliedTaxesAndTaxesTotal,
+} from '@hotel/common/util';
 
 export const selectOrderState = createFeatureSelector<Order>(ORDER_FEATURE_KEY);
 
@@ -103,6 +106,39 @@ export const selectOrderDetailsOfSelectedOrder = createSelector(
       };
     }
     return order;
+  }
+);
+
+export const selectOrderDetailEdited = createSelector(
+  selectOrderState,
+  selectCompanyTaxes,
+  (state, companyTaxes) => {
+    const orderItemEdits = state.orderItemEdits;
+    const selectedOrder = state.selectedOrderDetails;
+
+    if (!selectedOrder) return;
+    const { aggregated, totalAmount, totalQuantityCount, totalItemsCount } =
+      aggregateOrderItems([...selectedOrder.orderItems!, ...orderItemEdits]);
+
+    const newCopiedOrder: OrderSummary = {
+      ...selectedOrder,
+      orderItems: aggregated,
+      totalAmount,
+      totalQuantityCount,
+      totalItemsCount,
+      appliedTaxes: [],
+    };
+
+    const { taxesApplied, taxedTotal } = getAppliedTaxesAndTaxesTotal(
+      newCopiedOrder.totalAmount!,
+      companyTaxes!
+    );
+
+    return {
+      ...newCopiedOrder,
+      appliedTaxes: taxesApplied,
+      taxedTotal,
+    };
   }
 );
 

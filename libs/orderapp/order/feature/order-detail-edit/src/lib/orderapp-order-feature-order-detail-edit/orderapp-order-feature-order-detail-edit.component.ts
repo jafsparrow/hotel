@@ -2,9 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import {
+  deleteItemFromOder,
   makeBillForOrder,
   selectLoadOrderDetailSpinner,
+  selectOrderDetailEdited,
   selectOrderDetailsOfSelectedOrder,
+  updateOrderItemCount,
 } from '@hotel/orderapp/order/data-access/order';
 import { OrderItem, OrderSummary } from '@hotel/common/types';
 import { TimesagoPipe } from '@hotel/orderapp/core';
@@ -23,24 +26,42 @@ export class OrderappOrderFeatureOrderDetailEditComponent {
   selectOrderDetailsLoadSpinner1$ = this.store.select(
     selectLoadOrderDetailSpinner
   );
-  selectOrderDetailsOfSelectedOrder1$ = this.store.select(
+  selectOrderDetailsOfSelectedOrder$ = this.store.select(
     selectOrderDetailsOfSelectedOrder
   );
+  selectOrderForEdit$ = this.store.select(selectOrderDetailEdited);
   constructor(private store: Store, private dialog: MatDialog) {}
 
-  deleteFromOrder(key: any, item: OrderItem) {
+  deleteFromOrder(orignalOrder: OrderSummary, item: OrderItem) {
     // console.log('detaildsjfsdf', key);
     // console.log('detaildsjfsdf', cartItem);
+    const originalOrderItem = orignalOrder.orderItems!.filter(
+      (orderItem) => orderItem.customeKey == item.customeKey
+    )[0];
+
+    const originalCountFromServer = originalOrderItem.count;
     if (confirm(`Deleting ${item.name} from order.?`)) {
-      // this.store.dispatch(removeFromCart({ itemId: key }));
+      this.store.dispatch(
+        deleteItemFromOder({
+          orderItem: { ...item, count: -originalCountFromServer },
+        })
+      );
       console.log('delete pressed.');
     }
   }
   decrimentItem(item: OrderItem) {
+    const currentCount = item.count;
+    if (currentCount - 1 <= 0) return;
+    this.store.dispatch(
+      updateOrderItemCount({ orderItem: { ...item, count: -1 } })
+    );
     console.log('decrement');
   }
 
   incrementItem(item: OrderItem) {
+    this.store.dispatch(
+      updateOrderItemCount({ orderItem: { ...item, count: 1 } })
+    );
     console.log('increment');
   }
 

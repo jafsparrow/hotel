@@ -1,5 +1,6 @@
 import {
   Cart,
+  OrderItem,
   OrderItemStatus,
   OrderStatus,
   OrderSummary,
@@ -111,4 +112,14 @@ export const makeBillForOrderSuccess = createAction(
 export const makeBillForOrderFail = createAction(
   '[Order] Create bill for the order Failed',
   props<{ errorMessage: string }>()
+);
+
+export const updateOrderItemCount = createAction(
+  '[Order] Update Order Item Count',
+  props<{ orderItem: OrderItem }>()
+);
+
+export const deleteItemFromOder = createAction(
+  '[Order] Delete Item From Order',
+  props<{ orderItem: OrderItem }>()
 );

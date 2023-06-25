@@ -1,144 +1,170 @@
-<div
-  *ngIf="selectOrderDetailsOfSelectedOrder1$ | async as selected"
-  class="p2 max-w-md"
+<ng-container
+  *ngIf="selectOrderDetailsOfSelectedOrder$ | async as selectedOrder"
 >
-  <div class="flex w-full flex-row items-stretch">
-    <div class="font-bold capitalize">Order - {{ selected.orderNumber }}</div>
-    <div class="ml-2 border-l-2 pl-2 font-light">
-      {{ selected.createdAt | timesago }}
-    </div>
-    <div class="flex-grow"></div>
-    <div class="font-semibold">{{ selected.totalAmount!.toFixed(3) }} OMR</div>
-  </div>
-
-  <div class="flex flex-row">
-    <div class="flex-grow">
-      <div class="font-semibod">
-        Type:
-        <span class="font-light">{{ selected.orderType }}</span>
+  <div *ngIf="selectOrderForEdit$ | async as selected" class="p2 max-w-md">
+    <div class="flex w-full flex-row items-stretch">
+      <div class="font-bold capitalize">Order - {{ selected.orderNumber }}</div>
+      <div class="ml-2 border-l-2 pl-2 font-light">
+        {{ selected.createdAt | timesago }}
       </div>
-      <div class="font-thin">Table 22</div>
-      <div class="font-thin">Customer: {{ selected.customerName }}</div>
-    </div>
-
-    <div *ngIf="selected.orderStatus === 'served'">
-      <div
-        class="inline-block h-7 rounded-md bg-purple-900 p-1 my-2 px-2 text-right text-sm text-white cursor-pointer"
-      >
-        PAY
-      </div>
-      <div
-        class="inline-block h-7 rounded-md bg-green-700 p-1 px-2 text-right text-sm text-white cursor-pointer"
-      >
-        PRINT
+      <div class="flex-grow"></div>
+      <div class="font-semibold">
+        {{ selected.totalAmount!.toFixed(3) }} OMR
       </div>
     </div>
 
-    <div
-      class="inline-block h-7 rounded-md bg-blue-700 p-1 px-2 text-right text-sm text-white cursor-pointer"
-      *ngIf="selected.orderStatus !== 'served'"
-    >
-      MAKE BILL
-    </div>
-  </div>
-
-  <div class="px-4 bg-white">
-    <div
-      class="border-b flex flex-row py-2"
-      *ngFor="let item of selected.orderItems; let i = index"
-    >
-      <div class="mr-2">
-        <div class="w-5 h-5" (click)="deleteFromOrder(item.customeKey, item)">
-          <svg viewBox="0 0 24 24" fill="none">
-            <g id="SVGRepo_bgCarrier" stroke-width="1"></g>
-            <g
-              id="SVGRepo_tracerCarrier"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            ></g>
-            <g id="SVGRepo_iconCarrier">
-              <path
-                d="M10 12V17"
-                stroke="#000000"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></path>
-              <path
-                d="M14 12V17"
-                stroke="#000000"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></path>
-              <path
-                d="M4 7H20"
-                stroke="#000000"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></path>
-              <path
-                d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10"
-                stroke="#000000"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></path>
-              <path
-                d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z"
-                stroke="#000000"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></path>
-            </g>
-          </svg>
-        </div>
-      </div>
+    <div class="flex flex-row">
       <div class="flex-grow">
-        <div class="text-sm">
-          {{ item.name }}
+        <div class="font-semibod">
+          Type:
+          <span class="font-light">{{ selected.orderType }}</span>
         </div>
-        <div class="text-xs font-light" *ngIf="item.modifiers">
-          <span class="ml-2">{{ item.modifiers }}</span>
-        </div>
-        <div class="text-xs font-thin"></div>
+        <div class="font-thin">Table 22</div>
+        <div class="font-thin">Customer: {{ selected.customerName }}</div>
       </div>
 
-      <div class="flex flex-row justify-center items-center">
+      <div *ngIf="selected.orderStatus === 'served'">
         <div
-          class="w-full mr-1 h-6 flex flex-row justify-between items-center text-xs font-bold bg-gray-200 p-1 rounded-lg basis-0"
+          class="inline-block h-7 rounded-md bg-purple-900 p-1 my-2 px-2 text-right text-sm text-white cursor-pointer"
         >
-          <button
-            class="w-4 h-4 font-bold text-lg flex justify-center items-center"
-            (click)="decrimentItem(item)"
-          >
-            -
-          </button>
-          <div class="px-2 flex-grow text-center text-sm">
-            {{ item.count }}
-          </div>
-          <button
-            class="w-4 h-4 font-bold text-lg flex justify-center items-center"
-            (click)="incrementItem(item)"
-          >
-            +
-          </button>
+          PAY
         </div>
-        <div class="w-16 text-sm font-light text-right">
-          {{ (item.count! * item.amount!).toFixed(3) }}
+        <div
+          class="inline-block h-7 rounded-md bg-green-700 p-1 px-2 text-right text-sm text-white cursor-pointer"
+        >
+          PRINT
+        </div>
+      </div>
+
+      <div
+        class="inline-block h-7 rounded-md bg-blue-700 p-1 px-2 text-right text-sm text-white cursor-pointer"
+        *ngIf="selected.orderStatus !== 'served'"
+      >
+        MAKE BILL
+      </div>
+    </div>
+
+    <div class="px-4 bg-white">
+      <div *ngFor="let item of selected.orderItems; let i = index">
+        <div class="border-b flex flex-row py-2" *ngIf="item.count">
+          <div class="mr-2">
+            <div class="w-5 h-5" (click)="deleteFromOrder(selectedOrder, item)">
+              <svg viewBox="0 0 24 24" fill="none">
+                <g id="SVGRepo_bgCarrier" stroke-width="1"></g>
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></g>
+                <g id="SVGRepo_iconCarrier">
+                  <path
+                    d="M10 12V17"
+                    stroke="#000000"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                  <path
+                    d="M14 12V17"
+                    stroke="#000000"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                  <path
+                    d="M4 7H20"
+                    stroke="#000000"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                  <path
+                    d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10"
+                    stroke="#000000"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                  <path
+                    d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z"
+                    stroke="#000000"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                </g>
+              </svg>
+            </div>
+          </div>
+          <div class="flex-grow">
+            <div class="text-sm">
+              {{ item.name }}
+            </div>
+            <div class="text-xs font-light" *ngIf="item.modifiers">
+              <span class="ml-2">{{ item.modifiers }}</span>
+            </div>
+            <div class="text-xs font-thin"></div>
+          </div>
+
+          <div class="flex flex-row justify-center items-center">
+            <div
+              class="w-full mr-1 h-6 flex flex-row justify-between items-center text-xs font-bold bg-gray-200 p-1 rounded-lg basis-0"
+            >
+              <button
+                class="w-4 h-4 font-bold text-lg flex justify-center items-center"
+                (click)="decrimentItem(item)"
+              >
+                -
+              </button>
+              <div class="px-2 flex-grow text-center text-sm">
+                {{ item.count }}
+              </div>
+              <button
+                class="w-4 h-4 font-bold text-lg flex justify-center items-center"
+                (click)="incrementItem(item)"
+              >
+                +
+              </button>
+            </div>
+            <div class="w-16 text-sm font-light text-right">
+              {{ (item.count! * item.amount!).toFixed(3) }}
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="text-center mt-2">
+    <div class="my-2 h-[1px] w-full bg-gray-600"></div>
+
+    <div class="grid grid-cols-4 pt-2">
+      <div class="col-span-2"></div>
+      <div class="col-span-1">Bill Total</div>
+      <div class="col-span-1">
+        {{ selected.totalAmount!.toFixed(3) }}
+      </div>
+    </div>
+
     <div
-      class="bg-pink-500 px-2 py-1 text-white font-semibold text-center hover:cursor-pointer rounded-md inline-block mx-auto"
-      (click)="updateOrder()"
+      class="grid grid-cols-4 pt-2"
+      *ngFor="let appliedTax of selected.appliedTaxes"
     >
-      UPDATE
+      <div class="col-span-2"></div>
+      <div class="col-span-1">{{ appliedTax.taxName }}</div>
+      <div class="col-span-1">{{ appliedTax.value }}</div>
+    </div>
+
+    <div class="grid grid-cols-4 pt-2">
+      <div class="col-span-2"></div>
+      <div class="col-span-1">Net Total</div>
+      <div class="col-span-1">{{ selected.taxedTotal }}</div>
+    </div>
+    <div class="text-center mt-2">
+      <div
+        class="bg-pink-500 px-2 py-1 text-white font-semibold text-center hover:cursor-pointer rounded-md inline-block mx-auto"
+        (click)="updateOrder()"
+      >
+        UPDATE
+      </div>
     </div>
   </div>
-</div>
+</ng-container>

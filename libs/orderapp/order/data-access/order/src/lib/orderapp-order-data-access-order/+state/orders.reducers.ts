@@ -1,5 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import {
+  deleteItemFromOder,
   loadOrderDetailSpinnerOn,
   loadOrderDetailsSuccess,
   loadOrdersSpinnerOn,
@@ -12,6 +13,7 @@ import {
   orderPlaceFail,
   orderPlaceSuccess,
   placeOrderTurnSpinnerOn,
+  updateOrderItemCount,
   updateSelectedFilteredCategories,
 } from './orders.actions';
 import { AppliedTaxInfo, OrderItem, OrderSummary } from '@hotel/common/types';
@@ -24,7 +26,7 @@ export interface Order {
   successMessage: string;
   recentOrders: OrderSummary[];
   selectedOrderDetails: OrderSummary | null;
-
+  orderItemEdits: OrderItem[];
   placeOrderSpinner: boolean;
   loadOrderSpinner: boolean;
   loadOrderDetailSpinner: boolean;
@@ -46,6 +48,7 @@ const initialState: Order = {
   makeBillErrorMessage: '',
   userSelectedFilterCategories: [],
   selectedOrderDetails: null,
+  orderItemEdits: [],
 };
 
 export const orderReducer = createReducer(
@@ -134,5 +137,30 @@ export const orderReducer = createReducer(
     ...state,
     makeBillErrorMessage: errorMessage,
     makeBillForOrderSpinner: false,
-  }))
+  })),
+  on(updateOrderItemCount, (state, { orderItem }) => {
+    const newState = {
+      ...state,
+      orderItemEdits: [...state.orderItemEdits, orderItem],
+    };
+    console.log(newState.orderItemEdits);
+    return newState;
+  }),
+  on(deleteItemFromOder, (state, { orderItem }) => {
+    // since order item edit array hold all the decrement or increment.
+    // it should be deleted before process delete.
+    // delete logic is to add negative currently available count from server.
+    // this.is take from the selelcted order detail of the order state.
+
+    const key = orderItem.customeKey;
+    const tempOrderEdits = state.orderItemEdits.filter(
+      (item) => item.customeKey != key
+    );
+    tempOrderEdits.push(orderItem);
+
+    return {
+      ...state,
+      orderItemEdits: tempOrderEdits,
+    };
+  })
 );
