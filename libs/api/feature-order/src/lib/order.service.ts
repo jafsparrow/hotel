@@ -181,7 +181,7 @@ export class OrderService {
       return {
         ...orderItem,
         amount: orderItem!.amount!.toFixed(3),
-        otherLanguageName: orderItem.product.secondaryLanguageName,
+        otherLanguageName: orderItem.product!.secondaryLanguageName,
         individualTotal: (orderItem.count * orderItem!.amount!).toFixed(3),
       };
     });
@@ -608,6 +608,7 @@ export class OrderService {
         },
       });
       console.log('updated order', updatedOrder);
+      this.printReceipt(orderId);
       return updatedOrder;
     } catch (error) {
       throw new Error('format later.');

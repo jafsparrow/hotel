@@ -10,6 +10,7 @@ import { OrderSummary } from '@hotel/common/types';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { OrderappCoreComponent, TimesagoPipe } from '@hotel/orderapp/core';
 import { OrderappOrderFeatureOrderDetailComponent } from '@hotel/orderapp/order/feature/order-detail';
+import { OrderappOrderFeatureOrderDetailEditComponent } from '@hotel/orderapp/order/feature/order-detail-edit';
 
 @Component({
   selector: 'hotel-orderapp-order-feature-order-list',
@@ -19,6 +20,7 @@ import { OrderappOrderFeatureOrderDetailComponent } from '@hotel/orderapp/order/
     MatDialogModule,
     TimesagoPipe,
     OrderappOrderFeatureOrderDetailComponent,
+    OrderappOrderFeatureOrderDetailEditComponent,
   ],
   templateUrl: './orderapp-order-feature-order-list.component.html',
   styleUrls: ['./orderapp-order-feature-order-list.component.css'],
@@ -43,6 +45,14 @@ export class OrderappOrderFeatureOrderListComponent {
     this.dialog.open(OrderappOrderFeatureOrderDetailComponent, {
       height: '100vh',
       width: '100vw',
+    });
+  }
+
+  openOrderDetailEdit(order: OrderSummary) {
+    console.log('orderdetail edit opened'), this.loadOrderDetail(order);
+    this.dialog.open(OrderappOrderFeatureOrderDetailEditComponent, {
+      height: '100%',
+      width: '100%',
     });
   }
 }

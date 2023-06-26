@@ -1,7 +1,18 @@
+<div
+  *ngIf="selectOrderDetailsLoadSpinner$ | async"
+  class="h-screen flex items-center justify-center"
+>
+  Loading....
+</div>
+
 <ng-container
   *ngIf="selectOrderDetailsOfSelectedOrder$ | async as selectedOrder"
+  class="relative"
 >
-  <div *ngIf="selectOrderForEdit$ | async as selected" class="p2 max-w-md">
+  <div
+    *ngIf="selectOrderForEdit$ | async as selected"
+    class="p-2 max-w-md mx-auto pt-5 overflow-y-auto border"
+  >
     <div class="flex w-full flex-row items-stretch">
       <div class="font-bold capitalize">Order - {{ selected.orderNumber }}</div>
       <div class="ml-2 border-l-2 pl-2 font-light">
@@ -44,7 +55,7 @@
       </div>
     </div>
 
-    <div class="px-4 bg-white">
+    <div class="px-4 bg-white mt-5">
       <div *ngFor="let item of selected.orderItems; let i = index">
         <div class="border-b flex flex-row py-2" *ngIf="item.count">
           <div class="mr-2">
@@ -166,5 +177,11 @@
         UPDATE
       </div>
     </div>
+  </div>
+
+  <div
+    class="absolute right-2 top-2 w-8 h-8 bg-gray-100 flex justify-center items-center rounded-full"
+  >
+    X
   </div>
 </ng-container>

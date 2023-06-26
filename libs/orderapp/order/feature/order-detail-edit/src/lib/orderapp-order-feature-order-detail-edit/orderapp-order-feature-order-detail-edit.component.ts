@@ -23,7 +23,7 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./orderapp-order-feature-order-detail-edit.component.css'],
 })
 export class OrderappOrderFeatureOrderDetailEditComponent {
-  selectOrderDetailsLoadSpinner1$ = this.store.select(
+  selectOrderDetailsLoadSpinner$ = this.store.select(
     selectLoadOrderDetailSpinner
   );
   selectOrderDetailsOfSelectedOrder$ = this.store.select(

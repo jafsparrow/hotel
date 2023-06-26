@@ -32,6 +32,14 @@
           </div>
 
           <div
+            class="h-7 rounded-md mr-2 bg-red-700 p-1 px-2 text-right text-sm text-white hover:bg-red-500 cursor-pointer"
+            (click)="openOrderDetailEdit(order)"
+            *ngIf="order.orderStatus !== 'served'"
+          >
+            EDIT
+          </div>
+
+          <div
             class="h-7 hidden sm:inline-block rounded-md bg-green-700 p-1 px-2 text-right text-sm text-white hover:bg-green-500 cursor-pointer"
             (click)="loadOrderDetail(order)"
           >

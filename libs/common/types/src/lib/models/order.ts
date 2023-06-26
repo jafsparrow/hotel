@@ -1,4 +1,5 @@
 import { CartItem } from './cart';
+import { Product } from './product';
 import { Customer } from './table';
 import { AppliedTaxInfo } from './taxes';
 import { User } from './user';
@@ -16,6 +17,7 @@ export interface OrderItem {
   orderItemType?: OrderItemType;
   amount?: number;
   customeKey?: string;
+  product?: Product;
 }
 
 export interface OrderSummary {

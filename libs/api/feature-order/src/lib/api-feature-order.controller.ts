@@ -38,7 +38,7 @@ export class OrderContoller {
   @Patch()
   makeBillForTheOrder(@Body() data: any) {
     console.log('patch requrest for ', data);
-    return this.orderService.printReceipt(data.orderId);
+    // return this.orderService.printReceipt(data.orderId);
     return this.orderService.makeBillForTheOrder(data.orderId);
   }
 
