@@ -14,6 +14,7 @@ import { OrderService } from './order.service';
 import { User } from '@hotel/common/types';
 
 import { JwtAuthGuard } from '@hotel/api/feature-auth';
+import { OrderItemAddEditDto } from './dto/orderItems-add-edit.dto';
 @Controller('orders')
 export class OrderContoller {
   constructor(private orderService: OrderService) {}
@@ -35,6 +36,7 @@ export class OrderContoller {
     return this.orderService.testPrismaggregate(25);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch()
   makeBillForTheOrder(@Body() data: any) {
     console.log('patch requrest for ', data);
@@ -42,6 +44,7 @@ export class OrderContoller {
     return this.orderService.makeBillForTheOrder(data.orderId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   getOrderDetails(@Param() params: any) {
     console.log('getting order details');
@@ -56,5 +59,14 @@ export class OrderContoller {
     const appUser: User = req.user;
     console.log('from the front end', order);
     return this.orderService.createOrder(order, appUser);
+  }
+
+  // @UseGuards(JwtAuthGuard)
+  @Post('updateItems/:id')
+  updateOrderItems(@Body() data: OrderItemAddEditDto[], @Param() params: any) {
+    console.log(data, params);
+    const orderId = params.id;
+    console.log('dto array', data);
+    return 'hello world';
   }
 }

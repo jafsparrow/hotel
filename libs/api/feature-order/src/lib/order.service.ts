@@ -660,4 +660,14 @@ export class OrderService {
     };
     return agregated;
   }
+
+  async updateOrderItemsForTheOrder(orderId: number, orderItems: OrderItem[]) {
+    try {
+      // await this.prismaService.orderItem.c
+      console.log('order id is', orderId);
+      console.log('order details', orderItems);
+    } catch (error) {
+      console.log('erro while updating orerItems.');
+    }
+  }
 }
