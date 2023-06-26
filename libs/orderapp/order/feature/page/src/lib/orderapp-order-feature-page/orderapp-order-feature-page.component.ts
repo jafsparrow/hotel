@@ -13,12 +13,14 @@ import { MatMenuModule } from '@angular/material/menu';
 import { logout } from '@hotel/orderapp/auth/data-access';
 import { OrderappOrderFeatureOrderDetailEditComponent } from '@hotel/orderapp/order/feature/order-detail-edit';
 import { TimesagoPipe } from '@hotel/orderapp/core';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'hotel-orderapp-order-feature-page',
   standalone: true,
   imports: [
     CommonModule,
+    RouterModule,
     MatDialogModule,
     MatSnackBarModule,
     MatSidenavModule,
@@ -35,7 +37,12 @@ import { TimesagoPipe } from '@hotel/orderapp/core';
   styleUrls: ['./orderapp-order-feature-page.component.css'],
 })
 export class OrderappOrderFeaturePageComponent {
-  constructor(private dialog: MatDialog, private store: Store) {
+  constructor(
+    private dialog: MatDialog,
+    private store: Store,
+
+    private router: Router
+  ) {
     console.log('consturcur of order feature pagen');
     this.store.dispatch(loadRecentOrders());
   }
@@ -49,5 +56,8 @@ export class OrderappOrderFeaturePageComponent {
 
   logout() {
     this.store.dispatch(logout());
+  }
+  goToShellPage() {
+    this.router.navigate(['shell']);
   }
 }
