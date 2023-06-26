@@ -116,10 +116,10 @@ export const makeBillForOrderFail = createAction(
 
 export const updateOrderItemCount = createAction(
   '[Order] Update Order Item Count',
-  props<{ orderItem: OrderItem }>()
+  props<{ orderItem: OrderItem; count: number }>()
 );
 
 export const deleteItemFromOder = createAction(
   '[Order] Delete Item From Order',
-  props<{ orderItem: OrderItem }>()
+  props<{ orderItem: OrderItem; count: number }>()
 );

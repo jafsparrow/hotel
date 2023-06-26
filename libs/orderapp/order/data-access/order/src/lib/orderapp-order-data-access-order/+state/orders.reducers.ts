@@ -21,12 +21,17 @@ import { aggregateOrderItems } from '@hotel/common/util';
 
 export const ORDER_FEATURE_KEY = 'order';
 
+export interface OrderItemEditItem {
+  orderItem: OrderItem;
+  count: number;
+}
 export interface Order {
   errorMessage: string;
   successMessage: string;
   recentOrders: OrderSummary[];
   selectedOrderDetails: OrderSummary | null;
   orderItemEdits: OrderItem[];
+  orderItemEditObject: { [key: string]: OrderItemEditItem };
   placeOrderSpinner: boolean;
   loadOrderSpinner: boolean;
   loadOrderDetailSpinner: boolean;
@@ -49,6 +54,7 @@ const initialState: Order = {
   userSelectedFilterCategories: [],
   selectedOrderDetails: null,
   orderItemEdits: [],
+  orderItemEditObject: {},
 };
 
 export const orderReducer = createReducer(
@@ -99,6 +105,7 @@ export const orderReducer = createReducer(
     return {
       ...state,
       selectedOrderDetails: newCopiedOrder,
+      orderItemEditObject: {},
       loadOrderDetailSpinner: false,
     };
   }),
@@ -138,29 +145,40 @@ export const orderReducer = createReducer(
     makeBillErrorMessage: errorMessage,
     makeBillForOrderSpinner: false,
   })),
-  on(updateOrderItemCount, (state, { orderItem }) => {
-    const newState = {
-      ...state,
-      orderItemEdits: [...state.orderItemEdits, orderItem],
+  on(updateOrderItemCount, (state, { orderItem, count }) => {
+    // const newState = {
+    //   ...state,
+    //   orderItemEdits: [...state.orderItemEdits, orderItem],
+    // };
+
+    const tempOrderEditObje = { ...state.orderItemEditObject };
+    const key = orderItem.customeKey!;
+    tempOrderEditObje[key] = {
+      ...(tempOrderEditObje[key] || {}),
+      ...{
+        orderItem,
+        count: tempOrderEditObje[key]
+          ? tempOrderEditObje[key].count + count
+          : count,
+      },
     };
-    console.log(newState.orderItemEdits);
-    return newState;
+    return { ...state, orderItemEditObject: tempOrderEditObje };
   }),
-  on(deleteItemFromOder, (state, { orderItem }) => {
+  on(deleteItemFromOder, (state, { orderItem, count }) => {
     // since order item edit array hold all the decrement or increment.
     // it should be deleted before process delete.
     // delete logic is to add negative currently available count from server.
     // this.is take from the selelcted order detail of the order state.
 
-    const key = orderItem.customeKey;
-    const tempOrderEdits = state.orderItemEdits.filter(
-      (item) => item.customeKey != key
-    );
-    tempOrderEdits.push(orderItem);
-
-    return {
-      ...state,
-      orderItemEdits: tempOrderEdits,
+    const tempOrderEditObje = { ...state.orderItemEditObject };
+    const key = orderItem.customeKey!;
+    tempOrderEditObje[key] = {
+      ...(tempOrderEditObje[key] || {}),
+      ...{
+        orderItem,
+        count: count,
+      },
     };
+    return { ...state, orderItemEditObject: tempOrderEditObje };
   })
 );

@@ -43,7 +43,8 @@ export class OrderappOrderFeatureOrderDetailEditComponent {
     if (confirm(`Deleting ${item.name} from order.?`)) {
       this.store.dispatch(
         deleteItemFromOder({
-          orderItem: { ...item, count: -originalCountFromServer },
+          orderItem: item,
+          count: -originalCountFromServer,
         })
       );
       console.log('delete pressed.');
@@ -52,16 +53,12 @@ export class OrderappOrderFeatureOrderDetailEditComponent {
   decrimentItem(item: OrderItem) {
     const currentCount = item.count;
     if (currentCount - 1 <= 0) return;
-    this.store.dispatch(
-      updateOrderItemCount({ orderItem: { ...item, count: -1 } })
-    );
+    this.store.dispatch(updateOrderItemCount({ orderItem: item, count: -1 }));
     console.log('decrement');
   }
 
   incrementItem(item: OrderItem) {
-    this.store.dispatch(
-      updateOrderItemCount({ orderItem: { ...item, count: 1 } })
-    );
+    this.store.dispatch(updateOrderItemCount({ orderItem: item, count: 1 }));
     console.log('increment');
   }
 

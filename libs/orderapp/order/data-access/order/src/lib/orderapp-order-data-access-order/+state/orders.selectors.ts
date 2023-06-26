@@ -113,8 +113,15 @@ export const selectOrderDetailEdited = createSelector(
   selectOrderState,
   selectCompanyTaxes,
   (state, companyTaxes) => {
-    const orderItemEdits = state.orderItemEdits;
+    // const orderItemEdits = state.orderItemEdits;
     const selectedOrder = state.selectedOrderDetails;
+
+    const orderItemEdits = Object.values(state.orderItemEditObject).map(
+      (item) => {
+        const orderItem = item.orderItem;
+        return { ...orderItem, count: item.count };
+      }
+    );
 
     if (!selectedOrder) return;
     const { aggregated, totalAmount, totalQuantityCount, totalItemsCount } =
