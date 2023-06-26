@@ -663,7 +663,7 @@ export class OrderService {
 
   async updateOrderItemsForTheOrder(orderId: number, orderItems: OrderItem[]) {
     try {
-      // await this.prismaService.orderItem.c
+      // await this.prismaService.orderItem.cre;/
       console.log('order id is', orderId);
       console.log('order details', orderItems);
     } catch (error) {

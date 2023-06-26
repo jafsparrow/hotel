@@ -4,8 +4,9 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
-    url      = "file:./dev.db?socket_timeout=10&connection_limit=1"
+    provider = "postgresql"
+    url      = "postgresql://postgres:Jafrose1*@localhost:5432/test"
+    // url      = "file:./dev.db?socket_timeout=10&connection_limit=1"
 }
 
 model user {
