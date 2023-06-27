@@ -34,7 +34,7 @@
       </div> -->
 
       <div class="col-span-6 sm:col-span-6 h-screen overflow-auto flex-grow">
-        <div *ngIf="cart.cartCreatedFor">
+        <div *ngIf="cart.cartCreatedFor; else noCreatedForUser">
           <div
             class="bg-white p-2"
             *ngIf="cartShortSummary$ | async as summary"

@@ -228,10 +228,23 @@ export class OrderService {
     }
   }
 
+  async waitRandom() {
+    const random = Math.random() * 1000;
+    console.log('random number is ', random);
+    return new Promise((resolve) => {
+      setTimeout(resolve, random);
+    });
+  }
+
   async getNextOrderNumber(): Promise<number> {
     try {
       const company = await this.prismaService.company.findFirst();
       if (!company) throw new Error('no company data found');
+
+      // the followind line is temporary fix for concurrency company
+      // update error. postgres would not have this error, still keeping the code here.s
+      await this.waitRandom();
+
       await this.prismaService.company.update({
         where: {
           id: company?.id,
