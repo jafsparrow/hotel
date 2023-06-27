@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 
 import {
   addToCart,
+  cartShortSummary,
   removeFromCart,
   selectCart,
   selectCartTaxed,
@@ -33,6 +34,7 @@ export class OrderappCartFeatureCartListComponent {
   getTotalCartAmout$ = this.store.select(selectCartTotal);
   selectPlaceOrderSpinner$ = this.store.select(selectPlaceOrderSpinner);
   selectOrderSuccessMessage$ = this.store.select(selectOrderSuccessMessage);
+  cartShortSummary$ = this.store.select(cartShortSummary);
   constructor(private store: Store, private dialog: MatDialog) {}
 
   getCartItems(cart: Cart) {

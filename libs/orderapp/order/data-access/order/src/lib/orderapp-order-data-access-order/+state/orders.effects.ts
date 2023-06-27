@@ -52,7 +52,7 @@ export class OrderEffects {
           catchError((error) =>
             of(
               orderPlaceFail({
-                errorMessage: 'Somethig went wrong, Please try again',
+                errorMessage: 'Something went wrong, Please try again',
               })
             )
           )

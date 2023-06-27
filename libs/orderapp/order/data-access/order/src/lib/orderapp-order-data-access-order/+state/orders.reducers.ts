@@ -12,6 +12,7 @@ import {
   makeBillForOrderSuccess,
   orderPlaceFail,
   orderPlaceSuccess,
+  placeOrder,
   placeOrderTurnSpinnerOn,
   updateOrderItemCount,
   updateSelectedFilteredCategories,
@@ -59,7 +60,7 @@ const initialState: Order = {
 
 export const orderReducer = createReducer(
   initialState,
-
+  on(placeOrder, (state) => ({ ...state, placeOrderSpinner: true })),
   on(orderPlaceSuccess, (state, { successMessage }) => {
     return {
       ...state,
@@ -72,6 +73,7 @@ export const orderReducer = createReducer(
     ...state,
     errorMessage,
     placeOrderSpinner: false,
+    successMessage: '',
   })),
   on(placeOrderTurnSpinnerOn, (state) => ({
     ...state,

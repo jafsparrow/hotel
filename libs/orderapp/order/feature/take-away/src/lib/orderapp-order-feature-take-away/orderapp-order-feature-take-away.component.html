@@ -27,10 +27,9 @@
     <div>
       <div
         class="p-3 bg-gray-900 text-white font-bold text-center rounded-full"
+        (click)="setTheUserToCart()"
       >
-        <button [disabled]="!takeAwayForm.valid" (click)="setTheUserToCart()">
-          OK
-        </button>
+        <button [disabled]="!takeAwayForm.valid">OK</button>
       </div>
     </div>
   </div>

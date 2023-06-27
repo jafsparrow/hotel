@@ -1,6 +1,6 @@
 <div class="h-screen" *ngIf="cart$ | async as cart">
   <div *ngIf="hasCartItems(cart); else notItemsInCart">
-    <div class="w-full h-16 flex flex-row bg-white pt-2 mb-1 sticky top-0">
+    <div class="w-full h-16 flex flex-row bg-white pt-2 mb-2 sticky top-0">
       <button class="w-14" [routerLink]="['/shell/home']">
         <svg
           class="w-10"
@@ -17,7 +17,7 @@
           />
         </svg>
       </button>
-      <div
+      <!-- <div
         class="bg-white p-2 flex-grow"
         *ngIf="cart.cartCreatedFor; else noCreatedForUser"
       >
@@ -25,16 +25,41 @@
           {{ cart.cartCreatedFor.userType.toUpperCase() }} :
           <span class="text-gray-700">{{ cart.cartCreatedFor.firstName }}</span>
         </div>
-        <div class="text-gray-800">Adeel Ahmed | 9733933</div>
         <div class="flex flex-row justify-between">
           <div class="text-gray-800 text-sm">Running Order</div>
           <div class="bg-red-400 rounded-md" (click)="clearCartUser()">
             CLEAR
           </div>
         </div>
+      </div> -->
+
+      <div class="col-span-6 sm:col-span-6 h-screen overflow-auto flex-grow">
+        <div *ngIf="cart.cartCreatedFor">
+          <div
+            class="bg-white p-2"
+            *ngIf="cartShortSummary$ | async as summary"
+          >
+            <div class="font-bold">
+              {{ summary.cartCreateFor!.userType.toUpperCase() }} :
+              <span class="font-semibold text-gray-700">{{
+                summary.cartCreateFor!.firstName
+              }}</span>
+            </div>
+            <div class="font-light">{{ summary.cartCreateFor!.lastName }}</div>
+            <!-- <div class="text-gray-800">Adeel Ahmed | 9733933</div> -->
+            <div class="flex flex-row justify-between">
+              <div class="text-gray-800 text-sm">
+                {{ summary.runningStatus }}
+              </div>
+              <div class="p-1 bg-red-400 rounded-md" (click)="clearCartUser()">
+                CLEAR
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="max-w-md mx-auto">
+    <div class="max-w-md mx-auto pt-3">
       <div class="px-4 bg-white">
         <div
           class="border-b flex flex-row py-2"

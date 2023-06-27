@@ -38,6 +38,6 @@ export class OrderappOrderFeatureProgressComponent {
   }
 
   tryAgainBtn() {
-    return 'try';
+    this.dialog.closeAll();
   }
 }
