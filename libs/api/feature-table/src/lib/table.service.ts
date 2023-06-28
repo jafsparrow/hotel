@@ -1,5 +1,5 @@
 import { PrismaService } from '@hotel/api/data-access-db';
-import { OrderStatus } from '@hotel/common/types';
+import { OrderStatus, PaymentStatus } from '@hotel/common/types';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -11,7 +11,7 @@ export class TableService {
         tableSeats: true,
         orders: {
           where: {
-            NOT: { orderStatus: OrderStatus.PAID },
+            NOT: { paymentStatus: PaymentStatus.PAID },
           },
           select: { id: true },
         },

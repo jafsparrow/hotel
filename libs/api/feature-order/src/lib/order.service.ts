@@ -198,7 +198,7 @@ export class OrderService {
     // send to the print service.
     const customerNameToPrint =
       order?.orderType == 'table'
-        ? `${order.table!.name} - ${order.customer?.firstName}`
+        ? `${order.table!.name} `
         : order?.customer?.firstName;
     const customerLastNameToPrint = order?.customer?.lastName
       ? order.customer.lastName

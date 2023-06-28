@@ -1,4 +1,5 @@
 import { PrismaService } from '@hotel/api/data-access-db';
+import { OrderStatus } from '@hotel/common/types';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -18,7 +19,7 @@ export class FloorService {
           include: {
             orders: {
               where: {
-                NOT: { orderStatus: 'paid' },
+                NOT: { orderStatus: OrderStatus.SERVED },
               },
               include: {
                 customer: true,
