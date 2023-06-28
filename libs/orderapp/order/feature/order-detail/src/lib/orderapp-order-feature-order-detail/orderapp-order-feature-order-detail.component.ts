@@ -58,9 +58,4 @@ export class OrderappOrderFeatureOrderDetailComponent {
     this.store.dispatch(makeBillForOrder({ orderId: order.id }));
     return 'hello';
   }
-
-  get testPrint() {
-    console.log('test priting action. bla');
-    return 'bro';
-  }
 }
