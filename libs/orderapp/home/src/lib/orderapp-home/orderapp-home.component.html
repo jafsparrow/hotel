@@ -84,8 +84,26 @@
       </div>
     </div>
 
+    <div class="w-20 bg-red absolute bottom-0 right-0 z-20">
+      <div class="" *ngIf="(selectCartCreatedForUser$ | async) === null">
+        <div
+          class="w-16 h-16 m-2 rounded-full bg-yellow-500 drop-shadow-lg flex flex-row justify-center items-center"
+          (click)="openTable('0ms', '0ms')"
+        >
+          T
+        </div>
+        <div *ngIf="(selectCartCreatedForUser$ | async) === null">
+          <div
+            class="w-16 h-16 m-2 rounded-full bg-orange-500 drop-shadow-lg flex flex-row justify-center items-center"
+            (click)="openTakeAway('0ms', '0ms')"
+          >
+            TA
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="fixed bottom-0 w-full">
-      <div
+      <!-- <div
         class="flex flex-row"
         *ngIf="(selectCartCreatedForUser$ | async) === null"
       >
@@ -108,7 +126,7 @@
         >
           TA
         </div>
-      </div>
+      </div> -->
       <hotel-orderapp-cart-feature-cart-summary-button></hotel-orderapp-cart-feature-cart-summary-button>
     </div>
   </div>
