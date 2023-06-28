@@ -154,9 +154,9 @@ export const orderReducer = createReducer(
   })),
   on(makeBillForOrderFail, (state, { errorMessage }) => ({
     ...state,
+    makeBillForOrderSpinner: false,
     makeBillErrorMessage: errorMessage,
     makeBillSuccessMessage: '',
-    makeBillForOrderSpinner: false,
   })),
   on(payTheOrder, (state, { orderId }) => ({
     ...state,

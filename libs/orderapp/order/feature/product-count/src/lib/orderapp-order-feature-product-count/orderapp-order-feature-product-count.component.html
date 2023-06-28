@@ -1,57 +1,61 @@
 <div class="bg-gray-300 p-3">
-  <div class="font-xl font-semibold text-center pt-3">
-    {{ selectedProduct.name }} -
-    {{ selectedVariant ? selectedVariant.name : '' }}
-  </div>
-  <hotel-orderapp-product-feature-modifier-list
-    [product]="selectedProduct"
-    (selectedModifierEvent)="modifierSelectionChange($event)"
-  ></hotel-orderapp-product-feature-modifier-list>
-  <div class="w-full flex justify-center items-center">
-    <div class="sm:w-1/2 w-full p-3">
-      <div class="w-full g p-3 grid place-content-center">
-        <!-- <div class="w-10 h-10 p-2 rounded-full bg-red-500">-</div> -->
-        <div class="text-xl font-bold">{{ isPrestine ? 1 : currentCount }}</div>
+  <div class="max-w-md mx-auto">
+    <div class="font-xl font-semibold text-center pt-3">
+      {{ selectedProduct.name }} -
+      {{ selectedVariant ? selectedVariant.name : '' }}
+    </div>
+    <hotel-orderapp-product-feature-modifier-list
+      [product]="selectedProduct"
+      (selectedModifierEvent)="modifierSelectionChange($event)"
+    ></hotel-orderapp-product-feature-modifier-list>
+    <div class="w-full flex justify-center items-center">
+      <div class="sm:w-1/2 w-full p-3">
+        <div class="w-full g p-3 grid place-content-center">
+          <!-- <div class="w-10 h-10 p-2 rounded-full bg-red-500">-</div> -->
+          <div class="text-xl font-bold">
+            {{ isPrestine ? 1 : currentCount }}
+          </div>
 
-        <!-- <div class="w-10 h-10 p-2 rounded-full bg-green-500">+</div> -->
-      </div>
+          <!-- <div class="w-10 h-10 p-2 rounded-full bg-green-500">+</div> -->
+        </div>
 
-      <div>
-        <div class="grid grid-rows-4 grid-cols-3 gap-2 aspect-square">
-          <div
-            *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9]"
-            class="rounded-md bg-white drop-shadow border-2 border-gray-900 p-2 flex justify-center items-center font-bold"
-            (click)="buttonClick(item)"
-          >
-            {{ item }}
-          </div>
-          <div
-            class="rounded-md bg-white drop-shadow border-2 border-gray-900 p-2 flex justify-center items-center font-bold"
-            (click)="clearCount()"
-          >
-            CLR
-          </div>
-          <div
-            class="rounded-md bg-white drop-shadow border-2 border-gray-900 p-2 flex justify-center items-center font-bold"
-            (click)="buttonClick(0)"
-          >
-            0
-          </div>
-          <div
-            class="rounded-md bg-white drop-shadow border-2 border-gray-900 p-2 flex justify-center items-center font-bold"
-            (click)="backSpaceCount()"
-          >
-            BCK
+        <div>
+          <div class="grid grid-rows-4 grid-cols-3 gap-2 aspect-square">
+            <div
+              *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9]"
+              class="rounded-md bg-white drop-shadow border-2 border-gray-900 p-2 flex justify-center items-center font-bold"
+              (click)="buttonClick(item)"
+            >
+              {{ item }}
+            </div>
+            <div
+              class="rounded-md bg-white drop-shadow border-2 border-gray-900 p-2 flex justify-center items-center font-bold"
+              (click)="clearCount()"
+            >
+              CLR
+            </div>
+            <div
+              class="rounded-md bg-white drop-shadow border-2 border-gray-900 p-2 flex justify-center items-center font-bold"
+              (click)="buttonClick(0)"
+            >
+              0
+            </div>
+            <div
+              class="rounded-md bg-white drop-shadow border-2 border-gray-900 p-2 flex justify-center items-center font-bold"
+              (click)="backSpaceCount()"
+            >
+              BCK
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div
-    class="p-3 bg-green-700 text-white rounded-full w-full text-center font-bold"
-    (click)="addToCart()"
-  >
-    OK
+    <div
+      class="p-3 bg-green-700 text-white rounded-full w-full text-center font-bold"
+      (click)="addToCart()"
+    >
+      OK
+    </div>
   </div>
 </div>
