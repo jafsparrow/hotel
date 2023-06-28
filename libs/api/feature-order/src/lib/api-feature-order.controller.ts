@@ -24,11 +24,12 @@ export class OrderContoller {
   getRecentOrders(@Req() req: any) {
     console.log('recent orders');
     const user = req.user;
-    if (user.isCasher) {
-      return this.orderService.getRecentOrders();
+    if (user.isCashier) {
+      console.log('iam a cashier user.');
+      return this.orderService.getRecentNotPaidOrders();
     }
 
-    return this.orderService.getRecentOrdersByUser(user);
+    return this.orderService.getRecentNotPaidOrdersByUser(user);
   }
 
   @Get('sampleBill')
@@ -68,5 +69,13 @@ export class OrderContoller {
     const orderId = params.id;
     console.log('dto array', data);
     return 'hello world';
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('pay/:id')
+  payTheBill(@Param() params: any) {
+    const orderId = +params.id;
+
+    return this.orderService.payTheBill(orderId);
   }
 }

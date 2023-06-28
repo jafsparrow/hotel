@@ -12,6 +12,9 @@ import {
   makeBillForOrderSuccess,
   orderPlaceFail,
   orderPlaceSuccess,
+  payTheOrder,
+  payTheOrderFail,
+  payTheOrderSuccess,
   placeOrder,
   placeOrderTurnSpinnerOn,
   updateOrderItemCount,
@@ -40,6 +43,9 @@ export interface Order {
   makeBillForOrderSpinner: boolean;
   makeBillSuccessMessage: string;
   makeBillErrorMessage: string;
+  payTheOrderSpinner: boolean;
+  payTheOrderSuccessMessage: string;
+  payTheOrderErrorMessage: string;
 }
 
 const initialState: Order = {
@@ -56,6 +62,9 @@ const initialState: Order = {
   selectedOrderDetails: null,
   orderItemEdits: [],
   orderItemEditObject: {},
+  payTheOrderSpinner: false,
+  payTheOrderSuccessMessage: '',
+  payTheOrderErrorMessage: '',
 };
 
 export const orderReducer = createReducer(
@@ -146,6 +155,23 @@ export const orderReducer = createReducer(
     ...state,
     makeBillErrorMessage: errorMessage,
     makeBillForOrderSpinner: false,
+  })),
+  on(payTheOrder, (state, { orderId }) => ({
+    ...state,
+    payTheOrderSpinner: true,
+    payTheOrderErrorMessage: '',
+  })),
+  on(payTheOrderSuccess, (state, { updatedOrder }) => ({
+    ...state,
+    selectedOrderDetails: updatedOrder,
+    payTheOrderSpinner: false,
+    payTheOrderSuccessMessage: `Order ${updatedOrder.id} printed Successfully`,
+    payTheOrderErrorMessage: '',
+  })),
+  on(payTheOrderFail, (state, { errorMessage }) => ({
+    ...state,
+    payTheOrderErrorMessage: errorMessage,
+    payTheOrderSpinner: false,
   })),
   on(updateOrderItemCount, (state, { orderItem, count }) => {
     // const newState = {

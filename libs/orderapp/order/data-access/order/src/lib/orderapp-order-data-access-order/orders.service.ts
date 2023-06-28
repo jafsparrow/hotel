@@ -26,6 +26,13 @@ export class OrderService {
     });
   }
 
+  payTheOrder(orderId: number): Observable<OrderSummary> {
+    console.log('making bill for th order', orderId);
+    return this.httpClient.get<OrderSummary>(
+      `${this.apiUrl}/orders/pay/${orderId}`
+    );
+  }
+
   getRecentOrders() {
     return this.httpClient.get(`${this.apiUrl}/orders`);
   }

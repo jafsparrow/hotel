@@ -91,7 +91,7 @@ export const selectOrderDetailsOfSelectedOrder = createSelector(
   selectOrderState,
   selectCompanyTaxes,
   (state, companyTaxes) => {
-    const order = state.selectedOrderDetails!;
+    const order = state.selectedOrderDetails;
     console.log('company taxes', companyTaxes);
     if (order) {
       const { taxesApplied, taxedTotal } = getAppliedTaxesAndTaxesTotal(
@@ -161,4 +161,9 @@ export const selectMakeBillMessages = createSelector(
     successMessage: state.successMessage,
     failedMessage: state.errorMessage,
   })
+);
+
+export const selectPayTheOrderSpinner = createSelector(
+  selectOrderState,
+  (state) => state.payTheOrderSpinner
 );

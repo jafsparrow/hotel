@@ -108,4 +108,8 @@ export class OrderappHomeComponent {
   goToShellPage() {
     this.router.navigate(['shell']);
   }
+
+  goToOrderPage() {
+    this.router.navigate(['shell/order']);
+  }
 }

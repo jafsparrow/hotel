@@ -114,6 +114,21 @@ export const makeBillForOrderFail = createAction(
   props<{ errorMessage: string }>()
 );
 
+export const payTheOrder = createAction(
+  '[Order] Make Payment for the order',
+  props<{ orderId: number }>()
+);
+
+export const payTheOrderSuccess = createAction(
+  '[Order] Make Payment ran successfully',
+  props<{ updatedOrder: OrderSummary }>()
+);
+
+export const payTheOrderFail = createAction(
+  '[Order] Make Payment Failed',
+  props<{ errorMessage: string }>()
+);
+
 export const updateOrderItemCount = createAction(
   '[Order] Update Order Item Count',
   props<{ orderItem: OrderItem; count: number }>()

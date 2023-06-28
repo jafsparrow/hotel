@@ -77,6 +77,19 @@ export class OrderService {
     // });
   }
 
+  async getRecentNotPaidOrders(): Promise<OrderSummary[]> {
+    console.log(dateTimeNowMinus(24));
+    // this. shoudl fetch orders of last 24 hours.
+    return await this.prismaService.order.findMany({
+      where: {
+        createdAt: {
+          gt: dateTimeNowMinus(24),
+        },
+        NOT: { paymentStatus: PaymentStatus.PAID },
+      },
+    });
+  }
+
   async getRecentOrders(): Promise<OrderSummary[]> {
     console.log(dateTimeNowMinus(24));
     // this. shoudl fetch orders of last 24 hours.
@@ -98,6 +111,20 @@ export class OrderService {
           gt: dateTimeNowMinus(24),
         },
         createdUserId: user.id,
+      },
+    });
+  }
+
+  async getRecentNotPaidOrdersByUser(user: User): Promise<OrderSummary[]> {
+    console.log(dateTimeNowMinus(24));
+    // this. shoudl fetch orders of last 24 hours.
+    return await this.prismaService.order.findMany({
+      where: {
+        createdAt: {
+          gt: dateTimeNowMinus(24),
+        },
+        createdUserId: user.id,
+        NOT: { paymentStatus: PaymentStatus.PAID },
       },
     });
   }
@@ -628,6 +655,34 @@ export class OrderService {
     }
   }
 
+  async payTheBill(orderId: number) {
+    // check if the order is in in progress status. no need as front end takes care of it.
+
+    try {
+      const updatedOrder = await this.prismaService.order.update({
+        where: { id: orderId },
+        data: {
+          paymentStatus: PaymentStatus.PAID,
+        },
+        include: {
+          orderItems: {
+            include: {
+              product: {
+                select: {
+                  secondaryLanguageName: true,
+                },
+              },
+            },
+          },
+        },
+      });
+      console.log('updated order', updatedOrder);
+      this.printReceipt(orderId);
+      return updatedOrder;
+    } catch (error) {
+      throw new Error('format later.');
+    }
+  }
   private async getOrderItemsForTheOrderAggregated(orderId: number): Promise<{
     orderItems: OrderItem[];
     totalCount: number;

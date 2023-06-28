@@ -7,8 +7,11 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { OrderappOrderFeaturePrintProgressComponent } from '@hotel/orderapp/order/feature/print-progress';
 import {
   makeBillForOrder,
+  payTheOrder,
   selectLoadOrderDetailSpinner,
+  selectMakeBillSpinner,
   selectOrderDetailsOfSelectedOrder,
+  selectPayTheOrderSpinner,
 } from '@hotel/orderapp/order/data-access/order';
 import { OrderSummary } from '@hotel/common/types';
 import { TimesagoPipe } from '@hotel/orderapp/core';
@@ -32,6 +35,9 @@ export class OrderappOrderFeatureOrderDetailComponent {
   selectOrderDetailsOfSelectedOrder$ = this.store.select(
     selectOrderDetailsOfSelectedOrder
   );
+
+  selectMakeBillSpinner$ = this.store.select(selectMakeBillSpinner);
+  selectPayTheOrderSpinner$ = this.store.select(selectPayTheOrderSpinner);
   constructor(private store: Store, private dialog: MatDialog) {}
 
   makeBillForOrder(selectedOrder: OrderSummary) {
@@ -44,11 +50,17 @@ export class OrderappOrderFeatureOrderDetailComponent {
   }
 
   makePayment(order: OrderSummary) {
+    this.store.dispatch(payTheOrder({ orderId: order.id }));
     return 'hello';
   }
   printBill(order: OrderSummary) {
     console.log('clicked printbill button');
     this.store.dispatch(makeBillForOrder({ orderId: order.id }));
     return 'hello';
+  }
+
+  get testPrint() {
+    console.log('test priting action. bla');
+    return 'bro';
   }
 }

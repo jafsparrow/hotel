@@ -20,6 +20,9 @@ import {
   makeBillForOrderSuccess,
   orderPlaceFail,
   orderPlaceSuccess,
+  payTheOrder,
+  payTheOrderFail,
+  payTheOrderSuccess,
   placeOrder,
   pollRecentOrders,
   updateOrderItemStatus,
@@ -190,6 +193,25 @@ export class OrderEffects {
           catchError((error) =>
             of(
               makeBillForOrderFail({
+                errorMessage: 'Could not print bill something happpned.',
+              })
+            )
+          )
+        )
+      )
+    );
+  });
+
+  payTheOrderEffect$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(payTheOrder),
+      tap((data) => console.log('Pay Order Effect fired')),
+      switchMap((data) =>
+        this.orderService.payTheOrder(data.orderId).pipe(
+          map((res) => payTheOrderSuccess({ updatedOrder: res })),
+          catchError((error) =>
+            of(
+              payTheOrderFail({
                 errorMessage: 'Could not print bill something happpned.',
               })
             )
