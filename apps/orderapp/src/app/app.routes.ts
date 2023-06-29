@@ -10,6 +10,10 @@ import {
   OrderEffects,
   orderReducer,
 } from '@hotel/orderapp/order/data-access/order';
+import {
+  SESSION_FEATURE_KEY,
+  posSessionsReducer,
+} from '@hotel/orderapp/possession/data-access';
 import { provideEffects } from '@ngrx/effects';
 import { provideState } from '@ngrx/store';
 
@@ -28,6 +32,7 @@ export const appRoutes: Routes = [
       provideEffects(OrderEffects),
       provideState(COMPANY_FEATURE_KEY, companyReducer),
       provideEffects(CompanyEffects),
+      provideState(SESSION_FEATURE_KEY, posSessionsReducer),
     ],
     canActivate: [AuthGuard],
   },

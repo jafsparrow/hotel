@@ -1,8 +1,11 @@
+import { User } from './user';
+
 export interface PosSession {
   id: number;
   startTime: Date;
-  endTime: Date;
+  endTime?: Date;
   status: SessionStatus;
+  createdBy?: User;
 }
 
 export enum SessionStatus {
