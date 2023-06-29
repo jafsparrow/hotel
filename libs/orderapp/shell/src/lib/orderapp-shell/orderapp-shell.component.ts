@@ -8,11 +8,21 @@ import {
   selectCanAccessCash,
 } from '@hotel/orderapp/auth/data-access';
 import { loadCompany } from '@hotel/orderapp/company/data-access';
+import { OrderappPossessionFeatureActiveSessionComponent } from '@hotel/orderapp/possession/feature/active-session';
+import { OrderappPossessionFeatureSessionListComponent } from '@hotel/orderapp/possession/feature/session-list';
+import { OrderappPossessionFeatureSessionAddComponent } from '@hotel/orderapp/possession/feature/session-add';
 
 @Component({
   selector: 'hotel-orderapp-shell',
   standalone: true,
-  imports: [CommonModule, MatSnackBarModule, RouterModule],
+  imports: [
+    CommonModule,
+    MatSnackBarModule,
+    RouterModule,
+    OrderappPossessionFeatureActiveSessionComponent,
+    OrderappPossessionFeatureSessionListComponent,
+    OrderappPossessionFeatureSessionAddComponent,
+  ],
   templateUrl: './orderapp-shell.component.html',
   styleUrls: ['./orderapp-shell.component.css'],
 })

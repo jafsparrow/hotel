@@ -139,6 +139,15 @@
       "@hotel/orderapp/possession/data-access": [
         "libs/orderapp/possession/data-access/src/index.ts"
       ],
+      "@hotel/orderapp/possession/feature/active-session": [
+        "libs/orderapp/possession/feature/active-session/src/index.ts"
+      ],
+      "@hotel/orderapp/possession/feature/session-add": [
+        "libs/orderapp/possession/feature/session-add/src/index.ts"
+      ],
+      "@hotel/orderapp/possession/feature/session-list": [
+        "libs/orderapp/possession/feature/session-list/src/index.ts"
+      ],
       "@hotel/orderapp/product/data-access": [
         "libs/orderapp/product/data-access/src/index.ts"
       ],
