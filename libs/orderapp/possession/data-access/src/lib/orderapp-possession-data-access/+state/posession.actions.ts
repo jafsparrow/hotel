@@ -13,7 +13,10 @@ export const loadPosSessionFail = createAction(
   props<{ errorMessage: string }>()
 );
 
-export const startSession = createAction('[POS Session] Start a new session');
+export const startSession = createAction(
+  '[POS Session] Start a new session',
+  props<{ cash: number }>()
+);
 export const startSessionSuccess = createAction(
   '[POS Session] Start a new session success',
 
@@ -25,7 +28,10 @@ export const startSessionFailed = createAction(
   props<{ errorMessage: string }>()
 );
 
-export const closeSession = createAction('[POS Session] Close a session');
+export const closeSession = createAction(
+  '[POS Session] Close a session',
+  props<{ sessionId: number }>()
+);
 export const closeSessionSuccess = createAction(
   '[POS Session] Close a session success',
 

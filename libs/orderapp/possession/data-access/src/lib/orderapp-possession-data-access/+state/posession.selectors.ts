@@ -15,3 +15,8 @@ export const selectActiveSession = createSelector(
   (sessions) =>
     sessions.filter((item) => item.status === SessionStatus.ACTIVE)[0]
 );
+
+export const selectEndSessinIndicator = createSelector(
+  selectPosSessionState,
+  (state) => state.sessionEndIndicator
+);

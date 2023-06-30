@@ -1,7 +1,12 @@
 <div class="bg-gray-100">
   <div class="bg-white border p-2 h-screen max-w-sm mx-auto">
     <hotel-orderapp-possession-feature-session-list></hotel-orderapp-possession-feature-session-list>
-
+    <div
+      *ngIf="(selectActiveSession$ | async) === undefined"
+      class="pt-20 text-gray-800 font-bold"
+    >
+      No Active Sessions
+    </div>
     <div
       *ngIf="
         (selectCanAccessCash$ | async) &&
@@ -31,13 +36,6 @@
       >
         Orders
       </div>
-    </div>
-
-    <div
-      *ngIf="(selectActiveSession$ | async) === undefined"
-      class="pt-20 text-gray-800 font-bold"
-    >
-      No Active Sessions
     </div>
   </div>
 </div>

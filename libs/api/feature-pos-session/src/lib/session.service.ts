@@ -37,7 +37,9 @@ export class PosSessionService {
     // chek any other open, close it forcefully.
     const sessions = await this.prismaService.posSession.findMany({
       where: {
-        startTime: { gt: getStartOfTheDay() },
+        OR: {
+          status: SessionStatus.ACTIVE,
+        },
       },
     });
     return sessions;

@@ -11,6 +11,7 @@ import {
   orderReducer,
 } from '@hotel/orderapp/order/data-access/order';
 import {
+  PosSessionEffects,
   SESSION_FEATURE_KEY,
   posSessionsReducer,
 } from '@hotel/orderapp/possession/data-access';
@@ -33,6 +34,7 @@ export const appRoutes: Routes = [
       provideState(COMPANY_FEATURE_KEY, companyReducer),
       provideEffects(CompanyEffects),
       provideState(SESSION_FEATURE_KEY, posSessionsReducer),
+      provideEffects(PosSessionEffects),
     ],
     canActivate: [AuthGuard],
   },

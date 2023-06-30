@@ -1,16 +1,29 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
+import { PosSession } from '@hotel/common/types';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class PosSessionService {
-  getPosSessions() {
-    return 'sessions';
+  constructor(
+    private httpClient: HttpClient,
+
+    @Inject('endPointURL') public apiUrl: string
+  ) {}
+  getPosSessions(): Observable<PosSession[]> {
+    return this.httpClient.get<PosSession[]>(`${this.apiUrl}/session`);
   }
 
-  createSession() {
-    return 'create new';
+  createSession(startCash: number): Observable<PosSession[]> {
+    return this.httpClient.post<PosSession[]>(`${this.apiUrl}/session`, {
+      cash: startCash,
+    });
   }
 
-  closeSession() {
-    return 'close session';
+  closeSession(id: number): Observable<PosSession[]> {
+    return this.httpClient.put<PosSession[]>(
+      `${this.apiUrl}/session/${id}`,
+      {}
+    );
   }
 }

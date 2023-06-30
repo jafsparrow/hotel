@@ -1,8 +1,16 @@
-<div class="bg-gray-50 p-2 text-center">
-  <div
-    *ngIf="selectCanAccessCash$ | async"
-    class="bg-red-300 px-2 font-bold text-center rounded-md hover:cursor-pointer py-1"
-  >
-    END
+<div
+  class="bg-gray-50 p-2 text-center"
+  *ngIf="selectActiveSession$ | async as activeSession"
+>
+  <div *ngIf="selectCanAccessCash$ | async">
+    <div
+      *ngIf="(selectEndSessinIndicator$ | async) === false"
+      class="bg-red-300 px-2 font-bold text-center rounded-md hover:cursor-pointer py-1"
+      (click)="endSession(activeSession.id)"
+    >
+      END
+    </div>
+
+    <div *ngIf="selectEndSessinIndicator$ | async">Ending...</div>
   </div>
 </div>

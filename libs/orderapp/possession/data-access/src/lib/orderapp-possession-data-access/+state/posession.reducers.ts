@@ -1,6 +1,9 @@
 import { PosSession, SessionStatus } from '@hotel/common/types';
 import { createReducer, on } from '@ngrx/store';
 import {
+  closeSession,
+  closeSessionFailed,
+  closeSessionSuccess,
   loadPosSessionFail,
   loadPosSessionSuccess,
   loadSessions,
@@ -17,6 +20,8 @@ export interface PosSessionState {
   sessionStartIndicator: boolean;
   errorMessage: string;
   sessionStartError: string;
+  sessionEndIndicator: boolean;
+  sessionEndError: string;
 }
 
 const initialState: PosSessionState = {
@@ -45,12 +50,15 @@ const initialState: PosSessionState = {
   sessionStartIndicator: false,
   errorMessage: '',
   sessionStartError: '',
+  sessionEndIndicator: false,
+  sessionEndError: '',
 };
 
 export const posSessionsReducer = createReducer(
   initialState,
   on(loadSessions, (state) => ({ ...state, loadingIndicator: true })),
   on(loadPosSessionSuccess, (state, { sessions }) => {
+    console.log('inside success session reducer');
     return {
       ...state,
       sessionsOfTheDay: sessions,
@@ -78,5 +86,21 @@ export const posSessionsReducer = createReducer(
     ...state,
     sessionStartError: errorMessage,
     sessionStartIndicator: false,
+  })),
+  on(closeSession, (state) => ({
+    ...state,
+    sessionEndError: '',
+    sessionEndIndicator: true,
+  })),
+  on(closeSessionFailed, (state, { errorMessage }) => ({
+    ...state,
+    sessionEndError: errorMessage,
+    sessionEndIndicator: false,
+  })),
+  on(closeSessionSuccess, (state, { sessions }) => ({
+    ...state,
+    sessionEndError: '',
+    sessionEndIndicator: false,
+    sessionsOfTheDay: sessions,
   }))
 );

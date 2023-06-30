@@ -27,9 +27,10 @@ export class PosSessionController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  startAnewSession(@Req() req: any) {
+  startAnewSession(@Req() req: any, @Body() data: any) {
     console.log('recent orders');
     const user = req.user;
+    const intialAmount = data.cash ? data.cash : 0;
     return this.sessionService.createSession(user);
     return 'starting new session';
   }

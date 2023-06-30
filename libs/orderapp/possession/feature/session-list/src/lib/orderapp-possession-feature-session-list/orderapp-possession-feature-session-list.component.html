@@ -6,23 +6,16 @@
   >
     <div class="col-span-1">
       <div class="font-semibold">Start Time</div>
-      <div class="font-light">8:00 am</div>
+      <div class="font-light">{{ session.startTime }}</div>
     </div>
 
-    <div class="col-span-1">
-      <div class="font-semibold">End Time</div>
-      <div class="font-light">9:00 am</div>
-    </div>
-  </div>
-
-  <div class="grid grid-cols-2 m-2 bg-gray-50 p-2">
-    <div class="col-span-1">
-      <div class="font-semibold">Start Time</div>
-      <div class="font-light">8:00 am</div>
-    </div>
-
-    <div class="col-span-1">
+    <div class="col-span-1" *ngIf="session.endTime === null">
       <hotel-orderapp-possession-feature-active-session></hotel-orderapp-possession-feature-active-session>
+    </div>
+
+    <div class="col-span-1" *ngIf="session.endTime">
+      <div class="font-semibold">End Time</div>
+      <div class="font-light">{{ session.endTime }}</div>
     </div>
   </div>
 </div>
