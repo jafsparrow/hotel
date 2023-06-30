@@ -37,7 +37,7 @@ const initialState: PosSessionState = {
       id: 2,
       startTime: new Date('29/06/2023'),
       endTime: new Date(),
-      status: SessionStatus.ACTIVE,
+      status: SessionStatus.CLOSE,
     },
   ],
   activeSession: null,

@@ -1,7 +1,13 @@
 <div class="bg-gray-100">
   <div class="bg-white border p-2 h-screen max-w-sm mx-auto">
     <hotel-orderapp-possession-feature-session-list></hotel-orderapp-possession-feature-session-list>
-    <div *ngIf="selectCanAccessBackOffice$ | async">
+
+    <div
+      *ngIf="
+        (selectCanAccessCash$ | async) &&
+        (selectActiveSession$ | async) === undefined
+      "
+    >
       <hotel-orderapp-possession-feature-session-add></hotel-orderapp-possession-feature-session-add>
     </div>
 

@@ -44,7 +44,8 @@ export const selectAccessBackOffice = createSelector(
 );
 
 export const selectCanAccessCash = createSelector(selectAuthState, (state) => {
-  const result = state.user && state.user!.isCashier!;
+  const result = state.user && state.user!.isCashier;
+  console.log('result is ', result);
   return result ? true : false;
 });
 
