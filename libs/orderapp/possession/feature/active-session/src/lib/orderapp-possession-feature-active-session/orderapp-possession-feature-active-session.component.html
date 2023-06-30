@@ -1,5 +1,6 @@
 <div class="bg-gray-50 p-2 text-center">
   <div
+    *ngIf="selectCanAccessCash$ | async"
     class="bg-red-300 px-2 font-bold text-center rounded-md hover:cursor-pointer py-1"
   >
     END

@@ -1,6 +1,9 @@
 <div class="bg-white border p-2">
-  <div class="font-bold">Session Of The Day</div>
-  <div class="grid grid-cols-2 m-2 bg-gray-50 p-2">
+  <div class="font-bold">Sessions Of The Day</div>
+  <div
+    class="grid grid-cols-2 m-2 bg-gray-50 p-2"
+    *ngFor="let session of selectPosSessions$ | async"
+  >
     <div class="col-span-1">
       <div class="font-semibold">Start Time</div>
       <div class="font-light">8:00 am</div>

@@ -1,9 +1,11 @@
 <div class="bg-gray-100">
   <div class="bg-white border p-2 h-screen max-w-sm mx-auto">
     <hotel-orderapp-possession-feature-session-list></hotel-orderapp-possession-feature-session-list>
-    <hotel-orderapp-possession-feature-session-add></hotel-orderapp-possession-feature-session-add>
+    <div *ngIf="selectCanAccessBackOffice$ | async">
+      <hotel-orderapp-possession-feature-session-add></hotel-orderapp-possession-feature-session-add>
+    </div>
 
-    <div>
+    <div *ngIf="selectActiveSession$ | async">
       <div
         class="bg-gray-900 text-white p-2 text-center rounded-md cursor-pointer hover:bg-gray-700"
         routerLink="office"
@@ -23,6 +25,13 @@
       >
         Orders
       </div>
+    </div>
+
+    <div
+      *ngIf="(selectActiveSession$ | async) === undefined"
+      class="pt-20 text-gray-800 font-bold"
+    >
+      No Active Sessions
     </div>
   </div>
 </div>
