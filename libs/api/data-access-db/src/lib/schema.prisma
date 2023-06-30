@@ -217,10 +217,10 @@ model tableSeats {
 }
 
 model posSession {
-    id            Int      @id @default(autoincrement())
-    startTime     DateTime @default(now())
-    endTime       DateTime
+    id            Int       @id @default(autoincrement())
+    startTime     DateTime  @default(now())
+    endTime       DateTime?
     status        String
     createdUserId Int
-    createUser    user     @relation(fields: [createdUserId], references: [id])
+    createUser    user      @relation(fields: [createdUserId], references: [id])
 }

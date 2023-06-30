@@ -1,19 +1,75 @@
 import { PrismaService } from '@hotel/api/data-access-db';
-import { Injectable } from '@nestjs/common';
+import { PaymentStatus, SessionStatus, User } from '@hotel/common/types';
+import { getStartOfTheDay } from '@hotel/common/util';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 
 @Injectable()
 export class PosSessionService {
   constructor(private prismaService: PrismaService) {}
 
-  createSession() {
-    return 'hello';
+  async createSession(appUser: User) {
+    try {
+      // check if there  is any active session.
+      const activesession = await this.prismaService.posSession.findFirst({
+        where: {
+          status: SessionStatus.ACTIVE,
+        },
+      });
+      // if yes do not create one..
+      if (activesession) return;
+      // if no start a new one.
+
+      await this.prismaService.posSession.create({
+        data: {
+          startTime: new Date(),
+          status: SessionStatus.ACTIVE,
+          createdUserId: 1, //appUser.id!,
+        },
+      });
+      // return all the sessions of the day.
+      return this.getSessions();
+    } catch (error) {
+      console.log('error occured during creation of session');
+      return new Error();
+    }
   }
-  getOpenSession() {
+  async getSessions() {
     // chek any other open, close it forcefully.
-    return 'hello';
+    const sessions = await this.prismaService.posSession.findMany({
+      where: {
+        startTime: { gt: getStartOfTheDay() },
+      },
+    });
+    return sessions;
   }
-  closeSession() {
+  async closeSession(sessionId: number) {
     // make sure all the sessions are closed.
     // check for non settled orders before close it.
+    const nonPaidOrders = await this.prismaService.order.findMany({
+      where: { paymentStatus: PaymentStatus.NOTPAID },
+    });
+
+    console.log('nono paid users', nonPaidOrders.length);
+
+    if (nonPaidOrders) {
+      console.log('hs gone inside');
+      throw new InternalServerErrorException({
+        message: `There are ${nonPaidOrders.length} orders which are not settled yet.`,
+      });
+    }
+    // generate report and get it downloaded at the client.
+
+    const closedSession = await this.prismaService.posSession.update({
+      where: { id: sessionId },
+      data: { status: SessionStatus.CLOSE, endTime: new Date() },
+    });
+
+    // get orders from closed session start time..
+
+    const totalsOrders = await this.prismaService.order.findMany({
+      where: { createdAt: { gte: closedSession.startTime } },
+    });
+
+    return totalsOrders;
   }
 }
