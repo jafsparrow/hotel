@@ -6,7 +6,7 @@
   >
     <div class="col-span-1">
       <div class="font-semibold">Start Time</div>
-      <div class="font-light">{{ session.startTime }}</div>
+      <div class="font-light">{{ session.startTime | timesago }}</div>
     </div>
 
     <div class="col-span-1" *ngIf="session.endTime === null">
@@ -15,7 +15,7 @@
 
     <div class="col-span-1" *ngIf="session.endTime">
       <div class="font-semibold">End Time</div>
-      <div class="font-light">{{ session.endTime }}</div>
+      <div class="font-light">{{ session.endTime | timesago }}</div>
     </div>
   </div>
 </div>

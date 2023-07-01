@@ -7,7 +7,7 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 export class PosSessionService {
   constructor(private prismaService: PrismaService) {}
 
-  async createSession(appUser: User) {
+  async createSession(appUser: User, initialCash: number) {
     try {
       // check if there  is any active session.
       const activesession = await this.prismaService.posSession.findFirst({
@@ -23,7 +23,8 @@ export class PosSessionService {
         data: {
           startTime: new Date(),
           status: SessionStatus.ACTIVE,
-          createdUserId: 1, //appUser.id!,
+          createdUserId: appUser.id!,
+          initialCash: initialCash,
         },
       });
       // return all the sessions of the day.
@@ -37,11 +38,17 @@ export class PosSessionService {
     // chek any other open, close it forcefully.
     const sessions = await this.prismaService.posSession.findMany({
       where: {
-        OR: {
-          status: SessionStatus.ACTIVE,
-        },
+        OR: [
+          {
+            status: SessionStatus.ACTIVE,
+          },
+          {
+            startTime: { gte: getStartOfTheDay() },
+          },
+        ],
       },
     });
+
     return sessions;
   }
   async closeSession(sessionId: number) {
@@ -53,7 +60,7 @@ export class PosSessionService {
 
     console.log('nono paid users', nonPaidOrders.length);
 
-    if (nonPaidOrders) {
+    if (nonPaidOrders.length) {
       console.log('hs gone inside');
       throw new InternalServerErrorException({
         message: `There are ${nonPaidOrders.length} orders which are not settled yet.`,
@@ -66,6 +73,7 @@ export class PosSessionService {
       data: { status: SessionStatus.CLOSE, endTime: new Date() },
     });
 
+    console.log('cosed sessino ', closedSession);
     // get orders from closed session start time..
 
     const totalsOrders = await this.prismaService.order.findMany({

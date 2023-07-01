@@ -31,7 +31,7 @@ export class PosSessionController {
     console.log('recent orders');
     const user = req.user;
     const intialAmount = data.cash ? data.cash : 0;
-    return this.sessionService.createSession(user);
+    return this.sessionService.createSession(user, intialAmount);
     return 'starting new session';
   }
 
@@ -40,7 +40,7 @@ export class PosSessionController {
   endActiveSession(@Param() params: any, @Req() req: any) {
     console.log('recent orders');
     const user = req.user;
-    const sessionId = params.id;
+    const sessionId = +params.id;
     return this.sessionService.closeSession(sessionId);
     return 'updating the session with session id';
   }

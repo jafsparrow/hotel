@@ -3,6 +3,9 @@ import { PosSessionService } from '../posession.service';
 
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
+  closeSession,
+  closeSessionFailed,
+  closeSessionSuccess,
   loadPosSessionFail,
   loadPosSessionSuccess,
   loadSessions,
@@ -40,6 +43,20 @@ export class PosSessionEffects {
         this.sessionService.createSession(data.cash).pipe(
           map((data) => startSessionSuccess({ sessions: data })),
           catchError((error) => of(startSessionFailed({ errorMessage: error })))
+        )
+      )
+    );
+  });
+
+  closeSessionEffect$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(closeSession),
+      switchMap((data) =>
+        this.sessionService.closeSession(data.sessionId).pipe(
+          map((data) => closeSessionSuccess({ sessions: data })),
+          catchError((error) =>
+            of(closeSessionFailed({ errorMessage: 'closing session failed' }))
+          )
         )
       )
     );

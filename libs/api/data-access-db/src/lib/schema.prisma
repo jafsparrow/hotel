@@ -223,4 +223,5 @@ model posSession {
     status        String
     createdUserId Int
     createUser    user      @relation(fields: [createdUserId], references: [id])
+    initialCash   Float     @default(1)
 }

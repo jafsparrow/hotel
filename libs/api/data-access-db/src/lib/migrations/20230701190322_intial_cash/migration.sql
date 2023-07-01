@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "posSession" ADD COLUMN     "initialCash" DOUBLE PRECISION NOT NULL DEFAULT 1;
