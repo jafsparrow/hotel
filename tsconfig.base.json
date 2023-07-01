@@ -93,6 +93,24 @@
         "libs/orderapp/company/feature/list/src/index.ts"
       ],
       "@hotel/orderapp/core": ["libs/orderapp/core/src/index.ts"],
+      "@hotel/orderapp/dashboard/feature/order-report": [
+        "libs/orderapp/dashboard/feature/order-report/src/index.ts"
+      ],
+      "@hotel/orderapp/dashboard/feature/order-stats": [
+        "libs/orderapp/dashboard/feature/order-stats/src/index.ts"
+      ],
+      "@hotel/orderapp/dashboard/feature/page": [
+        "libs/orderapp/dashboard/feature/page/src/index.ts"
+      ],
+      "@hotel/orderapp/dashboard/feature/product-report": [
+        "libs/orderapp/dashboard/feature/product-report/src/index.ts"
+      ],
+      "@hotel/orderapp/dashboard/feature/product-stat": [
+        "libs/orderapp/dashboard/feature/product-stat/src/index.ts"
+      ],
+      "@hotel/orderapp/dashboard/feature/staff-stat": [
+        "libs/orderapp/dashboard/feature/staff-stat/src/index.ts"
+      ],
       "@hotel/orderapp/endpoint/data-access": [
         "libs/orderapp/endpoint/data-access/src/index.ts"
       ],
