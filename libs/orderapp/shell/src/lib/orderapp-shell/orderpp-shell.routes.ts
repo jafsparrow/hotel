@@ -11,7 +11,7 @@ import {
   companyReducer,
 } from '@hotel/orderapp/company/data-access';
 import { provideEffects } from '@ngrx/effects';
-import { AdminGuard } from '@hotel/orderapp/core';
+import { AdminGuard, SessionGuard } from '@hotel/orderapp/core';
 
 export const shellRoutes: Routes = [
   { path: '', component: OrderappShellComponent },
@@ -20,6 +20,7 @@ export const shellRoutes: Routes = [
 
     loadChildren: () =>
       import('@hotel/orderapp/home').then((c) => c.homeRoutes),
+    canActivate: [SessionGuard],
   },
   {
     path: 'office',
