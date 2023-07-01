@@ -22,6 +22,8 @@ export class OrderappPossessionFeatureActiveSessionComponent {
   constructor(private store: Store) {}
 
   endSession(id: number) {
-    this.store.dispatch(closeSession({ sessionId: id }));
+    if (confirm('Do you really want to End the Session')) {
+      this.store.dispatch(closeSession({ sessionId: id }));
+    }
   }
 }
