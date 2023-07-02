@@ -68,6 +68,13 @@ export const shellRoutes: Routes = [
       ),
     providers: [provideState(CART_FEATURE_KEY, cartReducer)],
   },
+  {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('@hotel/orderapp/dashboard/feature/page').then(
+        (c) => c.dashboardRoutes
+      ),
+  },
   //   {
   //     path: 'admin',
   //     providers: [
