@@ -13,6 +13,7 @@ import { ApiFeatureAuthModule } from '@hotel/api/feature-auth';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { ApiFeaturePosSessionModule } from '@hotel/api/feature-pos-session';
+import { ApiFeatureStatModule } from '@hotel/api/feature-stat';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { ApiFeaturePosSessionModule } from '@hotel/api/feature-pos-session';
     ApiFeatureTableModule,
     ApiFeatureFloorModule,
     ApiFeaturePosSessionModule,
+    ApiFeatureStatModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'orderapp'),
       exclude: ['/api*'],

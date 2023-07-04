@@ -26,6 +26,7 @@
         "libs/api/feature-pos-session/src/index.ts"
       ],
       "@hotel/api/feature-product": ["libs/api/feature-product/src/index.ts"],
+      "@hotel/api/feature-stat": ["libs/api/feature-stat/src/index.ts"],
       "@hotel/api/feature-table": ["libs/api/feature-table/src/index.ts"],
       "@hotel/common/types": ["libs/common/types/src/index.ts"],
       "@hotel/common/util": ["libs/common/util/src/index.ts"],
