@@ -94,6 +94,9 @@
         "libs/orderapp/company/feature/list/src/index.ts"
       ],
       "@hotel/orderapp/core": ["libs/orderapp/core/src/index.ts"],
+      "@hotel/orderapp/dashboard/data-access": [
+        "libs/orderapp/dashboard/data-access/src/index.ts"
+      ],
       "@hotel/orderapp/dashboard/feature/order-report": [
         "libs/orderapp/dashboard/feature/order-report/src/index.ts"
       ],
