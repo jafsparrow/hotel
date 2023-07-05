@@ -26,8 +26,10 @@ export class StatController {
     @Query('startDate') startDateIso: any,
     @Query('endDate') endDateIso: any
   ) {
-    const startDate = new Date('2023-06-27');
-    const endDate = new Date('2023-06-28');
+    console.log('start date', startDateIso);
+    console.log('end date', endDateIso);
+    const startDate = new Date(startDateIso.toString());
+    const endDate = new Date(endDateIso.toString());
     return this.statService.getProductStatsForThePeriod(startDate, endDate);
   }
 

@@ -1,6 +1,6 @@
 import { PrismaService } from '@hotel/api/data-access-db';
 import { Injectable } from '@nestjs/common';
-import { count } from 'console';
+import { ProductStat } from '@hotel/common/types';
 
 @Injectable()
 export class StatsService {
@@ -17,11 +17,11 @@ export class StatsService {
     `;
     console.log(productStatArr);
 
-    const formtted = productStatArr.map((item) => {
+    const formtted: ProductStat[] = productStatArr.map((item) => {
       const totalParsed = JSON.parse(this.toJson(item.total));
       const newTempItem = { name: item.name, total: totalParsed };
       return newTempItem;
-    });
+    }) as unknown as ProductStat[];
 
     console.log(formtted);
 

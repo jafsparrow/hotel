@@ -82,3 +82,8 @@ export interface ProductBoolFieldUpdateData {
   fieldName: string;
   value: boolean;
 }
+
+export interface ProductStat {
+  count: number;
+  name: string;
+}

@@ -6,6 +6,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { loadProductStats } from '@hotel/orderapp/dashboard/data-access';
 
 @Component({
   selector: 'hotel-orderapp-dashboard-feature-product-stat',
@@ -15,6 +17,7 @@ import {
   styleUrls: ['./orderapp-dashboard-feature-product-stat.component.css'],
 })
 export class OrderappDashboardFeatureProductStatComponent {
+  constructor(private store: Store) {}
   dateRangeForm = new FormGroup({
     startDate: new FormControl(''),
     endDate: new FormControl(''),
@@ -22,5 +25,11 @@ export class OrderappDashboardFeatureProductStatComponent {
 
   loadReport() {
     console.log(this.dateRangeForm.value);
+    this.store.dispatch(
+      loadProductStats({
+        startDate: this.dateRangeForm.value.startDate!,
+        endDate: this.dateRangeForm.value.endDate!,
+      })
+    );
   }
 }

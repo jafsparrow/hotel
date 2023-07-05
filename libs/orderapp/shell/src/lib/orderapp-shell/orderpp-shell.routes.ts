@@ -12,6 +12,11 @@ import {
 } from '@hotel/orderapp/company/data-access';
 import { provideEffects } from '@ngrx/effects';
 import { AdminGuard, SessionGuard } from '@hotel/orderapp/core';
+import {
+  DASHBOARD_FEATURE_KEY,
+  DashboardEffects,
+  dashboardReducer,
+} from '@hotel/orderapp/dashboard/data-access';
 
 export const shellRoutes: Routes = [
   { path: '', component: OrderappShellComponent },
@@ -74,6 +79,10 @@ export const shellRoutes: Routes = [
       import('@hotel/orderapp/dashboard/feature/page').then(
         (c) => c.dashboardRoutes
       ),
+    providers: [
+      provideState(DASHBOARD_FEATURE_KEY, dashboardReducer),
+      provideEffects(DashboardEffects),
+    ],
   },
   //   {
   //     path: 'admin',
