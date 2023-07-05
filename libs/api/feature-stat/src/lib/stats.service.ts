@@ -8,18 +8,18 @@ export class StatsService {
 
   async getProductStatsForThePeriod(startDate: Date, endDate: Date) {
     const productStatArr: any[] = await this.prismaService.$queryRaw`select 
-      subtab.totalCount total, products.name
+      subtab.totalCount count, products.name
       from (select sum("count") totalCount, "productId" from public."orderItem" orderItems
       where orderItems."orderId" IN (select "id" from public."order" where "createdAt" >=  ${startDate} AND "createdAt" <= ${endDate}) 
       group by "productId") subtab inner join 
       (select * from public."product") products
-      ON subtab."productId" = products.id order by total desc;
+      ON subtab."productId" = products.id order by count desc;
     `;
     console.log(productStatArr);
 
     const formtted: ProductStat[] = productStatArr.map((item) => {
-      const totalParsed = JSON.parse(this.toJson(item.total));
-      const newTempItem = { name: item.name, total: totalParsed };
+      const totalParsed = JSON.parse(this.toJson(item.count));
+      const newTempItem = { name: item.name, count: totalParsed };
       return newTempItem;
     }) as unknown as ProductStat[];
 

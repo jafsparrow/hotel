@@ -46,7 +46,11 @@ const initialState: DashBoardState = {
 
 export const dashboardReducer = createReducer(
   initialState,
-  on(loadProductStats, (state) => ({ ...state, loadingIndicator: true })),
+  on(loadProductStats, (state) => ({
+    ...state,
+    loadingIndicator: true,
+    productStats: [],
+  })),
   on(loadProductStatsSuccess, (state, { stats }) => ({
     ...state,
     loadingIndicator: false,

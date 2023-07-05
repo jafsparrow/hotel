@@ -66,42 +66,24 @@
       </div>
     </div>
   </div>
-  <div class="bg-white p-2 rounded-md mt-2">
-    <div class="grid grid-cols-7 gap-2 p-2 border mb-2">
-      <div class="col-span-1">1</div>
-      <div class="col-span-3">Chicken Biriyan</div>
-      <div class="col-span-1">111</div>
-      <div class="col-span-2">200 Orders</div>
-    </div>
-    <div class="grid grid-cols-7 gap-2 p-2 border mb-2">
-      <div class="col-span-1">1</div>
-      <div class="col-span-3">Chicken Biriyan</div>
-      <div class="col-span-1">111</div>
-      <div class="col-span-2">200 Orders</div>
-    </div>
-    <div class="grid grid-cols-7 gap-2 p-2 border mb-2">
-      <div class="col-span-1">1</div>
-      <div class="col-span-3">Chicken Biriyan</div>
-      <div class="col-span-1">111</div>
-      <div class="col-span-2">200 Orders</div>
-    </div>
-    <div class="grid grid-cols-7 gap-2 p-2 border mb-2">
-      <div class="col-span-1">1</div>
-      <div class="col-span-3">Chicken Biriyan</div>
-      <div class="col-span-1">111</div>
-      <div class="col-span-2">200 Orders</div>
-    </div>
-    <div class="grid grid-cols-7 gap-2 p-2 border mb-2">
-      <div class="col-span-1">1</div>
-      <div class="col-span-3">Chicken Biriyan</div>
-      <div class="col-span-1">111</div>
-      <div class="col-span-2">200 Orders</div>
-    </div>
-    <div class="grid grid-cols-7 gap-2 p-2 border mb-2">
-      <div class="col-span-1">1</div>
-      <div class="col-span-3">Chicken Biriyan</div>
-      <div class="col-span-1">111</div>
-      <div class="col-span-2">200 Orders</div>
+  <div
+    class="h-32 flex justify-center items-center"
+    *ngIf="selectStatsLoading$ | async"
+  >
+    Loading
+  </div>
+
+  <div *ngIf="selectProductStats$ | async as productstats">
+    <div class="bg-white p-2 rounded-md mt-2" *ngIf="productstats.length">
+      <div
+        class="grid grid-cols-7 gap-2 p-2 border mb-2"
+        *ngFor="let productStat of productstats; let i = index"
+      >
+        <div class="col-span-1">{{ i + 1 }}</div>
+        <div class="col-span-3">{{ productStat.name }}</div>
+        <div class="col-span-1">{{ productStat.count }}</div>
+        <div class="col-span-2">200 Orders</div>
+      </div>
     </div>
   </div>
 </div>

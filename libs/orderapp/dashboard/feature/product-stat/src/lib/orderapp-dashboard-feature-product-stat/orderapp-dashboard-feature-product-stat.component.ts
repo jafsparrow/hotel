@@ -7,7 +7,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { loadProductStats } from '@hotel/orderapp/dashboard/data-access';
+import {
+  loadProductStats,
+  selectProductStat,
+  selectloadIndicator,
+} from '@hotel/orderapp/dashboard/data-access';
 
 @Component({
   selector: 'hotel-orderapp-dashboard-feature-product-stat',
@@ -17,7 +21,11 @@ import { loadProductStats } from '@hotel/orderapp/dashboard/data-access';
   styleUrls: ['./orderapp-dashboard-feature-product-stat.component.css'],
 })
 export class OrderappDashboardFeatureProductStatComponent {
-  constructor(private store: Store) {}
+  selectStatsLoading$ = this.store.select(selectloadIndicator);
+  selectProductStats$ = this.store.select(selectProductStat);
+  constructor(private store: Store) {
+    this.selectProductStats$.subscribe((date) => console.log(date));
+  }
   dateRangeForm = new FormGroup({
     startDate: new FormControl(''),
     endDate: new FormControl(''),
@@ -32,4 +40,8 @@ export class OrderappDashboardFeatureProductStatComponent {
       })
     );
   }
+
+  // loadReportOfTheday() {
+  //   start
+  // }
 }
