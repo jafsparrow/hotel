@@ -19,8 +19,8 @@ export class DashboardService {
     endDateIso: string
   ): Observable<ProductStat[]> {
     const options = new HttpParams()
-      .append('startDate', '2023-06-27')
-      .append('endDate', '2023-06-28');
+      .append('startDate', startDateIso)
+      .append('endDate', endDateIso);
 
     console.log(options);
     return this.http.get<ProductStat[]>(`${this.apiUrl}/stats/product`, {

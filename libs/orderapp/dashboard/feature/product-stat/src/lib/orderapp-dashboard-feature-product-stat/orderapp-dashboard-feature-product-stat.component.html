@@ -26,13 +26,22 @@
   </div>
   <div class="text-lg font-semibold mt-4">Top performing Products</div>
   <div class="flex gap-2 py-2">
-    <div class="cursor-pointer rounded-md bg-red-200 p-2 text-center">
+    <div
+      class="cursor-pointer rounded-md bg-red-200 p-2 text-center"
+      (click)="loadReportOfTheday()"
+    >
       Today
     </div>
-    <div class="cursor-pointer rounded-md bg-blue-200 p-2 text-center">
+    <div
+      class="cursor-pointer rounded-md bg-blue-200 p-2 text-center"
+      (click)="loadReportOfTheWeek()"
+    >
       This week
     </div>
-    <div class="cursor-pointer rounded-md bg-yellow-200 p-2 text-center">
+    <div
+      class="cursor-pointer rounded-md bg-yellow-200 p-2 text-center"
+      (click)="loadReportOfTheMonth()"
+    >
       This month
     </div>
     <div class="flex-grow"></div>

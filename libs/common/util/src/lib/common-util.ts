@@ -55,6 +55,10 @@ export const timesAgoFormat = (datetime: string) =>
   DateTime.fromISO(datetime).toRelative();
 
 export const getStartOfTheDay = () => DateTime.now().startOf('day').toJSDate();
+export const getStartOfTheWeek = () =>
+  DateTime.now().startOf('week').toJSDate();
+export const getStartOfTheMonth = () =>
+  DateTime.now().startOf('month').toJSDate();
 
 export const aggregateOrderItems = (orderItems: OrderItem[]) => {
   let totalQuantityCount = 0;

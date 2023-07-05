@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
+  getStartOfTheDay,
+  getStartOfTheMonth,
+  getStartOfTheWeek,
+} from '@hotel/common/util';
+import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -12,6 +17,7 @@ import {
   selectProductStat,
   selectloadIndicator,
 } from '@hotel/orderapp/dashboard/data-access';
+import { DateTime } from 'luxon';
 
 @Component({
   selector: 'hotel-orderapp-dashboard-feature-product-stat',
@@ -33,15 +39,38 @@ export class OrderappDashboardFeatureProductStatComponent {
 
   loadReport() {
     console.log(this.dateRangeForm.value);
+    this.dispatchLoadAction(
+      this.dateRangeForm.value.startDate!,
+      this.dateRangeForm.value.endDate!
+    );
+  }
+
+  dispatchLoadAction(startDateIso: string, endDateIso: string) {
     this.store.dispatch(
       loadProductStats({
-        startDate: this.dateRangeForm.value.startDate!,
-        endDate: this.dateRangeForm.value.endDate!,
+        startDate: startDateIso,
+        endDate: endDateIso,
       })
     );
   }
 
-  // loadReportOfTheday() {
-  //   start
-  // }
+  loadReportOfTheday() {
+    const startDateIso = getStartOfTheDay().toISOString();
+    const endDateIso = new Date().toISOString();
+
+    this.dispatchLoadAction(startDateIso, endDateIso);
+  }
+  loadReportOfTheWeek() {
+    const startDateIso = getStartOfTheWeek().toISOString();
+    const endDateIso = new Date().toISOString();
+
+    this.dispatchLoadAction(startDateIso, endDateIso);
+  }
+
+  loadReportOfTheMonth() {
+    const startDateIso = getStartOfTheMonth().toISOString();
+    const endDateIso = new Date().toISOString();
+
+    this.dispatchLoadAction(startDateIso, endDateIso);
+  }
 }
