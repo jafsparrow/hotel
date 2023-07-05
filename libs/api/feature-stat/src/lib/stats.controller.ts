@@ -20,4 +20,22 @@ export class StatController {
     console.log(startDate, endDate);
     return startDate;
   }
+
+  @Get('product')
+  getProductStatsForDuration(
+    @Query('startDate') startDateIso: any,
+    @Query('endDate') endDateIso: any
+  ) {
+    const startDate = new Date('2023-06-27');
+    const endDate = new Date('2023-06-28');
+    return this.statService.getProductStatsForThePeriod(startDate, endDate);
+  }
+
+  @Get('staff')
+  getStaffStatsForDuration(
+    @Query('startDate') startDate: any,
+    @Query('endDate') endDate: any
+  ) {
+    return 'staff stat.';
+  }
 }
