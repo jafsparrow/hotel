@@ -29,9 +29,7 @@ import { DateTime } from 'luxon';
 export class OrderappDashboardFeatureProductStatComponent {
   selectStatsLoading$ = this.store.select(selectloadIndicator);
   selectProductStats$ = this.store.select(selectProductStat);
-  constructor(private store: Store) {
-    this.selectProductStats$.subscribe((date) => console.log(date));
-  }
+  constructor(private store: Store) {}
   dateRangeForm = new FormGroup({
     startDate: new FormControl(''),
     endDate: new FormControl(''),

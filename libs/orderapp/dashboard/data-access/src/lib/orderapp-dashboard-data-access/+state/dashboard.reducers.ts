@@ -1,17 +1,15 @@
-import { Product, ProductStat, User } from '@hotel/common/types';
+import { OrderStat, Product, ProductStat, User } from '@hotel/common/types';
 import { createReducer, on } from '@ngrx/store';
 import {
   loadProductStats,
   loadProductStatsFail,
   loadProductStatsSuccess,
+  loadOrderStatsFail,
+  loadOrderStatsSuccess,
+  loadOrderStats,
 } from './dashboard.actions';
 
 export const DASHBOARD_FEATURE_KEY = 'dashboard';
-
-export interface OrderStats {
-  numberOfOrders: number;
-  totalSales: number;
-}
 
 export interface StaffStat {
   user: User;
@@ -27,7 +25,7 @@ export interface Duration {
 export interface DashBoardState {
   loadingIndicator: boolean;
   selectedDuration: Duration | null;
-  orderStats: OrderStats | null;
+  orderStats: OrderStat[];
   productStats: ProductStat[];
   statfStats: StaffStat[];
   successMessage: string;
@@ -39,7 +37,7 @@ const initialState: DashBoardState = {
   loadingIndicator: false,
   errorMessage: '',
   successMessage: '',
-  orderStats: null,
+  orderStats: [],
   productStats: [],
   statfStats: [],
 };
@@ -57,6 +55,21 @@ export const dashboardReducer = createReducer(
     productStats: stats,
   })),
   on(loadProductStatsFail, (state, { errorMessage }) => ({
+    ...state,
+    loadingIndicator: false,
+    errorMessage,
+  })),
+  on(loadOrderStats, (state) => ({
+    ...state,
+    loadingIndicator: true,
+    orderStats: [],
+  })),
+  on(loadOrderStatsSuccess, (state, { stats }) => ({
+    ...state,
+    loadingIndicator: false,
+    orderStats: stats,
+  })),
+  on(loadOrderStatsFail, (state, { errorMessage }) => ({
     ...state,
     loadingIndicator: false,
     errorMessage,

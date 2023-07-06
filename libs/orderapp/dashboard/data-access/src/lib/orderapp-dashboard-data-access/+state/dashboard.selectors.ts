@@ -14,3 +14,8 @@ export const selectloadIndicator = createSelector(
   selectDashboardStat,
   (state) => state.loadingIndicator
 );
+
+export const selectOrderStat = createSelector(
+  selectDashboardStat,
+  (state) => state.orderStats
+);
