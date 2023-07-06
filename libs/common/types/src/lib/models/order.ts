@@ -72,3 +72,8 @@ export enum PaymentStatus {
   PAID = 'paid',
   NOTPAID = 'notpaid',
 }
+
+export interface OrderStat {
+  count: number;
+  sum: number;
+}

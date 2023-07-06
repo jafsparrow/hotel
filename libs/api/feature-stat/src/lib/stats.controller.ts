@@ -14,11 +14,14 @@ export class StatController {
 
   @Get('order')
   getOrderStatForDuration(
-    @Query('startDate') startDate: any,
-    @Query('endDate') endDate: any
+    @Query('startDate') startDateIso: any,
+    @Query('endDate') endDateIso: any
   ) {
-    console.log(startDate, endDate);
-    return startDate;
+    console.log('start date', startDateIso);
+    console.log('end date', endDateIso);
+    const startDate = new Date(startDateIso.toString());
+    const endDate = new Date(endDateIso.toString());
+    return this.statService.getReportStatsForThePeriod(startDate, endDate);
   }
 
   @Get('product')

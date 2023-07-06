@@ -29,34 +29,30 @@ export class StatsService {
   }
 
   async getReportStatsForThePeriod(startDate: Date, endDate: Date) {
-    const ordersCount = await this.prismaService.order.count({
-      where: {
-        AND: [
-          {
-            createdAt: {
-              gte: new Date('2023-06-27'),
-            },
-          },
-          {
-            createdAt: {
-              lte: new Date('2023-06-28'),
-            },
-          },
-        ],
-      },
+    const orderStatArr: any = await this.prismaService
+      .$queryRaw`select sum(tempu.totalAmount) as sum, count(tempu."orderId") as count from (select sum(items.count * items.amount) as totalAmount, 
+      items."orderId" from public."orderItem" items  group by items."orderId" ) tempu
+    inner join
+    (select id from public."order" 
+     where "createdAt" >=  ${startDate}
+     AND "createdAt" <= ${endDate}) orders 
+     on orders.id=tempu."orderId"
+     `;
+
+    const orderStat: any[] = orderStatArr.map((item: any) => {
+      return {
+        sum: item.sum,
+        count: JSON.parse(this.toJson(item.count)),
+      };
     });
 
-    const start = new Date('2023-06-27');
-    const end = new Date('2023-06-28');
+    return orderStat;
+    // const ordersTotal: any = await this.prismaService
+    //   .$queryRaw`select sum("amount" * "count") as totalSale from public."orderItem" where "orderId" in (
+    //     select id from public."order" where "createdAt" >=  ${startDate} AND "createdAt" <=${endDate} )
+    //     `;
 
-    const ordersTotal: any = await this.prismaService
-      .$queryRaw`select sum("amount" * "count") as totalSale from public."orderItem" where "orderId" in (
-        select id from public."order" where "createdAt" >=  ${start} AND "createdAt" <=${end} )
-        `;
-
-    console.log('total', ordersTotal);
-    console.log('prisma query', ordersCount);
-    return this.toJson(ordersTotal);
+    // return this.toJson(ordersTotal);
     // console.log('orders count', ordersCount);
     // return { ordersCount, ordersTotal };
   }
