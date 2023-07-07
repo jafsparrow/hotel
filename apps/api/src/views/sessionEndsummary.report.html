@@ -99,21 +99,22 @@
     <section class="section">
       <div class="section-heading">Order Summary</div>
  
-      
+      {{#each ordersStatArr}} 
             <div class="flex">
-        <div class="flex-grow-1">Paid Orders</div>
-        <div class="shrink-0">43</div>
+        <div class="flex-grow-1">{{this.description}}</div>
+        <div class="shrink-0 px-2">{{this.count}} Nos</div>
+        <div class="shrink-0">{{this.sum}} OMR</div>
       </div>
-      
-            <div class="flex">
-        <div class="flex-grow-1">Credit</div>
-        <div class="shrink-0">7</div>
-      </div>
+
+           {{/each}}
+            
       
         <div class="border-bottom mt-2"></div>
            <div class="flex py-2">
         <div class="flex-grow-1">Total Orders</div>
-        <div class="shrink-0">50</div>
+        <div class="shrink-0 px-2">{{totalOrderDetail.count}} Nos</div>
+        <div class="shrink-0 ">{{totalOrderDetail.totalOrderSum}} OMR</div>
+
       </div>
       
     </section>
@@ -122,11 +123,11 @@
       <div class="section-heading">Cash Summary</div>
       <div class="flex">
         <div class="flex-grow-1">Begin Amount:</div>
-        <div>300.000 OMR</div>
+        <div>{{initialCash}} OMR</div>
       </div>
        <div class="flex">
         <div class="flex-grow-1">Total Cash Sale:</div>
-        <div>400.000 OMR</div>
+        <div>{{totalCashSale}} OMR</div>
       </div>
       <div class="underline">Tax Collected</div>
        <div class="flex">

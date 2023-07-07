@@ -29,7 +29,7 @@ export class StatsService {
       group by "productId") subtab inner join 
       (select * from public."product") products
       ON subtab."productId" = products.id  order by count desc
-) foo group by foo."name", foo."count"
+) foo group by foo."name", foo."count" order by foo."count" desc
     `;
 
     // console.log(productStatArr);
@@ -51,19 +51,19 @@ export class StatsService {
 
   async getReportStatsForThePeriod(startDate: Date, endDate: Date) {
     const orderStatArr: any = await this.prismaService
-      .$queryRaw`select sum(tempu.totalAmount) as sum, count(tempu."orderId") as count from (select sum(items.count * items.amount) as totalAmount, 
-      items."orderId" from public."orderItem" items  group by items."orderId" ) tempu
-    inner join
-    (select id from public."order" 
-     where "createdAt" >=  ${startDate}
-     AND "createdAt" <= ${endDate}) orders 
-     on orders.id=tempu."orderId"
+      .$queryRaw`select sum(tempt.totalAmount), count(tempt."orderId"), orders."paystat" as paystat from (select sum(items.count * items.amount) as totalAmount, items."orderId" from public."orderItem" items  group by items."orderId" ) tempt
+      inner join
+      (select id, "paymentStatus" as paystat from public."order" 
+       where "createdAt" >=  ${startDate} 
+       AND "createdAt" <= ${endDate}) orders 
+       on orders.id=tempt."orderId" group by paystat
      `;
 
     const orderStat: any[] = orderStatArr.map((item: any) => {
       return {
         sum: item.sum,
         count: JSON.parse(this.toJson(item.count)),
+        paystat: item.paystat,
       };
     });
 
@@ -117,4 +117,14 @@ export class StatsService {
 // group by "productId") subtab inner join
 // (select * from public."product") products
 // ON subtab."productId" = products.id order by count desc;
+// `;
+
+// const orderStatArr: any = await this.prismaService
+// .$queryRaw`select sum(tempu.totalAmount) as sum, count(tempu."orderId") as count from (select sum(items.count * items.amount) as totalAmount,
+// items."orderId" from public."orderItem" items  group by items."orderId" ) tempu
+// inner join
+// (select id from public."order"
+// where "createdAt" >=  ${startDate}
+// AND "createdAt" <= ${endDate}) orders
+// on orders.id=tempu."orderId"
 // `;

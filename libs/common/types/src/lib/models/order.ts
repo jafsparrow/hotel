@@ -77,4 +77,5 @@ export enum PaymentStatus {
 export interface OrderStat {
   count: number;
   sum: number;
+  status: PaymentStatus;
 }
