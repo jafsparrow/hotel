@@ -1,6 +1,10 @@
 import { PuppeteerService } from '@hotel/api/common';
 import { PrismaService } from '@hotel/api/data-access-db';
 import { StatsService } from '@hotel/api/feature-stat';
+import {
+  dateTimeToDateHHMM,
+  getOnlyCurrentDateWithoutTime,
+} from '@hotel/common/util';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -27,13 +31,25 @@ export class SessionReportService {
       startTime,
       endTime
     );
-    console.log('product summary', prductSummary);
+
+    const formattedStartTime = dateTimeToDateHHMM(startTime);
+    const formattedEndTime = dateTimeToDateHHMM(endTime);
+    const currentDayOnlyDate = getOnlyCurrentDateWithoutTime();
+    // console.log('product summary', prductSummary);
+    const htmlInputData: any = {
+      date: currentDayOnlyDate,
+      startTime: formattedStartTime,
+      endTime: formattedEndTime,
+      initialCash,
+      productStatArr: prductSummary,
+      reportStatArr: reportSummary,
+    };
     const pdfStream = await this.pupeteerService.getReportPdfStream(
       'sessionSummary',
       'views',
       'pdf',
       'sessionEndsummary.report.html',
-      null
+      htmlInputData
     );
     return {
       pdfStream,

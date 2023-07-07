@@ -7,23 +7,44 @@ export class StatsService {
   constructor(private prismaService: PrismaService) {}
 
   async getProductStatsForThePeriod(startDate: Date, endDate: Date) {
-    const productStatArr: any[] = await this.prismaService.$queryRaw`select 
-      subtab.totalCount count, products.name
-      from (select sum("count") totalCount, "productId" from public."orderItem" orderItems
+    const productStatArr: any[] = await this.prismaService.$queryRaw`
+    select foo."name", foo."count" ,  round(foo."count" * 100 /(
+	select sum(hello."count") from (
+		select subtab.totalCount count, products.name, products.id
+      from 
+	  (select sum("count") totalCount, "productId" from public."orderItem" orderItems
       where orderItems."orderId" IN (select "id" from public."order" where "createdAt" >=  ${startDate} AND "createdAt" <= ${endDate}) 
+	   
       group by "productId") subtab inner join 
       (select * from public."product") products
-      ON subtab."productId" = products.id order by count desc;
+      ON subtab."productId" = products.id  order by count desc
+	) hello
+) , 2) as "percentage" from 
+(
+	select subtab.totalCount count, products.name, products.id
+      from 
+	  (select sum("count") totalCount, "productId" from public."orderItem" orderItems
+      where orderItems."orderId" IN (select "id" from public."order" where "createdAt" >=  ${startDate}  AND "createdAt" <= ${endDate}) 
+	   
+      group by "productId") subtab inner join 
+      (select * from public."product") products
+      ON subtab."productId" = products.id  order by count desc
+) foo group by foo."name", foo."count"
     `;
-    console.log(productStatArr);
+
+    // console.log(productStatArr);
 
     const formtted: ProductStat[] = productStatArr.map((item) => {
       const totalParsed = JSON.parse(this.toJson(item.count));
-      const newTempItem = { name: item.name, count: totalParsed };
+      const newTempItem = {
+        name: item.name,
+        count: totalParsed,
+        percentage: item.percentage,
+      };
       return newTempItem;
     }) as unknown as ProductStat[];
 
-    console.log(formtted);
+    // console.log(formtted);
 
     return formtted;
   }
@@ -87,3 +108,13 @@ export class StatsService {
     // })
   }
 }
+
+// Products and count sold for the duration
+// const productStatArrs: any[] = await this.prismaService.$queryRaw`select
+// subtab.totalCount count, products.name
+// from (select sum("count") totalCount, "productId" from public."orderItem" orderItems
+// where orderItems."orderId" IN (select "id" from public."order" where "createdAt" >=  ${startDate} AND "createdAt" <= ${endDate})
+// group by "productId") subtab inner join
+// (select * from public."product") products
+// ON subtab."productId" = products.id order by count desc;
+// `;

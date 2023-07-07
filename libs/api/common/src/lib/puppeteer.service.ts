@@ -32,8 +32,9 @@ export class PuppeteerService {
     const browser = await createBrowser();
 
     const page = await setupHtmlPage(html, browser);
+    const extrapaddedHeight = await getPaddedDocHeight(100, page);
     // to get only the buffer delete path from the pdfoptions\
-    const udpatedPdfOptions = options;
+    const udpatedPdfOptions = { ...options, height: extrapaddedHeight + 'px' };
     delete udpatedPdfOptions['path'];
     const pdfBuffer = await page.pdf(udpatedPdfOptions);
     await browser.close();

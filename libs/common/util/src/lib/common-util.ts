@@ -59,7 +59,8 @@ export const getStartOfTheWeek = () =>
   DateTime.now().startOf('week').toJSDate();
 export const getStartOfTheMonth = () =>
   DateTime.now().startOf('month').toJSDate();
-
+export const getOnlyCurrentDateWithoutTime = () =>
+  DateTime.now().toLocaleString(DateTime.DATE_SHORT);
 export const aggregateOrderItems = (orderItems: OrderItem[]) => {
   let totalQuantityCount = 0;
   let totalItemsCount = 0;
