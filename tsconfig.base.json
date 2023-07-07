@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@hotel/api/common": ["libs/api/common/src/index.ts"],
       "@hotel/api/data-access-db": ["libs/api/data-access-db/src/index.ts"],
       "@hotel/api/feature-auth": ["libs/api/feature-auth/src/index.ts"],
       "@hotel/api/feature-category": ["libs/api/feature-category/src/index.ts"],

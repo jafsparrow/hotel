@@ -7,6 +7,6 @@ import { StatsService } from './stats.service';
   imports: [ApiDataAccessDbModule],
   controllers: [StatController],
   providers: [StatsService],
-  exports: [],
+  exports: [StatsService],
 })
 export class ApiFeatureStatModule {}

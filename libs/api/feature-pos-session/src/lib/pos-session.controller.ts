@@ -8,14 +8,20 @@ import {
   Put,
   Req,
   UseGuards,
+  Response,
+  StreamableFile,
 } from '@nestjs/common';
 import { PosSessionService } from './session.service';
 import { User, UserType } from '@hotel/common/types';
 import { JwtAuthGuard } from '@hotel/api/feature-auth';
+import { SessionReportService } from './report.service';
 
 @Controller('session')
 export class PosSessionController {
-  constructor(private sessionService: PosSessionService) {}
+  constructor(
+    private sessionService: PosSessionService,
+    private sessionReportService: SessionReportService
+  ) {}
 
   @UseGuards(JwtAuthGuard)
   @Get()
@@ -42,5 +48,25 @@ export class PosSessionController {
     const user = req.user;
     const sessionId = +params.id;
     return this.sessionService.closeSession(sessionId);
+  }
+
+  // @UseGuards(JwtAuthGuard)
+  @Get('session/:id')
+  async downloadSessionReport(
+    @Req() req: any,
+    @Param('id') Id: string,
+    @Response({ passthrough: true }) res: any
+  ) {
+    const sessionId = +Id;
+    // const user = req.user;se
+
+    const { pdfStream, reportName } =
+      await this.sessionReportService.downloadSessionReport(sessionId);
+
+    res.set({
+      'Content-Type': 'application/pdf',
+      'Content-Disposition': `attachment; filename="${reportName}.pdf`,
+    });
+    return new StreamableFile(pdfStream);
   }
 }
