@@ -10,6 +10,6 @@ import { ApiFeatureAuthModule } from '@hotel/api/feature-auth';
   imports: [ApiDataAccessDbModule, ApiFeatureAuthModule],
   controllers: [OrderContoller],
   providers: [OrderService, PDFService, PrintService],
-  exports: [],
+  exports: [PrintService],
 })
 export class ApiFeatureOrderModule {}
