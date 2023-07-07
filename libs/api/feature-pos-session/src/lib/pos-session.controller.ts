@@ -42,6 +42,5 @@ export class PosSessionController {
     const user = req.user;
     const sessionId = +params.id;
     return this.sessionService.closeSession(sessionId);
-    return 'updating the session with session id';
   }
 }
