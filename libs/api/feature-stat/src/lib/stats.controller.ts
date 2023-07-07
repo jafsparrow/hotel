@@ -1,15 +1,27 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Query,
+  StreamableFile,
+  Response,
+} from '@nestjs/common';
 import { StatsService } from './stats.service';
 import { DurationDto } from './dto/duration.dto';
+import { createReadStream } from 'fs';
+import { join } from 'path';
 
 @Controller('stats')
 export class StatController {
   constructor(private statService: StatsService) {}
 
-  @Get()
-  getStatus() {
-    const date = new Date();
-    return this.statService.getReportStatsForThePeriod(date, date);
+  @Get('chck')
+  getFile(@Response({ passthrough: true }) res: any): StreamableFile {
+    const file = createReadStream(join(process.cwd(), 'Resume 2023pdf.pdf'));
+    res.set({
+      'Content-Type': 'application/pdf',
+      'Content-Disposition': 'attachment; filename="Resume 2023pdf.pdf',
+    });
+    return new StreamableFile(file);
   }
 
   @Get('order')

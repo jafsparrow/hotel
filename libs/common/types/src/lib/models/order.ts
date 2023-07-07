@@ -71,6 +71,7 @@ export enum OrderItemType {
 export enum PaymentStatus {
   PAID = 'paid',
   NOTPAID = 'notpaid',
+  CREDIT = 'credit',
 }
 
 export interface OrderStat {

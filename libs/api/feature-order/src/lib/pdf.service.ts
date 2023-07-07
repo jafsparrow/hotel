@@ -35,7 +35,7 @@ export class PDFService {
   async samplebill() {
     const relativePath = resolve(__dirname, 'views');
     const templateHtml = readFileSync(
-      join(relativePath, 'receipt.html'),
+      join(relativePath, 'receipt copy.html'),
       'utf8'
     );
     const template = handlebars.compile(templateHtml);
@@ -43,7 +43,7 @@ export class PDFService {
 
     const pdfOptions = this.getPdfOptions('pdf', 'receipt');
     await this.savePdf(html, pdfOptions);
-    await this.printService.printPdfAtPath(pdfOptions.path!, 'CP-Q2');
+    // await this.printService.printPdfAtPath(pdfOptions.path!, 'CP-Q2');
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async printKot(kotData: any) {

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>KOT</title>
+	<head>
+	<style type="text/css">
+		body{
+			margin: 0px;
+			padding: 0px;
+			line-height: 24px;
+			font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            font-weight: light;
+			/* color: rgb(33,33,33); */
+		}
+
+    .container {
+  padding: 10px;
+}
+
+.report-title {
+  font-size:25px;
+  font-weight: thin
+}
+
+.duration {
+  font-size: 15px;
+  font-weight: thin;
+  color: grey;
+}
+
+.section {
+  border: 1px solid grey;
+  padding: 10px ;
+  margin-top: 5px;
+}
+
+.section-heading {
+  font-weight: bold;
+  text-decoration: underline;
+  margin-bottom: 5px;
+}
+.underline {
+   text-decoration: underline;
+}
+.p-2 {
+  padding: 5px;
+}
+
+.px-2 {
+  padding: 0px 5px;
+}
+
+.px-4 {
+  padding: 0px 10px;
+}
+.py-2 {
+  padding: 5px 0px;
+}
+
+.mt-2 {
+  margin: 5px 0px 0px 0px
+}
+.flex {
+  display : flex
+}
+
+.flex-col {
+  flex-direction: column
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+.shrink-0 {
+  flex-shrink: 0
+}
+
+.border-bottom {
+  width: 100%;
+  background-color: grey;
+  height: 2px;
+}
+.font-semibold {
+  font-weight: 500;
+}
+   
+	</style>
+	<meta charset="utf-8">
+</head>
+<body>
+	<div class="container">
+	  <div class="header-container">
+	    <div class="flex">
+	      <div class="flex-grow-1"><div class="report-title">Sales Report</div></div>
+        <div>30 / 05 / 2023</div>
+	    </div>
+      <div class="duration">Duration: 20/05/2023 11:00 am | 22/06/2023 12:00 pm</div>
+	  </div>
+    <section class="section">
+      <div class="section-heading">Order Summary</div>
+ 
+      
+            <div class="flex">
+        <div class="flex-grow-1">Paid Orders</div>
+        <div class="shrink-0">43</div>
+      </div>
+      
+            <div class="flex">
+        <div class="flex-grow-1">Credit</div>
+        <div class="shrink-0">7</div>
+      </div>
+      
+        <div class="border-bottom mt-2"></div>
+           <div class="flex py-2">
+        <div class="flex-grow-1">Total Orders</div>
+        <div class="shrink-0">50</div>
+      </div>
+      
+    </section>
+    
+    <section class="section">
+      <div class="section-heading">Cash Summary</div>
+      <div class="flex">
+        <div class="flex-grow-1">Begin Amount:</div>
+        <div>300.000 OMR</div>
+      </div>
+       <div class="flex">
+        <div class="flex-grow-1">Total Cash Sale:</div>
+        <div>400.000 OMR</div>
+      </div>
+      <div class="underline">Tax Collected</div>
+       <div class="flex">
+        <div class="flex-grow-1">VAT:</div>
+        <div>20.000 OMR</div>
+      </div>
+             <div class="flex">
+        <div class="flex-grow-1">Other Charges</div>
+        <div>1.000 OMR</div>
+      </div>
+            <div class="border-bottom mt-2"></div>
+             <div class="flex py-2">
+        <div class="flex-grow-1">Total Cash in Register</div>
+        <div>400.000 OMR</div>
+      </div>
+
+    </section>
+    <section class="section">
+      <div class="section-heading">Products Sold</div>
+      <div class="flex">
+        <div class="flex-grow-1">Chicken Alvadi</div>
+        <div class="px-4">30 Nos</div>
+        <div>34 %</div>
+      </div>
+      
+            <div class="flex">
+        <div class="flex-grow-1">Chicken Alvadi</div>
+        <div class="px-4">30 Nos</div>
+        <div>34 %</div>
+      </div>
+      
+            <div class="flex">
+        <div class="flex-grow-1">Chicken Alvadi</div>
+        <div class="px-4">30 Nos</div>
+        <div>34 %</div>
+      </div>
+      
+            <div class="flex">
+        <div class="flex-grow-1">Chicken Alvadi</div>
+        <div class="px-4">30 Nos</div>
+        <div>34 %</div>
+      </div>
+      
+       <div class="border-bottom mt-2"></div>
+      
+      <div class="flex py-2">
+        <div class="flex-grow-1">No of Items Sold : </div>
+        <div class="px-4">110 Nos</div>
+      </div>
+      
+    </section>
+	</div>
+</body>
+</html>
