@@ -16,12 +16,14 @@
     <div class="col-span-1" *ngIf="session.endTime">
       <div class="font-semibold">End Time</div>
       <div class="font-light">{{ session.endTime | timesago }}</div>
-      <div
-        *ngIf="(selectPrintSessionReportIndicator$ | async) === false"
-        class="bg-gray-500 py-1 px-2"
-        (click)="printSessionReport(session.id)"
-      >
-        P
+      <div class="">
+        <div
+          *ngIf="(selectPrintSessionReportIndicator$ | async) === false"
+          class="bg-gray-200 py-1 px-2 rounded-md inline-block cursor-pointer hover:bg-gray-300"
+          (click)="printSessionReport(session.id)"
+        >
+          PRINT
+        </div>
       </div>
 
       <div *ngIf="selectPrintSessionReportIndicator$ | async">Printing.</div>

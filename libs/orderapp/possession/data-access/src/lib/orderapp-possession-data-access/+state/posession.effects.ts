@@ -70,19 +70,25 @@ export class PosSessionEffects {
       ofType(printSessionReport),
       switchMap((data) =>
         this.sessionService.printSessionReport(data.sessionId).pipe(
-          tap((data) => console.log(data)),
+          tap((data) => {
+            console.log('cratnig blobb');
+            // const file = new Blob([data], { type: 'application/pdf' });
+            // const fileURL = URL.createObjectURL(file);
+            // window.open(fileURL, '_blank', 'width: 1000, height:800');
+          }),
           map((data) =>
             printSessionReportSuccess({
               successMessage: 'Printed successfully',
             })
           ),
-          catchError((error) =>
-            of(
+          catchError((error) => {
+            console.log(error);
+            return of(
               printSessionReportFail({
                 errorMessage: 'Printing report failed.',
               })
-            )
-          )
+            );
+          })
         )
       )
     );

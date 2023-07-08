@@ -6,7 +6,7 @@ import {
   dateTimeToDateHHMM,
   getOnlyCurrentDateWithoutTime,
 } from '@hotel/common/util';
-import { Injectable } from '@nestjs/common';
+import { BadGatewayException, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class SessionReportService {
@@ -16,54 +16,59 @@ export class SessionReportService {
     private pupeteerService: PuppeteerService
   ) {}
   async downloadSessionReport(sessionId: number) {
-    // get the start and end date of the session Id.
-    const { startTime, endTime, initialCash } = (await this.getSessionDetails(
-      sessionId
-    )) as unknown as any;
-    console.log('creating pdf for the session status of ', sessionId);
-    const reportSummary = await this.statService.getReportStatsForThePeriod(
-      startTime,
-      endTime
-    );
+    try {
+      // get the start and end date of the session Id.
+      const { startTime, endTime, initialCash } = (await this.getSessionDetails(
+        sessionId
+      )) as unknown as any;
+      console.log('creating pdf for the session status of ', sessionId);
+      const reportSummary = await this.statService.getReportStatsForThePeriod(
+        startTime,
+        endTime
+      );
 
-    const prductSummary = await this.statService.getProductStatsForThePeriod(
-      startTime,
-      endTime
-    );
+      const prductSummary = await this.statService.getProductStatsForThePeriod(
+        startTime,
+        endTime
+      );
 
-    const staffSummary = await this.statService.getStaffStatsForThePeriod(
-      startTime,
-      endTime
-    );
+      const staffSummary = await this.statService.getStaffStatsForThePeriod(
+        startTime,
+        endTime
+      );
 
-    const formattedStartTime = dateTimeToDateHHMM(startTime);
-    const formattedEndTime = dateTimeToDateHHMM(endTime);
-    const currentDayOnlyDate = getOnlyCurrentDateWithoutTime();
-    // console.log('product summary', prductSummary);
-    const { ordersStatArr, totalOrderDetail, totalCashSale } =
-      this.formatOrderStat(reportSummary);
-    const htmlInputData: any = {
-      date: currentDayOnlyDate,
-      startTime: formattedStartTime,
-      endTime: formattedEndTime,
-      initialCash: initialCash.toFixed(3),
-      totalCashSale: totalCashSale.toFixed(3),
-      productStatArr: prductSummary,
-      ordersStatArr,
-      totalOrderDetail,
-      stafStatArr: staffSummary.length ? staffSummary : [],
-    };
-    const pdfStream = await this.pupeteerService.getReportPdfStream(
-      'sessionSummary',
-      'views',
-      'pdf',
-      'sessionEndsummary.report.html',
-      htmlInputData
-    );
-    return {
-      pdfStream,
-      reportName: `session report - ${startTime} -- ${endTime}`,
-    };
+      const formattedStartTime = dateTimeToDateHHMM(startTime);
+      const formattedEndTime = dateTimeToDateHHMM(endTime);
+      const currentDayOnlyDate = getOnlyCurrentDateWithoutTime();
+      // console.log('product summary', prductSummary);
+      const { ordersStatArr, totalOrderDetail, totalCashSale } =
+        this.formatOrderStat(reportSummary);
+      const htmlInputData: any = {
+        date: currentDayOnlyDate,
+        startTime: formattedStartTime,
+        endTime: formattedEndTime,
+        initialCash: initialCash.toFixed(3),
+        totalCashSale: totalCashSale.toFixed(3),
+        productStatArr: prductSummary,
+        ordersStatArr,
+        totalOrderDetail,
+        stafStatArr: staffSummary.length ? staffSummary : [],
+      };
+      const pdfStream = await this.pupeteerService.getReportPdfStream(
+        'sessionSummary',
+        'views',
+        'pdf',
+        'sessionEndsummary.report.html',
+        htmlInputData
+      );
+      return {
+        pdfStream,
+        reportName: `session report - ${startTime} -- ${endTime}`,
+      };
+    } catch (error) {
+      console.log(error);
+      throw new BadGatewayException({ error });
+    }
   }
 
   async getSessionDetails(sessionId: number) {

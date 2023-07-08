@@ -1,7 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { PosSession } from '@hotel/common/types';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of, switchMap } from 'rxjs';
+
+import { saveAs } from 'file-saver';
 
 @Injectable({ providedIn: 'root' })
 export class PosSessionService {
@@ -27,7 +29,29 @@ export class PosSessionService {
     );
   }
 
-  printSessionReport(id: number): Observable<any> {
-    return this.httpClient.get<any>(`${this.apiUrl}/session/session/${id}`);
+  printSessionReport(id: number) {
+    let status = false;
+    const mediaType = 'application/pdf';
+    return this.httpClient
+      .get(`${this.apiUrl}/session/session/${id}`, {
+        observe: 'response',
+        responseType: 'blob',
+      })
+      .pipe(
+        switchMap((response) => {
+          status = true;
+          console.log(response);
+          const blob = new Blob([response.body!], { type: mediaType });
+
+          console.log(response.headers!.get('content-disposition'));
+          // const fileName = response
+          //   .headers!.get('Content-Disposition')!
+          //   .split(';')[1]
+          //   .split('=')[1];
+          saveAs(blob, `${new Date()}.pdf`);
+          return of(true);
+        }),
+        catchError((error) => of(false))
+      );
   }
 }
