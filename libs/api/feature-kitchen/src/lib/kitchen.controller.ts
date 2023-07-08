@@ -6,14 +6,9 @@ import { CreateKitchenDto } from './dto/create-kitchen.dto';
 export class KitchenController {
   constructor(private kitchenService: KitchenService) {}
 
-  @Get('printer')
-  getPrineters() {
-    return;
-  }
-
   @Get()
   getKitchens() {
-    return this.kitchenService;
+    return this.kitchenService.getKitchens();
   }
 
   @Post()

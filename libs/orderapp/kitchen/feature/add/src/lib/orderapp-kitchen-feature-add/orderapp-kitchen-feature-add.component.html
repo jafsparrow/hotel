@@ -1,1 +1,46 @@
 <p>orderapp-kitchen-feature-add works!</p>
+
+<form [formGroup]="kitchenAddForm" class="p-2 grid grid-cols-1 gap-2">
+  <div>
+    <input
+      type="text"
+      formControlName="name"
+      class="w-full border p-2"
+      placeholder="Enter Kitchen Name"
+    />
+  </div>
+
+  <div *ngIf="selectPrinters$ | async as printers">
+    <select
+      name="printer"
+      id="pritner"
+      class="p-2 border w-full"
+      formArrayName="printer"
+    >
+      <option
+        *ngFor="let printer of printers"
+        [value]="printer.name"
+        class="p-2"
+      >
+        {{ printer.name }}
+      </option>
+    </select>
+  </div>
+
+  <div>
+    <label for="shouldPrintKot">Print KOT</label>
+    <input
+      type="checkbox"
+      id="shouldPrintKot"
+      formControlName="shouldPrintKot"
+      class="ml-5 w-6 h-6"
+    />
+  </div>
+  <button
+    type="submit"
+    class="bg-gray-700 text-white rounded-full py-1"
+    [disabled]="!kitchenAddForm.valid"
+  >
+    ADD
+  </button>
+</form>

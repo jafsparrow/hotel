@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { Organisation } from '@hotel/common/types';
+import { Organisation, PrinterDetail } from '@hotel/common/types';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -19,5 +19,11 @@ export class CompanyService {
   updateCompany(data: Organisation): Observable<Organisation> {
     console.log('at the company service file', data);
     return this.httpClient.post<Organisation>(`${this.apiUrl}/company`, data);
+  }
+
+  loadPrinters() {
+    return this.httpClient.get<PrinterDetail[]>(
+      `${this.apiUrl}/company/printers`
+    );
   }
 }

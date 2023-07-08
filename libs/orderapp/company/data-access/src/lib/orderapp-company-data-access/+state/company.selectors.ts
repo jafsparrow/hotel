@@ -13,3 +13,8 @@ export const selectCompanyTaxes = createSelector(
   selectCompany,
   (company) => company.taxes
 );
+
+export const selectPrinters = createSelector(
+  selectCompanyState,
+  (state) => state.printers
+);

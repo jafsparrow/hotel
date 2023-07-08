@@ -10,3 +10,5 @@ export * from './count.dialog';
 export * from './modifier.dialog';
 export * from './company.dialog';
 export * from './pos.session';
+export * from './printer';
+export * from './kitchen';

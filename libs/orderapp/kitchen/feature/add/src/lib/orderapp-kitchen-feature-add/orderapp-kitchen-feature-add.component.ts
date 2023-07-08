@@ -1,11 +1,32 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { selectPrinters } from '@hotel/orderapp/company/data-access';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { Validator } from 'class-validator';
 
 @Component({
   selector: 'hotel-orderapp-kitchen-feature-add',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './orderapp-kitchen-feature-add.component.html',
   styleUrls: ['./orderapp-kitchen-feature-add.component.css'],
 })
-export class OrderappKitchenFeatureAddComponent {}
+export class OrderappKitchenFeatureAddComponent {
+  selectPrinters$ = this.store.select(selectPrinters);
+  kitchenAddForm: FormGroup = new FormGroup({
+    name: new FormControl('', { validators: [Validators.required] }),
+    printer: new FormControl('', { validators: [Validators.required] }),
+    shouldPrintKot: new FormControl(false),
+  });
+  constructor(private store: Store) {}
+
+  addKitchen() {
+    // this.store.dispatch()
+  }
+}

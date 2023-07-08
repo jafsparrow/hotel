@@ -14,4 +14,9 @@ export class ApiFeatureCompanyController {
   updateCompany(@Body() companyUpdateDto: UpdateCompanyDto) {
     return this.companyService.updateCompany(companyUpdateDto);
   }
+
+  @Get('printers')
+  getConnectedPrinters() {
+    return this.companyService.getPrinters();
+  }
 }

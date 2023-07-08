@@ -15,6 +15,7 @@ import { join } from 'path';
 import { ApiFeaturePosSessionModule } from '@hotel/api/feature-pos-session';
 import { ApiFeatureStatModule } from '@hotel/api/feature-stat';
 import { ApiCommonModule } from '@hotel/api/common';
+import { ApiFeatureKitchenModule } from '@hotel/api/feature-kitchen';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { ApiCommonModule } from '@hotel/api/common';
     ApiFeatureFloorModule,
     ApiFeaturePosSessionModule,
     ApiFeatureStatModule,
+    ApiFeatureKitchenModule,
     ApiCommonModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'orderapp'),

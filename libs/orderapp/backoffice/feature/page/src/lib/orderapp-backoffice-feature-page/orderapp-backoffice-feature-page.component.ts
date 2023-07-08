@@ -7,7 +7,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { Store } from '@ngrx/store';
 import { loadCompany } from '@hotel/orderapp/company/data-access';
+import { loadKitchens } from '@hotel/orderapp/kitchen/data-access';
 import { logout } from '@hotel/orderapp/auth/data-access';
+import { OrderappAuthFeatureSignedUserDetailComponent } from '@hotel/orderapp/auth/feature/signed-user-detail';
 @Component({
   selector: 'hotel-orderapp-backoffice-feature-page',
   standalone: true,
@@ -18,6 +20,7 @@ import { logout } from '@hotel/orderapp/auth/data-access';
     MatToolbarModule,
     MatIconModule,
     MatMenuModule,
+    OrderappAuthFeatureSignedUserDetailComponent,
   ],
   templateUrl: './orderapp-backoffice-feature-page.component.html',
   styleUrls: ['./orderapp-backoffice-feature-page.component.css'],
@@ -29,6 +32,7 @@ export class OrderappBackofficeFeaturePageComponent {
     private store: Store
   ) {
     this.store.dispatch(loadCompany({ id: 1 }));
+    this.store.dispatch(loadKitchens());
   }
   navigateTo(path: string) {
     this.router.navigate([path], { relativeTo: this.route });

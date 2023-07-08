@@ -1,6 +1,9 @@
-import { Organisation } from '@hotel/common/types';
+import { Organisation, PrinterDetail } from '@hotel/common/types';
 import {
   loadCompanySuccess,
+  loadPrinters,
+  loadPrintersFailed,
+  loadPrintersSuccess,
   turnCompanyProgressIdicator,
   updateCompanyFail,
   updateCompanySuccess,
@@ -13,6 +16,7 @@ export interface CompanyState {
   company: Organisation;
   loadingIndicator: boolean;
   errorMessage: string;
+  printers: PrinterDetail[];
 }
 
 const initialState: CompanyState = {
@@ -25,6 +29,7 @@ const initialState: CompanyState = {
   },
   loadingIndicator: false,
   errorMessage: '',
+  printers: [],
 };
 
 export const companyReducer = createReducer(
@@ -49,5 +54,16 @@ export const companyReducer = createReducer(
     ...state,
     errorMessage: error,
     loadingIndicator: false,
+  })),
+  on(loadPrinters, (state) => ({ ...state, loadingIndicator: true })),
+  on(loadPrintersSuccess, (state, { printers }) => ({
+    ...state,
+    printers,
+    loadingIndicator: false,
+  })),
+  on(loadPrintersFailed, (state, { errorMessage }) => ({
+    ...state,
+    loadingIndicator: false,
+    errorMessage,
   }))
 );

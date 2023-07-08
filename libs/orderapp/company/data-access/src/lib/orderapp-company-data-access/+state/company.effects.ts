@@ -5,6 +5,9 @@ import {
   loadCompany,
   loadCompanyFail,
   loadCompanySuccess,
+  loadPrinters,
+  loadPrintersFailed,
+  loadPrintersSuccess,
   updateCompany,
   updateCompanyFail,
   updateCompanySuccess,
@@ -44,6 +47,24 @@ export class CompanyEffects {
             of(
               updateCompanyFail({
                 error: 'failed to update company informations',
+              })
+            )
+          )
+        )
+      )
+    );
+  });
+
+  loadPrintersEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(loadPrinters),
+      switchMap((data) =>
+        this.companyService.loadPrinters().pipe(
+          map((data) => loadPrintersSuccess({ printers: data })),
+          catchError((error) =>
+            of(
+              loadPrintersFailed({
+                errorMessage: 'Error happned while fetching printers',
               })
             )
           )

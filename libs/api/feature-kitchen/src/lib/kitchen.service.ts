@@ -16,7 +16,7 @@ export class KitchenService {
   }
 
   async getKitchens() {
-    return this.prismaService.kitchen.findMany();
+    return await this.prismaService.kitchen.findMany();
   }
 
   async getAvailablePrinters() {

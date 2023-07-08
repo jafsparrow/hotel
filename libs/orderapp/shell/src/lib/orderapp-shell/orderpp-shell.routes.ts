@@ -17,6 +17,11 @@ import {
   DashboardEffects,
   dashboardReducer,
 } from '@hotel/orderapp/dashboard/data-access';
+import {
+  KITCHEN_FEATURE_KEY,
+  KitchenEffects,
+  kitchenReducer,
+} from '@hotel/orderapp/kitchen/data-access';
 
 export const shellRoutes: Routes = [
   { path: '', component: OrderappShellComponent },
@@ -36,6 +41,8 @@ export const shellRoutes: Routes = [
     providers: [
       provideState(COMPANY_FEATURE_KEY, companyReducer),
       provideEffects(CompanyEffects),
+      provideState(KITCHEN_FEATURE_KEY, kitchenReducer),
+      provideEffects(KitchenEffects),
     ],
   },
   {
