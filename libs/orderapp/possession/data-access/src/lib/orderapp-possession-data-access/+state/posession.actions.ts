@@ -42,3 +42,18 @@ export const closeSessionFailed = createAction(
 
   props<{ errorMessage: string }>()
 );
+
+export const printSessionReport = createAction(
+  '[POS Session] Print Session Report',
+  props<{ sessionId: number }>()
+);
+
+export const printSessionReportSuccess = createAction(
+  '[POS Session] Print Session Report Success',
+  props<{ successMessage: string }>()
+);
+
+export const printSessionReportFail = createAction(
+  '[POS Session] Print Session Report Failed',
+  props<{ errorMessage: string }>()
+);

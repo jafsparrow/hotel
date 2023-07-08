@@ -9,11 +9,14 @@ import {
   loadPosSessionFail,
   loadPosSessionSuccess,
   loadSessions,
+  printSessionReport,
+  printSessionReportFail,
+  printSessionReportSuccess,
   startSession,
   startSessionFailed,
   startSessionSuccess,
 } from './posession.actions';
-import { catchError, map, of, switchMap } from 'rxjs';
+import { catchError, map, of, switchMap, tap } from 'rxjs';
 
 @Injectable()
 export class PosSessionEffects {
@@ -56,6 +59,29 @@ export class PosSessionEffects {
           map((data) => closeSessionSuccess({ sessions: data })),
           catchError((error) =>
             of(closeSessionFailed({ errorMessage: 'closing session failed' }))
+          )
+        )
+      )
+    );
+  });
+
+  printSessionReportEffect$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(printSessionReport),
+      switchMap((data) =>
+        this.sessionService.printSessionReport(data.sessionId).pipe(
+          tap((data) => console.log(data)),
+          map((data) =>
+            printSessionReportSuccess({
+              successMessage: 'Printed successfully',
+            })
+          ),
+          catchError((error) =>
+            of(
+              printSessionReportFail({
+                errorMessage: 'Printing report failed.',
+              })
+            )
           )
         )
       )

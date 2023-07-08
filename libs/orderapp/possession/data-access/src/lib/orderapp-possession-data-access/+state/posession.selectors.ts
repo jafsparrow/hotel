@@ -20,3 +20,8 @@ export const selectEndSessinIndicator = createSelector(
   selectPosSessionState,
   (state) => state.sessionEndIndicator
 );
+
+export const selectSessionReportPrintingIndicator = createSelector(
+  selectPosSessionState,
+  (state) => state.printSessionReportIndicator
+);

@@ -1,6 +1,6 @@
 import { PrismaService } from '@hotel/api/data-access-db';
 import { Injectable } from '@nestjs/common';
-import { ProductStat } from '@hotel/common/types';
+import { ProductStat, StaffStat } from '@hotel/common/types';
 
 @Injectable()
 export class StatsService {
@@ -76,6 +76,30 @@ export class StatsService {
     // return this.toJson(ordersTotal);
     // console.log('orders count', ordersCount);
     // return { ordersCount, ordersTotal };
+  }
+
+  async getStaffStatsForThePeriod(startDate: Date, endDate: Date) {
+    const staffStatArr: any[] = await this.prismaService.$queryRaw`
+    select sectionT."totCount", users."name", users.id from 
+    (select tempt.totalCount as "totCount", tempt."createdUserId" as "userId" from 
+    (select count(id) totalCount,  "createdUserId", "paymentStatus"
+    from public."order" orders 
+    where  "createdAt" >=  ${startDate}  AND "createdAt" <= ${endDate} 
+    group by  orders."paymentStatus", orders."createdUserId"  ) 
+    tempt ) sectionT
+    inner join (select * from public."user") users
+    on users.id = sectionT."userId" order by sectionT."totCount" desc
+    `;
+
+    const staffStat: StaffStat[] = staffStatArr.map((item) => {
+      return {
+        name: item.name,
+        id: item.id,
+        orderCount: JSON.parse(this.toJson(item.totCount)),
+      };
+    });
+
+    return staffStat;
   }
 
   toJson(data: any) {

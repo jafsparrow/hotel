@@ -26,4 +26,8 @@ export class PosSessionService {
       {}
     );
   }
+
+  printSessionReport(id: number): Observable<any> {
+    return this.httpClient.get<any>(`${this.apiUrl}/session/session/${id}`);
+  }
 }

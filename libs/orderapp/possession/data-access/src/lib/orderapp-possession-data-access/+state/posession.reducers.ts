@@ -7,6 +7,9 @@ import {
   loadPosSessionFail,
   loadPosSessionSuccess,
   loadSessions,
+  printSessionReport,
+  printSessionReportFail,
+  printSessionReportSuccess,
   startSession,
   startSessionFailed,
   startSessionSuccess,
@@ -22,6 +25,7 @@ export interface PosSessionState {
   sessionStartError: string;
   sessionEndIndicator: boolean;
   sessionEndError: string;
+  printSessionReportIndicator: boolean;
 }
 
 const initialState: PosSessionState = {
@@ -52,6 +56,7 @@ const initialState: PosSessionState = {
   sessionStartError: '',
   sessionEndIndicator: false,
   sessionEndError: '',
+  printSessionReportIndicator: false,
 };
 
 export const posSessionsReducer = createReducer(
@@ -102,5 +107,17 @@ export const posSessionsReducer = createReducer(
     sessionEndError: '',
     sessionEndIndicator: false,
     sessionsOfTheDay: sessions,
+  })),
+  on(printSessionReport, (state, { sessionId }) => ({
+    ...state,
+    printSessionReportIndicator: true,
+  })),
+  on(printSessionReportSuccess, (state, { successMessage }) => ({
+    ...state,
+    printSessionReportIndicator: false,
+  })),
+  on(printSessionReportFail, (state, { errorMessage }) => ({
+    ...state,
+    printSessionReportIndicator: false,
   }))
 );

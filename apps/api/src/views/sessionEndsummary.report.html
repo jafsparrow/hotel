@@ -158,6 +158,19 @@
 
       
     </section>
+
+    <section class="section">
+      <div class="section-heading">Staff Performance Stats</div>
+
+      {{#each stafStatArr}} 
+      <div class="flex">
+        <div class="flex-grow-1">{{this.name}}</div>
+        <div class="px-4">{{this.orderCount}} Nos</div>
+      </div>
+      {{/each}}
+
+      
+    </section>
 	</div>
 </body>
 </html>

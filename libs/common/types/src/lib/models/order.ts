@@ -79,3 +79,9 @@ export interface OrderStat {
   sum: number;
   status: PaymentStatus;
 }
+
+export interface StaffStat {
+  name: string;
+  id: number;
+  orderCount: number;
+}

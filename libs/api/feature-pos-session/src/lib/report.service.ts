@@ -20,15 +20,18 @@ export class SessionReportService {
     const { startTime, endTime, initialCash } = (await this.getSessionDetails(
       sessionId
     )) as unknown as any;
-    console.log('session details', { startTime, endTime, initialCash });
-
+    console.log('creating pdf for the session status of ', sessionId);
     const reportSummary = await this.statService.getReportStatsForThePeriod(
       startTime,
       endTime
     );
-    console.log('resport Sumamry : ', reportSummary);
 
     const prductSummary = await this.statService.getProductStatsForThePeriod(
+      startTime,
+      endTime
+    );
+
+    const staffSummary = await this.statService.getStaffStatsForThePeriod(
       startTime,
       endTime
     );
@@ -48,6 +51,7 @@ export class SessionReportService {
       productStatArr: prductSummary,
       ordersStatArr,
       totalOrderDetail,
+      stafStatArr: staffSummary.length ? staffSummary : [],
     };
     const pdfStream = await this.pupeteerService.getReportPdfStream(
       'sessionSummary',
