@@ -46,7 +46,7 @@
         [ngClass]="{ 'bg-green-400': kitchenAddForm.valid }"
         (click)="addKitchen()"
       >
-        ADD
+        {{ data?.kitchen ? 'UPDATE' : 'ADD' }}
       </button>
     </ng-template>
   </form>
