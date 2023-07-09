@@ -70,11 +70,12 @@ model collection {
 }
 
 model kitchen {
-    id         Int        @id @default(autoincrement())
-    name       String
-    printer    String
-    kots       kot[]
-    categories category[]
+    id             Int        @id @default(autoincrement())
+    name           String
+    printer        String
+    shouldPrintKot Boolean    @default(true)
+    kots           kot[]
+    categories     category[]
 }
 
 model variant {
