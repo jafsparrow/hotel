@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { selectKitchens } from '@hotel/orderapp/kitchen/data-access';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { OrderappKitchenFeatureAddComponent } from '@hotel/orderapp/kitchen/feature/add';
+import { Kitchen } from '@hotel/common/types';
 
 @Component({
   selector: 'hotel-orderapp-kitchen-feature-list',
@@ -18,5 +19,9 @@ export class OrderappKitchenFeatureListComponent {
 
   addKitchen() {
     this.dialog.open(OrderappKitchenFeatureAddComponent, {});
+  }
+
+  editKitchen(kitchen: Kitchen) {
+    this.dialog.open(OrderappKitchenFeatureAddComponent, { data: { kitchen } });
   }
 }

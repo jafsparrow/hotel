@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { selectPrinters } from '@hotel/orderapp/company/data-access';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
   FormControl,
   FormGroup,
@@ -13,8 +14,9 @@ import {
   addKitchen,
   selectKitchenAddLoadingIndicator,
   selectKitchneLoadingIndicator,
+  updateKitchen,
 } from '@hotel/orderapp/kitchen/data-access';
-import { Kitchen } from '@hotel/common/types';
+import { Kitchen, KitchenEditDialogData } from '@hotel/common/types';
 
 @Component({
   selector: 'hotel-orderapp-kitchen-feature-add',
@@ -23,7 +25,7 @@ import { Kitchen } from '@hotel/common/types';
   templateUrl: './orderapp-kitchen-feature-add.component.html',
   styleUrls: ['./orderapp-kitchen-feature-add.component.css'],
 })
-export class OrderappKitchenFeatureAddComponent {
+export class OrderappKitchenFeatureAddComponent implements OnInit {
   selectPrinters$ = this.store.select(selectPrinters);
   selectAddKitchenIndicator$ = this.store.select(
     selectKitchenAddLoadingIndicator
@@ -33,14 +35,36 @@ export class OrderappKitchenFeatureAddComponent {
     printer: new FormControl('', { validators: [Validators.required] }),
     shouldPrintKot: new FormControl(false),
   });
-  constructor(private store: Store) {}
+  constructor(
+    private store: Store,
+    @Inject(MAT_DIALOG_DATA) public data: KitchenEditDialogData,
 
+    public dialogRef: MatDialogRef<OrderappKitchenFeatureAddComponent>
+  ) {}
+
+  ngOnInit(): void {
+    const kitchenToEdit = this.data.kitchen;
+    console.log('kitchen t edit', kitchenToEdit);
+    if (kitchenToEdit) {
+      this.kitchenAddForm.patchValue(kitchenToEdit);
+    }
+  }
   addKitchen() {
-    console.log(this.kitchenAddForm.value);
-    const kitchen: Kitchen = {
-      ...this.kitchenAddForm.value,
-    };
-    if (this.kitchenAddForm.valid) {
+    if (!this.kitchenAddForm.valid) return;
+
+    console.log(this.data.kitchen);
+    if (this.data.kitchen) {
+      this.store.dispatch(
+        updateKitchen({
+          kitchendId: this.data.kitchen.id!,
+          kitchen: this.kitchenAddForm.value,
+        })
+      );
+    } else {
+      const kitchen: Kitchen = {
+        ...this.kitchenAddForm.value,
+      };
+
       this.store.dispatch(addKitchen({ kitchen }));
     }
   }

@@ -12,3 +12,4 @@ export * from './company.dialog';
 export * from './pos.session';
 export * from './printer';
 export * from './kitchen';
+export * from './kitchen.dialog';

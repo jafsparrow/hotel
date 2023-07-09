@@ -42,7 +42,6 @@ export class KitchenEffects {
       switchMap((data) =>
         this.kitchenService.createKitchen(data.kitchen).pipe(
           map((data) => addKitchenSuccess({ kitchen: data })),
-          map((data) => loadKitchens()),
           catchError((error) =>
             of(addKitchenFailed({ errorMessage: 'Failed to add kitchens' }))
           )
@@ -51,11 +50,19 @@ export class KitchenEffects {
     );
   });
 
+  addKitchenSuccessEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(addKitchenSuccess),
+      switchMap((data) => of(loadKitchens()))
+    );
+  });
+
   editKitchenEffect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(updateKitchen),
       switchMap((data) =>
-        this.kitchenService.updateKitchen(data.kitchen).pipe(
+        this.kitchenService.updateKitchen(data.kitchendId, data.kitchen).pipe(
+          tap((data) => console.log('insde update succe effe')),
           map((data) => updateKitchenSuccess({ kitchen: data })),
           catchError((error) =>
             of(
@@ -64,6 +71,13 @@ export class KitchenEffects {
           )
         )
       )
+    );
+  });
+
+  editKitchenSuccessEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(updateKitchenSuccess),
+      switchMap((data) => of(loadKitchens()))
     );
   });
 }

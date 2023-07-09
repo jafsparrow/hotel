@@ -1,5 +1,5 @@
 import { PrismaService } from '@hotel/api/data-access-db';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateKitchenDto } from './dto/create-kitchen.dto';
 import { getPrinters } from 'pdf-to-printer';
 
@@ -15,6 +15,17 @@ export class KitchenService {
     });
   }
 
+  async udpateKitchen(id: number, data: CreateKitchenDto) {
+    delete data.id;
+    try {
+      return this.prismaService.kitchen.update({
+        where: { id },
+        data: data,
+      });
+    } catch (error) {
+      throw new BadRequestException({ error: error });
+    }
+  }
   async getKitchens() {
     return await this.prismaService.kitchen.findMany();
   }

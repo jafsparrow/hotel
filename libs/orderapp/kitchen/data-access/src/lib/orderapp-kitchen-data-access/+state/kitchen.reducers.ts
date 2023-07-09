@@ -54,6 +54,7 @@ export const kitchenReducer = createReducer(
   on(addKitchenSuccess, (state) => ({
     ...state,
     kitchAddProgressIndicator: false,
+    loadingIndicator: false,
   })),
   on(addKitchenFailed, (state, { errorMessage }) => ({
     ...state,

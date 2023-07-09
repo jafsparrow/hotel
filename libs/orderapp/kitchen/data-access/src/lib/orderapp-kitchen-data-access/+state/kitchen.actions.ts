@@ -27,7 +27,7 @@ export const addKitchenFailed = createAction(
 
 export const updateKitchen = createAction(
   '[Kitchen] update a  kitchen',
-  props<{ kitchen: Kitchen }>()
+  props<{ kitchendId: number; kitchen: Kitchen }>()
 );
 export const updateKitchenSuccess = createAction(
   '[Kitchen] update  kitchen Success',

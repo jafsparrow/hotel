@@ -15,8 +15,11 @@ export class KitchenService {
     return this.httpClient.post<Kitchen>(`${this.apiUrl}/kitchen`, data);
   }
 
-  updateKitchen(data: Kitchen): Observable<Kitchen> {
-    return this.httpClient.put<Kitchen>(`${this.apiUrl}/kitchen`, data);
+  updateKitchen(kitchenId: number, data: Kitchen): Observable<Kitchen> {
+    return this.httpClient.put<Kitchen>(
+      `${this.apiUrl}/kitchen/${kitchenId}`,
+      data
+    );
   }
   loadKitchens() {
     return this.httpClient.get<Kitchen[]>(`${this.apiUrl}/kitchen`);

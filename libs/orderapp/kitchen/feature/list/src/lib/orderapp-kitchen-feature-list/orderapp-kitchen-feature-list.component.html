@@ -15,6 +15,7 @@
       <div class="col-span-1">{{ kitchen.printer }}</div>
       <div class="col-span-1">
         {{ kitchen.shouldPrintKot ? 'print kot' : 'no kot' }}
+        <div (click)="editKitchen(kitchen)">edit</div>
       </div>
     </div>
     <div class="text-right pl-2">
