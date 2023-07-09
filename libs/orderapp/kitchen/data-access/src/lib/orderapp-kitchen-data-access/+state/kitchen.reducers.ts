@@ -18,11 +18,13 @@ export interface KitchenState {
   kitchens: Kitchen[];
   loadingIndicator: boolean;
   errorMessage: string;
+  kitchAddProgressIndicator: boolean;
 }
 
 const intialState: KitchenState = {
   kitchens: [],
   loadingIndicator: false,
+  kitchAddProgressIndicator: false,
   errorMessage: '',
 };
 
@@ -46,25 +48,31 @@ export const kitchenReducer = createReducer(
   })),
   on(addKitchen, (state) => ({
     ...state,
-    loadingIndicator: true,
+    kitchAddProgressIndicator: true,
     errorMessage: '',
   })),
-  on(addKitchenSuccess, (state) => ({ ...state, loadingIndicator: false })),
+  on(addKitchenSuccess, (state) => ({
+    ...state,
+    kitchAddProgressIndicator: false,
+  })),
   on(addKitchenFailed, (state, { errorMessage }) => ({
     ...state,
-    loadingIndicator: false,
+    kitchAddProgressIndicator: false,
     errorMessage,
   })),
 
   on(updateKitchen, (state) => ({
     ...state,
-    loadingIndicator: true,
+    kitchAddProgressIndicator: true,
     errorMessage: '',
   })),
-  on(updateKitchenSuccess, (state) => ({ ...state, loadingIndicator: false })),
+  on(updateKitchenSuccess, (state) => ({
+    ...state,
+    kitchAddProgressIndicator: false,
+  })),
   on(updateKitchenFailed, (state, { errorMessage }) => ({
     ...state,
-    loadingIndicator: false,
+    kitchAddProgressIndicator: false,
     errorMessage,
   }))
 );

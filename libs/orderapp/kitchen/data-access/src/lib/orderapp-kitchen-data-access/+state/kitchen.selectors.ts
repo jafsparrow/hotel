@@ -8,3 +8,13 @@ export const selectKitchens = createSelector(
   selectKitchenState,
   (state) => state.kitchens
 );
+
+export const selectKitchneLoadingIndicator = createSelector(
+  selectKitchenState,
+  (state) => state.loadingIndicator
+);
+
+export const selectKitchenAddLoadingIndicator = createSelector(
+  selectKitchenState,
+  (state) => state.kitchAddProgressIndicator
+);

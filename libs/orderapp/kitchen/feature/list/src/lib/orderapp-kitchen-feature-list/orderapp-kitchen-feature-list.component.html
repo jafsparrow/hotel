@@ -1,1 +1,42 @@
-<p>orderapp-kitchen-feature-list works!</p>
+<div class="bg-gray-100 p-2 h-screen">
+  <div
+    class="max-w-md mx-auto p-2 grid grid-cols-1 gap-1"
+    *ngIf="selectKitchens$ | async as kitchens"
+  >
+    <div class="font-semibold">Kitchens</div>
+    <div class="grid grid-cols-4 p-2">
+      <div class="col-span-2">Kitchen Name</div>
+      <div class="col-span-1">Printer Name</div>
+      <div class="col-span-1">Actions</div>
+    </div>
+
+    <div class="grid grid-cols-4 bg-white p-2" *ngFor="let kitchen of kitchens">
+      <div class="col-span-2">{{ kitchen.name }}</div>
+      <div class="col-span-1">{{ kitchen.printer }}</div>
+      <div class="col-span-1">
+        {{ kitchen.shouldPrintKot ? 'print kot' : 'no kot' }}
+      </div>
+    </div>
+
+    <div class="grid grid-cols-4 bg-white p-2">
+      <div class="col-span-2">Main</div>
+      <div class="col-span-1">Printer</div>
+      <div class="col-span-1">Edit</div>
+    </div>
+
+    <div class="grid grid-cols-4 bg-white p-2">
+      <div class="col-span-2">Main</div>
+      <div class="col-span-1">Printer</div>
+      <div class="col-span-1">Edit</div>
+    </div>
+
+    <div class="text-right pl-2">
+      <div
+        class="bg-green-300 py-1 px-2 text-center inline-block rounded-md cursor-pointer"
+        (click)="addKitchen()"
+      >
+        ADD
+      </div>
+    </div>
+  </div>
+</div>

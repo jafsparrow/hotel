@@ -1,46 +1,53 @@
-<p>orderapp-kitchen-feature-add works!</p>
+<div class="p-2">
+  <div class="font-semibold pb-2">Add a kitchen</div>
+  <form [formGroup]="kitchenAddForm" class="grid grid-cols-1 gap-2 max-w-md">
+    <div>
+      <input
+        type="text"
+        formControlName="name"
+        class="w-full border p-2"
+        placeholder="Enter Kitchen Name"
+      />
+    </div>
 
-<form [formGroup]="kitchenAddForm" class="p-2 grid grid-cols-1 gap-2">
-  <div>
-    <input
-      type="text"
-      formControlName="name"
-      class="w-full border p-2"
-      placeholder="Enter Kitchen Name"
-    />
-  </div>
-
-  <div *ngIf="selectPrinters$ | async as printers">
-    <select
-      name="printer"
-      id="pritner"
-      class="p-2 border w-full"
-      formArrayName="printer"
-    >
-      <option
-        *ngFor="let printer of printers"
-        [value]="printer.name"
-        class="p-2"
+    <div *ngIf="selectPrinters$ | async as printers">
+      <select
+        name="printer"
+        id="pritner"
+        class="p-2 border w-full"
+        formControlName="printer"
       >
-        {{ printer.name }}
-      </option>
-    </select>
-  </div>
+        <option
+          *ngFor="let printer of printers"
+          [value]="printer.name"
+          class="p-2"
+        >
+          {{ printer.name }}
+        </option>
+      </select>
+    </div>
 
-  <div>
-    <label for="shouldPrintKot">Print KOT</label>
-    <input
-      type="checkbox"
-      id="shouldPrintKot"
-      formControlName="shouldPrintKot"
-      class="ml-5 w-6 h-6"
-    />
-  </div>
-  <button
-    type="submit"
-    class="bg-gray-700 text-white rounded-full py-1"
-    [disabled]="!kitchenAddForm.valid"
-  >
-    ADD
-  </button>
-</form>
+    <div>
+      <label for="shouldPrintKot">Print KOT</label>
+      <input
+        type="checkbox"
+        formControlName="shouldPrintKot"
+        class="ml-5 w-6 h-6"
+      />
+    </div>
+    <div *ngIf="selectAddKitchenIndicator$ | async; else addNew">
+      Adding....
+    </div>
+    <ng-template #addNew>
+      <button
+        type="submit"
+        class="bg-gray-700 text-white rounded-full py-1"
+        [disabled]="!kitchenAddForm.valid"
+        [ngClass]="{ 'bg-green-400': kitchenAddForm.valid }"
+        (click)="addKitchen()"
+      >
+        ADD
+      </button>
+    </ng-template>
+  </form>
+</div>

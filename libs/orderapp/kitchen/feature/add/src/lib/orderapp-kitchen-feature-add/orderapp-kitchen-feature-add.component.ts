@@ -9,6 +9,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { Validator } from 'class-validator';
+import {
+  addKitchen,
+  selectKitchenAddLoadingIndicator,
+  selectKitchneLoadingIndicator,
+} from '@hotel/orderapp/kitchen/data-access';
+import { Kitchen } from '@hotel/common/types';
 
 @Component({
   selector: 'hotel-orderapp-kitchen-feature-add',
@@ -19,6 +25,9 @@ import { Validator } from 'class-validator';
 })
 export class OrderappKitchenFeatureAddComponent {
   selectPrinters$ = this.store.select(selectPrinters);
+  selectAddKitchenIndicator$ = this.store.select(
+    selectKitchenAddLoadingIndicator
+  );
   kitchenAddForm: FormGroup = new FormGroup({
     name: new FormControl('', { validators: [Validators.required] }),
     printer: new FormControl('', { validators: [Validators.required] }),
@@ -27,6 +36,12 @@ export class OrderappKitchenFeatureAddComponent {
   constructor(private store: Store) {}
 
   addKitchen() {
-    // this.store.dispatch()
+    console.log(this.kitchenAddForm.value);
+    const kitchen: Kitchen = {
+      ...this.kitchenAddForm.value,
+    };
+    if (this.kitchenAddForm.valid) {
+      this.store.dispatch(addKitchen({ kitchen }));
+    }
   }
 }
