@@ -11,10 +11,13 @@ export class KitchenService {
     @Inject('endPointURL') public apiUrl: string
   ) {}
 
-  createKitchen(data: PrinterDetail): Observable<PrinterDetail> {
-    return this.httpClient.post<PrinterDetail>(`${this.apiUrl}/kitchen`, data);
+  createKitchen(data: Kitchen): Observable<Kitchen> {
+    return this.httpClient.post<Kitchen>(`${this.apiUrl}/kitchen`, data);
   }
 
+  updateKitchen(data: Kitchen): Observable<Kitchen> {
+    return this.httpClient.put<Kitchen>(`${this.apiUrl}/kitchen`, data);
+  }
   loadKitchens() {
     return this.httpClient.get<Kitchen[]>(`${this.apiUrl}/kitchen`);
   }

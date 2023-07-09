@@ -1,9 +1,15 @@
 import { Kitchen } from '@hotel/common/types';
 import { createReducer, on } from '@ngrx/store';
 import {
+  addKitchen,
+  addKitchenFailed,
+  addKitchenSuccess,
   loadKitchenSuccess,
   loadKitchens,
   loadKitchensFailed,
+  updateKitchen,
+  updateKitchenFailed,
+  updateKitchenSuccess,
 } from './kitchen.actions';
 
 export const KITCHEN_FEATURE_KEY = 'kitchen';
@@ -37,5 +43,28 @@ export const kitchenReducer = createReducer(
     ...state,
     errorMessage,
     loadingIndicator: false,
+  })),
+  on(addKitchen, (state) => ({
+    ...state,
+    loadingIndicator: true,
+    errorMessage: '',
+  })),
+  on(addKitchenSuccess, (state) => ({ ...state, loadingIndicator: false })),
+  on(addKitchenFailed, (state, { errorMessage }) => ({
+    ...state,
+    loadingIndicator: false,
+    errorMessage,
+  })),
+
+  on(updateKitchen, (state) => ({
+    ...state,
+    loadingIndicator: true,
+    errorMessage: '',
+  })),
+  on(updateKitchenSuccess, (state) => ({ ...state, loadingIndicator: false })),
+  on(updateKitchenFailed, (state, { errorMessage }) => ({
+    ...state,
+    loadingIndicator: false,
+    errorMessage,
   }))
 );
