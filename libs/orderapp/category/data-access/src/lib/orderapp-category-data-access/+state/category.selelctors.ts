@@ -13,3 +13,8 @@ export const selectCategoryLoadingIndicator = createSelector(
   selectCategoryState,
   (state) => state.isCategoryLoading
 );
+
+export const selectcategoryAddProgressIndicator = createSelector(
+  selectCategoryState,
+  (state) => state.categoryAddProgressIndicator
+);

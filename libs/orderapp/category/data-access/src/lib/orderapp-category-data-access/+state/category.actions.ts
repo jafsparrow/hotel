@@ -18,10 +18,25 @@ export const addCategory = createAction(
 
 export const addCategorySuccess = createAction(
   '[CATEGORY] add category success',
-  props<{ organisation: Organisation }>()
+  props<{ category: Category }>()
 );
 
 export const addCategoryFail = createAction(
-  '[CATEGORY] add category fail',
+  '[CATEGORY] edit category fail',
+  props<{ errorMessage: string }>()
+);
+
+export const editCategory = createAction(
+  '[CATEGORY] edit new category',
+  props<{ categoryId: number; category: Category }>()
+);
+
+export const editCategorySuccess = createAction(
+  '[CATEGORY] edit category success',
+  props<{ category: Category }>()
+);
+
+export const editCategoryFail = createAction(
+  '[CATEGORY] edit category fail',
   props<{ errorMessage: string }>()
 );

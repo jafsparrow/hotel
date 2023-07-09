@@ -3,6 +3,9 @@ import {
   addCategory,
   addCategoryFail,
   addCategorySuccess,
+  editCategory,
+  editCategoryFail,
+  editCategorySuccess,
   loadCategoriesSuccess,
   loadCategoryFail,
 } from './category.actions';
@@ -14,12 +17,14 @@ export interface CategoryState {
   categories: Category[];
   isCategoryLoading: boolean;
   errorMessage: string;
+  categoryAddProgressIndicator: boolean;
 }
 
 const initialState: CategoryState = {
   categories: [],
   isCategoryLoading: false,
   errorMessage: '',
+  categoryAddProgressIndicator: false,
 };
 
 export const categoryReducer = createReducer(
@@ -33,19 +38,34 @@ export const categoryReducer = createReducer(
     ...state,
     errorMessage: errorMessage,
   })),
-  on(addCategory, (state, { category }) => ({
+  on(addCategory, (state) => ({
     ...state,
-    isCategoryLoading: true,
+    categoryAddProgressIndicator: true,
     errorMessage: '',
   })),
-  on(addCategorySuccess, (state, { organisation }) => ({
+  on(addCategorySuccess, (state) => ({
     ...state,
-    isCategoryLoading: false,
+    categoryAddProgressIndicator: false,
     errorMessage: '',
   })),
   on(addCategoryFail, (state, { errorMessage }) => ({
     ...state,
-    isCategoryLoading: false,
+    categoryAddProgressIndicator: false,
+    errorMessage,
+  })),
+  on(editCategory, (state) => ({
+    ...state,
+    categoryAddProgressIndicator: true,
+    errorMessage: '',
+  })),
+  on(editCategorySuccess, (state) => ({
+    ...state,
+    categoryAddProgressIndicator: false,
+    errorMessage: '',
+  })),
+  on(editCategoryFail, (state, { errorMessage }) => ({
+    ...state,
+    categoryAddProgressIndicator: false,
     errorMessage,
   }))
 );

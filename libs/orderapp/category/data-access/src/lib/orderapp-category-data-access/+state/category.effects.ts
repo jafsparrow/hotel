@@ -8,6 +8,8 @@ import {
   addCategory,
   addCategoryFail,
   addCategorySuccess,
+  editCategory,
+  editCategorySuccess,
   loadCategories,
   loadCategoriesSuccess,
   loadCategoryFail,
@@ -17,9 +19,8 @@ import {
 export class CategoryEffects {
   constructor(
     private actions$: Actions,
-    private categoryService: CategoryService // private dialog: MatDialog,
-  ) // private _snackBar: MatSnackBar
-  {}
+    private categoryService: CategoryService // private dialog: MatDialog, // private _snackBar: MatSnackBar
+  ) {}
 
   loadCategoryEffect$ = createEffect(() => {
     return this.actions$.pipe(
@@ -35,20 +36,49 @@ export class CategoryEffects {
     );
   });
 
-  // addCategoryEffect$ = createEffect(() => {
-  //   return this.actions$.pipe(
-  //     ofType(addCategory),
-  //     switchMap((payload) =>
-  //       this.categoryService
-  //         .addCategory(payload.category)
-  //         .pipe(
-  //           catchError((error) =>
-  //             of(addCategoryFail({ errorMessage: 'Could not create category' }))
-  //           )
-  //         )
-  //     )
-  //   );
-  // });
+  addCategoryEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(addCategory),
+      switchMap((payload) =>
+        this.categoryService.createCategory(payload.category).pipe(
+          map((data) => addCategorySuccess({ category: data })),
+          catchError((error) =>
+            of(addCategoryFail({ errorMessage: 'Could not create category' }))
+          )
+        )
+      )
+    );
+  });
+
+  addCategorySuccessEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(addCategorySuccess),
+      switchMap((payload) => of(loadCategories()))
+    );
+  });
+
+  editCategoryEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(editCategory),
+      switchMap((payload) =>
+        this.categoryService
+          .updateCategory(payload.categoryId, payload.category)
+          .pipe(
+            map((data) => editCategorySuccess({ category: data })),
+            catchError((error) =>
+              of(addCategoryFail({ errorMessage: 'Could not create category' }))
+            )
+          )
+      )
+    );
+  });
+
+  editCategorySuccessEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(editCategorySuccess),
+      switchMap((payload) => of(loadCategories()))
+    );
+  });
 
   // addCategorySuccessEffect$ = createEffect(() => {
   //   return this.actions$.pipe(
