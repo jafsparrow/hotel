@@ -1,1 +1,70 @@
-<p>orderapp-category-feature-add works!</p>
+<div class="p-2">
+  <div class="font-semibold pb-2">Add a kitchen</div>
+  <form [formGroup]="categoryAddForm" class="grid grid-cols-1 gap-2 max-w-md">
+    <div>
+      <input
+        type="text"
+        formControlName="name"
+        class="w-full border p-2"
+        placeholder="Category Name"
+      />
+    </div>
+
+    <div *ngIf="selectKitchens$ | async as kitchens">
+      <select
+        name="printer"
+        id="pritner"
+        class="p-2 border w-full"
+        formControlName="kitchenId"
+      >
+        <option
+          *ngFor="let kitchen of kitchens"
+          [value]="kitchen.id"
+          class="p-2"
+        >
+          {{ kitchen.name }}
+        </option>
+      </select>
+    </div>
+
+    <div>
+      <input
+        type="text"
+        class="w-full border p-2"
+        placeholder="Category Code"
+        formControlName="categoryCode"
+      />
+    </div>
+
+    <!-- <div>
+      <input
+        type="text"
+        class="w-full border p-2"
+        placeholder="Color"
+        formControlName="color"
+      />
+    </div> -->
+
+    <div>
+      <ngx-colors
+        ngx-colors-trigger
+        style="display: inline-block; margin: 5px"
+        formControlName="color"
+      ></ngx-colors>
+    </div>
+    <div *ngIf="selectAddCategoryIndicator$ | async; else addNew">
+      Adding....
+    </div>
+    <ng-template #addNew>
+      <button
+        type="submit"
+        class="bg-gray-700 text-white rounded-full py-1"
+        [disabled]="!categoryAddForm.valid"
+        [ngClass]="{ 'bg-green-400': categoryAddForm.valid }"
+        (click)="addCategory()"
+      >
+        {{ data?.category ? 'UPDATE' : 'ADD' }}
+      </button>
+    </ng-template>
+  </form>
+</div>

@@ -22,6 +22,11 @@ import {
   KitchenEffects,
   kitchenReducer,
 } from '@hotel/orderapp/kitchen/data-access';
+import {
+  CATEGORY_FEATURE_KEY,
+  CategoryEffects,
+  categoryReducer,
+} from '@hotel/orderapp/category/data-access';
 
 export const shellRoutes: Routes = [
   { path: '', component: OrderappShellComponent },
@@ -43,6 +48,8 @@ export const shellRoutes: Routes = [
       provideEffects(CompanyEffects),
       provideState(KITCHEN_FEATURE_KEY, kitchenReducer),
       provideEffects(KitchenEffects),
+      provideState(CATEGORY_FEATURE_KEY, categoryReducer),
+      provideEffects(CategoryEffects),
     ],
   },
   {

@@ -1,3 +1,5 @@
+import { Kitchen } from './kitchen';
+
 export interface Category {
   id: number;
   menuId?: string;
@@ -14,6 +16,7 @@ export interface Category {
   hours?: null[] | null;
   adminIndex?: number;
   code?: number;
+  kitchen?: Kitchen;
 }
 export interface Product {
   id: number;

@@ -8,6 +8,9 @@ export class CreateCategoryDto {
   color!: string;
   @IsNumber()
   kitchenId!: number;
+
+  @IsNumber()
+  categoryCode!: number;
   @IsOptional()
   startTime!: string;
   @IsOptional()

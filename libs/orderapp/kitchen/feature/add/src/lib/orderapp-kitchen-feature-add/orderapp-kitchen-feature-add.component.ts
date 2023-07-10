@@ -43,7 +43,7 @@ export class OrderappKitchenFeatureAddComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const kitchenToEdit = this.data.kitchen;
+    const kitchenToEdit = this.data?.kitchen;
     console.log('kitchen t edit', kitchenToEdit);
     if (kitchenToEdit) {
       this.kitchenAddForm.patchValue(kitchenToEdit);
