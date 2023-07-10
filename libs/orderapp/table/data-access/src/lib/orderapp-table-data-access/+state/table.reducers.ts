@@ -2,6 +2,9 @@ import { Floor, Table } from '@hotel/common/types';
 import { loadProducts } from '@hotel/orderapp/product/data-access';
 import { createReducer, on } from '@ngrx/store';
 import {
+  addTable,
+  addTableFailed,
+  addTableSuccess,
   loadFloorTables,
   loadFloorTablesFail,
   loadFloorTablesSuccess,
@@ -9,6 +12,9 @@ import {
   loadFloorsFaile,
   loadFloorsSuccess,
   loadTables,
+  updateTable,
+  updateTableFailed,
+  updateTableSuccess,
 } from './table.actions';
 
 export const TABLE_FEATURE_KEY = 'table';
@@ -20,6 +26,7 @@ export interface TableState {
   errorMessage: string;
   floors: Floor[];
   selectedFloorId: number;
+  tableAddProgressIndicator: boolean;
 }
 
 const initialState: TableState = {
@@ -29,6 +36,7 @@ const initialState: TableState = {
   errorMessage: '',
   floors: [],
   selectedFloorId: 0,
+  tableAddProgressIndicator: false,
 };
 
 export const tableReducers = createReducer(
@@ -59,5 +67,36 @@ export const tableReducers = createReducer(
     ...state,
     errorMessage,
     loadingIndicator: false,
+  })),
+
+  on(addTable, (state) => ({
+    ...state,
+    tableAddProgressIndicator: true,
+    errorMessage: '',
+  })),
+  on(addTableSuccess, (state) => ({
+    ...state,
+    tableAddProgressIndicator: false,
+    loadingIndicator: false,
+  })),
+  on(addTableFailed, (state, { errorMessage }) => ({
+    ...state,
+    tableAddProgressIndicator: false,
+    errorMessage,
+  })),
+
+  on(updateTable, (state) => ({
+    ...state,
+    tableAddProgressIndicator: true,
+    errorMessage: '',
+  })),
+  on(updateTableSuccess, (state) => ({
+    ...state,
+    tableAddProgressIndicator: false,
+  })),
+  on(updateTableFailed, (state, { errorMessage }) => ({
+    ...state,
+    tableAddProgressIndicator: false,
+    errorMessage,
   }))
 );

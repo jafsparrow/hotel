@@ -14,3 +14,4 @@ export * from './printer';
 export * from './kitchen';
 export * from './kitchen.dialog';
 export * from './category.dialog';
+export * from './table.dialog';

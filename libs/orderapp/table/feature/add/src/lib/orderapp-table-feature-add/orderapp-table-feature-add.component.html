@@ -1,45 +1,62 @@
-<div class="h-screen bg-gray-100 p-2">
+<div class="bg-gray-100 p-2">
   <div class="mx-auto grid max-w-md gap-2 bg-white p-2">
     <div class="mb-2 font-bold">Add a Table</div>
-    <div class="grid gap-2">
-      <label for="tableName">Table Name</label>
-      <input
-        type="text"
-        name="tableName"
-        id="tableName"
-        class="w-full rounded-md border px-2 py-1"
-      />
-    </div>
+    <form [formGroup]="tableAddForm">
+      <div class="grid gap-2">
+        <label for="tableName">Table Name</label>
+        <input
+          type="text"
+          formControlName="name"
+          class="w-full rounded-md border px-2 py-1"
+        />
+      </div>
 
-    <div class="grid gap-2">
-      <label for="tableName">Capacity</label>
-      <input
-        type="text"
-        name="tableName"
-        id="tableName"
-        class="w-full rounded-md border px-2 py-1"
-      />
-    </div>
+      <div class="grid gap-2">
+        <label for="tableName">Capacity</label>
+        <input
+          type="text"
+          formControlName="capacity"
+          class="w-full rounded-md border px-2 py-1"
+        />
+      </div>
 
-    <div class="grid gap-2">
-      <div class="">
-        <label for="tableName">Floor Name</label>
-        <div class="grid grid-cols-4 gap-2">
-          <select
-            name="floorName"
-            id="floorName"
-            class="col-span-3 w-full rounded-md border px-2 py-1"
-          >
-            <option value="first">First Floor</option>
-            <option value="second">Second</option>
-          </select>
-          <div
-            class="col-span-1 rounded-md bg-gray-600 p-1 text-center font-bold text-white"
-          >
-            ADD
+      <div class="grid gap-2">
+        <div class="">
+          <label for="tableName">Floor Name</label>
+          <div class="" *ngIf="selectFloors$ | async as floors">
+            <select
+              name="floorName"
+              id="floorName"
+              class="w-full rounded-md border px-2 py-1"
+              formControlName="floorId"
+            >
+              <option [value]="floor.id" *ngFor="let floor of floors">
+                {{ floor.name }}
+              </option>
+            </select>
+            <!-- <div
+              class="col-span-1 rounded-md bg-gray-600 p-1 text-center font-bold text-white"
+            >
+              ADD
+            </div> -->
+
+            <div *ngIf="selectTableAddIndicator$ | async; else addNew">
+              Adding....
+            </div>
           </div>
+          <ng-template #addNew>
+            <button
+              type="submit"
+              class="bg-gray-700 text-white py-1 px-2 rounded-md mt-3 w-full"
+              [disabled]="!tableAddForm.valid"
+              [ngClass]="{ 'bg-green-400': tableAddForm.valid }"
+              (click)="addTable()"
+            >
+              {{ data?.table ? 'UPDATE' : 'ADD' }}
+            </button>
+          </ng-template>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </div>

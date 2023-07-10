@@ -1,6 +1,7 @@
 import { PrismaService } from '@hotel/api/data-access-db';
 import { OrderStatus, PaymentStatus } from '@hotel/common/types';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { CreateTableDto } from './dto/create-table.dto';
 
 @Injectable()
 export class TableService {
@@ -19,10 +20,28 @@ export class TableService {
     });
   }
 
-  // async getFloorTables(floorId: number) {
-  //   return await this.prismaService.floor.findFirst({
-  //     where: { id: floorId },
-  //     include: { tables: true },
-  //   });
-  // }
+  private formatData(data: CreateTableDto) {
+    return {
+      name: data.name,
+      capacity: +data.capacity,
+      floorId: +data.floorId,
+    };
+  }
+
+  async createTable(data: CreateTableDto) {
+    return await this.prismaService.table.create({
+      data: this.formatData(data),
+    });
+  }
+
+  async udpateTable(id: number, data: CreateTableDto) {
+    try {
+      return this.prismaService.table.update({
+        where: { id },
+        data: this.formatData(data),
+      });
+    } catch (error) {
+      throw new BadRequestException({ error: error });
+    }
+  }
 }

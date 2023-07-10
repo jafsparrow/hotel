@@ -23,3 +23,8 @@ export const selectSelectedFloorId = createSelector(
   selectTableState,
   (state) => state.selectedFloorId
 );
+
+export const selectTableAddIndicator = createSelector(
+  selectTableState,
+  (state) => state.tableAddProgressIndicator
+);

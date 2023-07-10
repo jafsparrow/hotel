@@ -25,3 +25,29 @@ export const loadFloorTablesFail = createAction(
   '[Table] Load  flood table Failed',
   props<{ errorMessage: string }>()
 );
+
+export const addTable = createAction(
+  '[Table] add a new table',
+  props<{ table: Table }>()
+);
+export const addTableSuccess = createAction(
+  '[Table] add a new table Success',
+  props<{ table: Table }>()
+);
+export const addTableFailed = createAction(
+  '[Table] add a new table Failed',
+  props<{ errorMessage: string }>()
+);
+
+export const updateTable = createAction(
+  '[Table] update a  table',
+  props<{ tabledId: number; table: Table }>()
+);
+export const updateTableSuccess = createAction(
+  '[Table] update  table Success',
+  props<{ table: Table }>()
+);
+export const updateTableFailed = createAction(
+  '[Table] update  table Failed',
+  props<{ errorMessage: string }>()
+);

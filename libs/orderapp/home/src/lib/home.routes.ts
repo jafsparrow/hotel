@@ -40,9 +40,9 @@ export const homeRoutes: Routes = [
       provideState(ORDER_FEATURE_KEY, orderReducer),
       provideState(CART_FEATURE_KEY, cartReducer),
       provideState(TABLE_FEATURE_KEY, tableReducers),
+      provideEffects(TableEffects),
       provideEffects(ProductsEffects),
       provideEffects(CategoryEffects),
-      provideEffects(TableEffects),
     ],
   },
 ];
