@@ -15,7 +15,7 @@ export interface Category {
   openAllDay?: null;
   hours?: null[] | null;
   adminIndex?: number;
-  code?: number;
+  categoryCode?: number;
   kitchen?: Kitchen;
 }
 export interface Product {
