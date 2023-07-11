@@ -51,6 +51,8 @@ export class ProductService {
         price: +data.price,
         cost: +data.cost,
         code: +data.code,
+        collectionId: +data.collectionId,
+        categoryId: +data.categoryId,
         qwickViewOrder: +data.qwickViewOrder,
       },
     });

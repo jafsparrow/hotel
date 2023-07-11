@@ -15,11 +15,12 @@ import {
   selectAddUpdateProductProgressFlag,
   updateProduct,
 } from '@hotel/orderapp/product/data-access';
+import { NgxColorsModule } from 'ngx-colors';
 
 @Component({
   selector: 'hotel-orderapp-product-feature-add',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, NgxColorsModule],
   templateUrl: './orderapp-product-feature-add.component.html',
   styleUrls: ['./orderapp-product-feature-add.component.css'],
 })
@@ -42,6 +43,7 @@ export class OrderappProductFeatureAddComponent implements OnInit {
     collectionId: new FormControl('', { validators: [Validators.required] }),
     qwickViewOrder: new FormControl('', { validators: [Validators.required] }),
     printName: new FormControl('', { validators: [Validators.required] }),
+    color: new FormControl('', { validators: [Validators.required] }),
   });
 
   constructor(
@@ -61,8 +63,7 @@ export class OrderappProductFeatureAddComponent implements OnInit {
   addProduct() {
     if (!this.productAddForm.valid) return;
 
-    console.log(this.data.product);
-    if (this.data.product) {
+    if (this.data && this.data.product) {
       this.store.dispatch(
         updateProduct({
           productId: this.data.product.id!,

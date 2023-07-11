@@ -39,7 +39,9 @@ export const selectIsOrganisationUserLoggedIn = createSelector(
 export const selectAccessBackOffice = createSelector(
   selectAuthState,
   (state) => {
-    return state.user?.isAdmin ?? false;
+    const result = state.user && state.user!.isAdmin;
+    console.log('result is back office ', result);
+    return result ? true : false;
   }
 );
 

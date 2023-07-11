@@ -26,7 +26,7 @@ export class CreateProductDto {
   name!: string;
 
   categoryId!: number;
-
+  color?: string;
   collectionId!: number;
   code!: number;
   qwickViewOrder!: number;

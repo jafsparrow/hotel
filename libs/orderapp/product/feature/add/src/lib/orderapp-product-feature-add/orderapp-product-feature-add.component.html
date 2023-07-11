@@ -29,7 +29,7 @@
       <div class="col-span-3 border-l-2 p-2">
         <input
           type="text"
-          placeholder="Product Name"
+          placeholder="Product Code"
           formControlName="code"
           class="ml-2 w-full rounded-md border p-2"
         />
@@ -131,6 +131,14 @@
           class="ml-2 w-full rounded-md border p-2"
         />
       </div>
+    </div>
+
+    <div>
+      <ngx-colors
+        ngx-colors-trigger
+        style="display: inline-block; margin: 5px"
+        formControlName="color"
+      ></ngx-colors>
     </div>
   </div>
   <div *ngIf="selectAddProductIndicator$ | async; else addNew">Adding....</div>
