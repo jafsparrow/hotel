@@ -36,4 +36,7 @@ export class OrderappDashboardFeaturePageComponent {
   logout() {
     return this.store.dispatch(logout());
   }
+  goToShellPage() {
+    this.router.navigate(['shell']);
+  }
 }

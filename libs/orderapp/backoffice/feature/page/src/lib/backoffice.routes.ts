@@ -28,7 +28,7 @@ export const shellRoutes: Routes = [
           ),
       },
       {
-        path: 'company',
+        path: '',
         loadComponent: () =>
           import('@hotel/orderapp/backoffice/feature/company-manage').then(
             (c) => c.OrderappBackofficeFeatureCompanyManageComponent

@@ -31,11 +31,18 @@
       </div>
     </div>
     <div
-      class="bg-gray-900 text-white p-2 text-center rounded-md cursor-pointer hover:bg-gray-700"
+      class="bg-gray-900 text-white p-2 mt-5 text-center rounded-md cursor-pointer hover:bg-gray-700"
       routerLink="office"
       *ngIf="selectCanAccessBackOffice$ | async"
     >
       Back Office
+    </div>
+    <div
+      class="bg-gray-900 text-white mt-5 p-2 text-center rounded-md cursor-pointer hover:bg-gray-700"
+      routerLink="dashboard"
+      *ngIf="selectCanAccessCash$ | async"
+    >
+      Dashboard
     </div>
   </div>
 </div>
