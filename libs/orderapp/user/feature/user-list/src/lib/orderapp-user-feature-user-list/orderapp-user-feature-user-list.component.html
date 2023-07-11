@@ -1,0 +1,33 @@
+<div class="bg-gray-100 p-2">
+  <div class="max-w-md mx-auto p-2 grid grid-cols-1 gap-1">
+    <div class="font-semibold">Users</div>
+    <div class="grid grid-cols-5 p-2">
+      <div class="col-span-2">Name</div>
+      <div class="col-span-1">User Id</div>
+      <div class="col-span-1">Password</div>
+      <div class="col-span-1">Roles</div>
+    </div>
+
+    <!-- <div
+        class="grid grid-cols-5 bg-white p-2"
+        *ngFor="let category of categories"
+      >
+        <div class="col-span-2">{{ category.name }}</div>
+        <div class="col-span-1">{{ category.categoryCode }}</div>
+        <div class="col-span-1">
+          {{ category.kitchen ? category.kitchen.name : 'no assigned' }}
+        </div>
+        <div class="col-span-1">
+          <div (click)="editUser(category)">edit</div>
+        </div>
+      </div> -->
+    <div class="text-right pl-2">
+      <div
+        class="bg-green-300 py-1 px-2 text-center inline-block rounded-md cursor-pointer"
+        (click)="addUser()"
+      >
+        ADD
+      </div>
+    </div>
+  </div>
+</div>

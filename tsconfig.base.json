@@ -215,7 +215,13 @@
       "@hotel/orderapp/tax/feature/add": [
         "libs/orderapp/tax/feature/add/src/index.ts"
       ],
-      "@hotel/orderapp/ui": ["libs/orderapp/ui/src/index.ts"]
+      "@hotel/orderapp/ui": ["libs/orderapp/ui/src/index.ts"],
+      "@hotel/orderapp/user/feature/user-add": [
+        "libs/orderapp/user/feature/user-add/src/index.ts"
+      ],
+      "@hotel/orderapp/user/feature/user-list": [
+        "libs/orderapp/user/feature/user-list/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
