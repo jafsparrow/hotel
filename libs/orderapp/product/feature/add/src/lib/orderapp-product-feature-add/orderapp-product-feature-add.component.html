@@ -1,11 +1,48 @@
-<div class="bg-gray-100 p-2 text-sm">
+<form class="bg-gray-100 p-5 text-sm" [formGroup]="productAddForm">
   <div class="sm:grid sm:grid-cols-2 sm:gap-x-2">
     <div class="grid grid-cols-4 bg-white px-2 sm:col-span-1">
       <div class="col-span-1 py-2">Product Name</div>
       <div class="col-span-3 border-l-2 p-2">
         <input
           type="text"
-          placeholder="Name"
+          placeholder="Product Name"
+          formControlName="name"
+          class="ml-2 w-full rounded-md border p-2"
+        />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-4 bg-white px-2 sm:col-span-1">
+      <div class="col-span-1 py-2">Print Name</div>
+      <div class="col-span-3 border-l-2 p-2">
+        <input
+          type="text"
+          placeholder="Print Name"
+          formControlName="printName"
+          class="ml-2 w-full rounded-md border p-2"
+        />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-4 bg-white px-2 sm:col-span-1">
+      <div class="col-span-1 py-2">Code</div>
+      <div class="col-span-3 border-l-2 p-2">
+        <input
+          type="text"
+          placeholder="Product Name"
+          formControlName="code"
+          class="ml-2 w-full rounded-md border p-2"
+        />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-4 bg-white px-2 sm:col-span-1">
+      <div class="col-span-1 py-2">Qwik acces</div>
+      <div class="col-span-3 border-l-2 p-2">
+        <input
+          type="text"
+          placeholder="Qwikview Number"
+          formControlName="qwickViewOrder"
           class="ml-2 w-full rounded-md border p-2"
         />
       </div>
@@ -16,7 +53,8 @@
       <div class="col-span-3 border-l-2 p-2">
         <input
           type="text"
-          placeholder="Name"
+          placeholder="Other Language"
+          formControlName="secondaryLanguageName"
           class="ml-2 w-full rounded-md border p-2"
         />
       </div>
@@ -27,22 +65,31 @@
       <div class="col-span-3 border-l-2 p-2">
         <input
           type="text"
-          placeholder="Name"
+          placeholder="Description"
           class="ml-2 w-full rounded-md border p-2"
+          formControlName="description"
         />
       </div>
     </div>
   </div>
 
   <div class="mt-2 sm:mt-0 sm:grid sm:grid-cols-2 sm:gap-x-2">
-    <div class="grid grid-cols-4 bg-white px-2 sm:col-span-1">
+    <div
+      class="grid grid-cols-4 bg-white px-2 sm:col-span-1"
+      *ngIf="selectCategories$ | async as categories"
+    >
       <div class="col-span-1 py-2">category</div>
       <div class="col-span-3 border-l-2 p-2">
-        <select name="cars" id="cars" class="ml-2 w-full rounded-md border p-2">
-          <option value="chicken">Chicken</option>
-          <option value="mutton">Mutton</option>
+        <select
+          class="ml-2 w-full rounded-md border p-2"
+          formControlName="categoryId"
+        >
+          <option *ngFor="let category of categories" [value]="category.id">
+            {{ category.name }}
+          </option>
+          <!-- <option value="mutton">Mutton</option>
           <option value="juice">Juice</option>
-          <option value="fish">Fish</option>
+          <option value="fish">Fish</option> -->
         </select>
       </div>
     </div>
@@ -51,14 +98,13 @@
       <div class="col-span-1 py-2">Collection</div>
       <div class="col-span-3 border-l-2 p-2">
         <select
-          name="cars"
-          id="collection"
+          formControlName="collectionId"
           class="ml-2 w-full rounded-md border p-2"
         >
-          <option value="arabic">Arabian</option>
-          <option value="mexican">Mexican</option>
-          <option value="continent">Continental</option>
-          <option value="soft">Soft</option>
+          <option value="1">Arabian</option>
+          <option value="1">Mexican</option>
+          <option value="1">Continental</option>
+          <option value="1">Soft</option>
         </select>
       </div>
     </div>
@@ -68,7 +114,8 @@
       <div class="col-span-3 border-l-2 p-2">
         <input
           type="text"
-          placeholder="Name"
+          placeholder="Selling rate"
+          formControlName="price"
           class="ml-2 w-full rounded-md border p-2"
         />
       </div>
@@ -79,12 +126,25 @@
       <div class="col-span-3 border-l-2 p-2">
         <input
           type="text"
-          placeholder="Name"
+          placeholder="Cost"
+          formControlName="cost"
           class="ml-2 w-full rounded-md border p-2"
         />
       </div>
     </div>
   </div>
+  <div *ngIf="selectAddProductIndicator$ | async; else addNew">Adding....</div>
+  <ng-template #addNew>
+    <button
+      type="submit"
+      class="bg-gray-700 w-full my-5 text-white rounded-full py-1"
+      [disabled]="!productAddForm.valid"
+      [ngClass]="{ 'bg-green-400': productAddForm.valid }"
+      (click)="addProduct()"
+    >
+      {{ data?.product ? 'UPDATE' : 'ADD' }}
+    </button>
+  </ng-template>
   <div class="font-semibold text-lg">Variants</div>
   <div class="mt-2 bg-white p-2 sm:col-span-1 sm:mt-0">
     <div class="grid grid-cols-6 gap-1">
@@ -126,4 +186,4 @@
       </div>
     </div>
   </div>
-</div>
+</form>

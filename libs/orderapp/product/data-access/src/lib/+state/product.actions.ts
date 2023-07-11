@@ -91,7 +91,7 @@ export const updateProductBooleanFail = createAction(
 
 export const updateProduct = createAction(
   '[Product] update a product',
-  props<{ productId: string; product: Product }>()
+  props<{ productId: number; product: Product }>()
 );
 
 export const updateProductSuccess = createAction(

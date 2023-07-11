@@ -62,7 +62,7 @@ export const productsReducer = createReducer(
       productAddUpdateInProgress: true,
     };
   }),
-  on(addProductSuccess, (state, { organisation }) => ({
+  on(addProductSuccess, (state, { product }) => ({
     ...state,
     productAddUpdateInProgress: false,
     errorMessage: '',

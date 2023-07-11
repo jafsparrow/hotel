@@ -10,6 +10,8 @@ import { loadCompany } from '@hotel/orderapp/company/data-access';
 import { loadKitchens } from '@hotel/orderapp/kitchen/data-access';
 import { logout } from '@hotel/orderapp/auth/data-access';
 import { OrderappAuthFeatureSignedUserDetailComponent } from '@hotel/orderapp/auth/feature/signed-user-detail';
+import { loadProducts } from '@hotel/orderapp/product/data-access';
+import { loadCategories } from '@hotel/orderapp/category/data-access';
 @Component({
   selector: 'hotel-orderapp-backoffice-feature-page',
   standalone: true,
@@ -33,6 +35,8 @@ export class OrderappBackofficeFeaturePageComponent {
   ) {
     this.store.dispatch(loadCompany({ id: 1 }));
     this.store.dispatch(loadKitchens());
+    this.store.dispatch(loadProducts());
+    this.store.dispatch(loadCategories());
   }
   navigateTo(path: string) {
     this.router.navigate([path], { relativeTo: this.route });

@@ -56,9 +56,9 @@ export class ProductsService {
   //   );
   // }
 
-  updateProduct(productId: string, product: Product): Observable<Product> {
+  updateProduct(productId: number, product: Product): Observable<Product> {
     return this.httpClient.put<Product>(
-      `${this.apiUrl}/products/${productId}`,
+      `${this.apiUrl}/product/${productId}`,
       product
     );
   }

@@ -32,6 +32,11 @@ import {
   TableEffects,
   tableReducers,
 } from '@hotel/orderapp/table/data-access';
+import {
+  PRODUCTS_FEATURE_KEY,
+  ProductsEffects,
+  productsReducer,
+} from '@hotel/orderapp/product/data-access';
 
 export const shellRoutes: Routes = [
   { path: '', component: OrderappShellComponent },
@@ -57,6 +62,8 @@ export const shellRoutes: Routes = [
       provideEffects(CategoryEffects),
       provideState(TABLE_FEATURE_KEY, tableReducers),
       provideEffects(TableEffects),
+      provideState(PRODUCTS_FEATURE_KEY, productsReducer),
+      provideEffects(ProductsEffects),
     ],
   },
   {

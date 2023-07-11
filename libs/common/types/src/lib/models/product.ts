@@ -42,6 +42,7 @@ export interface Product {
   indexInCategory?: number;
 
   qwickViewOrder?: number;
+  code?: number;
 }
 
 export interface Variant {

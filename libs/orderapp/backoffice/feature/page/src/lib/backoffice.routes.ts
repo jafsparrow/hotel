@@ -9,8 +9,8 @@ export const shellRoutes: Routes = [
       {
         path: 'product',
         loadComponent: () =>
-          import('@hotel/orderapp/product/feature/add').then(
-            (c) => c.OrderappProductFeatureAddComponent
+          import('@hotel/orderapp/product/feature/admin-list').then(
+            (c) => c.OrderappProductFeatureAdminListComponent
           ),
       },
       {

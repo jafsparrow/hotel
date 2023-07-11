@@ -36,12 +36,12 @@ export const homeRoutes: Routes = [
     component: OrderappHomeComponent,
     providers: [
       provideState(PRODUCTS_FEATURE_KEY, productsReducer),
+      provideEffects(ProductsEffects),
       provideState(CATEGORY_FEATURE_KEY, categoryReducer),
       provideState(ORDER_FEATURE_KEY, orderReducer),
       provideState(CART_FEATURE_KEY, cartReducer),
       provideState(TABLE_FEATURE_KEY, tableReducers),
       provideEffects(TableEffects),
-      provideEffects(ProductsEffects),
       provideEffects(CategoryEffects),
     ],
   },

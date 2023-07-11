@@ -46,9 +46,12 @@ model product {
     qwickViewOrder        Int?            @default(1)
     category              category        @relation(fields: [categoryId], references: [id], onDelete: Cascade)
     categoryId            Int
+    color                 String          @default("")
     variants              variant[]
     modifierGroup         modifierGroup[]
     orderItem             orderItem[]
+    description           String          @default("product details")
+    printName             String          @default("Not Added")
 }
 
 model category {
