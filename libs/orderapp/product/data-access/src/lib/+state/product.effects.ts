@@ -10,10 +10,14 @@ import {
   addProductFailure,
   addProductSuccess,
   addupdateProductInprogress,
+  editProduct,
   loadProducts,
   loadProductsFail,
   loadProductsLoading,
   loadProductsSuccess,
+  updateProduct,
+  updateProductFail,
+  updateProductSuccess,
 } from './product.actions';
 
 @Injectable()
@@ -40,15 +44,13 @@ export class ProductsEffects {
     );
   });
 
-  addProduct$ = createEffect(() => {
+  addProductEffect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(addProduct),
       tap((data) => this.store.dispatch(addupdateProductInprogress())),
       switchMap((data) =>
         this.productService.addProduct(data.product).pipe(
-          map((res) =>
-            addProductSuccess({ organisation: res as Organisation })
-          ),
+          map((res) => addProductSuccess({ product: res })),
           catchError((error) => {
             // this.dialog.closeAll();
             return of(addProductFailure({ error: error }));
@@ -58,6 +60,35 @@ export class ProductsEffects {
     );
   });
 
+  addProductSuccessEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(addProductSuccess),
+      switchMap((data) => of(loadProducts()))
+    );
+  });
+
+  editProductEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(updateProduct),
+      tap((data) => this.store.dispatch(addupdateProductInprogress())),
+      switchMap((data) =>
+        this.productService.updateProduct(data.productId, data.product).pipe(
+          map((res) => updateProductSuccess({ product: res })),
+          catchError((error) => {
+            // this.dialog.closeAll();
+            return of(updateProductFail({ errorMessage: error }));
+          })
+        )
+      )
+    );
+  });
+
+  updateProductSuccessEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(updateProductSuccess),
+      switchMap((data) => of(loadProducts()))
+    );
+  });
   //   productAddSuccess$ = createEffect(() => {
   //     return this.actions$.pipe(
   //       ofType(addProductSuccess),

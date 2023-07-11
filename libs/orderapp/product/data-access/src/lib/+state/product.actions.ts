@@ -53,7 +53,7 @@ export const addProduct = createAction(
 
 export const addProductSuccess = createAction(
   '[Product] add product success',
-  props<{ organisation: Organisation }>()
+  props<{ product: Product }>()
 );
 export const addProductFailure = createAction(
   '[Product] add product failed',
@@ -96,7 +96,7 @@ export const updateProduct = createAction(
 
 export const updateProductSuccess = createAction(
   '[Product] udpate product success',
-  props<{ organisation: Organisation }>()
+  props<{ product: Product }>()
 );
 
 export const addupdateProductInprogress = createAction(

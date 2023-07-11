@@ -29,6 +29,7 @@ model user {
 
 model product {
     id                    Int             @id @default(autoincrement())
+    code                  Int             @default(1)
     name                  String
     secondaryLanguageName String?
     price                 Float

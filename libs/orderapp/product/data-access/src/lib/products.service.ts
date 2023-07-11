@@ -31,35 +31,36 @@ export class ProductsService {
   //   );
   // }
 
-  addProduct(product: Product) {
+  addProduct(product: Product): Observable<Product> {
     console.log(product);
-    return this.httpClient.post(`${this.apiUrl}/products`, product);
+    return this.httpClient.post<Product>(`${this.apiUrl}/product`, product);
   }
 
-  updateProductsSort(
-    companyId: string,
-    productSoftData: ProductSortData[]
-  ): Observable<Organisation> {
-    return this.httpClient.patch<Organisation>(
-      `${this.apiUrl}/products/${companyId}`,
-      productSoftData
+  // updateProductsSort(
+  //   companyId: string,
+  //   productSoftData: ProductSortData[]
+  // ): Observable<Organisation> {
+  //   return this.httpClient.patch<Organisation>(
+  //     `${this.apiUrl}/products/${companyId}`,
+  //     productSoftData
+  //   );
+  // }
+
+  // updateProductBoolean(
+  //   companyId: string,
+  //   data: ProductBoolFieldUpdateData
+  // ): Observable<Organisation> {
+  //   return this.httpClient.put<Organisation>(
+  //     `${this.apiUrl}/products/${companyId}`,
+  //     data
+  //   );
+  // }
+
+  updateProduct(productId: string, product: Product): Observable<Product> {
+    return this.httpClient.put<Product>(
+      `${this.apiUrl}/products/${productId}`,
+      product
     );
-  }
-
-  updateProductBoolean(
-    companyId: string,
-    data: ProductBoolFieldUpdateData
-  ): Observable<Organisation> {
-    return this.httpClient.put<Organisation>(
-      `${this.apiUrl}/products/${companyId}`,
-      data
-    );
-  }
-
-  updateProduct(productId: string, product: Product): Observable<Organisation> {
-    return this.httpClient
-      .patch<Organisation>(`${this.apiUrl}/products/${productId}`, product)
-      .pipe(tap((res) => console.log('ressss', res)));
   }
 }
 

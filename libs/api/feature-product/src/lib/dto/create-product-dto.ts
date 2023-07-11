@@ -25,6 +25,11 @@ export class CreateProductDto {
   @IsString()
   name!: string;
 
+  categoryId!: number;
+
+  collectionId!: number;
+  code!: number;
+  qwickViewOrder!: number;
   @IsOptional()
   archived!: boolean;
 
@@ -37,8 +42,6 @@ export class CreateProductDto {
   @IsString()
   @IsOptional()
   printName?: string;
-
-  modifierGroups!: Modifiers[];
 }
 
 export class Modifiers {

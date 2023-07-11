@@ -26,6 +26,7 @@ import {
 // import { ProductBoolFieldDto } from './dto/product-bool-field-update.dto';
 import { ProductService } from './products.service';
 import { JwtAuthGuard, LocalAuthGuard } from '@hotel/api/feature-auth';
+import { CreateProductDto } from './dto/create-product-dto';
 
 @Controller('product')
 export class ApiFeatureProductController {
@@ -38,6 +39,17 @@ export class ApiFeatureProductController {
     return this.productService.getProduct();
   }
 
+  @Post()
+  createProduct(@Body() params: CreateProductDto) {
+    return this.productService.createProduct(params);
+  }
+
+  @Put(':id')
+  updateProduct(@Body() body: CreateProductDto, @Param('id') id: any) {
+    const productId = +id;
+    console.log('Product id', productId);
+    return this.productService.udpateProduct(productId, body);
+  }
   // @UseGuards(JwtAuthGuard)
   // @Post()
   // createProduct(@Body() product: CreateProductDto, @Req() req) {

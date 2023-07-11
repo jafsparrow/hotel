@@ -1,5 +1,6 @@
 import {
   BadGatewayException,
+  BadRequestException,
   Injectable,
   RequestTimeoutException,
 } from '@nestjs/common';
@@ -43,18 +44,34 @@ export class ProductService {
     // return categoryVice;
   }
 
-  createProduct(companyId: string, product: CreateProductDto) {
+  createProduct(data: CreateProductDto) {
     return this.prismaService.product.create({
       data: {
-        name: product.name,
-        cost: product.cost,
-        price: product.price,
-        categoryId: 1,
-        collectionId: 1,
+        ...data,
+        price: +data.price,
+        cost: +data.cost,
+        code: +data.code,
+        qwickViewOrder: +data.qwickViewOrder,
       },
     });
   }
 
+  async udpateProduct(id: number, data: CreateProductDto) {
+    try {
+      return this.prismaService.product.update({
+        where: { id },
+        data: {
+          ...data,
+          price: +data.price,
+          cost: +data.cost,
+          code: +data.code,
+          qwickViewOrder: +data.qwickViewOrder,
+        },
+      });
+    } catch (error) {
+      throw new BadRequestException({ error: error });
+    }
+  }
   // updateProductsIndex(companyId: string, data: PatchProductIndexDto[]) {
   //   return this.productRepository.bulkUpdate(companyId, data);
   // }
