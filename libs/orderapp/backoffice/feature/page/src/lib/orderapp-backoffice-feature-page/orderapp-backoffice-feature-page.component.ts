@@ -45,4 +45,8 @@ export class OrderappBackofficeFeaturePageComponent {
   logout() {
     return this.store.dispatch(logout());
   }
+
+  goToShellPage() {
+    this.router.navigate(['shell']);
+  }
 }
