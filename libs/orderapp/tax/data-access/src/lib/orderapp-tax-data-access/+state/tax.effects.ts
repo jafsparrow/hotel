@@ -58,7 +58,7 @@ export class TaxEffects {
     return this.actions$.pipe(
       ofType(updateTax),
       switchMap((data) =>
-        this.taxService.updateTax(data.taxdId, data.Tax).pipe(
+        this.taxService.updateTax(data.taxId, data.tax).pipe(
           tap((data) => console.log('insde update succe effe')),
           map((data) => updateTaxSuccess({ tax: data })),
           catchError((error) =>

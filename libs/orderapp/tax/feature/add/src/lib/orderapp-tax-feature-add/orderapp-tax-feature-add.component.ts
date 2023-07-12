@@ -10,6 +10,8 @@ import {
   Validators,
 } from '@angular/forms';
 
+import { addTax, updateTax } from '@hotel/orderapp/tax/data-access';
+
 @Component({
   selector: 'hotel-orderapp-tax-feature-add',
   standalone: true,
@@ -43,9 +45,9 @@ export class OrderappTaxFeatureAddComponent implements OnInit {
 
     if (this.data && this.data.tax) {
       this.store.dispatch(
-        updateKitchen({
-          kitchendId: this.data.kitchen.id!,
-          kitchen: this.taxAddForm.value,
+        updateTax({
+          taxId: this.data.tax.id!,
+          tax: this.taxAddForm.value,
         })
       );
     } else {
@@ -53,7 +55,7 @@ export class OrderappTaxFeatureAddComponent implements OnInit {
         ...this.taxAddForm.value,
       };
 
-      this.store.dispatch(addKitchen({ kitchen }));
+      this.store.dispatch(addTax({ tax }));
     }
   }
 }

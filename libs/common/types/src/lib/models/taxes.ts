@@ -3,6 +3,7 @@ export interface Tax {
   value: number;
   isPercentage: boolean;
   printName: string;
+  id?: number;
 }
 
 export interface AppliedTaxInfo {

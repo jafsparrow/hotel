@@ -27,7 +27,7 @@ export const addTaxFailed = createAction(
 
 export const updateTax = createAction(
   '[Tax] update a  Tax',
-  props<{ taxdId: number; Tax: Tax }>()
+  props<{ taxId: number; tax: Tax }>()
 );
 export const updateTaxSuccess = createAction(
   '[Tax] update  Tax Success',
