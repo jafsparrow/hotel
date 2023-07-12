@@ -25,7 +25,12 @@ import {
 @Component({
   selector: 'hotel-orderapp-category-feature-add',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatDialogModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    NgxColorsModule,
+  ],
   templateUrl: './orderapp-category-feature-add.component.html',
   styleUrls: ['./orderapp-category-feature-add.component.css'],
 })

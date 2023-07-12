@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, switchMap, map, of, tap } from 'rxjs';
 import { CategoryService } from '../category.service';
@@ -14,11 +12,13 @@ import {
   loadCategoriesSuccess,
   loadCategoryFail,
 } from './category.actions';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable()
 export class CategoryEffects {
   constructor(
     private actions$: Actions,
+    private dialog: MatDialog,
     private categoryService: CategoryService // private dialog: MatDialog, // private _snackBar: MatSnackBar
   ) {}
 
@@ -53,6 +53,7 @@ export class CategoryEffects {
   addCategorySuccessEffect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(addCategorySuccess),
+      tap((data) => this.dialog.closeAll()),
       switchMap((payload) => of(loadCategories()))
     );
   });
@@ -76,6 +77,7 @@ export class CategoryEffects {
   editCategorySuccessEffect$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(editCategorySuccess),
+      tap((data) => this.dialog.closeAll()),
       switchMap((payload) => of(loadCategories()))
     );
   });

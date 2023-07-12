@@ -16,6 +16,7 @@ import { loadCompany } from '@hotel/orderapp/company/data-access';
 import { OrderappPossessionFeatureActiveSessionComponent } from '@hotel/orderapp/possession/feature/active-session';
 import { OrderappPossessionFeatureSessionListComponent } from '@hotel/orderapp/possession/feature/session-list';
 import { OrderappPossessionFeatureSessionAddComponent } from '@hotel/orderapp/possession/feature/session-add';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'hotel-orderapp-shell',

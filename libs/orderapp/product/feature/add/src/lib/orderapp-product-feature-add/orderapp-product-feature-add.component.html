@@ -150,7 +150,7 @@
       [ngClass]="{ 'bg-green-400': productAddForm.valid }"
       (click)="addProduct()"
     >
-      {{ data?.product ? 'UPDATE' : 'ADD' }}
+      {{ data && data.product ? 'UPDATE' : 'ADD' }}
     </button>
   </ng-template>
   <div class="font-semibold text-lg">Variants</div>

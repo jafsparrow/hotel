@@ -52,7 +52,7 @@
               [ngClass]="{ 'bg-green-400': tableAddForm.valid }"
               (click)="addTable()"
             >
-              {{ data?.table ? 'UPDATE' : 'ADD' }}
+              {{ data && data.table ? 'UPDATE' : 'ADD' }}
             </button>
           </ng-template>
         </div>

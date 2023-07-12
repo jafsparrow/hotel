@@ -1,4 +1,4 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import {
   provideRouter,
   withEnabledBlockingInitialNavigation,
@@ -25,6 +25,7 @@ import {
   TokenInterceptor,
   authInterceptor,
 } from '@hotel/orderapp/core';
+import { MatDialogModule } from '@angular/material/dialog';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -55,5 +56,6 @@ export const appConfig: ApplicationConfig = {
       useClass: ErrorInterceptor,
       multi: true,
     },
+    importProvidersFrom(MatDialogModule), // this is required to import module which are not ngModule any more. I had an issue using matdialo in ngrx effect, was saying null injectione error. when I do this, it is all gone..
   ],
 };

@@ -1,5 +1,5 @@
 <div class="p-2">
-  <div class="font-semibold pb-2">Add a kitchen</div>
+  <div class="font-semibold pb-2">Add a Category</div>
   <form [formGroup]="categoryAddForm" class="grid grid-cols-1 gap-2 max-w-md">
     <div>
       <input
@@ -63,7 +63,7 @@
         [ngClass]="{ 'bg-green-400': categoryAddForm.valid }"
         (click)="addCategory()"
       >
-        {{ data?.category ? 'UPDATE' : 'ADD' }}
+        {{ data && data.category ? 'UPDATE' : 'ADD' }}
       </button>
     </ng-template>
   </form>
