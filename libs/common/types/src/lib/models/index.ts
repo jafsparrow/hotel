@@ -16,3 +16,4 @@ export * from './kitchen.dialog';
 export * from './category.dialog';
 export * from './table.dialog';
 export * from './product.dialog';
+export * from './tax.dialog';

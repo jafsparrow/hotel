@@ -8,7 +8,10 @@ import {
   selectCanAccessCash,
 } from '@hotel/orderapp/auth/data-access';
 
-import { selectActiveSession } from '@hotel/orderapp/possession/data-access';
+import {
+  loadSessions,
+  selectActiveSession,
+} from '@hotel/orderapp/possession/data-access';
 import { loadCompany } from '@hotel/orderapp/company/data-access';
 import { OrderappPossessionFeatureActiveSessionComponent } from '@hotel/orderapp/possession/feature/active-session';
 import { OrderappPossessionFeatureSessionListComponent } from '@hotel/orderapp/possession/feature/session-list';
@@ -34,5 +37,6 @@ export class OrderappShellComponent {
   selectActiveSession$ = this.store.select(selectActiveSession);
   constructor(private store: Store) {
     console.log('sheell component constructor called.');
+    this.store.dispatch(loadSessions());
   }
 }

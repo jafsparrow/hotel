@@ -43,11 +43,24 @@ export class PosSessionController {
 
   @UseGuards(JwtAuthGuard)
   @Put(':id')
-  endActiveSession(@Param() params: any, @Req() req: any) {
+  async endActiveSession(
+    @Param() params: any,
+    @Req() req: any,
+
+    @Response({ passthrough: true }) res: any
+  ) {
     console.log('recent orders');
     const user = req.user;
     const sessionId = +params.id;
-    return this.sessionService.closeSession(sessionId);
+    const session = await this.sessionService.closeSession(sessionId);
+    const { pdfStream, reportName } =
+      await this.sessionReportService.downloadSessionReport(sessionId);
+
+    res.set({
+      'Content-Type': 'application/pdf',
+      'Content-Disposition': `attachment; filename="${reportName}.pdf`,
+    });
+    return new StreamableFile(pdfStream);
   }
 
   // @UseGuards(JwtAuthGuard)

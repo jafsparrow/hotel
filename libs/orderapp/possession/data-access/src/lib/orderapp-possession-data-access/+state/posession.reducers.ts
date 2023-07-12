@@ -30,24 +30,24 @@ export interface PosSessionState {
 
 const initialState: PosSessionState = {
   sessionsOfTheDay: [
-    {
-      id: 1,
-      startTime: new Date('29/06/2023'),
-      endTime: new Date(),
-      status: SessionStatus.CLOSE,
-    },
-    {
-      id: 2,
-      startTime: new Date('29/06/2023'),
-      endTime: new Date(),
-      status: SessionStatus.CLOSE,
-    },
-    {
-      id: 2,
-      startTime: new Date('29/06/2023'),
-      endTime: new Date(),
-      status: SessionStatus.CLOSE,
-    },
+    // {
+    //   id: 1,
+    //   startTime: new Date('29/06/2023'),
+    //   endTime: new Date(),
+    //   status: SessionStatus.CLOSE,
+    // },
+    // {
+    //   id: 2,
+    //   startTime: new Date('29/06/2023'),
+    //   endTime: new Date(),
+    //   status: SessionStatus.CLOSE,
+    // },
+    // {
+    //   id: 2,
+    //   startTime: new Date('29/06/2023'),
+    //   endTime: new Date(),
+    //   status: SessionStatus.CLOSE,
+    // },
   ],
   activeSession: null,
   loadingIndicator: false,

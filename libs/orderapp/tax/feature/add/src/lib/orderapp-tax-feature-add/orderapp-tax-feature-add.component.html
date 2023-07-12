@@ -1,12 +1,11 @@
 <div class="mx-auto max-w-md p-2">
   <div class="font-bold mb-2">Taxes</div>
-  <div class="border p-2 w-full">
+  <form class="border p-2 w-full" [formGroup]="taxAddForm">
     <div class="mb-2">
       <label for="taxTitle1" class="font-light">Tax Name</label>
       <input
         type="text"
-        name="vat"
-        id="vat"
+        formControlName="name"
         class="w-full rounded-md border px-2 py-1"
       />
     </div>
@@ -14,8 +13,7 @@
       <label for="taxTitle1" class="font-light">Print Name</label>
       <input
         type="text"
-        name="vat"
-        id="vat"
+        formControlName="printName"
         class="w-full rounded-md border px-2 py-1"
       />
     </div>
@@ -26,8 +24,7 @@
         <div>
           <input
             type="checkbox"
-            name="isPercentage"
-            id="isPercentage"
+            formControlName="isPercentage"
             class=""
           />
         </div>
@@ -37,8 +34,7 @@
         <label for="amount" class="font-light">Amount</label>
         <input
           type="text"
-          name="amount"
-          id="amount"
+          formControlName="value"
           class="w-full rounded-md border px-2 py-1"
         />
       </div>
@@ -49,5 +45,5 @@
         ADD
       </div>
     </div>
-  </div>
+  </form>
 </div>

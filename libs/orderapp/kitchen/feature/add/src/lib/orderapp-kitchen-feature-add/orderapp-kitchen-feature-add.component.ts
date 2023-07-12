@@ -52,8 +52,7 @@ export class OrderappKitchenFeatureAddComponent implements OnInit {
   addKitchen() {
     if (!this.kitchenAddForm.valid) return;
 
-    console.log(this.data.kitchen);
-    if (this.data.kitchen) {
+    if (this.data && this.data.kitchen) {
       this.store.dispatch(
         updateKitchen({
           kitchendId: this.data.kitchen.id!,
