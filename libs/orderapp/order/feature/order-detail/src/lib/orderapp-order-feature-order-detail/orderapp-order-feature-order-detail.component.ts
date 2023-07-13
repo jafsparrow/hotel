@@ -54,6 +54,6 @@ export class OrderappOrderFeatureOrderDetailComponent {
   }
   printBill(order: OrderSummary) {
     console.log('clicked printbill button');
-    this.store.dispatch(makeBillForOrder({ orderId: order.id }));
+    // this.store.dispatch(makeBillForOrder({ orderId: order.id }));
   }
 }

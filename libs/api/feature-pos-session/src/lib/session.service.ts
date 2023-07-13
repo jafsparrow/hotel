@@ -21,7 +21,6 @@ export class PosSessionService {
 
       await this.prismaService.posSession.create({
         data: {
-          startTime: new Date(),
           status: SessionStatus.ACTIVE,
           createdUserId: appUser.id!,
           initialCash: initialCash,
