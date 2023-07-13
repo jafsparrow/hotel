@@ -18,10 +18,13 @@ export class SessionReportService {
   async downloadSessionReport(sessionId: number) {
     try {
       // get the start and end date of the session Id.
-      const { startTime, endTime, initialCash } = (await this.getSessionDetails(
-        sessionId
-      )) as unknown as any;
+      const session = await this.getSessionDetails(sessionId);
       console.log('creating pdf for the session status of ', sessionId);
+      if (!session) return;
+      const startTime = session.startTime;
+      const endTime = session.endTime!;
+      const initialCash = session.initialCash;
+
       const reportSummary = await this.statService.getReportStatsForThePeriod(
         startTime,
         endTime

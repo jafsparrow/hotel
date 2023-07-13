@@ -49,15 +49,21 @@ export class StatsService {
     return formtted;
   }
 
-  async getReportStatsForThePeriod(startDate: Date, endDate: Date) {
+  async getReportStatsForThePeriod(startDateTime: Date, endDateTime: Date) {
+    console.log('start dateTime', startDateTime);
+    console.log('end dateTime', endDateTime);
+
     const orderStatArr: any = await this.prismaService
-      .$queryRaw`select sum(tempt.totalAmount), count(tempt."orderId"), orders."paystat" as paystat from (select sum(items.count * items.amount) as totalAmount, items."orderId" from public."orderItem" items  group by items."orderId" ) tempt
+      .$queryRaw`select sum(tempt.totalAmount), count(tempt."orderId"), orders."paystat" as paystat from 
+      (select sum(items.count * items.amount) as totalAmount, items."orderId" from public."orderItem" items  group by items."orderId" ) tempt
       inner join
       (select id, "paymentStatus" as paystat from public."order" 
-       where "createdAt" >=  ${startDate} 
-       AND "createdAt" <= ${endDate}) orders 
+       where "createdAt" >=  ${startDateTime} 
+       AND "createdAt" <= ${endDateTime}) orders 
        on orders.id=tempt."orderId" group by paystat
      `;
+
+    console.log('result is', orderStatArr);
 
     const orderStat: any[] = orderStatArr.map((item: any) => {
       return {

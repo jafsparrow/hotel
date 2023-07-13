@@ -11,7 +11,6 @@ import {
   updateProductBooleans,
 } from './product.actions';
 import { data } from './sampledata';
-import { Prisma } from '@prisma/client';
 
 export const PRODUCTS_FEATURE_KEY = 'products';
 
