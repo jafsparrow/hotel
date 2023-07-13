@@ -78,7 +78,7 @@ export class OrderService {
     // });
   }
 
-  async getRecentNotPaidOrders(): Promise<OrderSummary[]> {
+  async getRecentNotPaidOrders() {
     // console.log(dateTimeNowMinus(24));
     // this. shoudl fetch orders of last 24 hours.
     return await this.prismaService.order.findMany({
@@ -91,7 +91,7 @@ export class OrderService {
     });
   }
 
-  async getRecentOrders(): Promise<OrderSummary[]> {
+  async getRecentOrders() {
     // console.log(dateTimeNowMinus(24));
     // this. shoudl fetch orders of last 24 hours.
     return await this.prismaService.order.findMany({
@@ -103,7 +103,7 @@ export class OrderService {
     });
   }
 
-  async getRecentOrdersByUser(user: User): Promise<OrderSummary[]> {
+  async getRecentOrdersByUser(user: User) {
     console.log(dateTimeNowMinus(24));
     // this. shoudl fetch orders of last 24 hours.
     return await this.prismaService.order.findMany({
@@ -116,7 +116,7 @@ export class OrderService {
     });
   }
 
-  async getRecentNotPaidOrdersByUser(user: User): Promise<OrderSummary[]> {
+  async getRecentNotPaidOrdersByUser(user: User) {
     console.log(dateTimeNowMinus(24));
     // this. shoudl fetch orders of last 24 hours.
     return await this.prismaService.order.findMany({

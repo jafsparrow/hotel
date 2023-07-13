@@ -148,7 +148,7 @@ export const orderReducer = createReducer(
   })),
   on(makeBillForOrderSuccess, (state, { updatedOrder }) => ({
     ...state,
-    selectedOrderDetails: updatedOrder,
+    selectedOrderDetails: null,
     makeBillForOrderSpinner: false,
     makeBillSuccessMessage: `Order ${updatedOrder.id} printed Successfully`,
     makeBillErrorMessage: '',
@@ -167,7 +167,7 @@ export const orderReducer = createReducer(
   })),
   on(payTheOrderSuccess, (state, { updatedOrder }) => ({
     ...state,
-    selectedOrderDetails: updatedOrder,
+    selectedOrderDetails: null,
     payTheOrderSpinner: false,
     makeBillForOrderSpinner: false,
     payTheOrderSuccessMessage: `Order ${updatedOrder.id} printed Successfully`,
