@@ -18,3 +18,8 @@ export const selectPrinters = createSelector(
   selectCompanyState,
   (state) => state.printers
 );
+
+export const selectCompanyLoadingIndicator = createSelector(
+  selectCompanyState,
+  (state) => state.loadingIndicator
+);

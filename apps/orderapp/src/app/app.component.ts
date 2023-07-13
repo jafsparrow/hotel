@@ -11,7 +11,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { OrderappCoreComponent } from '@hotel/orderapp/core';
 import { Store } from '@ngrx/store';
-import { loadCompany } from '@hotel/orderapp/company/data-access';
+import { loadCompany, loadPrinters } from '@hotel/orderapp/company/data-access';
 import { loadSessions } from '@hotel/orderapp/possession/data-access';
 
 @Component({
@@ -26,6 +26,7 @@ export class AppComponent {
     console.log('app componsed called.', window.location.origin);
     console.log('actiated router', activateRoute.root);
     this.store.dispatch(loadCompany({ id: 1 }));
+    this.store.dispatch(loadPrinters());
     this.store.dispatch(loadSessions());
   }
 

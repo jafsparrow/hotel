@@ -12,15 +12,17 @@ import {
   updateCompanyFail,
   updateCompanySuccess,
 } from './company.actions';
-import { catchError, map, of, switchMap } from 'rxjs';
+import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable()
 export class CompanyEffects {
   constructor(
     private companyService: CompanyService,
     private actions$: Actions,
-    private store: Store // private _snackBar: MatSnackBar, // public dialog: MatDialog
+    private store: Store, // private _snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {}
 
   loadCompanyEffects$ = createEffect(() => {
@@ -54,6 +56,16 @@ export class CompanyEffects {
       )
     );
   });
+
+  updateCompanySuccessEffect$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(updateCompanySuccess),
+        tap((data) => this.dialog.closeAll())
+      );
+    },
+    { dispatch: false }
+  );
 
   loadPrintersEffect$ = createEffect(() => {
     return this.actions$.pipe(

@@ -25,7 +25,7 @@ export class CompanyService {
 
   async getPrinters() {
     const printers = await getPrinters();
-    console.log(printers);
+    // console.log(printers);
     const mappedArr = printers.map((item) => ({
       name: item.name,
       printer: item.name,
