@@ -39,8 +39,8 @@
         <div
           role="status"
           *ngIf="
-            (selectMakeBillSpinner$ | async) ||
-              (selectPayTheOrderSpinner$ | async);
+            (selectMakeBillSpinner$ | async) === true ||
+              (selectPayTheOrderSpinner$ | async) === true;
             else actionButtons
           "
         >

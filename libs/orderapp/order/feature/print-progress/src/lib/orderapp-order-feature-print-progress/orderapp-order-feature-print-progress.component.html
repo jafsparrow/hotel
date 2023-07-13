@@ -1,7 +1,7 @@
 <div class="bg-gray-100 p-2">
   <div
     class="flex justify-center items-center h-64"
-    *ngIf="selectMakeBillSpinner$ | async"
+    *ngIf="(selectMakeBillSpinner$ | async) === true"
   >
     <div>Printing in Progress....</div>
   </div>
