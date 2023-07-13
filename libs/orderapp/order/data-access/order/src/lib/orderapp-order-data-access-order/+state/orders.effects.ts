@@ -202,6 +202,21 @@ export class OrderEffects {
     );
   });
 
+  makeBillSuccessEffect$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(makeBillForOrderSuccess),
+      switchMap((data) =>
+        of(loadOrderDetailsSuccess({ order: data.updatedOrder }))
+      )
+    );
+  });
+
+  makeBillSuccessEffect2$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(makeBillForOrderSuccess),
+      switchMap((data) => of(loadRecentOrders()))
+    );
+  });
   payTheOrderEffect$ = createEffect(() => {
     return this.action$.pipe(
       ofType(payTheOrder),
@@ -218,6 +233,22 @@ export class OrderEffects {
           )
         )
       )
+    );
+  });
+
+  payOrderSuccessEffect$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(payTheOrderSuccess),
+      switchMap((data) =>
+        of(loadOrderDetailsSuccess({ order: data.updatedOrder }))
+      )
+    );
+  });
+
+  payOrderSuccessEffect2$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(payTheOrderSuccess),
+      switchMap((data) => of(loadRecentOrders()))
     );
   });
 }

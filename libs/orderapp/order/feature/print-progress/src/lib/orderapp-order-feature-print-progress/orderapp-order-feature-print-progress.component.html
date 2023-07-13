@@ -1,22 +1,24 @@
 <div class="bg-gray-100 p-2">
   <div
     class="flex justify-center items-center h-64"
-    *ngIf="(selectMakeBillSpinner$ | async) === true"
+    *ngIf="(selectMakeBillSpinner$ | async) === true; else messages"
   >
     <div>Printing in Progress....</div>
   </div>
-  <div
-    class="flex justify-center items-center h-64"
-    *ngIf="(selectMakeBillMessages$ | async)?.successMessage"
-  >
-    <div>Bill Printed successfully</div>
-  </div>
-  <div
-    class="flex justify-center items-center h-64"
-    *ngIf="(selectMakeBillMessages$ | async)?.failedMessage"
-  >
-    <div>Bill Priting failed</div>
-  </div>
+  <ng-template #messages>
+    <div
+      class="flex justify-center items-center h-64"
+      *ngIf="(selectMakeBillMessages$ | async)?.successMessage"
+    >
+      <div>Bill Printed successfully</div>
+    </div>
+    <div
+      class="flex justify-center items-center h-64"
+      *ngIf="(selectMakeBillMessages$ | async)?.failedMessage"
+    >
+      <div>Bill Priting failed</div>
+    </div>
+  </ng-template>
   <div>
     <div
       class="bg-gray-700 text-white max-w-sm mx-auto text-center py-1 rounded-md cursor-pointer"

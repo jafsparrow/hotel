@@ -169,6 +169,7 @@ export const orderReducer = createReducer(
     ...state,
     selectedOrderDetails: updatedOrder,
     payTheOrderSpinner: false,
+    makeBillForOrderSpinner: false,
     payTheOrderSuccessMessage: `Order ${updatedOrder.id} printed Successfully`,
     payTheOrderErrorMessage: '',
   })),

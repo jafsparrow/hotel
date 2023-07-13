@@ -26,7 +26,9 @@ export interface OrderSummary {
   createdAt?: Date;
   updatedAt?: Date;
   orderStatus: OrderStatus | string;
+  paymentStatus?: PaymentStatus;
   orderItems?: OrderItem[];
+
   createdBy?: User;
   createdFor?: User;
   orderType?: string;

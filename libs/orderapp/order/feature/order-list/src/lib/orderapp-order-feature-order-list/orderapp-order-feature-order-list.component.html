@@ -4,9 +4,10 @@
   } as select"
 >
   <div
-    class="py-2 bg-gray-100 p-2"
-    *ngIf="selectRecentOrders$ | async as orders"
+    class="py-2 bg-gray-100 p-2 h-screen"
+    *ngIf="selectRecentOrders$ | async as orders; else noOrder"
   >
+    <div *ngIf="orders.length < 1" class="w-52">All orders are settled.</div>
     <div *ngFor="let order of orders">
       <div
         class="rounded-md bg-white p-2 mb-2"
@@ -55,4 +56,7 @@
       </div>
     </div>
   </div>
+  <ng-template #noOrder>
+    <div>No Orders</div>
+  </ng-template>
 </ng-container>

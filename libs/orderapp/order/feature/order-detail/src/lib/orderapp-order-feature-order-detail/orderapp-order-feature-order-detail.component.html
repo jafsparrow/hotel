@@ -66,6 +66,7 @@
           <div
             class="inline-block h-7 rounded-md bg-purple-900 p-1 my-2 px-2 text-right text-sm text-white cursor-pointer"
             (click)="makePayment(selectedOrder)"
+            *ngIf="selectedOrder.paymentStatus !== 'paid'"
           >
             PAY
           </div>
