@@ -15,7 +15,7 @@ import { UserService } from './user.service';
     ApiDataAccessDbModule,
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '6000s' },
+      signOptions: { expiresIn: '432000s' },
     }),
   ],
   controllers: [AuthController],
