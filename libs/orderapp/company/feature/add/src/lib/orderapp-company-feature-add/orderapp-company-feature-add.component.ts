@@ -10,6 +10,7 @@ import {
 import { Store } from '@ngrx/store';
 import {
   selectCompany,
+  selectPrinters,
   updateCompany,
 } from '@hotel/orderapp/company/data-access';
 import { CompanyEditDialogData, Organisation, Tax } from '@hotel/common/types';
@@ -24,6 +25,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class OrderappCompanyFeatureAddComponent implements OnInit {
   companyBasicInforForm: FormGroup;
+  selectPrinters$ = this.store.select(selectPrinters);
   constructor(
     private _formBuilder: FormBuilder,
     private store: Store,
@@ -44,6 +46,7 @@ export class OrderappCompanyFeatureAddComponent implements OnInit {
       lat: [''],
       long: [''],
       decimalZeros: [''],
+      printer: [''],
     });
   }
 

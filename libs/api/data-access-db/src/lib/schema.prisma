@@ -185,6 +185,7 @@ model company {
     long                  String? @default("")
     taxes                 tax[]
     decimalZeros          Int?    @default(3)
+    printer               String  @default("Not configured")
 }
 
 model tax {

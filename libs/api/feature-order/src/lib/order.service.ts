@@ -2,6 +2,7 @@ import {
   ConflictException,
   BadRequestException,
   Injectable,
+  NotFoundException,
 } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { PrismaService } from '@hotel/api/data-access-db';
@@ -78,7 +79,7 @@ export class OrderService {
   }
 
   async getRecentNotPaidOrders(): Promise<OrderSummary[]> {
-    console.log(dateTimeNowMinus(24));
+    // console.log(dateTimeNowMinus(24));
     // this. shoudl fetch orders of last 24 hours.
     return await this.prismaService.order.findMany({
       where: {
@@ -91,7 +92,7 @@ export class OrderService {
   }
 
   async getRecentOrders(): Promise<OrderSummary[]> {
-    console.log(dateTimeNowMinus(24));
+    // console.log(dateTimeNowMinus(24));
     // this. shoudl fetch orders of last 24 hours.
     return await this.prismaService.order.findMany({
       where: {
@@ -157,85 +158,91 @@ export class OrderService {
   }
 
   async printReceipt(orderId: number) {
-    await this.prismaService.orderItem.aggregate({
-      where: { orderId: orderId },
-      _sum: { amount: true },
-    });
-    // get company id from appUser.
-    const companyId = 1;
+    try {
+      await this.prismaService.orderItem.aggregate({
+        where: { orderId: orderId },
+        _sum: { amount: true },
+      });
+      // get company id from appUser.
+      const companyId = 1;
 
-    const company = await this.prismaService.company.findFirst({
-      where: { id: companyId },
-      include: {
-        taxes: true,
-      },
-    });
-
-    //  get order with order items.
-
-    const order = await this.prismaService.order.findFirst({
-      where: { id: orderId },
-      include: {
-        orderItems: {
-          include: {
-            product: true,
-          },
+      const company = await this.prismaService.company.findFirst({
+        where: { id: companyId },
+        include: {
+          taxes: true,
         },
-        table: true,
-        customer: true,
-        user: true,
-      },
-    });
+      });
 
-    const { orderItems, totalCount, totalItems, orderTotal } =
-      await this.getOrderItemsForTheOrderAggregated(orderId);
+      //  get order with order items.
 
-    // const orderTotal = getOrderItemsTotal(orderItems as unknown as OrderItem[]);
-    const taxAppliedTotalandInfo = getAppliedTaxesAndTaxesTotal(
-      orderTotal,
-      company?.taxes as unknown as Tax[]
-    );
-    // send to the print service.
-    const customerNameToPrint =
-      order?.orderType == 'table'
-        ? `${order.table!.name} `
-        : order?.customer?.firstName;
-    const customerLastNameToPrint = order?.customer?.lastName
-      ? order.customer.lastName
-      : '';
+      const order = await this.prismaService.order.findFirst({
+        where: { id: orderId },
+        include: {
+          orderItems: {
+            include: {
+              product: true,
+            },
+          },
+          table: true,
+          customer: true,
+          user: true,
+        },
+      });
 
-    const mappedOrderItems = orderItems.map((orderItem) => {
-      return {
-        ...orderItem,
-        amount: orderItem!.amount!.toFixed(3),
-        otherLanguageName: orderItem.product!.secondaryLanguageName,
-        individualTotal: (orderItem.count * orderItem!.amount!).toFixed(3),
+      const { orderItems, totalCount, totalItems, orderTotal } =
+        await this.getOrderItemsForTheOrderAggregated(orderId);
+
+      // const orderTotal = getOrderItemsTotal(orderItems as unknown as OrderItem[]);
+      const taxAppliedTotalandInfo = getAppliedTaxesAndTaxesTotal(
+        orderTotal,
+        company?.taxes as unknown as Tax[]
+      );
+      // send to the print service.
+      const customerNameToPrint =
+        order?.orderType == 'table'
+          ? `${order.table!.name} `
+          : order?.customer?.firstName;
+      const customerLastNameToPrint = order?.customer?.lastName
+        ? order.customer.lastName
+        : '';
+
+      const mappedOrderItems = orderItems.map((orderItem) => {
+        return {
+          ...orderItem,
+          amount: orderItem!.amount!.toFixed(3),
+          otherLanguageName: orderItem.product!.secondaryLanguageName,
+          individualTotal: (orderItem.count * orderItem!.amount!).toFixed(3),
+        };
+      });
+      console.log(mappedOrderItems.length);
+      const infoToPrint = {
+        companyName: company?.name,
+        billDateTime: dateTimeToDateHHMM(order!.createdAt),
+        billType:
+          order?.orderType == 'table' ? 'Dine In Bill' : 'Take Away Bill',
+        orderNumber: `Order No- ${order?.orderNumber}`,
+        paymentStatus:
+          order?.paymentStatus == 'paid' ? '( PAID )' : '(NOT PAID  )',
+        orderTypeTitle:
+          order?.orderType == 'table' ? 'Table Info' : 'Customer Info',
+        customerName: customerNameToPrint,
+        lastName: customerLastNameToPrint,
+        waiterName: order?.user.name,
+        orderItems: mappedOrderItems,
+        total: orderTotal.toFixed(3),
+        appliedTaxesInfo: taxAppliedTotalandInfo.taxesApplied,
+        taxedTotal: taxAppliedTotalandInfo.taxedTotal,
+        totalCount,
+        totalItems,
       };
-    });
-    console.log(mappedOrderItems.length);
-    const infoToPrint = {
-      companyName: company?.name,
-      billDateTime: dateTimeToDateHHMM(order!.createdAt),
-      billType: order?.orderType == 'table' ? 'Dine In Bill' : 'Take Away Bill',
-      orderNumber: `Order No- ${order?.orderNumber}`,
-      paymentStatus:
-        order?.paymentStatus == 'paid' ? '( PAID )' : '(NOT PAID  )',
-      orderTypeTitle:
-        order?.orderType == 'table' ? 'Table Info' : 'Customer Info',
-      customerName: customerNameToPrint,
-      lastName: customerLastNameToPrint,
-      waiterName: order?.user.name,
-      orderItems: mappedOrderItems,
-      total: orderTotal.toFixed(3),
-      appliedTaxesInfo: taxAppliedTotalandInfo.taxesApplied,
-      taxedTotal: taxAppliedTotalandInfo.taxedTotal,
-      totalCount,
-      totalItems,
-    };
-
-    await this.pdfService.printReceipt(infoToPrint, 'CP-Q2');
-    return order;
-    return 'Recipt printer successfully.';
+      const printer = company!.printer;
+      await this.pdfService.printReceipt(infoToPrint, printer);
+      return order;
+      return 'Recipt printer successfully.';
+    } catch (error) {
+      console.log('Error while priting receipt');
+      throw new NotFoundException({ error: error });
+    }
   }
 
   async printSampleBill() {

@@ -76,6 +76,22 @@
         class="w-full rounded-md border px-2 py-1"
       />
     </div>
+    <div *ngIf="selectPrinters$ | async as printers">
+      <select
+        name="printer"
+        id="pritner"
+        class="p-2 border w-full"
+        formControlName="printer"
+      >
+        <option
+          *ngFor="let printer of printers"
+          [value]="printer.name"
+          class="p-2"
+        >
+          {{ printer.name }}
+        </option>
+      </select>
+    </div>
   </div>
 
   <div class="text-center mt-4">

@@ -9,4 +9,5 @@ export class UpdateCompanyDto {
   currencyCode!: string;
   address!: string;
   decimalZeros!: number;
+  printer!: string;
 }

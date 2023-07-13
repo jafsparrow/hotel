@@ -22,4 +22,5 @@ export interface Organisation {
   currencyCode?: string;
   country?: FormatedCountry;
   decimalZeros?: number;
+  priner?: string;
 }
