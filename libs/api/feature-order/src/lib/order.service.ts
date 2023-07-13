@@ -654,7 +654,7 @@ export class OrderService {
           },
         },
       });
-      console.log('updated order', updatedOrder);
+      // console.log('updated order', updatedOrder);
       this.printReceipt(orderId);
       return updatedOrder;
     } catch (error) {
@@ -683,7 +683,7 @@ export class OrderService {
           },
         },
       });
-      console.log('updated order', updatedOrder);
+      // console.log('updated order', updatedOrder);
       this.printReceipt(orderId);
       return updatedOrder;
     } catch (error) {
