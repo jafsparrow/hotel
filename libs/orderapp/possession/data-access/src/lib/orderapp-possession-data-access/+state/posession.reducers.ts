@@ -102,11 +102,10 @@ export const posSessionsReducer = createReducer(
     sessionEndError: errorMessage,
     sessionEndIndicator: false,
   })),
-  on(closeSessionSuccess, (state, { sessions }) => ({
+  on(closeSessionSuccess, (state) => ({
     ...state,
     sessionEndError: '',
     sessionEndIndicator: false,
-    sessionsOfTheDay: sessions,
   })),
   on(printSessionReport, (state, { sessionId }) => ({
     ...state,

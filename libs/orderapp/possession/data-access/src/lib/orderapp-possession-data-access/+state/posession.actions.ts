@@ -35,7 +35,7 @@ export const closeSession = createAction(
 export const closeSessionSuccess = createAction(
   '[POS Session] Close a session success',
 
-  props<{ sessions: PosSession[] }>()
+  props<{ closedSessionId: number }>()
 );
 export const closeSessionFailed = createAction(
   '[POS Session] Close a session failed',

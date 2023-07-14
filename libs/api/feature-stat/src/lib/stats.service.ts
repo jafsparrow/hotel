@@ -6,14 +6,16 @@ import { ProductStat, StaffStat } from '@hotel/common/types';
 export class StatsService {
   constructor(private prismaService: PrismaService) {}
 
-  async getProductStatsForThePeriod(startDate: Date, endDate: Date) {
+  async getProductStatsForThePeriod(startDateTime: Date, endDateTime: Date) {
+    const startTimeISO = startDateTime.toISOString();
+    const endTimeISO = endDateTime.toISOString();
     const productStatArr: any[] = await this.prismaService.$queryRaw`
     select foo."name", foo."count" ,  round(foo."count" * 100 /(
 	select sum(hello."count") from (
 		select subtab.totalCount count, products.name, products.id
       from 
 	  (select sum("count") totalCount, "productId" from public."orderItem" orderItems
-      where orderItems."orderId" IN (select "id" from public."order" where "createdAt" >=  ${startDate} AND "createdAt" <= ${endDate}) 
+      where orderItems."orderId" IN (select "id" from public."order" where "createdAt" >=  ${startTimeISO}::timestamp AND "createdAt" < ${endTimeISO}::timestamp) 
 	   
       group by "productId") subtab inner join 
       (select * from public."product") products
@@ -24,7 +26,7 @@ export class StatsService {
 	select subtab.totalCount count, products.name, products.id
       from 
 	  (select sum("count") totalCount, "productId" from public."orderItem" orderItems
-      where orderItems."orderId" IN (select "id" from public."order" where "createdAt" >=  ${startDate}  AND "createdAt" <= ${endDate}) 
+      where orderItems."orderId" IN (select "id" from public."order" where "createdAt" >=  ${startTimeISO}::timestamp  AND "createdAt" < ${endTimeISO}::timestamp) 
 	   
       group by "productId") subtab inner join 
       (select * from public."product") products
@@ -52,14 +54,15 @@ export class StatsService {
   async getReportStatsForThePeriod(startDateTime: Date, endDateTime: Date) {
     console.log('start dateTime', startDateTime);
     console.log('end dateTime', endDateTime);
-
+    const startTimeISO = startDateTime.toISOString();
+    const endTimeISO = endDateTime.toISOString();
     const orderStatArr: any = await this.prismaService
       .$queryRaw`select sum(tempt.totalAmount), count(tempt."orderId"), orders."paystat" as paystat from 
       (select sum(items.count * items.amount) as totalAmount, items."orderId" from public."orderItem" items  group by items."orderId" ) tempt
       inner join
       (select id, "paymentStatus" as paystat from public."order" 
-       where "createdAt" >=  ${startDateTime} 
-       AND "createdAt" <= ${endDateTime}) orders 
+       where "createdAt" >=  ${startTimeISO}::timestamp 
+       AND "createdAt" < ${endTimeISO} :: timestamp) orders 
        on orders.id=tempt."orderId" group by paystat
      `;
 
@@ -84,13 +87,16 @@ export class StatsService {
     // return { ordersCount, ordersTotal };
   }
 
-  async getStaffStatsForThePeriod(startDate: Date, endDate: Date) {
+  async getStaffStatsForThePeriod(startDateTime: Date, endDateTime: Date) {
+    const startTimeISO = startDateTime.toISOString();
+    const endTimeISO = endDateTime.toISOString();
+
     const staffStatArr: any[] = await this.prismaService.$queryRaw`
     select sectionT."totCount", users."name", users.id from 
     (select tempt.totalCount as "totCount", tempt."createdUserId" as "userId" from 
     (select count(id) totalCount,  "createdUserId", "paymentStatus"
     from public."order" orders 
-    where  "createdAt" >=  ${startDate}  AND "createdAt" <= ${endDate} 
+    where  "createdAt" >= ${startTimeISO}::timestamp  AND "createdAt" < ${endTimeISO} :: timestamp
     group by  orders."paymentStatus", orders."createdUserId"  ) 
     tempt ) sectionT
     inner join (select * from public."user") users

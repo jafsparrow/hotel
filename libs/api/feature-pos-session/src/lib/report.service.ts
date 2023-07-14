@@ -57,7 +57,7 @@ export class SessionReportService {
         totalOrderDetail,
         stafStatArr: staffSummary.length ? staffSummary : [],
       };
-      const pdfStream = await this.pupeteerService.getReportPdfStream(
+      const pdfStream: Buffer = await this.pupeteerService.getReportPdfStream(
         'sessionSummary',
         'views',
         'pdf',
@@ -103,7 +103,11 @@ export class SessionReportService {
       }
       totalOrders = totalOrders + item.count;
       totalOrderSum = totalOrderSum + item.sum;
-      return { description: description, count: item.count, sum: item.sum };
+      return {
+        description: description,
+        count: item.count,
+        sum: item.sum.toFixed(3),
+      };
     });
 
     const totalOrderDetail = {

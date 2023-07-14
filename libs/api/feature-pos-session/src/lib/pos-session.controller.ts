@@ -45,22 +45,24 @@ export class PosSessionController {
   @Put(':id')
   async endActiveSession(
     @Param() params: any,
-    @Req() req: any,
+    @Req() req: any
 
-    @Response({ passthrough: true }) res: any
+    // @Response({ passthrough: true }) res: any
   ) {
     console.log('recent orders');
     const user = req.user;
     const sessionId = +params.id;
-    const session = await this.sessionService.closeSession(sessionId);
-    const { pdfStream, reportName } =
-      await this.sessionReportService.downloadSessionReport(sessionId);
+    const closedSession = await this.sessionService.closeSession(sessionId);
 
-    res.set({
-      'Content-Type': 'application/pdf',
-      'Content-Disposition': `attachment; filename="${reportName}.pdf`,
-    });
-    return new StreamableFile(pdfStream);
+    return closedSession;
+    // const result = await this.sessionReportService.downloadSessionReport(
+    //   sessionId
+    // );
+    // res.set({
+    //   'Content-Type': 'application/pdf',
+    //   'Content-Disposition': `attachment; filename="${result!.reportName}.pdf`,
+    // });
+    // return new StreamableFile(result!.pdfStream);
   }
 
   // @UseGuards(JwtAuthGuard)
@@ -73,13 +75,14 @@ export class PosSessionController {
     const sessionId = +Id;
     // const user = req.user;se
 
-    const { pdfStream, reportName } =
-      await this.sessionReportService.downloadSessionReport(sessionId);
+    const result = await this.sessionReportService.downloadSessionReport(
+      sessionId
+    );
 
     res.set({
       'Content-Type': 'application/pdf',
-      'Content-Disposition': `attachment; filename="${reportName}.pdf`,
+      'Content-Disposition': `attachment; filename="${result?.reportName}.pdf`,
     });
-    return new StreamableFile(pdfStream);
+    return new StreamableFile(result!.pdfStream);
   }
 }

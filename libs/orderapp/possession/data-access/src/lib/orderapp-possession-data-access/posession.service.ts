@@ -22,11 +22,10 @@ export class PosSessionService {
     });
   }
 
-  closeSession(id: number): Observable<PosSession[]> {
-    return this.httpClient.put<PosSession[]>(
-      `${this.apiUrl}/session/${id}`,
-      {}
-    );
+  closeSession(id: number): Observable<number> {
+    return this.httpClient
+      .put<PosSession>(`${this.apiUrl}/session/${id}`, {})
+      .pipe(switchMap((data) => of(data.id)));
   }
 
   printSessionReport(id: number) {

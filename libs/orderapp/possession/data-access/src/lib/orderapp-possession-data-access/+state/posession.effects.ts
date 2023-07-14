@@ -56,7 +56,7 @@ export class PosSessionEffects {
       ofType(closeSession),
       switchMap((data) =>
         this.sessionService.closeSession(data.sessionId).pipe(
-          map((data) => closeSessionSuccess({ sessions: data })),
+          map((data) => closeSessionSuccess({ closedSessionId: data })),
           catchError((error) =>
             of(closeSessionFailed({ errorMessage: 'closing session failed' }))
           )
@@ -65,6 +65,20 @@ export class PosSessionEffects {
     );
   });
 
+  closeSessionSuccessEffect$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(closeSessionSuccess),
+      switchMap((res) =>
+        of(printSessionReport({ sessionId: res.closedSessionId }))
+      )
+    );
+  });
+  closeSessionSuccessEffect1$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(closeSessionSuccess),
+      switchMap((sessionId) => of(loadSessions()))
+    );
+  });
   printSessionReportEffect$ = createEffect(() => {
     return this.action$.pipe(
       ofType(printSessionReport),

@@ -73,13 +73,13 @@ export class PosSessionService {
       data: { status: SessionStatus.CLOSE, endTime: new Date() },
     });
 
-    console.log('cosed sessino ', closedSession);
-    // get orders from closed session start time..
+    // console.log('cosed sessino ', closedSession);
+    // // get orders from closed session start time..
 
-    const totalsOrders = await this.prismaService.order.findMany({
-      where: { createdAt: { gte: closedSession.startTime } },
-    });
+    // const totalsOrders = await this.prismaService.order.findMany({
+    //   where: { createdAt: { gte: closedSession.startTime } },
+    // });
 
-    return totalsOrders;
+    return closedSession;
   }
 }
